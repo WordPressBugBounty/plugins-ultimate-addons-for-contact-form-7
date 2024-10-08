@@ -469,7 +469,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 
 								</div>
-								<?php wp_nonce_field( 'tf_option_nonce_action', 'tf_option_nonce' ); ?>
+								<?php wp_nonce_field( 'uacf7_option_nonce_action', 'uacf7_option_nonce' ); ?>
 							</form>
 						</div>
 					</div>

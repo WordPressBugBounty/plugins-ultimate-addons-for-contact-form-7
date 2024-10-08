@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.4.6
+Stable tag: 3.4.7
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -413,6 +413,17 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.7 - 08/10/2024 =
+
+- Improved: Addons activation Notice
+- Improved: Submission ID label
+- Improved: Tag Panel style
+- Improved: Assets management
+- Improved: Column addon style
+- Improved: License issue fixed
+- Improved: Quick setup notice
+- Improved: ACF field clickable
+
 = 3.4.6 - 21/09/2024 =
 
 - Info: Banner info updated
@@ -487,19 +498,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Minor bug fixes and improvements
 - Fixed: Booking date issue
 - Compatibility: Compatible with WordPress 6.5.4
-
-= 3.3.12 – 27/05/2024 =
-
-- Fixed: Conditional Logic issue
-- Fixed: Dynamic field issue
-- Improved: Digital signature
-- Improved: Import/Export process
-- Improved: Repeater addon
-- Improved: Quick Setup wizard
-- Improved: Submission ID addon
-- Improved: Spam Protection
-- Improved: Column/Grid addon
-- Improved: PDF addon file system
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

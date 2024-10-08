@@ -161,9 +161,11 @@ jQuery('.thickbox.button').each(function () {
 jQuery(document).ready(function () {
     uacf7_progressbar_style();
 });
+
 jQuery('#uacf7_progressbar_style').on('change', function () {
     uacf7_progressbar_style();
 });
+
 function uacf7_progressbar_style() {
     if (jQuery('#uacf7_progressbar_style').val() == 'default' || jQuery('#uacf7_progressbar_style').val() == 'style-1') {
         jQuery('.multistep_field_column.show-if-pro').hide();

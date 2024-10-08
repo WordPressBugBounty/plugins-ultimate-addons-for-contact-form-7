@@ -560,17 +560,17 @@
             if (typeof data.get('tf_import_option') !== "undefined" && data.get('tf_import_option') != null && data.get('tf_import_option').trim() != '') {
 
                 //  confirm data before send
-                if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+                if (!confirm(uacf7_setting_options.tf_export_import_msg.import_confirm)) {
                     return;
                 }
 
                 tf_import_option = true;
             }
 
-            data.append('action', 'tf_options_save');
+            data.append('action', 'uacf7_options_save');
 
             $.ajax({
-                url: uacf7_options.ajax_url,
+                url: uacf7_setting_options.ajax_url,
                 type: 'POST',
                 data: data,
                 processData: false,
@@ -1066,7 +1066,7 @@
             var form_id = textarea.attr('data-form-id');
             var importData = textarea.val().trim();
             if (importData == '') {
-                alert(tf_options.tf_export_import_msg.import_empty);
+                alert(uacf7_setting_options.tf_export_import_msg.import_empty);
                 let importField = $('textarea[name="tf_import_option"]');
                 importField.focus();
                 importField.css('border', '1px solid red');
@@ -1078,17 +1078,17 @@
                 $(".tf-option-form.tf-ajax-save").submit();
             } else {
                 //confirm data before send
-                if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+                if (!confirm(uacf7_setting_options.tf_export_import_msg.import_confirm)) {
                     return;
                 }
                 $.ajax({
-                    url: tf_options.ajax_url,
+                    url: uacf7_setting_options.ajax_url,
                     method: 'POST',
                     data: {
                         action: 'uacf7_option_import',
                         tf_import_option: importData,
                         form_id: form_id,
-                        ajax_nonce: tf_options.nonce,
+                        ajax_nonce: uacf7_setting_options.nonce,
                     },
                     beforeSend: function () {
                         $('.tf-import-btn').html('Importing...');
@@ -1096,7 +1096,7 @@
                     },
                     success: function (response) {
                         if (response.data.status == 'success') {
-                            // alert(tf_options.tf_export_import_msg.imported);
+                            // alert(uacf7_setting_options.tf_export_import_msg.imported);
                             $('.tf-import-btn').html('Imported');
                             notyf.success(response.data.message);
                             window.location.reload();
@@ -1119,25 +1119,25 @@
         //     var form_id = textarea.attr('data-form-id');
         //     var importData = textarea.val().trim();
         //     if (importData == '') {
-        //         alert(tf_options.tf_export_import_msg.import_empty);
+        //         alert(uacf7_setting_options.tf_export_import_msg.import_empty);
         //         let importField = $('textarea[name="tf_import_option"]');
         //         importField.focus();
         //         importField.css('border', '1px solid red');
         //         return;
         //     } else {
         //         //confirm data before send
-        //         if (!confirm(tf_options.tf_export_import_msg.import_confirm)) {
+        //         if (!confirm(uacf7_setting_options.tf_export_import_msg.import_confirm)) {
         //             return;
         //         }
 
         //         $.ajax({
-        //             url: tf_options.ajax_url,
+        //             url: uacf7_setting_options.ajax_url,
         //             method: 'POST',
         //             data: {
         //                 action: 'uacf7_option_import',
         //                 tf_import_option: importData,
         //                 form_id: form_id,
-        //                 ajax_nonce: tf_options.nonce,
+        //                 ajax_nonce: uacf7_setting_options.nonce,
         //             },
         //             beforeSend: function () {
         //                 $('.tf-import-btn').html('Importing...');
@@ -1145,7 +1145,7 @@
         //             },
         //             success: function (response) {
         //                 if (response.success) {
-        //                     alert(tf_options.tf_export_import_msg.imported);
+        //                     alert(uacf7_setting_options.tf_export_import_msg.imported);
         //                     $('.tf-import-btn').html('Imported');
         //                     window.location.reload();
         //                 } else {

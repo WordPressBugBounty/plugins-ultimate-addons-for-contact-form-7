@@ -33,7 +33,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			add_action( 'admin_init', array( $this, 'save_options' ) );
 
 			//ajax save options
-			add_action( 'wp_ajax_tf_options_save', array( $this, 'tf_ajax_save_options' ) );
+			add_action( 'wp_ajax_uacf7_options_save', array( $this, 'uacf7_ajax_save_options' ) );
 		}
 
 		public static function option( $key, $params = array() ) {
@@ -360,7 +360,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 							endforeach;
 							?>
 						</div>
-						<?php wp_nonce_field( 'tf_option_nonce_action', 'tf_option_nonce' ); ?>
+						<?php wp_nonce_field( 'uacf7_option_nonce_action', 'uacf7_option_nonce' ); ?>
 					</form>
 				</div>
 
@@ -621,7 +621,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 									</div>
 								</div>
 							</div>
-							<?php wp_nonce_field( 'tf_option_nonce_action', 'tf_option_nonce' ); ?>
+							<?php wp_nonce_field( 'uacf7_option_nonce_action', 'uacf7_option_nonce' ); ?>
 						</form>
 					</div>
 					<?php
@@ -635,7 +635,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		public function save_options() {
 
 			// Check if a nonce is valid.
-			if ( ! isset( $_POST['tf_option_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tf_option_nonce'] ) ), 'tf_option_nonce_action' ) ) {
+			if ( ! isset( $_POST['uacf7_option_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['uacf7_option_nonce'] ) ), 'uacf7_option_nonce_action' ) ) {
 				return;
 			}
 
@@ -775,13 +775,13 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		 * Ajax Save Options
 		 * @author Foysal
 		 */
-		public function tf_ajax_save_options() {
+		public function uacf7_ajax_save_options() {
 			$response = [ 
 				'status' => 'error',
 				'message' => __( 'Something went wrong!', 'ultimate-addons-cf7' ),
 			];
 
-			if ( ! empty( $_POST['tf_option_nonce'] ) && wp_verify_nonce( $_POST['tf_option_nonce'], 'tf_option_nonce_action' ) ) {
+			if ( ! empty( $_POST['uacf7_option_nonce'] ) && wp_verify_nonce( $_POST['uacf7_option_nonce'], 'uacf7_option_nonce_action' ) ) {
 				if ( isset( $_POST['tf_import_option'] ) && ! empty( wp_unslash( trim( $_POST['tf_import_option'] ) ) ) ) {
 
 					$tf_import_option = json_decode( wp_unslash( trim( $_POST['tf_import_option'] ) ), true );

@@ -92,7 +92,7 @@ class UACF7_SUBMISSION_ID {
 				'uacf7_submission_id_send_to_sub_line' => array(
 					'id' => 'uacf7_submission_id_send_to_sub_line',
 					'type' => 'switch',
-					'label' => __( 'Show Submission ID on the Mail Subject Line dynamic', 'ultimate-addons-cf7' ),
+					'label' => __( 'Show Submission ID in the Mail Subject Line (Dynamic)', 'ultimate-addons-cf7' ),
 					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
 					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
 					'default' => false,

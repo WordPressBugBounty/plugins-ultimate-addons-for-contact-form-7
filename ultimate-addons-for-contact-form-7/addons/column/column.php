@@ -76,7 +76,6 @@ class UACF7_COLUMN {
 			<fieldset>
 				<legend><?php echo esc_html__( "Generate tag: Column", "ultimate-addons-cf7" ); ?></legend>
 				<table class="form-table">
-
 					<h3><?php echo esc_html__( 'Contact form 7 columns / Grid Layout', 'ultimate-addons-cf7' ); ?></h3>
 					<p><?php echo esc_html__( 'You can easily create two columns, three Columns even Four columns form with Contact form 7 using this feature. Just insert tag you need from below list.', 'ultimate-addons-cf7' ); ?>
 					</p>
@@ -86,7 +85,6 @@ class UACF7_COLUMN {
 							'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/" target="_blank">Columns / Grid</a>', '<a href="https://themefic.com/docs/uacf7/pro-addons/custom-columns-for-contact-form-7/" target="_blank">Custom Columns</a>'
 						); ?>
 					</div>
-					<p></p>
 					<tbody>
 						<tr class="column-1 uacf7-column-select example-active"
 							data-column-codes="[uacf7-row][uacf7-col col:12] --your code-- [/uacf7-col][/uacf7-row]">
@@ -97,10 +95,10 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-												[uacf7-row]
-													[uacf7-col col:12] --your code-- [/uacf7-col]
-												[/uacf7-row]
-												</pre>
+[uacf7-row]
+	[uacf7-col col:12] --your code-- [/uacf7-col]
+[/uacf7-row]
+								</pre>
 							</td>
 						</tr>
 						<tr class="column-2 uacf7-column-select"
@@ -112,11 +110,11 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-												[uacf7-row]
-													[uacf7-col col:6] --your code-- [/uacf7-col]
-													[uacf7-col col:6] --your code-- [/uacf7-col]
-												[/uacf7-row]
-												</pre>
+[uacf7-row]
+	[uacf7-col col:6] --your code-- [/uacf7-col]
+	[uacf7-col col:6] --your code-- [/uacf7-col]
+[/uacf7-row]
+								</pre>
 							</td>
 						</tr>
 						<tr class="column-3 uacf7-column-select"
@@ -128,12 +126,12 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-												[uacf7-row]
-													[uacf7-col col:4] --your code-- [/uacf7-col]
-													[uacf7-col col:4] --your code-- [/uacf7-col]
-													[uacf7-col col:4] --your code-- [/uacf7-col]
-												[/uacf7-row]
-												</pre>
+[uacf7-row]
+	[uacf7-col col:4] --your code-- [/uacf7-col]
+	[uacf7-col col:4] --your code-- [/uacf7-col]
+	[uacf7-col col:4] --your code-- [/uacf7-col]
+[/uacf7-row]
+								</pre>
 							</td>
 						</tr>
 						<tr class="column-4 uacf7-column-select"
@@ -145,13 +143,13 @@ class UACF7_COLUMN {
 							</th>
 							<td class="uacf7_code">
 								<pre>
-												[uacf7-row]
-													[uacf7-col col:3] --your code-- [/uacf7-col]
-													[uacf7-col col:3] --your code-- [/uacf7-col]
-													[uacf7-col col:3] --your code-- [/uacf7-col]
-													[uacf7-col col:3] --your code-- [/uacf7-col]
-												[/uacf7-row]
-												</pre>
+[uacf7-row]
+	[uacf7-col col:3] --your code-- [/uacf7-col]
+	[uacf7-col col:3] --your code-- [/uacf7-col]
+	[uacf7-col col:3] --your code-- [/uacf7-col]
+	[uacf7-col col:3] --your code-- [/uacf7-col]
+[/uacf7-row]
+								</pre>
 							</td>
 						</tr>
 						<tr style="display:inherit" class="column-pro-feature">

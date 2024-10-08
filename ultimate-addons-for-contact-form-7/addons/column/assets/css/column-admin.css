@@ -1,3 +1,5 @@
+
+
 .uacf7_code {
 	background: #ddd
 }
@@ -22,6 +24,8 @@
 	display: none
 }
 .control-box.uacf7-column-control-box {
+	display: block;
+	width: 100% !important;
 	height: 100%;
 	overflow: unset;
 }
