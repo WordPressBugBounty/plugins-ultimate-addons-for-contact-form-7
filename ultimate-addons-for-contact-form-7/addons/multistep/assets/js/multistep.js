@@ -171,9 +171,9 @@ jQuery(document).ready(function () {
                         jQuery('.steps-step').find('a[href="#' + form_id + 'step-' + uacf7_next_step + '"]').parent().addClass('step-complete');
 
                         // Hide All steps Title:
-                        jQuery('.uacf7-form-' + form_id).find('.step-title').hide();
+                        jQuery('.current-step-title').find('.step-title').hide();
                         // Show Next Step Title:
-                        jQuery('.uacf7-form-' + form_id).find('.step-title.step-' + uacf7_next_step).show();
+                        jQuery('.current-step-title').find('.step-title.step-' + uacf7_next_step).show();
 
                     } else {
 
