@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.4.8
+Stable tag: 3.4.9
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -302,7 +302,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = Credits =
 
-The icons used in this plugin are sourced from [Iconfinder](https://www.iconfinder.com").
+Icons source [Iconfinder](https://www.iconfinder.com").
 
 == Installation ==
 
@@ -412,6 +412,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.9 - 14/11/2024 =
+
+- Minor bug fixes & improvements
+- System stability improved
+
 = 3.4.8 - 24/10/2024 =
 
 - Improved: Compatibility with Easy Table of Contents.
@@ -486,22 +491,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Fixed: Escaping and text-domain issue
 - Fixed: Notice close issue
 
-= 3.3.14 – 24/06/2024 =
-
-- Improvement: System stability
-- Minor bug fixes and improvements
-
-= 3.3.13 – 13/06/2024 =
-
-- Improvement: Country dropdown and repeater
-- Improvement: Star rating review submission 
-- Improvement: Quick setup design issue
-- Improvement: MailChimp addon upgraded
-- Improvement: Optimized CSS/JS code
-- Improvement: System stability
-- Minor bug fixes and improvements
-- Fixed: Booking date issue
-- Compatibility: Compatible with WordPress 6.5.4
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
