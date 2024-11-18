@@ -39,7 +39,7 @@ class UACF7_CF {
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_conditional_field' ), 11, 2 );
 		add_filter( 'uacf7_pdf_generator_replace_condition_data', array( $this, 'uacf7_condition_replace_pdf' ), 11, 3 );
 
-		//    add_filter( 'wpcf7_load_js', '__return_false' );
+		// add_filter( 'wpcf7_load_js', '__return_false' );
 
 
 	}
@@ -207,59 +207,77 @@ class UACF7_CF {
 	 * Generate tag - conditional
 	 */
 	public function tag_generator() {
-		if ( ! function_exists( 'wpcf7_add_tag_generator' ) )
-			return;
+		$tag_generator = WPCF7_TagGenerator::get_instance();
 
-		wpcf7_add_tag_generator( 'conditional',
+		$tag_generator->add(
+			'conditional',
 			__( 'Conditional Wraper', 'ultimate-addons-cf7' ),
-			'uacf7-tg-pane-conditional',
-			array( $this, 'tg_pane_conditional' )
+			[ $this, 'tg_pane_conditional' ],
+			array( 'version' => '2' )
+		);
+	}
+
+	static function tg_pane_conditional( $contact_form, $options ) {
+		$field_types = array(
+			'conditional' => array(
+				'display_name' => __( 'conditional area', 'contact-form-7' ),
+				'heading' => __( 'Generate a conditional tag to wrap the elements that can be shown conditionally.', 'ultimate-addons-cf7' ),
+				'description' => __( 'Check "Conditional Fields" tab located under the Ultimate Addons for CF7 Options for additional settings. Make sure to set those, otherwise the conditions may not work correctly.', 'ultimate-addons-cf7' ),
+			),
 		);
 
-	}
-
-	static function tg_pane_conditional( $contact_form, $args = '' ) {
-		$args = wp_parse_args( $args, array() );
-		$uacf7_field_type = 'conditional';
+		$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
+		// $uacf7_field_type = 'conditional';
 		?>
-		<div class="control-box">
-			<fieldset>
 
-				<legend>
-					<?php echo esc_html__( "Generate a conditional tag to wrap the elements that can be shown conditionally.", "ultimate-addons-cf7" ); ?>
-				</legend>
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>">
-									<?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?>
-								</label></th>
-							<td><input type="text" name="name" class="tg-name oneline"
-									id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="uacf7-doc-notice uacf7-guide">
-					<?php echo esc_html__( 'Check "Conditional Fields" tab located under the Ultimate Addons for CF7 Options for additional settings. Make sure to set those, otherwise the conditions may not work correctly.', "ultimate-addons-cf7" ); ?>
+		<header class="description-box">
+			<h3>
+				<?php echo esc_html( $field_types['conditional']['heading'] ); ?>
+			</h3>
 
-				</div>
-				<div class="uacf7-doc-notice">Confused? Check our Documentation on <a
-						href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/"
-						target="_blank">Conditional Fields</a>.</div>
-			</fieldset>
-		</div>
+			<p><?php
+			$description = wp_kses(
+				$field_types['conditional']['description'],
+				array(
+					'a' => array( 'href' => true ),
+					'strong' => array(),
+				),
+				array( 'http', 'https' )
+			);
 
-		<div class="insert-box">
-			<input type="text" name="<?php echo esc_attr( $uacf7_field_type ); ?>" class="tag code" readonly="readonly"
-				onfocus="this.select()" />
-
-			<div class="submitbox">
-				<input type="button" class="button button-primary insert-tag"
-					value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
+			echo $description;
+			?></p>
+			<div class="uacf7-doc-notice">
+				Confused? Check our Documentation on
+				<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">
+					Conditional Fields
+				</a>.
 			</div>
+		</header>
+
+		<div class="control-box uacf7-control-box version2">
+			<?php
+
+			$tgg->print( 'field_type', array(
+				'select_options' => array(
+					'conditional' => $field_types['conditional']['display_name'],
+				),
+			) );
+
+			$tgg->print( 'field_name' );
+			?>
 		</div>
+
+		<footer class="insert-box">
+			<?php
+			$tgg->print( 'insert_box_content' );
+
+			$tgg->print( 'mail_tag_tip' );
+			?>
+		</footer>
 		<?php
 	}
+
 
 	public function get_forms() {
 		$args = array(

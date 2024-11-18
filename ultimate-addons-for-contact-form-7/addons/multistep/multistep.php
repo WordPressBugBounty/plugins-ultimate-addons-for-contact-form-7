@@ -382,101 +382,160 @@ class UACF7_MULTISTEP {
 	 * Generate tag
 	 */
 	public function tag_generator() {
-		if ( ! function_exists( 'wpcf7_add_tag_generator' ) )
-			return;
 
-		wpcf7_add_tag_generator( 'uacf7_step_start',
+		$tag_generator = WPCF7_TagGenerator::get_instance();
+
+		$tag_generator->add(
+			'uacf7_step_start',
 			__( 'Multistep Start', 'ultimate-addons-cf7' ),
-			'uacf7-tg-pane-step',
-			array( $this, 'tg_pane_step_start' )
+			[ $this, 'tg_pane_step_start' ],
+			array( 'version' => '2' )
 		);
 
-		wpcf7_add_tag_generator( 'uacf7_step_end',
+		$tag_generator->add(
+			'uacf7_step_end',
 			__( 'Multistep End', 'ultimate-addons-cf7' ),
-			'wpcf7-tg-pane-step-end',
-			array( $this, 'tg_pane_step_end' )
+			[ $this, 'tg_pane_step_end' ],
+			array( 'version' => '2' )
 		);
+
 
 	}
-	static function tg_pane_step_start( $contact_form, $args = '' ) {
-		$args = wp_parse_args( $args, array() );
-		$uacf7_field_type = 'uacf7_step_start';
+	static function tg_pane_step_start( $contact_form, $options ) {
+
+		$field_types = array(
+			'uacf7_step_start' => array(
+				'display_name' => __( 'Multistep Start', 'ultimate-addons-cf7' ),
+				'heading' => __( 'Generate tag: Step', 'ultimate-addons-cf7' ),
+				'description' => __( '', 'ultimate-addons-cf7' ),
+			),
+		);
+
+		$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
+
 		?>
-		<div class="control-box">
-			<fieldset>
-				<legend><?php echo esc_html__( "Generate tag: Step", "ultimate-addons-cf7" ); ?></legend>
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th scope="row"><label><?php echo esc_html( __( 'Label', 'ultimate-addons-cf7' ) ); ?></label></th>
-							<td>
-								<input type="text" name="values" class="oneline">
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><label><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
-							<td>
-								<input type="text" name="name" class="tg-name oneline" id="tag-generator-panel-text-name">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="uacf7-doc-notice uacf7-guide">
-					<?php echo esc_html( __( 'To activate the form, enable it from the "Multi-step Form" tab located under the Ultimate Addons for CF7 Options. This tab also contains additional settings.', 'ultimate-addons-cf7' ) ); ?>
 
+		<header class="description-box">
+			<h3><?php
+			echo esc_html( $field_types['uacf7_step_start']['heading'] );
+			?></h3>
 
-				</div>
-				<div class="uacf7-doc-notice">
-					<?php echo sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">Multi-step Form</a>'
-					); ?>
-				</div>
-			</fieldset>
-		</div>
+			<p><?php
+			$description = wp_kses(
+				$field_types['uacf7_step_start']['description'],
+				array(
+					'a' => array( 'href' => true ),
+					'strong' => array(),
+				),
+				array( 'http', 'https' )
+			);
 
-		<div class="insert-box">
-			<input type="text" name="<?php echo esc_attr( $uacf7_field_type ); ?>" class="tag code" readonly="readonly"
-				onfocus="this.select()" />
-
-			<div class="submitbox">
-				<input type="button" class="button button-primary insert-tag"
-					value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
+			echo $description;
+			?></p>
+			<div class="uacf7-doc-notice">
+				<?php echo sprintf(
+					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank">Multi-step Form</a>'
+				); ?>
 			</div>
+		</header>
+
+		<div class="control-box uacf7-control-box">
+
+		<?php
+
+			$tgg->print( 'field_type', array(
+				'select_options' => array(
+					'uacf7_step_start' => $field_types['uacf7_step_start']['display_name'],
+				),
+			) );
+		?>
+
+		<?php 
+
+		$tgg->print( 'default_value', array(
+			'title' => __( 'Label', 'ultimate-addons-cf7' ),
+		) );
+
+		$tgg->print( 'field_name' );
+		
+		?>
+
+
+		<fieldset>
+			<div class="uacf7-doc-notice uacf7-guide">
+				<?php echo esc_html( __( 'To activate the form, enable it from the "Multi-step Form" tab located under the Ultimate Addons for CF7 Options. This tab also contains additional settings.', 'ultimate-addons-cf7' ) ); ?>
+			</div>
+		</fieldset>
+			
 		</div>
+
+
+		<footer class="insert-box">
+			<?php
+			$tgg->print( 'insert_box_content' );
+
+			$tgg->print( 'mail_tag_tip' );
+			?>
+		</footer>
+
 		<?php
 	}
 
 
-	static function tg_pane_step_end( $contact_form, $args = '' ) {
-		$args = wp_parse_args( $args, array() );
-		$uacf7_field_type = 'uacf7_step_end';
+	static function tg_pane_step_end( $contact_form, $options ) {
+		$field_types = array(
+			'uacf7_step_end' => array(
+				'display_name' => __( 'Multistep End', 'ultimate-addons-cf7' ),
+				'heading' => __( 'Generate tag: Multistep End', 'ultimate-addons-cf7' ),
+				'description' => __( '', 'ultimate-addons-cf7' ),
+			),
+		);
+
+		$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
+
 		?>
-		<div class="control-box">
-			<fieldset>
-				<legend><?php echo esc_html__( "Multistep end", "ultimate-addons-cf7" ); ?></legend>
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th scope="row"><label><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label></th>
-							<td>
-								<input type="text" name="name" readonly="readonly" class="tg-name oneline" value="end">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</fieldset>
+
+		<header class="description-box">
+			<h3><?php
+			echo esc_html( $field_types['uacf7_step_end']['heading'] );
+			?></h3>
+
+			<p><?php
+			$description = wp_kses(
+				$field_types['uacf7_step_end']['description'],
+				array(
+					'a' => array( 'href' => true ),
+					'strong' => array(),
+				),
+				array( 'http', 'https' )
+			);
+
+			echo $description;
+			?></p>
+		</header>
+
+		<div class="control-box uacf7-control-box">
+			<?php
+
+				$tgg->print( 'field_type', array(
+					'select_options' => array(
+						'uacf7_step_end' => $field_types['uacf7_step_end']['display_name'],
+					),
+				) );
+
+				$tgg->print( 'field_name' );
+			?>
+
 		</div>
 
-		<div class="insert-box">
-			<input type="text" name="<?php echo esc_attr( $uacf7_field_type ); ?>" class="tag code" readonly="readonly"
-				onfocus="this.select()" />
+		<footer class="insert-box">
+			<?php
+			$tgg->print( 'insert_box_content' );
 
-			<div class="submitbox">
-				<input type="button" class="button button-primary insert-tag"
-					value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
-			</div>
-		</div>
+			$tgg->print( 'mail_tag_tip' );
+			?>
+		</footer>
 		<?php
 	}
 

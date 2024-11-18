@@ -655,7 +655,6 @@ if ( ! function_exists( 'uacf7_form_option_Migration_callback' ) ) {
 					}
 
 					//  Conditional addon Migration 
-
 					$condition = get_post_meta( get_the_ID(), 'uacf7_conditions', true );
 					if ( is_array( $condition ) ) {
 						$count = 0;

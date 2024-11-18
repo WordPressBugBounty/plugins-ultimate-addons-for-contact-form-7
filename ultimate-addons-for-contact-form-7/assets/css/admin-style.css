@@ -144,9 +144,11 @@ span.status-error {
     display: flex;
     margin: 30px 0;
 }
+
 .tfic-docs-wrap .sub-heading {
     font-size: 15px;
 }
+
 .tfic-single-docs {
     margin-right: 20px;
     flex-basis: 100%;
@@ -189,20 +191,24 @@ span.status-error {
     margin-right: 12px;
     text-align: center;
 }
+
 .demo-btn {
     background: #fff;
     color: #382673;
 }
+
 .tfic-active {
     background: #ccc;
     color: #000;
     border: 1px solid #ccc;
 }
+
 .tfic-btn:hover {
     border: 1px solid #100058;
     background: #100058;
     color: #fff;
 }
+
 .tfic-active:hover {
     background: #ccc;
     color: #000;
@@ -213,6 +219,7 @@ span.status-error {
 .uacf7-admin-toggle {
     display: inline-block;
 }
+
 .uacf7-admin-toggle:last-of-type {
     margin: 0;
 }
@@ -261,26 +268,64 @@ span.status-error {
     transition: opacity 0.25s ease-in-out;
 }
 
-.uacf7-admin-toggle__input:checked
-    + .uacf7-admin-toggle-track
-    .uacf7-admin-toggle-indicator {
+.uacf7-admin-toggle__input:checked+.uacf7-admin-toggle-track .uacf7-admin-toggle-indicator {
     background: #06af00;
     transform: translateX(30px);
 }
 
-.uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track {
+.uacf7-admin-toggle__input:checked+.uacf7-admin-toggle-track {
     border: 2px solid #06af00;
 }
+
 .uacf7-admin-toggle-track:hover,
-.uacf7-admin-toggle__input:checked + .uacf7-admin-toggle-track:hover {
+.uacf7-admin-toggle__input:checked+.uacf7-admin-toggle-track:hover {
     opacity: 0.75;
 }
-.uacf7-admin-toggle__input:checked
-    + .uacf7-admin-toggle-track
-    .uacf7-admin-toggle-indicator
-    .checkMark {
+
+.uacf7-admin-toggle__input:checked+.uacf7-admin-toggle-track .uacf7-admin-toggle-indicator .checkMark {
     opacity: 1;
     transition: opacity 0.25s ease-in-out;
+}
+
+.uacf7_field_wraping{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Addon tag button for version 2*/
+form.tag-generator-panel[data-version="2"] .control-box{
+    overflow: auto !important;
+}
+
+
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_booking_form_date"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_booking_form_time"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_conversational_start"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_conversational_end"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_mailchimp_acceptance"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_title"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_content"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_thumbnail"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_taxonomy"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_submission_id"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_signature"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_spam_protection"],
+#tag-generator-list button[data-target="tag-generator-panel-uarepeater"],
+#tag-generator-list button[data-target="tag-generator-panel-conditional"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7-col"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_city"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_state"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_zip"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_step_start"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_step_end"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_dynamic_text"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_product_dropdown"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_range_slider"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_star_rating"],
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_country_dropdown"] {
+    background: #473080 !important;
+    color: #fff !important;
+    border-color: transparent;
 }
 
 /** Addon Tabs **/
@@ -476,6 +521,7 @@ span.status-error {
 #uacf7-submission-id-panel h3 {
     font-weight: 400px !important;
 }
+
 .ultimate-submission-id-wrapper {
     background: #fff;
     padding: 5px 30px 15px;
@@ -530,10 +576,12 @@ span.status-error {
 .themefic_review_notice ul li {
     display: inline-block;
 }
+
 .themefic_review_notice ul {
     margin: 0;
     margin-bottom: 5px;
 }
+
 .themefic_review_notice ul li a {
     text-decoration: none;
     padding: 7px;
@@ -554,9 +602,11 @@ span.status-error {
 .themefic_review_notice ul li a:hover {
     color: #218ea6;
 }
+
 .themefic_review_notice {
     position: relative;
 }
+
 .themefic_review_notice .review_notice_dismiss {
     padding: 2px;
 }
@@ -589,16 +639,11 @@ span.status-error {
     outline: 1px solid transparent;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_info_wrap {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_info_wrap {
     width: 70%;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_info_wrap
-    h3 {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_info_wrap h3 {
     font-family: "Inter", sans-serif;
     color: #382673;
     font-weight: 800;
@@ -607,10 +652,7 @@ span.status-error {
     margin: 0 0 24px 0;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_info_wrap
-    p {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_info_wrap p {
     margin: 0;
     padding: 0;
     font-size: 16px;
@@ -620,17 +662,11 @@ span.status-error {
     font-family: "Inter", sans-serif;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_info_wrap
-    p
-    b {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_info_wrap p b {
     font-weight: 700;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_button {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -646,10 +682,7 @@ span.status-error {
     box-shadow: 0px 8px 30px 0px #8c660033;
 }
 
-.uacf7_new_updated_anno
-    .uacf7_new_updated_anno_banner_url
-    .uacf7_new_updated_anno_button
-    svg {
+.uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button svg {
     margin-left: 8px;
 }
 
@@ -696,27 +729,25 @@ span.status-error {
 
 /* Media query for responsive */
 @media screen and (max-width: 991px) {
+
     /* Your styles for screens up to 991px wide */
     .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
         flex-direction: column;
         gap: 30px;
     }
 
-    .uacf7_new_updated_anno
-        .uacf7_new_updated_anno_banner_url
-        .uacf7_new_updated_anno_info_wrap {
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_info_wrap {
         width: 80%;
         text-align: center;
     }
 
-    .uacf7_new_updated_anno
-        .uacf7_new_updated_anno_banner_url
-        .uacf7_new_updated_anno_button {
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button {
         padding: 40px 0;
     }
 }
 
 @media screen and (max-width: 1200px) {
+
     /* Your styles for screens up to 1200px wide */
     .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
         padding: 40px 12px;
@@ -724,13 +755,13 @@ span.status-error {
 }
 
 @media screen and (max-width: 1069px) {
+
     /* Your styles for screens up to 1069px wide */
     .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
         padding: 40px 12px;
     }
-    .uacf7_new_updated_anno
-        .uacf7_new_updated_anno_banner_url
-        .uacf7_new_updated_anno_button {
+
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button {
         padding: 16px 20px;
     }
 }

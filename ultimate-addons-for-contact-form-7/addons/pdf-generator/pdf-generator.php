@@ -504,9 +504,11 @@ class UACF7_PDF_GENERATOR {
 
 		$mpdf->SetTitle( $uacf7_pdf_name );
 
+		$mpdf->WriteHTML($pdf_style, \Mpdf\HTMLParserMode::HEADER_CSS);
+
 		// PDF Footer Content
-		$mpdf->WriteHTML( $pdf_style . '<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
-		// 
+		$mpdf->WriteHTML('<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
+
 		// make directory 
 		if ( ! file_exists( $dir . '/uacf7-uploads' ) ) {
 			wp_mkdir_p( $dir . '/uacf7-uploads' );

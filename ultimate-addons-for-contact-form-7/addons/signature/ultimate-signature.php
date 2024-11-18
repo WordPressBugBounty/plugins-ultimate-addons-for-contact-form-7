@@ -211,71 +211,84 @@ class UACF7_SIGNATURE {
 	/** Signature Tag Generator */
 
 	public function uacf7_signature_tag_generator() {
-		if ( ! function_exists( 'wpcf7_add_tag_generator' ) ) {
-			return;
-		}
-		wpcf7_add_tag_generator(
+
+		$tag_generator = WPCF7_TagGenerator::get_instance();
+
+		$tag_generator->add(
 			'uacf7_signature',
 			__( 'Signature', 'ultimate-addons-cf7' ),
-			'uacf7-tg-pane-signature',
-			array( $this, 'tg_pane_signature' )
+			[ $this, 'tg_pane_signature' ],
+			array( 'version' => '2' )
 		);
+
 	}
 
-	public static function tg_pane_signature( $contact_form, $args = '' ) {
+	public static function tg_pane_signature( $contact_form, $options ) {
 
-		$args = wp_parse_args( $args, array() );
-		$uacf7_field_type = 'uacf7_signature';
+		$field_types = array(
+			'uacf7_signature' => array(
+				'display_name' => __( 'Signature', 'ultimate-addons-cf7' ),
+				'heading' => __( 'Generate a digital signature.', 'ultimate-addons-cf7' ),
+				'description' => __( '', 'ultimate-addons-cf7' ),
+			),
+		);
+
+		$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
+
 		?>
-		<div class="control-box">
-			<fieldset>
-				<table class="form-table">
-					<tbody>
-						<div class="uacf7-doc-notice">
-							<?php echo sprintf(
-								__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-								'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
-							); ?>
-						</div>
-						<tr>
-							<th scope="row"><?php _e( 'Field Type', 'ultimate-addons-cf7' ); ?></th>
-							<td>
-								<fieldset>
-									<legend class="screen-reader-text"><?php _e( 'Field Type', 'ultimate-addons-cf7' ); ?>
-									</legend>
-									<label><input type="checkbox" name="required"
-											value="on"><?php _e( 'Required Field', 'ultimate-addons-cf7' ); ?></label>
-								</fieldset>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><label
-									for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'ultimate-addons-cf7' ) ); ?></label>
-							</th>
-							<td><input type="text" name="name" class="tg-name oneline"
-									id="<?php echo esc_attr( $args['content'] . '-name' ); ?>" /></td>
-						</tr>
-						<tr>
-							<th scope="row"><label
-									for="tag-generator-panel-text-class"><?php echo esc_html__( 'Class attribute', 'ultimate-addons-cf7' ); ?></label>
-							</th>
-							<td><input type="text" name="class" class="classvalue oneline option"
-									id="tag-generator-panel-text-class"></td>
-						</tr>
-					</tbody>
-				</table>
-			</fieldset>
-		</div>
 
-		<div class="insert-box">
-			<input type="text" name="<?php echo esc_attr( $uacf7_field_type ); ?>" class="tag code" readonly="readonly"
-				onfocus="this.select()" />
+		<header class="description-box">
+			<h3><?php
+			echo esc_html( $field_types['uacf7_signature']['heading'] );
+			?></h3>
 
-			<div class="submitbox">
-				<input type="button" class="button button-primary insert-tag" id="prevent_multiple"
-					value="<?php echo esc_attr( __( 'Insert Tag', 'ultimate-addons-cf7' ) ); ?>" />
+			<p><?php
+			$description = wp_kses(
+				$field_types['uacf7_signature']['description'],
+				array(
+					'a' => array( 'href' => true ),
+					'strong' => array(),
+				),
+				array( 'http', 'https' )
+			);
+
+			echo $description;
+			?></p>
+
+            <div class="uacf7-doc-notice">
+				<?php echo sprintf(
+					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
+					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
+				); ?>
 			</div>
+			
+		</header>
+
+		<div class="control-box uacf7-control-box">
+			
+			<?php
+
+                $tgg->print( 'field_type', array(
+                    'with_required' => true,
+                    'select_options' => array(
+                        'uacf7_signature' => $field_types['uacf7_signature']['display_name'],
+                    ),
+                ) );
+
+                $tgg->print( 'field_name' );
+                $tgg->print( 'class_attr' );
+
+            ?>
 		</div>
+		
+		<footer class="insert-box">
+            <?php
+            $tgg->print( 'insert_box_content' );
+
+            $tgg->print( 'mail_tag_tip' );
+            ?>
+        </footer>
+
 		<?php
 	}
 
