@@ -239,7 +239,7 @@ class UACF7_DATABASE {
 			} else {
 				// Handle the case when the pro plugin is not active and the constant is not defined
 				// You can add an error log, a fallback, or any other necessary action here
-				error_log( 'UACF7_PRO_PATH_ADDONS is not defined. Pro plugin might not be installed or active.' );
+				// error_log( 'UACF7_PRO_PATH_ADDONS is not defined. Pro plugin might not be installed or active.' );
 			}
 		}
 		global $wpdb;

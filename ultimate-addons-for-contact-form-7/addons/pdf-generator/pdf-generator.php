@@ -20,7 +20,7 @@ class UACF7_PDF_GENERATOR {
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_pdf_generator' ), 18, 2 );
 		add_filter( 'uacf7_post_meta_import_export', array( $this, 'uacf7_post_meta_import_export_pdf_generator' ), 18, 2 );
 
-		require_once ( 'inc/functions.php' );
+		require_once( 'inc/functions.php' );
 
 
 	}
@@ -504,10 +504,10 @@ class UACF7_PDF_GENERATOR {
 
 		$mpdf->SetTitle( $uacf7_pdf_name );
 
-		$mpdf->WriteHTML($pdf_style, \Mpdf\HTMLParserMode::HEADER_CSS);
+		$mpdf->WriteHTML( $pdf_style, \Mpdf\HTMLParserMode::HEADER_CSS );
 
 		// PDF Footer Content
-		$mpdf->WriteHTML('<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
+		$mpdf->WriteHTML( '<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
 
 		// make directory 
 		if ( ! file_exists( $dir . '/uacf7-uploads' ) ) {
@@ -728,8 +728,10 @@ class UACF7_PDF_GENERATOR {
 
 			$mpdf->SetTitle( $uacf7_pdf_name );
 
+			$mpdf->WriteHTML( $pdf_style, \Mpdf\HTMLParserMode::HEADER_CSS );
+			
 			// PDF Footer Content
-			$mpdf->WriteHTML( $pdf_style . '<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
+			$mpdf->WriteHTML( '<div class="pdf-content">' . nl2br( $pdf_content ) . '   </div>' );
 
 			$pdf_url = $dir . '/uacf7-uploads/' . $uacf7_pdf_name . '.pdf';
 

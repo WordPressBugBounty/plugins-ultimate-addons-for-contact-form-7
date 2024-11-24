@@ -1,10 +1,10 @@
-=== Ultimate Addons for Contact Form 7 ===
+ === Ultimate Addons for Contact Form 7 ===
 Contributors: themefic, hasanet, hemelhasan, mdrejon, raihan143
 Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.4.12
+Stable tag: 3.4.13
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -414,6 +414,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.13 - 24/11/2024 =
+
+- Compatibility: Resolved translation notice issue for compatibility with WordPress 6.7.1.
+- Fix: Addressed minor bugs and implemented general improvements.
+
 = 3.4.12 - 21/11/2024 =
 
 - Update: Revised and updated the plugin's Readme.txt file information.
@@ -480,36 +485,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Improvement: Fixed past days booking issue
 - Improvement: Repeater field issue resolved
 - Improvement: Translation issues fixed
-
-= 3.4.2 - 11/08/2024 =
-
-- Improvement: Radio field validation for multistep.
-- Improvement: Radio field validation for repeater.
-
-= 3.4.1 - 02/08/2024 =
-
-- Compatible with Tourfic plugin
-- System stability improved
-
-= 3.4.0 - 29/07/2024 =
-
-- Introduced: Database Pro Addon( Pro )
-- Fixed: Issues with double slashes "//".
-- Fixed: Addon page reload issue.
-- Fixed: Color picker issue.
-
-= 3.3.16 - 17/07/2024 =
-
-- Compatible with WordPress 6.6
-- System stability improved
-
-= 3.3.15 - 07/07/2024 =
-
-- Improvement: System stability
-- Minor Bug fixes and improvements
-- Fixed: Escaping and text-domain issue
-- Fixed: Notice close issue
-
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
