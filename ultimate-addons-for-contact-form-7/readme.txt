@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.4.13
+Stable tag: 3.4.14
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -414,6 +414,12 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.4.14 - 25/11/2024 =
+
+- Fix: Addressed minor bugs and resolved issues.
+- Improvement: Enhanced license and Pro update notice feature.
+- Improvement: Updated and refined tags tab styling in form settings.
+
 = 3.4.13 - 24/11/2024 =
 
 - Compatibility: Resolved translation notice issue for compatibility with WordPress 6.7.1.
@@ -456,35 +462,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 - Improved: License issue fixed
 - Improved: Quick setup notice
 - Improved: ACF field clickable
-
-= 3.4.6 - 21/09/2024 =
-
-- Info: Banner info updated
-- Improvement: All addons page
-- Minor bug fixes and improvements
-
-- System stability improved
-
-= 3.4.5 - 12/09/2024 =
-
-- Introduced: Mailchimp Pro (Pro)
-- System stability improved
-- Minor bug fixes and improvements
-- Improvement: Submissions unique ID
-- Improvement: Database addon pro
-- Improvement: Conversational form
-
-= 3.4.4 - 02/09/2024 =
-
-- Improvement: Mailchimp API connection
-- System stability improved
-
-= 3.4.3 - 25/08/2024 =
-
-- Improvement: Post-submission thumbnail size adjusted
-- Improvement: Fixed past days booking issue
-- Improvement: Repeater field issue resolved
-- Improvement: Translation issues fixed
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

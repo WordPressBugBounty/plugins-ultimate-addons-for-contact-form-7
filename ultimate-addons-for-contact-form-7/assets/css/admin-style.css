@@ -323,9 +323,41 @@ form.tag-generator-panel[data-version="2"] .control-box{
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_range_slider"],
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_star_rating"],
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_country_dropdown"] {
-    background: #473080 !important;
+    background-color: #473080 !important;
     color: #fff !important;
     border-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    height: auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_booking_form_date"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_booking_form_time"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_conversational_start"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_conversational_end"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_mailchimp_acceptance"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_title"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_content"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_thumbnail"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_post_taxonomy"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_submission_id"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_signature"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_spam_protection"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uarepeater"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-conditional"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7-col"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_city"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_state"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_zip"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_step_start"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_step_end"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_dynamic_text"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_product_dropdown"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_range_slider"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_star_rating"]:hover,
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_country_dropdown"]:hover {
+    background: #5e40aa !important;
 }
 
 /** Addon Tabs **/
