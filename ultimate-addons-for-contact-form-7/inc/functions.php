@@ -344,9 +344,16 @@ add_filter( 'wpcf7_contact_form_properties', 'uacf7_add_wrapper_to_cf7_form', 10
 function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
 	if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 
+		$auto_cart = uacf7_get_form_option( $cfform->id(), 'auto_cart' );
+        $uacf7_enable_product_auto_cart = isset($auto_cart['uacf7_enable_product_auto_cart']) ? $auto_cart['uacf7_enable_product_auto_cart'] : false;
+
+		// var_dump($auto_cart);
+		// var_dump($uacf7_enable_product_auto_cart);
+
 		$form = $properties['form'];
+		$auto_cart_class = 'uacf7_auto_cart_'.$cfform->id();
 		ob_start();
-		echo '<div class="uacf7-form-' . $cfform->id() . '">' . $form . '</div>';
+		echo '<div class="uacf7-form-' . $cfform->id() . ' '.$auto_cart_class.'">' . $form . '</div>';
 		$properties['form'] = ob_get_clean();
 
 	}

@@ -203,7 +203,7 @@ class UACF7_PRODUCT_DROPDOWN {
 		$atts = wpcf7_format_atts( $atts );
 
 		$dropdown = sprintf(
-			'<span class="wpcf7-form-control-wrap %1$s"  data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span>',
+			'<div class="%1$s"><span class="wpcf7-form-control-wrap %1$s"  data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span></div>',
 			sanitize_html_class( $tag->name ), $atts, $dropdown, $validation_error
 		);
 

@@ -9,9 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_range_Slider {
 
 	/**
+	 * Form ID to be used globally within the class.
+	 *
+	 * @var int|null
+	 */
+	private $form_id;
+
+	/**
 	 * Constructor Function
 	 */
-
 	public function __construct() {
 		add_action( 'wpcf7_init', array( $this, 'add_shortcodes' ) );
 		add_action( 'admin_init', array( $this, 'tag_generator' ) );
@@ -19,7 +25,6 @@ class UACF7_range_Slider {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_slider_scripts' ) );
 		add_filter( 'uacf7_post_meta_options', array( $this, 'uacf7_post_meta_options_range_slider' ), 23, 2 );
 	}
-
 
 
 
@@ -114,7 +119,6 @@ class UACF7_range_Slider {
 	/**
 	 * add form tag
 	 */
-
 	public function add_shortcodes() {
 		wpcf7_add_form_tag(
 			array( 'uacf7_range_slider', 'uacf7_range_slider*' ),
@@ -350,7 +354,7 @@ class UACF7_range_Slider {
 
 			</fieldset>
 
-			<!-- Pro Verion  -->
+			<!-- Pro Version  -->
 			<?php ob_start() ?>
 			<fieldset>
 				<legend>
@@ -608,6 +612,9 @@ class UACF7_range_Slider {
 
 	public function uacf7_contact_form_properties( $properties, $cf ) {
 		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+
+			wp_register_style( 'uacf7-rangeSlider-dynamic', UACF7_URL . 'addons/range-slider/css/uacf7-range.css', array(), null );
+
 			$form_id = $cf->id();
 			$range_slider = uacf7_get_form_option( $form_id, 'range_slider' );
 
@@ -624,7 +631,6 @@ class UACF7_range_Slider {
 			// Inline CSS specific to this form ID
 
 			$css = "
-				<style>
 					:root {
 					--uacf7-slider-Selection-Color: {$selection_color};
 					--uacf7-slider-handle-color: {$handle_color};
@@ -677,20 +683,11 @@ class UACF7_range_Slider {
 						background: {$handle_color};
 						border-radius: {$handle_border_radius}px;
 						cursor: pointer;
-					}
-				</style>";
+					}";
 
-
-
-
-			// Append the CSS to the form without altering the main form structure
-			$properties['form'] = $properties['form'] . $css;
-			// Add inline style to the <head> section
-			add_action( 'wp_enqueue_scripts', function () use ($css) {
-				wp_add_inline_style( 'my-custom-style', $css );
-				wp_enqueue_style( 'my-custom-style' ); // Ensure the stylesheet is enqueued
-				add_action( 'wp_head', $css );
-			} );
+			// Ensure the stylesheet is enqueued
+			wp_add_inline_style( 'uacf7-rangeSlider-dynamic', $css );
+			wp_enqueue_style( 'uacf7-rangeSlider-dynamic' ); 
 
 		}
 
@@ -704,6 +701,7 @@ class UACF7_range_Slider {
 		wp_enqueue_script( 'uacf7-range-slider', UACF7_URL . 'addons/range-slider/js/range-slider.js', array( 'jquery', 'jquery-ui' ), false, true );
 		wp_enqueue_style( 'jquery-ui-style', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
 		wp_enqueue_style( 'range-slider-style', UACF7_URL . 'addons/range-slider/css/style.css' );
+
 		wp_register_script( 'jquery-ui', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js', array( 'jquery' ), false, true );
 		wp_register_script( 'touch-punch', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js', array( 'jquery' ), false, true );
 		wp_enqueue_script( 'jquery-ui' );
