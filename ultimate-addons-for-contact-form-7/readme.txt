@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.4.16
+Stable tag: 3.4.17
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -14,12 +14,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 ## THE EASIEST AND BEST CONTACT FORM 7 ADDONS PLUGIN FOR WORDPRESS
 
-👉 Official Demo Link: [Click Here](https://cf7addons.com/)
-👉 Live Backend Options: [Click Here](https://themefic.site/uacf7/wp-admin)
-👉 Buy Pro Version: [Click Here](https://cf7addons.com/pricing)
-👉 Get Support: [Click Here](https://portal.themefic.com/support/)
+👉 Official Demo Link: [Click Here](https://cf7addons.com/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=website)
+👉 Explore Pro: [Play with Backend Options](https://cf7addons.com/backend-demo/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=pro_backend)
+👉 Buy Pro Version: [Click Here](https://cf7addons.com/pricing/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=pro_link)
+👉 Get Support: [Click Here](https://portal.themefic.com/support/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_support)
 👉 Video Guide on [Youtube](https://www.youtube.com/playlist?list=PLY0rtvOwg0ylGspzo7TcT-8x0FH_O5XVV)
-👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/)
+👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
 Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms.
@@ -298,9 +298,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 ###  Our Plugins
 
 * [Ultimate Before After Image Slider & Gallery - BEAF](https://wordpress.org/plugins/beaf-before-and-after-gallery)
+* [Instantio – WooCommerce Quick Checkout | Floating Cart, Side Cart & Popup Cart](https://wordpress.org/plugins/instantio)
 * [Tourfic – Ultimate Hotel Booking, Travel Booking & Apartment Booking WordPress Plugin](https://wordpress.org/plugins/tourfic/)
 * [Hydra Booking – All in One Appointment Scheduling and Booking Calendar Solution](https://wordpress.org/plugins/hydra-booking)
 
+###  Our Themes
+
+* [Travelfic – Ultimate Travel Booking WordPress Theme](https://wordpress.org/themes/travelfic/)
+* [Ultimate Hotel Booking WordPress Theme](https://wordpress.org/themes/ultimate-hotel-booking/)
 
 = Credits =
 
@@ -413,6 +418,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.4.17 - 31/12/2024 =
+
+- Compatibility: Fully compatible with Contact Form 7 version 6.0.2.
+- Updated: Readme.txt file and plugin information.
 
 = 3.4.16 - 23/12/2024 =
 
