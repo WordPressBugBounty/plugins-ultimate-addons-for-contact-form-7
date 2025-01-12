@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.4.17
+Stable tag: 3.4.18
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -418,6 +418,11 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.4.18 - 12/01/2025 =
+
+- Compatibility: Fully compatible with WooCommerce (v9.5.2).
+- System stability improved
 
 = 3.4.17 - 31/12/2024 =
 
