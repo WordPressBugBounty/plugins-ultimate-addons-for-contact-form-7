@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.4.18
+Stable tag: 3.5.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-30+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp, and more
+35+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more
 
 == Description ==
 
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
-Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms.
+Equipped with over 35 essential features, **Ultimate Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms.
 
 = FREE ADDONS =
 
@@ -68,6 +68,7 @@ Equipped with over 30 essential features, **Ultimate Addons For Contact Form 7**
 * Spam Protection (Pro)
 * Database Pro (Pro)
 * MailChimp Pro
+* Form Submission Preview Pro
 
 ### How It works:
 
@@ -276,6 +277,9 @@ Our [Contact Form 7 Database Pro](https://cf7addons.com/preview/best-contact-for
 
 Our [Contact Form 7 Mailchimp Pro](https://cf7addons.com/preview/mailchimp-pro-for-contact-form-7/) is a key feature of Mailchimp Pro that allows you to add an acceptance checkbox to your forms. 
 
+= Contact Form 7 Form Submission Preview =
+
+Our [Contact Form 7 Form Submission Preview](https://cf7addons.com/preview/form-preview-submission/) adds a submission preview feature to your forms, enabling users to review and confirm their information before submission.  
 
 **More Pro addons are in development and will be available soon.**
 
@@ -419,6 +423,14 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 == Changelog ==
 
+= 3.5.0 - 15/01/2025 =
+
+- Introduced: Form Submission Preview Addon (Pro).
+- Improved: WebHook functionality.
+- Fixed: Conditional checkbox and "Hide All Conditional" issues in email templates.
+- Fixed: Required checkboxes not working with hidden conditional fields.
+- Updated: Handling of required checkboxes in hidden fields.
+
 = 3.4.18 - 12/01/2025 =
 
 - Compatibility: Fully compatible with WooCommerce (v9.5.2).
@@ -476,17 +488,6 @@ Instantly forward form submissions to your Telegram channel for quick access. Ho
 
 - Improved: Compatibility with Easy Table of Contents.
 - Fixed: Step header issue in the Multistep Addon.
-
-= 3.4.7 - 08/10/2024 =
-
-- Improved: Addons activation Notice
-- Improved: Submission ID label
-- Improved: Tag Panel style
-- Improved: Assets management
-- Improved: Column addon style
-- Improved: License issue fixed
-- Improved: Quick setup notice
-- Improved: ACF field clickable
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

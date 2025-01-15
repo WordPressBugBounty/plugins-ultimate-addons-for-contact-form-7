@@ -136,7 +136,7 @@ Return: checked
 */
 if ( ! function_exists( 'uacf7_print_r' ) ) {
 	function uacf7_print_r( $value ) {
-		echo '<pre>';
+		echo '<pre style="padding-left: 180px;">';
 		print_r( $value );
 		echo '</pre>';
 		// exit;
@@ -347,13 +347,23 @@ function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
 		$auto_cart = uacf7_get_form_option( $cfform->id(), 'auto_cart' );
         $uacf7_enable_product_auto_cart = isset($auto_cart['uacf7_enable_product_auto_cart']) ? $auto_cart['uacf7_enable_product_auto_cart'] : false;
 
-		// var_dump($auto_cart);
-		// var_dump($uacf7_enable_product_auto_cart);
+		$form_meta = uacf7_get_form_option( $cfform->id(), 'styler' );
+		$form_styles = isset( $form_meta['uacf7_enable_form_styles'] ) ? $form_meta['uacf7_enable_form_styles'] : false;
 
+		$auto_cart_class = '';
+		$uacf7_formStyler_class= '';
+
+		if ( $uacf7_enable_product_auto_cart ) {
+			$auto_cart_class = 'uacf7_auto_cart_'.$cfform->id();
+		}
+
+		if ( $form_styles ) {
+			$uacf7_formStyler_class= 'uacf7-uacf7style uacf7-uacf7style-' . esc_attr( $cfform->id() );
+		}
+		
 		$form = $properties['form'];
-		$auto_cart_class = 'uacf7_auto_cart_'.$cfform->id();
 		ob_start();
-		echo '<div class="uacf7-form-' . $cfform->id() . ' '.$auto_cart_class.'">' . $form . '</div>';
+		echo '<div class="uacf7-form-' . $cfform->id() . ' '.$auto_cart_class.' '.$uacf7_formStyler_class.'">' . $form . '</div>';
 		$properties['form'] = ob_get_clean();
 
 	}

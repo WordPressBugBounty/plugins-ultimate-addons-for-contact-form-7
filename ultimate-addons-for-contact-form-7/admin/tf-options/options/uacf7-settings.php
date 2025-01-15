@@ -181,6 +181,17 @@ UACF7_Settings::option(
 								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-to-post-type/',
 								'is_pro' => true,
 							),
+							'uacf7_enable_form_submission_preview_pro' => array(
+								'id' => 'uacf7_enable_form_submission_preview_pro',
+								'type' => 'switch',
+								'label' => __( 'Form Preview Submission', 'ultimate-addons-cf7' ),
+								'image_url' => UACF7_URL . 'assets/admin/images/addons/Frontend-Post-Submission@2x.png',
+								'default' => false,
+								'subtitle' => __( 'Enable users to review and verify form data before final submission', 'ultimate-addons-cf7' ),
+								'demo_link' => 'https://cf7addons.com/preview/form-preview-submission/',
+								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/form-preview-submission/',
+								'is_pro' => true
+							),
 							'uacf7_enable_mailchimp' => array(
 								'id' => 'uacf7_enable_mailchimp',
 								'type' => 'switch',

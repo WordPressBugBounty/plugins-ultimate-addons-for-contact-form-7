@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class UACF7_CF {
 
 	private $hidden_fields = array();
+
+	public $invalid_field_key = null;
+
 	/*
 	 * Construct function
 	 */
@@ -28,6 +31,8 @@ class UACF7_CF {
 
 		add_filter( 'wpcf7_posted_data', array( $this, 'remove_hidden_post_data' ) );
 		add_filter( 'wpcf7_validate', array( $this, 'skip_validation_for_hidden_fields' ), 2, 2 );
+
+		add_action( 'wpcf7_validate_checkbox*', array($this, 'skip_hidden_checkbox_required') , 10, 2 );
 
 		add_filter( 'wpcf7_validate_file*', array( $this, 'skip_validation_for_hidden_file_field' ), 30, 3 );
 		add_filter( 'wpcf7_validate_multifile*', array( $this, 'skip_validation_for_hidden_file_field' ), 30, 3 );
@@ -376,29 +381,40 @@ class UACF7_CF {
 		}
 		return $properties;
 	}
+	
 
 	function skip_validation_for_hidden_fields( $result, $tags ) {
-
 		if ( isset( $_POST ) ) {
 			$this->set_hidden_fields_arrays( $_POST );
 		}
-
+	
 		$invalid_fields = $result->get_invalid_fields();
 		$return_result = new WPCF7_Validation();
 
 		if ( count( $this->hidden_fields ) == 0 || ! is_array( $invalid_fields ) || count( $invalid_fields ) == 0 ) {
-			$return_result = $result;
-		} else {
-			foreach ( $invalid_fields as $invalid_field_key => $invalid_field_data ) {
-				if ( ! in_array( $invalid_field_key, $this->hidden_fields ) ) {
-					$return_result->invalidate( $invalid_field_key, $invalid_field_data['reason'] );
+			return $result;
+		}
+	
+		foreach ( $invalid_fields as $invalid_field_key => $invalid_field_data ) {
+			if ( ! in_array( $invalid_field_key, $this->hidden_fields ) ) {
+				
+				foreach($tags as $key => $tag){
+					if($tag->basetype == 'checkbox' && $tag->is_required()){
+						$is_hidden = in_array($invalid_field_key . '[]', $this->hidden_fields);
+						// uacf7_print_r('hidden');
+						if($is_hidden){
+							$this->invalid_field_key = $invalid_field_key;
+						}
+					}
 				}
+				
+				$return_result->invalidate( $invalid_field_key, $invalid_field_data['reason'] );
 			}
 		}
-
+		
 		return apply_filters( 'uacf7_validate', $return_result, $tags );
-
 	}
+	
 
 	public function uacf7_form_hidden_fields( $hidden_fields ) {
 
@@ -438,6 +454,25 @@ class UACF7_CF {
 				$this->hidden_fields[] = $field;
 			}
 		}
+
+	}
+
+	public function skip_hidden_checkbox_required($result, $tag){
+
+		if ( ! count( $result->get_invalid_fields() ) ) {
+			return $result;
+		}
+		if ( isset( $_POST ) ) {
+			$this->set_hidden_fields_arrays( $_POST );
+		}
+
+		$invalid_field_keys = array_keys( $result->get_invalid_fields() );
+		if ( isset( $this->hidden_fields ) && is_array( $this->hidden_fields ) && in_array( $tag->name. '[]', $this->hidden_fields ) ) {
+
+			return new WPCF7_Validation();
+		}
+
+		return $result;
 
 	}
 
@@ -508,7 +543,7 @@ class UACF7_CF {
 		$properties = $submission->get_contact_form()->get_properties();
 
 		// Get the email body
-		$mail_body = $properties['mail']['body'];
+		$mail_body   = $properties['mail']['body'];
 		$mail_body_2 = $properties['mail_2']['body'];
 
 
@@ -516,21 +551,20 @@ class UACF7_CF {
 
 			// Loop through the conditional fields
 			foreach ( $conditional_repeater as $key => $condition ) {
-
 				$uacf7_cf_hs = $condition['uacf7_cf_hs'];
 				$uacf7_cf_group = $condition['uacf7_cf_group'];
 				$uacf7_cf_conditions_for = $condition['uacf7_cf_condition_for'];
 				$uacf7_cf_conditions = $condition['uacf7_cf_conditions'];
 				$condition_status = [];
-
+				
 				// Check if the conditional field is hidden or shown
 				foreach ( $uacf7_cf_conditions as $key => $value ) {
 					$uacf7_cf_val = $value['uacf7_cf_val'];
 					$uacf7_cf_operator = $value['uacf7_cf_operator'];
-					$uacf7_cf_tn = $value['uacf7_cf_tn'];
-
+					$uacf7_cf_tn = rtrim($value['uacf7_cf_tn'], '[]');
+					
 					$posted_value = is_array( $posted_data[ $uacf7_cf_tn ] ) && in_array( $uacf7_cf_val, $posted_data[ $uacf7_cf_tn ] ) ? $uacf7_cf_val : $posted_data[ $uacf7_cf_tn ];
-
+					
 					// Condition for Equal  
 					if ( $uacf7_cf_operator == 'equal' && $posted_value == $uacf7_cf_val ) {
 						$condition_status[] = 'true';
@@ -570,15 +604,28 @@ class UACF7_CF {
 							// Mail 2 
 							$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 							$mail_body_2 = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
+						}else{
+							$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
+
+							// Mail 2 
+							$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 						}
-					} else {
+					}else if($uacf7_cf_hs == 'hide' ){
+						$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body );
+						$mail_body = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
+
+						// Mail 2 
+						$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
+						$mail_body_2 = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
+					 }else {
 						$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
 
 						// Mail 2 
 						$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 					}
 				}
-				// Check if the conditions for all 
+
+				// Check if the conditions for any 
 				if ( $uacf7_cf_conditions_for == 'any' ) {
 					if ( ! in_array( 'false', $condition_status ) ) {
 						if ( $uacf7_cf_hs == 'show' ) {
@@ -588,7 +635,19 @@ class UACF7_CF {
 							// Mail 2 
 							$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 							$mail_body_2 = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
+						}else {
+							$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
+	
+							// Mail 2 
+							$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 						}
+					}else if($uacf7_cf_hs == 'hide' ){
+						$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body );
+						$mail_body = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
+
+						// Mail 2 
+						$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
+						$mail_body_2 = preg_replace( '/\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 					} else {
 						$mail_body = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body );
 
@@ -596,6 +655,7 @@ class UACF7_CF {
 						$mail_body_2 = preg_replace( '/\[' . $uacf7_cf_group . '\].*?\[\/' . $uacf7_cf_group . '\]/s', '', $mail_body_2 );
 					}
 				}
+
 			}
 
 			// Set the email body in the mail properties
