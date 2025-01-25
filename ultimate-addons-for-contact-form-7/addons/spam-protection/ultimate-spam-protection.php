@@ -104,6 +104,38 @@ class UACF7_SPAM_PROTECTION {
 					'default' => 5,
 					'is_pro' => true
 				),
+				'uacf7_spam_email_protection_type' => array(
+					'id' => 'uacf7_spam_email_protection_type',
+					'type' => 'select',
+					'label' => __( 'Email Protection List Type', 'ultimate-addons-cf7' ),
+					'options' => array(
+						'none'      => 'None',
+						'allowlist' => 'Allowlist',
+						'denylist'  => 'Denylist',
+					),
+					'default' => 'none',
+					'is_pro' => true
+				),
+				'uacf7_spam_email_protection_allow_list' => array(
+					'id'       => 'uacf7_spam_email_protection_allow_list',
+					'type'     => 'textarea',
+					'label'    => __( 'Email Protection List', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Restrict which email addresses are allowed. Be sure to separate each email address with a comma.', 'ultimate-addons-cf7' ),
+					'is_pro'   => true,
+					'dependency' => array(
+							array( 'uacf7_spam_email_protection_type', '==', 'allowlist' ),
+						),
+				),
+				'uacf7_spam_email_protection_deny_list' => array(
+					'id'       => 'uacf7_spam_email_protection_deny_list',
+					'type'     => 'textarea',
+					'label'    => __( 'Email Protection List', 'ultimate-addons-cf7' ),
+					'subtitle' => __( 'Restrict which email addresses are allowed. Be sure to separate each email address with a comma.', 'ultimate-addons-cf7' ),
+					'is_pro'   => true,
+					'dependency' => array(
+							array( 'uacf7_spam_email_protection_type', '==', 'denylist' ),
+						),
+				),
 				// 'uacf7_word_filter' => array(
 				// 	'id' => 'uacf7_word_filter',
 				// 	'type' => 'textarea',

@@ -58,6 +58,8 @@ if ( ! class_exists( 'UACF7_tab' ) ) {
 									$tf_option->field( $field, $value, $this->settings_id, $parent );
 								}
 								?>
+
+								<?php do_action('uacf7dp_ep_connections_after_tab_content') ?>
                             </div>
 						<?php endforeach; ?>
 					<?php endif; ?>

@@ -192,6 +192,17 @@ UACF7_Settings::option(
 								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/form-preview-submission/',
 								'is_pro' => true
 							),
+							'uacf7_enable_save_and_continue_pro' => array(
+								'id' => 'uacf7_enable_save_and_continue_pro',
+								'type' => 'switch',
+								'label' => __( 'Form Save & Continue', 'ultimate-addons-cf7' ),
+								'image_url' => UACF7_URL . 'assets/admin/images/addons/Placeholder-Styling@2x.png',
+								'default' => false,
+								'subtitle' => __( 'Increase Form Completion Rates With Save and Resume.', 'ultimate-addons-cf7' ),
+								'demo_link' => 'https://cf7addons.com/preview/save-and-continue/',
+								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/save-and-continue/',
+								'is_pro' => true
+							),
 							'uacf7_enable_mailchimp' => array(
 								'id' => 'uacf7_enable_mailchimp',
 								'type' => 'switch',
@@ -239,6 +250,20 @@ UACF7_Settings::option(
 								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/database-pro/',
 								'is_pro' => true,
 							),
+
+							'uacf7_enable_mailwkeely_pro' => array(
+								'id' => 'uacf7_enable_mailwkeely_pro',
+								// 'child_field' => 'uacf7_enable_database_field',
+								'type' => 'switch',
+								'label' => __( 'Weekly Email Summary', 'ultimate-addons-cf7' ),
+								'image_url' => UACF7_URL . 'assets/admin/images/addons/Save-to-Database.png',
+								'default' => false,
+								'subtitle' => __( 'Email Summaries provide daily or weekly reports with the number of entries for each of your forms.', 'ultimate-addons-cf7' ),
+								'demo_link' => 'https://cf7addons.com/preview/weekly-email-summary/',
+								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/weekly-email-summary/',
+								'is_pro' => true,
+							),
+
 							'uacf7_enable_pdf_generator_field' => array(
 								'id' => 'uacf7_enable_pdf_generator_field',
 								'type' => 'switch',

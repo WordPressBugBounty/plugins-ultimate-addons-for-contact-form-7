@@ -166,6 +166,10 @@ class UACF7_CF {
 										'less_than' => 'Less than',
 										'greater_than_or_equal_to' => 'Greater than or equal to',
 										'less_than_or_equal_to' => 'Less than or equal to',
+										'starts_with' => 'Starts with',
+										'ends_with' => 'Ends With',
+										'contains' => 'Contains',
+										'does_not_contain' => 'Does not contain'
 									),
 									'field_width' => '50',
 								),
@@ -589,7 +593,23 @@ class UACF7_CF {
 					// Condition for Less than or equal to
 					else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val ) {
 						$condition_status[] = 'true';
-					} else {
+					}
+					// Condition for Starts With
+					else if ( $uacf7_cf_operator == 'starts_with' && substr( $posted_value, 0, strlen( $uacf7_cf_val ) ) === $uacf7_cf_val ) {
+						$condition_status[] = 'true';
+					} 
+					// Condition for Ends With
+					else if ( $uacf7_cf_operator == 'ends_with' && substr( $posted_value, -strlen( $uacf7_cf_val ) ) === $uacf7_cf_val ) {
+						$condition_status[] = 'true';
+					}     
+					// Condition for Contains
+					else if ( $uacf7_cf_operator == 'contains' && strpos( $posted_value, $uacf7_cf_val ) !== false ) {
+						$condition_status[] = 'true';
+					}     
+					// Condition for Excludes (does not contain)
+					else if ( $uacf7_cf_operator == 'does_not_contain' && strpos( $posted_value, $uacf7_cf_val ) === false ) {
+						$condition_status[] = 'true';
+					}else {
 						$condition_status[] = 'false';
 					}
 				}
@@ -716,7 +736,23 @@ class UACF7_CF {
 					// Condition for Less than or equal to
 					else if ( $uacf7_cf_operator == 'less_than_or_equal_to' && $posted_value <= $uacf7_cf_val ) {
 						$condition_status[] = 'true';
-					} else {
+					} 
+					// Condition for Starts With
+					else if ( $uacf7_cf_operator == 'starts_with' && substr( $posted_value, 0, strlen( $uacf7_cf_val ) ) === $uacf7_cf_val ) {
+						$condition_status[] = 'true';
+					} 
+					// Condition for Ends With
+					else if ( $uacf7_cf_operator == 'ends_with' && substr( $posted_value, -strlen( $uacf7_cf_val ) ) === $uacf7_cf_val ) {
+						$condition_status[] = 'true';
+					}     
+					// Condition for Contains
+					else if ( $uacf7_cf_operator == 'contains' && strpos( $posted_value, $uacf7_cf_val ) !== false ) {
+						$condition_status[] = 'true';
+					}     
+					// Condition for Excludes (does not contain)
+					else if ( $uacf7_cf_operator == 'does_not_contain' && strpos( $posted_value, $uacf7_cf_val ) === false ) {
+						$condition_status[] = 'true';
+					}else {
 						$condition_status[] = 'false';
 					}
 				}

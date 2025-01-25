@@ -592,7 +592,8 @@ class UACF7_PDF_GENERATOR {
 				'margin_footer' => 0,
 				'format' => 'A4',
 				'margin_left' => 0,
-				'margin_right' => 0
+				'margin_right' => 0,
+				'margin_top' => 20,
 			] );
 			$replace_key = [];
 

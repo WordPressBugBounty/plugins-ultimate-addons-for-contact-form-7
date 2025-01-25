@@ -443,10 +443,15 @@ class Insights {
         echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . esc_html( $this->client->__trans( 'No thanks' ) ) . '</a>';
         echo '</p></div>';
 
-        echo "<script type='text/javascript'>jQuery('." . esc_js( $this->client->slug ) . "-insights-data-we-collect').on('click', function(e) {
-                e.preventDefault();
-                jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
-            });
+        echo "<script type='text/javascript'>
+                jQuery(document).ready(function() {
+                    jQuery('." . esc_js( $this->client->slug ) . "-insights-data-we-collect').parents('.updated').find('p.description').hide();
+
+                    jQuery('." . esc_js( $this->client->slug ) . "-insights-data-we-collect').on('click', function(e) {
+                        e.preventDefault();
+                        jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
+                    });
+                });
             </script>";
     }
 
