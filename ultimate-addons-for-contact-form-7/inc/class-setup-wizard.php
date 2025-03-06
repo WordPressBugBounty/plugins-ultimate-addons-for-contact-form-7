@@ -395,6 +395,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					} ?> "
 						data-step="2">
 						<div class="uacf7-single-step-content-wrap">
+							<div class="hydra-installation-notice"></div>
 							<h2><?php echo _e( 'Activate your addons', 'ultimate-addons-cf7' ) ?></h2>
 							<p><?php echo _e( 'Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized ', 'ultimate-addons-cf7' ) ?><strong><?php echo _e( 'Alphabetically', 'ultimate-addons-cf7' ) ?></strong>.
 							</p>

@@ -39,7 +39,7 @@ class UACF7_DYNAMIC_TEXT {
 		if ( empty( $tag->name ) ) {
 			return '';
 		}
-
+		// beaf_print_r($tag, $tag->name);
 		$validation_error = wpcf7_get_validation_error( $tag->name );
 
 		$class = wpcf7_form_controls_class( $tag->type );
@@ -229,12 +229,21 @@ class UACF7_DYNAMIC_TEXT {
 					<?php echo esc_html__( 'Choose Field', 'ultimate-addons-cf7' ); ?>
 				</legend>
                 
-				<select data-tag-part="value">
+				<select id="uacf7-choose-field" data-tag-part="value">
 					<option value="">
                         <?php echo esc_html__( 'Select', 'ultimate-addons-cf7' ); ?>
                     </option>
 					<option value="UACF7_URL">
                         <?php echo esc_html__( 'Current URL', 'ultimate-addons-cf7' ); ?>
+					</option>
+					<option value="UACF7_URL part=host">
+						<?php echo esc_html__('Current URL Host (Domain)', 'ultimate-addons-cf7'); ?>
+					</option>
+					<option value="UACF7_URL part=query">
+						<?php echo esc_html__('Current URL Query String', 'ultimate-addons-cf7'); ?>
+					</option>
+					<option value="UACF7_URL part=path">
+						<?php echo esc_html__('Current URL Path', 'ultimate-addons-cf7'); ?>
 					</option>
 					<option value="UACF7_URL_WITH_PERAMETERS">
 						<?php echo esc_html__( 'Current URL with Perameters', 'ultimate-addons-cf7' ); ?>

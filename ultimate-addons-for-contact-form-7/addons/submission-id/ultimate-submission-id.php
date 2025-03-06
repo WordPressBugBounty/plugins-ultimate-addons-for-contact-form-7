@@ -150,7 +150,7 @@ class UACF7_SUBMISSION_ID {
 		$uacf7_submission_id_enable = isset( $settingData['uacf7_submission_id_enable'] ) ? $settingData['uacf7_submission_id_enable'] : false;
 
 		if ( $submission && $uacf7_submission_id_enable == true ) {
-			$getCurrentData = isset( $settingData['uacf7_submission_id'] ) ? $settingData['uacf7_submission_id'] : 0;
+			$stored_submission_id  = isset( $settingData['uacf7_submission_id'] ) ? $settingData['uacf7_submission_id'] : 0;
 			$step_counter = isset( $settingData['uacf7_submission_id_step'] ) ? $settingData['uacf7_submission_id_step'] : 0;
 
 			// Scan form tags to find the specific field
@@ -161,11 +161,11 @@ class UACF7_SUBMISSION_ID {
 					$field_name = $tag->name;
 
 					// Get the current value of the specific tag
-					$current_value = isset( $submittedData[ $field_name ] ) ? $submittedData[ $field_name ] : '';
+					$submitted_value  = isset( $submittedData[ $field_name ] ) ? $submittedData[ $field_name ] : '';
 
-					if ( $getCurrentData > $current_value ) {
+					if ( $stored_submission_id  > $submitted_value || $submitted_value != $stored_submission_id ) {
 						// Update the value
-						$new_value = $getCurrentData;
+						$new_value = $stored_submission_id ;
 
 						// Override the submitted data
 						$submittedData[ $field_name ] = $new_value;
@@ -186,9 +186,9 @@ class UACF7_SUBMISSION_ID {
 						$valueIncreasing = '';
 
 						if ( $step_counter > 0 ) {
-							$valueIncreasing .= $getCurrentData + $step_counter;
+							$valueIncreasing .= $stored_submission_id  + $step_counter;
 						} else {
-							$valueIncreasing .= $getCurrentData + 1;
+							$valueIncreasing .= $stored_submission_id  + 1;
 						}
 						$meta = uacf7_get_form_option( $form->id(), '' );
 						$meta['submission_id']['uacf7_submission_id'] = $valueIncreasing;
@@ -198,7 +198,6 @@ class UACF7_SUBMISSION_ID {
 			}
 		}
 	}
-
 
 	/**
 	 * Submission ID Realtime update in the Frontend
@@ -218,7 +217,6 @@ class UACF7_SUBMISSION_ID {
 		] );
 
 	}
-
 
 	/**
 	 * Submission ID Update into Database
@@ -326,9 +324,9 @@ class UACF7_SUBMISSION_ID {
 		$default_value = $tag->get_default_option( $value );
 
 
-		$value = isset( $submission['uacf7_submission_id'] ) ? $submission['uacf7_submission_id'] : '';
+		$submission_id = isset( $submission['uacf7_submission_id'] ) ? intval($submission['uacf7_submission_id']) : '';
 
-		$atts['value'] = $value;
+		$atts['value'] = esc_attr($submission_id);
 
 		$atts['name'] = $tag->name;
 

@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.5.3
+Stable tag: 3.5.4
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -72,6 +72,7 @@ Equipped with over 40 essential features, **Ultimate Addons For Contact Form 7**
 * Save and Continue Later (Pro)
 * Weekly Email Summary (Pro)
 * Email Piping (Pro)
+* PDF Generate (Pro)
 
 ### How It works:
 
@@ -293,6 +294,10 @@ Our [Weekly Email Summary for Contact Form 7](https://cf7addons.com/preview/week
 
 Our [Contact Form 7 Form Email Piping](https://cf7addons.com/preview/email-piping-for-contact-form-7/) feature allows users to configure email piping with contact form 7, it not only captures email replies directly in your WordPress dashboard but also to send emails.
 
+= Contact Form 7 PDF Download on Submission =
+
+Our [PDF Generate Pro](https://cf7addons.com/preview/pdf-generate-pro/) feature enables users to generate and download a PDF immediately after submitting a form.
+
 **More Pro addons are in development and will be available soon.**
 
 ### Join our Community to stay updated
@@ -453,6 +458,20 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.4 - 06/03/2025 =
+
+- Introduced: "PDF Generate Pro" addon to download a PDF immediately after submitting a form.
+- Improved: Migration from the "Conditional Fields for Contact Form 7" plugin to "Ultimate Addons for Contact Form 7".
+- Improved: Migration from the "Redirection for Contact Form 7" plugin to "Ultimate Addons for Contact Form 7".
+- Improved: Updated design structure of the "PDF Generate" addon.
+- Improved: Added current URL host domain, URL path, and URL query string on "Dynamic Text" addon for.
+- Improved: Security issue with the "Submission ID" addon IDs has been resolved.
+- Improved: Enhanced flexibility to use any PHP date format on the "PDF Generate" addon.
+- Improved: Resolved data migration issues in the "Database Pro" addon.
+- Improved: Added guest posts and specified the post publish author settings on "Frontend Post Submission" addon.
+- Added: A showcase of our other plugins on the UACF7 All Addon Page.
+- Fixed: Resolved an issue with pre-populated redirection in the "Pre-populated" addon.
+
 = 3.5.3 - 24/02/2025 =
 
 - Introduced: Email Piping to Database Pro.
@@ -496,21 +515,6 @@ Just install our plugin, and you'll get access to a variety of free templates!
 - Fixed: Resolved post-submission issues.
 - Fixed: Fixed the star review functionality.
 - Fixed: Addressed repeater field issues.
-
-= 3.4.15 - 11/12/2024 =
-
-- Added: label on the country dropdown field
-
-= 3.4.14 - 25/11/2024 =
-
-- Fix: Addressed minor bugs and resolved issues.
-- Improvement: Enhanced license and Pro update notice feature.
-- Improvement: Updated and refined tags tab styling in form settings.
-
-= 3.4.13 - 24/11/2024 =
-
-- Compatibility: Resolved translation notice issue for compatibility with WordPress 6.7.1.
-- Fix: Addressed minor bugs and implemented general improvements.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
