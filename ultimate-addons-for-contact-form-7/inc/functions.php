@@ -1359,7 +1359,7 @@ function uacf7_migration_notice() {
 			return;
 		}
 
-		echo '<div class="notice notice-warning is-dismissible">
+		echo '<div class="notice notice-warning">
 			<p><strong>Ultimate Addons for Contact Form 7 – Migrate Your Conditional Data:</strong> <br> We\'ve detected conditional data from <strong>Conditional Fields for Contact Form 7</strong>. Easily migrate it with our built-in tool and unlock 40+ powerful addons in one place. Would you like to proceed?</p>
 			<p>
 				<a href="' . esc_url(admin_url('admin.php?action=uacf7_migrate_conditional_fields')) . '" class="button button-primary">Migrate Now</a>

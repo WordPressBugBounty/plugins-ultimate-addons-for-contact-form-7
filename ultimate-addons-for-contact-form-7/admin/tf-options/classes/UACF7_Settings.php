@@ -446,6 +446,18 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				// 	// ],
 				// ],
 				[
+					'name'       => 'Hydra',
+					'slug'       => 'hydra-booking',
+					'file_name'  => 'hydra-booking',
+					'subtitle'   => 'All in One Appointment Booking System | Appointment Scheduling, Booking Calendar & WooCommerce Bookings',
+					'image'      => 'https://ps.w.org/hydra-booking/assets/icon-128x128.jpg',
+					// 'pro'        => [
+					// 	'slug'      => 'hydra-booking-pro',
+					// 	'file_name' => 'hydra-booking-pro',
+					// 	'url'       => 'https://hydrabooking.com/',
+					// ],
+				],
+				[
 					'name'       => 'BEAF',
 					'slug'       => 'beaf-before-and-after-gallery',
 					'file_name'  => 'before-and-after-gallery',
@@ -479,18 +491,6 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 					// 	'slug'      => 'wooinstant',
 					// 	'file_name' => 'wooinstant',
 					// 	'url'       => 'https://themefic.com/instantio/',
-					// ],
-				],
-				[
-					'name'       => 'Hydra',
-					'slug'       => 'hydra-booking',
-					'file_name'  => 'hydra-booking',
-					'subtitle'   => 'All in One Appointment Booking System | Appointment Scheduling, Booking Calendar & WooCommerce Bookings',
-					'image'      => 'https://ps.w.org/hydra-booking/assets/icon-128x128.jpg',
-					// 'pro'        => [
-					// 	'slug'      => 'hydra-booking-pro',
-					// 	'file_name' => 'hydra-booking-pro',
-					// 	'url'       => 'https://hydrabooking.com/',
 					// ],
 				],
 				// [

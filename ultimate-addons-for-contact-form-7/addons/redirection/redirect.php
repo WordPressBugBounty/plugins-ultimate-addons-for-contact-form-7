@@ -289,7 +289,7 @@ class UACF7_Redirection {
 				return;
 			}
 	
-			echo '<div class="notice notice-warning is-dismissible">
+			echo '<div class="notice notice-warning">
 				<p><strong>Ultimate Addons for Contact Form 7 – Migrate Your Redirection Settings:</strong><br> We\'ve detected redirection settings from <strong>Redirection for Contact Form 7</strong>. Easily migrate them with our built-in tool—no need for multiple plugins! Plus, access 40+ powerful addons in one place. Would you like to proceed?</p>
 				<p>
 					<a href="' . esc_url(admin_url('admin.php?action=uacf7_migrate_redirection')) . '" class="button button-primary">Migrate Now</a>
