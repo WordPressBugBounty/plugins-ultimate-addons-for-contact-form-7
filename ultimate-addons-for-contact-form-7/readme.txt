@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.5.5
+Stable tag: 3.5.7
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -457,6 +457,20 @@ Just install our plugin, and you'll get access to a variety of free templates!
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.5.7 - 18/03/2025 =
+
+- Added: Updated readme.txt info
+
+= 3.5.6 - 18/03/2025 =
+
+- Added: Introduced new booking addon for Booking/Appointment.
+- Added: 4 new Multistep form templates added (Pro).
+- Fixed: Multisite Pro addons activation issue.
+- Fixed: PDF generator image URL issue.
+- Fixed: Form Save and continue link Copy button icon not showing.
+- Fixed: Global Form Styler color not saving.
+- Improved: System stability for better performance.
 
 = 3.5.5 - 08/03/2025 =
 
