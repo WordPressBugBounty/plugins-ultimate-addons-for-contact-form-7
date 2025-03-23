@@ -1832,6 +1832,142 @@ add_action('wp_ajax_uacf7_set_modal_shown', 'uacf7_set_modal_shown');
 
 
 
+add_action('admin_notices', 'uacf7_redirection_migration_notice');
+add_action('admin_init', 'uacf7_migrate_redirection_handler');
+add_action('admin_notices', 'uacf7_redirection_migration_success_notice');
+add_action('admin_init', 'uacf7_handle_redirection_dismiss_notice');
+
+/**
+ * Show the migration notice if "Redirection for Contact Form 7" is active.
+ */
+function uacf7_redirection_migration_notice() {
+	if (is_plugin_active('wpcf7-redirect/wpcf7-redirect.php')) {
+		$dismiss_time = get_option('uacf7_redirection_migration_done', 0);
+		
+		uacf7_print_r($options);
+		if ($dismiss_time === '1' || ($dismiss_time && $dismiss_time > time())) {
+			return;
+		}
+
+		echo '<div class="notice notice-warning">
+			<p><strong>Ultimate Addons for Contact Form 7 – Migrate Your Redirection Settings:</strong><br> We\'ve detected redirection settings from <strong>Redirection for Contact Form 7</strong>. Easily migrate them with our built-in tool—no need for multiple plugins! Plus, access 40+ powerful addons in one place. Would you like to proceed?</p>
+			<p>
+				<a href="' . esc_url(admin_url('admin.php?action=uacf7_migrate_redirection')) . '" class="button button-primary">Migrate Now</a>
+				<a href="' . esc_url(add_query_arg('uacf7_dismiss_redirection_notice', '1')) . '" class="button button-secondary">Not Now</a>
+			</p>
+		</div>';
+	}
+}
+
+function uacf7_handle_redirection_dismiss_notice() {
+	if (isset($_GET['uacf7_dismiss_redirection_notice']) && $_GET['uacf7_dismiss_redirection_notice'] === '1') {
+		update_option('uacf7_redirection_migration_done', time() + (15 * DAY_IN_SECONDS));
+		wp_redirect(remove_query_arg('uacf7_dismiss_redirection_notice'));
+		exit;
+	}
+}
+
+function enable_redirection_field() {
+	$options = uacf7_settings();
+
+	if ( ! isset( $options['uacf7_enable_redirection'] ) || ! $options['uacf7_enable_redirection'] ) {
+        $options['uacf7_enable_redirection'] = true;
+        update_option( 'uacf7_settings', $options );
+    }
+}
+
+/**
+ * Show success notice after successful migration.
+ */
+function uacf7_redirection_migration_success_notice() {
+	if (isset($_GET['uacf7_redirection_migration_success']) && $_GET['uacf7_redirection_migration_success'] == 1) {
+		echo '<div class="notice notice-success is-dismissible">
+			<p>Redirection migration completed successfully.</p>
+		</div>';
+	}
+}
+
+/**
+ * Handle the migration process when "Migrate Now" button is clicked.
+ */
+function uacf7_migrate_redirection_handler() {
+	if (isset($_GET['action']) && $_GET['action'] === 'uacf7_migrate_redirection') {
+		enable_redirection_field();
+		migrate_redirection_data_to_uacf7();
+
+		update_option('uacf7_redirection_migration_done', true);
+		wp_redirect(admin_url('admin.php?page=wpcf7&uacf7_redirection_migration_success=1'));
+		exit;
+	}
+}
+
+function migrate_redirection_data_to_uacf7() {
+
+	$redirect_actions = get_posts([
+		'post_type' => 'wpcf7r_action',
+		'post_status' => 'private',
+		'posts_per_page' => -1,
+	]);
+	
+	foreach ($redirect_actions as $action) {
+		$action_id = $action->ID;
+		$meta_data = get_post_custom($action_id, true);
+
+		if (empty($meta_data['wpcf7_id'][0])) {
+			continue;
+		}
+
+		$wpcf7_id = $meta_data['wpcf7_id'][0];
+
+		$action_type = isset($meta_data['action_type'][0]) ? $meta_data['action_type'][0] : '';
+		if ($action_type !== 'redirect') {
+			continue;
+		}
+
+		unset($meta_data['uacf7_form_opt']);
+		
+		$redirect_data = [
+			'redirect_enabled' => ($meta_data['action_status'][0] === 'on') ? 1 : 0,
+			'external_url' => !empty($meta_data['use_external_url'][0]) == 'on' ? $meta_data['external_url'][0] : '',
+			'redirect_delay' => !empty($meta_data['delay_redirect_seconds'][0]) ? intval($meta_data['delay_redirect_seconds'][0]) : 0,
+			'redirection_heading' => '',
+			'redirection_docs' => '',
+			'uacf7_redirect_enable' => ($meta_data['action_status'][0] === 'on') ? 1 : 0,
+			'uacf7_redirect_form_options_heading' => '',
+			'uacf7_redirect_to_type' => !empty($meta_data['use_external_url'][0]) == 'on' ? 'to_url' : 'to_page',
+			'page_id' => !empty($meta_data['page_id'][0]) ? intval($meta_data['page_id'][0]) : 0,
+			'uacf7_redirect_type' => '',
+			'target' => !empty($meta_data['open_in_new_tab'][0]) && $meta_data['open_in_new_tab'][0] === 'on' ? 1 : 0,
+			'uacf7_redirect_tag_support' => '',
+		];
+
+		if (!empty($meta_data['http_build_query_selectively_fields'][0])) {
+			$redirect_data['conditional_redirect'] = [
+				1 => [
+					'uacf7_cr_tn' => '0',
+					'uacf7_cr_field_val' => 'Example',
+					'uacf7_cr_redirect_to_url' => 'https://example.com',
+				],
+			];
+		}
+
+		$form_options = get_post_meta($wpcf7_id, 'uacf7_form_opt', true);
+		if (!is_array($form_options)) {
+			$form_options = [];
+		}
+
+		$form_options['redirection'] = $redirect_data;
+
+		update_post_meta($wpcf7_id, 'uacf7_form_opt', $form_options);
+
+	}
+
+}
+
+
+
+
+
 // function uacf7_check_and_install_hydra_booking($upgrader_object, $options) {
 	
 // 	if ($options['action'] !== 'update' || $options['type'] !== 'plugin') {
