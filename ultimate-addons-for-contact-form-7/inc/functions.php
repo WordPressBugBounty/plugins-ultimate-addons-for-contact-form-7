@@ -1844,7 +1844,6 @@ function uacf7_redirection_migration_notice() {
 	if (is_plugin_active('wpcf7-redirect/wpcf7-redirect.php')) {
 		$dismiss_time = get_option('uacf7_redirection_migration_done', 0);
 		
-		uacf7_print_r($options);
 		if ($dismiss_time === '1' || ($dismiss_time && $dismiss_time > time())) {
 			return;
 		}
