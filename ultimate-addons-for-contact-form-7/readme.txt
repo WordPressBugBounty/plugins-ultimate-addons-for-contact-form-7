@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.5.10
+Stable tag: 3.5.11
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -456,21 +456,17 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.11 - 09/04/2025 =
+
+- Improved: Database addon design has been enhanced for the free version.
+- Fixed: Email piping IMAP connection issue has been resolved.
+- Fixed: Undefined error during redirection migration has been resolved.
+- Notice: Hydra Booking plugin notice has been added.
+
 = 3.5.10 - 02/04/2025 =
 
 - Improved: Optimized the code from the redirection add-on.
 - Improved: System stability for enhanced performance.
-
-= 3.5.9 - 29/03/2025 =
-
-- Fixed: Conditional fields not sending emails has been resolved.
-
-= 3.5.8 - 22/03/2025 =
-
-- Fixed: Conditional field selection issue.
-- Improved: Optimized multi-step preview images.
-- Improved: System stability for enhanced performance.
-- Improved: The translatable Text updated on save and continue addon.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

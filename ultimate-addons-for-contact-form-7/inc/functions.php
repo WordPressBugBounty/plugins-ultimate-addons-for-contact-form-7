@@ -1760,7 +1760,7 @@ function uacf7_show_hydra_modal() {
 		}
 
 		function showSuccess($button, text) {
-			$button.html(text).prop('disabled', false);
+			$button.html(text).prop('disabled', true);
 		}
 
 		function showError($button, text) {
@@ -1844,7 +1844,7 @@ function uacf7_redirection_migration_notice() {
 	if (is_plugin_active('wpcf7-redirect/wpcf7-redirect.php')) {
 		$dismiss_time = get_option('uacf7_redirection_migration_done', 0);
 		
-		if ($dismiss_time === '1' || ($dismiss_time && $dismiss_time > time())) {
+		if ($dismiss_time == '1' || ($dismiss_time && $dismiss_time > time())) {
 			return;
 		}
 
