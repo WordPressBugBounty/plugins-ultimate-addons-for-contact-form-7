@@ -326,7 +326,8 @@ form.tag-generator-panel[data-version="2"] .control-box{
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_product_dropdown"],
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_range_slider"],
 #tag-generator-list button[data-target="tag-generator-panel-uacf7_star_rating"],
-#tag-generator-list button[data-target="tag-generator-panel-uacf7_country_dropdown"] {
+#tag-generator-list button[data-target="tag-generator-panel-uacf7_country_dropdown"],
+#tag-generator-list button[data-target="tag-generator-panel-dragdropfile"] {
     background-color: #473080 !important;
     color: #fff !important;
     border-color: transparent;
@@ -868,11 +869,12 @@ form.tag-generator-panel[data-version="2"] .control-box{
     font-size: 16px;
     margin: 5px 0;
     font-weight: 600;
+    color: #1d2327;
 }
 
 .plugin-item p {
     font-size: 13px;
-    color: #555;
+    color: #4f4e52;
     margin: 0;
 }
 .plugin-info-wrapper{
@@ -905,7 +907,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 }
 .plugin-button.install { 
     /* background: #007cba;  */
-    color: #6411FF; 
+    color: #382673; 
 }
 .plugin-button.activate { 
     /* background: #382673;  */
@@ -938,13 +940,13 @@ form.tag-generator-panel[data-version="2"] .control-box{
     gap: 5px;
 }
 .badge.free {
-	background: #E8F5E9;
-	color: #34A853;
+	background: rgba(0,165,140,.1019607843);
+	color: #00a58c;
 	font-size: 12px;
 	padding: 2px 8px;
 	border-radius: 12px;
 	font-weight: 600;
-	border: 1px solid #8EE695;
+	border: 1px solid #00a58c;
 }
 
 /* Loader */
@@ -959,6 +961,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
     transition: background 0.3s;
     position: relative;
     background-color: transparent;
+    flex-direction: column;
 }
 
 .plugin-button.loading {
@@ -1297,7 +1300,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 }
 
 .loader {
-    display: inline-block;
+    /* display: inline-block; */
     width: 12px;
     height: 12px;
     border: 2px solid #fff;
@@ -1327,6 +1330,126 @@ form.tag-generator-panel[data-version="2"] .control-box{
     }
 }
 
+
+.uacf7-addons-settings-page h1.uacf7-sidebar-title {
+	margin-bottom: 30px;
+	font-size: 2em;
+	font-weight: 700;
+	line-height: 32px;
+}
+
+@media screen and (max-width: 1700px) {
+    .plugin-item {
+        padding: 18px;
+    }
+}
+
+@media screen and (max-width: 1650px) {
+
+    .uacf7-addons-settings-page {
+        grid-template-columns: 3fr 2fr;
+    }
+    .uacf7-addons-settings-page .uacf7-addon-setting-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta .uacf7-addon-filter-button {
+        padding: 8px 12px;
+    }
+}
+
+@media screen and (max-width: 1530px) {
+    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta {
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .uacf7-addons-settings-page {
+        grid-template-columns: 4fr 2fr;
+    }
+    .uacf7-sidebar-content ul {
+        grid-template-columns: 1fr;
+    }
+    .uacf7-addons-settings-page .uacf7-setting-title,
+    .uacf7-addons-settings-page h1.uacf7-sidebar-title {
+        margin-bottom: 30px;
+        font-size: 1.7em;
+    }
+    .uacf7-addons-settings-page .uacf7-settings-heading {
+        gap: 20px;
+    }
+    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta .uacf7-addon-filter-button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    .uacf7-addons-settings-page .uacf7-addon-setting-content {
+        gap: 24px;
+    }
+}
+
+
+
+@media screen and (max-width: 1280px) {
+
+    /* Your styles for screens up to 1200px wide */
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+        padding: 40px 12px;
+    }
+
+    .uacf7-addons-settings-page .uacf7-settings-heading {
+        
+        justify-content: left;
+        flex-wrap: wrap;
+    }
+
+    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap {
+        width: 100%;
+    }
+
+    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta {
+        justify-content: left;
+    }
+    .uacf7-addons-settings-page .uacf7-addon-setting-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .uacf7-addons-settings-page {
+        gap: 20px;
+    }
+
+    .uacf7-addons-settings-page .uacf7-sidebar-title {
+        margin-bottom: 30px;
+        font-size: 1.7em;
+        font-weight: 700;
+        line-height: 32px;
+    }
+
+}
+
+
+@media screen and (max-width: 1080px) {
+
+    /* Your styles for screens up to 1069px wide */
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
+        padding: 40px 12px;
+    }
+
+    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button {
+        padding: 16px 20px;
+    }
+    .uacf7-addons-settings-page .uacf7-addon-setting-content .uacf7-single-addon-setting {
+        padding: 16px;
+    }
+    .uacf7-addons-settings-page .uacf7-addon-setting-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .plugin-item {
+        padding: 16px;
+    }
+}
+
 /* Media query for responsive */
 @media screen and (max-width: 991px) {
 
@@ -1346,63 +1469,42 @@ form.tag-generator-panel[data-version="2"] .control-box{
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 882px) {
+    .uacf7-single-addon-title {
+        font-size: 16px;
+        margin: 8px 0;
+    }
+    .uacf7-addons-settings-page .uacf7-sidebar-title ,
+    .uacf7-addons-settings-page .uacf7-setting-title {
+        margin-bottom: 30px;
+        font-size: 1.5em !important;
+        font-weight: 700;
+        line-height: 28px;
+    }
+    .uacf7-sidebar-content {
+        padding: 10px 14px;
+    }
 
-    /* Your styles for screens up to 1200px wide */
-    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
-        padding: 40px 12px;
+    .quick-access {
+        padding: 14px;
     }
 }
 
-@media screen and (max-width: 1069px) {
-
-    /* Your styles for screens up to 1069px wide */
-    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url {
-        padding: 40px 12px;
-    }
-
-    .uacf7_new_updated_anno .uacf7_new_updated_anno_banner_url .uacf7_new_updated_anno_button {
-        padding: 16px 20px;
-    }
-}
-
-@media screen and (max-width: 1530px) {
-    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta {
-        gap: 12px;
-    }
-}
-
-@media screen and (max-width: 1650px) {
-
+@media screen and (max-width: 760px) { 
     .uacf7-addons-settings-page {
         grid-template-columns: 3fr 2fr;
     }
     .uacf7-addons-settings-page .uacf7-addon-setting-content {
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 645px) { 
     .uacf7-addons-settings-page {
-        grid-template-columns: 4fr 2fr;
-    }
-    .uacf7-sidebar-content ul {
         grid-template-columns: 1fr;
     }
-    .uacf7-addons-settings-page .uacf7-setting-title {
-        margin-bottom: 30px;
-        font-size: 1.7em;
-    }
-    .uacf7-addons-settings-page .uacf7-settings-heading {
-        gap: 20px;
-    }
-    .uacf7-addons-settings-page .uacf7-settings-heading .uacf7-settings-heading-wrap .uacf7-addon-filter-cta .uacf7-addon-filter-button {
-        padding: 8px 10px;
-        font-size: 14px;
-    }
-    .uacf7-addons-settings-page .uacf7-addon-setting-content {
-        gap: 24px;
-    }
 }
+
+
 

@@ -382,14 +382,14 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			<div class="uacf7-sidebar">
 				<div class="uacf7-sidebar-wrap">
 					<div class="uacf7-sidebar-header">
-						<h1 class="uacf7-sidebar-title"><?php echo _e( 'Extend Your Website', 'ultimate-addons-cf7' ) ?></h1>
+						<h1 class="uacf7-sidebar-title"><?php echo _e( 'Power Up Your Website', 'ultimate-addons-cf7' ) ?></h1>
 					</div>
 					<div class="uacf7-sidebar-content">
 						
 						<?php echo $this->tf_get_sidebar_plugin_list(); ?>
 
 						<div class="quick-access">
-							<h3>Quick Access</h3>
+							<h3><?php echo __('Helpful Resources', 'ultimate-addons-cf7');  ?></h3>
 							<div class="quick-access-wrapper">
 								<div class="access-item">
 									<a href="https://themefic.com/docs/uacf7/" target="_blank">
