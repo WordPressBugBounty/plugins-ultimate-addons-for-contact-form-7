@@ -180,6 +180,17 @@ UACF7_Settings::option(
 								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-booking-form/',
 								'is_pro' => true,
 							),
+							'uacf7_enable_drag_and_drop_file_upload' => array(
+								'id' => 'uacf7_enable_drag_and_drop_file_upload',
+								'type' => 'switch',
+								'label' => __( 'Drag & Drop Multiple File Uploads', 'ultimate-addons-cf7' ),
+								'image_url' => UACF7_URL . 'assets/admin/images/addons/drag-and-drop.png',
+								'default' => false,
+								'subtitle' => __( 'The Drag & Drop File Upload addon brings a smooth and modern way for users to upload multiple files directly through your Contact Form 7 form.', 'ultimate-addons-cf7' ),
+								'demo_link' => 'https://cf7addons.com/preview/drag-and-drop-multiple-file-upload/',
+								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/drag-and-drop-file/',
+								'is_pro' => true,
+							),
 							'uacf7_enable_post_submission' => array(
 								'id' => 'uacf7_enable_post_submission',
 								'type' => 'switch',

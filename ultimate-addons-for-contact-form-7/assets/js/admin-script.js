@@ -226,7 +226,7 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 data: {
                     action: 'uacf7_install_hydra_booking',
-                    security: uacf7_admin_nonce
+                    security: uacf7_admin_data.uacf7_nonce
                 },
                 success: function (response) {
                     if (response.success) {
@@ -280,7 +280,7 @@ jQuery(document).ready(function($) {
             type: 'POST',
             data: {
                 action: 'themefic_manage_plugin',
-                security: themefic_plugin_nonce,
+                security: uacf7_admin_data.themefic_nonce,
                 plugin_slug: pluginSlug,
                 plugin_filename: pluginFileName,
                 plugin_action: action

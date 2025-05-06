@@ -1637,11 +1637,11 @@ function uacf7_preserve_line_breaks($contact_form) {
 	
 	if($is_html){
 		if (!empty($properties['mail']['body'])) {
-			$properties['mail']['body'] = nl2br($properties['mail']['body']);
+			$properties['mail']['body'] = wpautop($properties['mail']['body']);
 		}
 	
 		if (!empty($properties['mail_2']['body'])) {
-			$properties['mail_2']['body'] = nl2br($properties['mail_2']['body']);
+			$properties['mail_2']['body'] = wpautop($properties['mail_2']['body']);
 		}
 	}
 

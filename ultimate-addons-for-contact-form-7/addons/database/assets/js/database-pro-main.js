@@ -206,8 +206,43 @@
                     // 'createState', 'savedStates',
                     buttons: [
                         {
-                            extend: 'csv',
-                            text: `${icons.csv} CSV`
+                            text: `${icons.csv} CSV`,
+                            action: function (e, dt, node, config) {
+                                const form_id = window.location.search.split('form_id=')[1];
+                                const ajax_nonce = uACF7DP_Pram.nonce;
+                        
+                                $.ajax({
+                                    url: uACF7DP_Pram.ajaxurl,
+                                    method: 'POST',
+                                    data: {
+                                        action: 'uacf7_ajax_database_export_csv',
+                                        form_id: form_id,
+                                        ajax_nonce: ajax_nonce
+                                    },
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        if (response.status) {
+                                            const csvContent = response.csv;
+                                            const fileName = response.file_name + '.csv';
+                                    
+                                            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                                            const link = document.createElement('a');
+                                            const url = window.URL.createObjectURL(blob);
+                                            link.href = url;
+                                            link.download = fileName;
+                                            document.body.appendChild(link);
+                                            link.click();
+                                            document.body.removeChild(link);
+                                            window.URL.revokeObjectURL(url);
+                                        } else {
+                                            alert(response.message || 'Export failed.');
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        alert('Failed to export CSV: ' + error);
+                                    }
+                                });
+                            }
                         },
                         {
                             extend: 'pdf',

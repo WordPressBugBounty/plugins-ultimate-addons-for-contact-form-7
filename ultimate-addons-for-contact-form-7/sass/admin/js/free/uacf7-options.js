@@ -58,7 +58,6 @@
                     if ($this.is(':visible')) {
 
                         var code_editor = CodeMirror.fromTextArea($textarea[0], data_editor);
-                        console.log(code_editor);
                         // load code-mirror theme css.
                         if (data_editor.theme !== 'default' && TF.vars.code_themes.indexOf(data_editor.theme) === -1) {
 

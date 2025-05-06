@@ -998,16 +998,34 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 								}
 								if ( isset( $_FILES ) && ! empty( $_FILES['file'] ) ) {
 									$tf_upload_dir = wp_upload_dir();
+								
 									if ( ! empty( $tf_upload_dir['basedir'] ) ) {
 										$tf_itinerary_fonts = $tf_upload_dir['basedir'] . '/itinerary-fonts';
+								
 										if ( ! file_exists( $tf_itinerary_fonts ) ) {
 											wp_mkdir_p( $tf_itinerary_fonts );
 										}
-										$tf_fonts_extantions = array( 'application/octet-stream' );
+								
+										// Define allowed font extensions and MIME types
+										$allowed_extensions = array( 'ttf', 'otf', 'woff', 'woff2' );
+										$allowed_mime_types = array(
+											'ttf'   => 'font/ttf',
+											'otf'   => 'font/otf',
+											'woff'  => 'font/woff',
+											'woff2' => 'font/woff2'
+										);
+								
 										for ( $i = 0; $i < count( $_FILES['file']['name'] ); $i++ ) {
-											if ( in_array( $_FILES['file']['type'][ $i ], $tf_fonts_extantions ) ) {
-												$tf_font_filename = $_FILES['file']['name'][ $i ];
-												move_uploaded_file( $_FILES['file']['tmp_name'][ $i ], $tf_itinerary_fonts . '/' . $tf_font_filename );
+											$original_name = $_FILES['file']['name'][ $i ];
+											$tmp_name      = $_FILES['file']['tmp_name'][ $i ];
+											$type          = $_FILES['file']['type'][ $i ];
+								
+											$sanitized_name = sanitize_file_name( $original_name );
+											$extension      = strtolower( pathinfo( $sanitized_name, PATHINFO_EXTENSION ) );
+								
+											// Validate file extension and MIME type
+											if ( in_array( $extension, $allowed_extensions, true ) && $type === $allowed_mime_types[ $extension ] ) {
+												move_uploaded_file( $tmp_name, $tf_itinerary_fonts . '/' . $sanitized_name );
 											}
 										}
 									}
