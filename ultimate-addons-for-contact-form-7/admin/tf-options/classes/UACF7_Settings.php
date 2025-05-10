@@ -251,7 +251,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				<div class="uacf7-addons-settings-page">
 					<div class="uacf7-addons-settings-page-wrapper">
 						<h1 class="uacf7-setting-title">
-							<?php echo _e( 'Ultimate Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7' ) ?>
+							<?php echo _e( 'Ultra Addons for Contact Form 7 (UACF7) Settings', 'ultimate-addons-cf7' ) ?>
 						</h1>
 						<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
 							<div class="uacf7-settings-heading">
@@ -381,9 +381,6 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 
 			<div class="uacf7-sidebar">
 				<div class="uacf7-sidebar-wrap">
-					<div class="uacf7-sidebar-header">
-						<h1 class="uacf7-sidebar-title"><?php echo _e( 'Power Up Your Website', 'ultimate-addons-cf7' ) ?></h1>
-					</div>
 					<div class="uacf7-sidebar-content">
 						
 						<?php echo $this->tf_get_sidebar_plugin_list(); ?>
@@ -651,7 +648,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 					<div class="tf-help-center-banner">
 						<div class="tf-help-center-content">
 							<h2><?php _e( "Setup Wizard", "ultimate-addons-cf7" ); ?></h2>
-							<p><?php _e( "Click the button below to run the setup wizard of Ultimate Addons for Contact Form 7. Your existing settings will not change.", "ultimate-addons-cf7" ); ?>
+							<p><?php _e( "Click the button below to run the setup wizard of Ultra Addons for Contact Form 7. Your existing settings will not change.", "ultimate-addons-cf7" ); ?>
 							</p>
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=tf-setup-wizard' ) ) ?>"
 								class="tf-admin-btn tf-btn-secondary"><?php _e( "Setup Wizard", "ultimate-addons-cf7" ); ?></a>

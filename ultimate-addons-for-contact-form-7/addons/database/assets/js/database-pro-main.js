@@ -60,7 +60,7 @@
 
         if ($('#uacf7dp-database-tablePro').is(':empty')) {
             $('#uacf7dp_addons_header').find('.uacf7dp_header-form').addClass('table_hasno_data');
-            $('#uacf7dp_addons_header').find('.uacf7dp_main-heading').html('Ultimate Database Addon');
+            $('#uacf7dp_addons_header').find('.uacf7dp_main-heading').html('Ultra Database Addon');
         }
 
         var tableInitialized = true;
@@ -98,7 +98,7 @@
                 entrydiv_Wrap.find('p > span').text('No data was found.');
 
                 $('#uacf7dp_addons_header').find('.uacf7dp_header-form').addClass('table_hasno_data');
-                $('#uacf7dp_addons_header').find('.uacf7dp_main-heading').html('Ultimate Database Addon');
+                $('#uacf7dp_addons_header').find('.uacf7dp_main-heading').html('Ultra Database Addon');
 
             } else {
 

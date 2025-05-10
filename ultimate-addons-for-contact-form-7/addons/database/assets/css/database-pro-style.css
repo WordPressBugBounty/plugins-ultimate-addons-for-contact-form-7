@@ -360,7 +360,7 @@
     transform: rotate(360deg);
   }
 }
-body.ultimate-addons_page_ultimate-addons-db #wpcontent {
+body.cf7-addons_page_ultimate-addons-db #wpcontent {
   padding-left: 0;
 }
 
@@ -412,7 +412,7 @@ body.ultimate-addons_page_ultimate-addons-db #wpcontent {
   }
 }
 
-body.ultimate-addons_page_ultimate-addons-db {
+body.cf7-addons_page_ultimate-addons-db {
   background: #f0eef6;
 }
 

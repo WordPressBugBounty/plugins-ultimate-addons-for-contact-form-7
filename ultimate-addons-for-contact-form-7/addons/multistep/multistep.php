@@ -488,7 +488,7 @@ class UACF7_MULTISTEP {
 
 		<fieldset>
 			<div class="uacf7-doc-notice uacf7-guide">
-				<?php echo esc_html( __( 'To activate the form, enable it from the "Multi-step Form" tab located under the Ultimate Addons for CF7 Options. This tab also contains additional settings.', 'ultimate-addons-cf7' ) ); ?>
+				<?php echo esc_html( __( 'To activate the form, enable it from the "Multi-step Form" tab located under the Addons for CF7 Options. This tab also contains additional settings.', 'ultimate-addons-cf7' ) ); ?>
 			</div>
 		</fieldset>
 			

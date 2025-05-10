@@ -223,8 +223,8 @@ class UACF7_DATABASE {
 	public function wp_enqueue_admin_script_pro( $screen ) {
 
 		$tf_options_screens = array(
-			'ultimate-addons_page_ultimate-addons-db',
-			'ultimate-addons_page_uacf7_addons',
+			'cf7-addons_page_ultimate-addons-db',
+			'cf7-addons_page_uacf7_addons',
 		);
 
 
@@ -569,8 +569,15 @@ class UACF7_DATABASE {
 					';
 			} else {
 				if ( strstr( $value, $replace_dir ) ) {
-					$value = str_replace( $replace_dir, "", $value );
-					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td><a href="' . esc_url( $dir . $replace_dir . $value ) . '" target="_blank">' . esc_html( $value ) . '</a></td> </tr>';
+					$items = array_map( 'trim', explode( ',', $value ) );
+
+					$link_html = '';
+					foreach ( $items as $item ) {
+						$filename = basename( $item );
+						$link_html .= '<a href="' . esc_url( $item ) . '" target="_blank">' . esc_html( $filename ) . '</a><br>';
+					}
+				
+					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . $link_html . '</td> </tr>';
 				} else {
 					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . esc_html( $value ) . '</td> </tr>';
 				}

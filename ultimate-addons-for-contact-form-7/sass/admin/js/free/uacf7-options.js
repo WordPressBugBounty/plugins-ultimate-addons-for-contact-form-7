@@ -11,7 +11,7 @@
                 $('#contact-form-editor').append($this_clone);
                 $('#contact-form-editor').find('.uacf7-metabox').css('display', 'block');
                 $(this).remove();
-                $('#form-panel').append('<button class="tf-admin-btn tf-btn-secondary uacf7-settings-addon-btn">Ultimate Addons Settings</button>');
+                $('#form-panel').append('<button class="tf-admin-btn tf-btn-secondary uacf7-settings-addon-btn">Addons Settings</button>');
             });
             // scroll to uacf7-metabox gap 50px
 

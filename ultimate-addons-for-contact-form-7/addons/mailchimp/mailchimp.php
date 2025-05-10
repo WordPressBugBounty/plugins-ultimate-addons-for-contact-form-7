@@ -434,7 +434,7 @@ class UACF7_MAILCHIMP {
 				$status .= '<span class="status-details status-error">' . esc_html( $response->detail, 'ultimate-addons-cf7' ) . '</span>';
 			}
 		} else {
-			$status .= '<span class="status-details status-error">' . esc_html( 'Please configure your Mailchimp API Key from', 'ultimate-addons-cf7' ) . ' <strong>' . esc_html( 'Ultimate Addons -> Settings -> Mailchimp API', 'ultimate-addons-cf7' ) . ' </strong>' . '</span>';
+			$status .= '<span class="status-details status-error">' . esc_html( 'Please configure your Mailchimp API Key from', 'ultimate-addons-cf7' ) . ' <strong>' . esc_html( 'Addons -> Settings -> Mailchimp API', 'ultimate-addons-cf7' ) . ' </strong>' . '</span>';
 		}
 
 		return $status;
