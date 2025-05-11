@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.14
+Stable tag: 3.5.15
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-40+ Essential Ultra Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more.
+45+ Essential Ultra Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Templates, Columns, WooCommerce, Mailchimp & more
 
 == Description ==
 
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
-Equipped with over 40 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
+Equipped with over 45 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
 
 = FREE ADDONS =
 
@@ -124,7 +124,7 @@ This feature introduces a [Contact Form 7 digital signature](https://cf7addons.c
 
 = Contact Form 7 Dynamic Text Extension  =
 
-Our [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) Addon helps you to Get dynamic value from current URL, blog info, current post info, current user info, and custom fields and add it automatically on Contact Form 7 Text Field. This can also be used in hidden field values. Some examples might include: Dynamically populate Contact Form 7 input fields with current user info when logged in to the WordPress website, Auto-filling a URL, Auto-filling a Post ID, title, or slug, Pre-populating a Product Number, post info, user info, custom fields and Any value you can write a shortcode for. 
+Our [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) Addon lets you auto-populate fields with values from the URL, blog, post, user info, or custom fields. Works with both text and hidden fields. Examples include: auto-fill user info for logged-in users, post ID, title, slug, product number, and any custom value using shortcodes. 
 
 = Contact Form 7 Hidden Field  =
 
@@ -132,7 +132,7 @@ The above Dynamic Text Addon can also be used to generate hidden field values.
 
 = Form Styler | Contact form 7 Style =
 
-Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) offers extensive customization options for Contact Form 7 label color, label Background, font style, font size, font weight, font family, padding, margin; Contact Form 7 Input Color, Input Background Color, Font Style, Font Weight, Font Size, Font Family, Height, Padding, Margin; Contact form 7 button style, Contact form 7 button color, button background color, font size, font weight, width, border styles, padding, margin, Contact form 7 font size, contactform css etc.
+Our [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/) lets you fully customize your forms — control label colors, backgrounds, fonts (style, size, weight, family), input field colors and dimensions, and button styles including color, background, border, padding, and margin. Style every aspect of Contact Form 7 with custom CSS and advanced design options.
 
 = Contact form 7 CSS Templates =
 
@@ -397,8 +397,8 @@ Automate the addition of form submissions to your Mailchimp lists for efficient 
 = How to integrate Contact Form 7 to Telegram =
 Instantly forward form submissions to your Telegram channel for quick access. How-to video [here](https://www.youtube.com/watch?v=noYzo4bZakk) and the live preview [here](https://cf7addons.com/preview/contact-form-7-telegram/).
 
-= Do you offer Contact form 7 builder addon? =
-Unfortunately No. We dont have any contact form 7 form builder addon.
+= Do you offer Contact Form 7 builder addon? =
+Unfortunately No. We don't have any Contact Form 7 form builder addon.
 
 = Where can I get contact form 7 free templates? =
 Just install our plugin, and you'll get access to a variety of free templates!
@@ -460,6 +460,11 @@ Just install our plugin, and you'll get access to a variety of free templates!
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.5.15 - 11/05/2025 =
+
+- Notice: Rebranded dashboard notice updated.
+- Updated: Plugin information in readme.txt file.
 
 = 3.5.14 - 10/05/2025 =
 
