@@ -382,7 +382,7 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			<div class="uacf7-sidebar">
 				<div class="uacf7-sidebar-wrap">
 					<!-- promo banner  -->
-					 <?php echo apply_filters('uacf7_dashboard_fomo_banner', ''); ?>
+					 <?php echo apply_filters('uacf7_dashboard_helper_banner', ''); ?>
 					 
 					<div class="uacf7-sidebar-content">
 

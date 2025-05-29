@@ -18,9 +18,9 @@ if ( file_exists( UACF7_PATH . 'inc/class-promo-notice.php' ) ) {
 }
 
 //Require ultimate Promo Notice
-if ( file_exists( UACF7_PATH . 'inc/class-fomo-banner.php' ) ) {
+if ( file_exists( UACF7_PATH . 'inc/class-helper-banner.php' ) ) {
 
-    require_once ( UACF7_PATH .'inc/class-fomo-banner.php');
+    require_once ( UACF7_PATH .'inc/class-helper-banner.php');
 }
 
 if ( file_exists( UACF7_PATH . 'admin/admin-menu.php' ) ) {
