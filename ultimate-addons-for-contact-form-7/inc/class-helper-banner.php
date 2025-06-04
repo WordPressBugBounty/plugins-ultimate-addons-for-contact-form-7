@@ -5,72 +5,20 @@ if(!defined('ABSPATH')){
 
 class Uacf7_Helper_Banner {
 
-    private $api_url = 'https://api.themefic.com/fomo';
-    private $response_data  = false;
-    private $error_message  = '';
-
     public function __construct(){
 
-        
         if(!class_exists('Ultimate_Addons_CF7_PRO')){
 
             add_filter('uacf7_dashboard_helper_banner', [$this, 'render_helper_banner'], 10, 2);
             add_action('admin_footer', [ $this, 'uacf7_admin_helper_footer_script']);
-            $this->uacf7_get_api_response();
 
         }
-    }
-
-    public function uacf7_get_api_response(){
-        if ($this->response_data !== false) {
-            return $this->response_data;
-        }
-
-        $query_params = array(
-            'plugin' => 'uacf7', 
-        );
-
-        $response = wp_remote_post($this->api_url, array(
-            'body'    => json_encode($query_params),
-            'headers' => array('Content-Type' => 'application/json'),
-        ));
-
-        if (is_wp_error($response)) {
-            // Handle API request error
-            $this->response_data = false;
-            $this->error_message = esc_html($response->get_error_message());
- 
-        } else {
-            $data = wp_remote_retrieve_body($response);
-            $decoded = json_decode($data, true);
-            $this->response_data = $decoded['campaign'] ?? false;
-        }
-
-        return $this->response_data;
     }
 
     public function render_helper_banner() {
-        $response = $this->response_data;
 
-        // if (!$response || $response['status'] !== true) {
-        //     $this->clear_fomo_data($response['campaign_id']);
-        //     return;
-        // }
-        
-        if (!is_array($response) || $response['status'] !== true) {
-            $campaign_id = is_array($response) && isset($response['campaign_id']) ? $response['campaign_id'] : null;
-            if ($campaign_id) {
-                $this->clear_helper_banner_data($campaign_id);
-            }
-            return;
-        }
-
-        if (!in_array('dashboard', $response['show_on_pages'])) {
-            return;
-        }
-
+        $campaign_id = 'banner60'; // change campaign id to start a new campaign
         $user_id = get_current_user_id();
-        $campaign_id = sanitize_key($response['campaign_id']);
         $user_first_visit_meta_key = 'uacf7_fomo_first_visit_time_' . $campaign_id;
 
         // Check if we're on the right page to initiate the countdown
@@ -84,20 +32,28 @@ class Uacf7_Helper_Banner {
 
         // If countdown has never started, exit early
         $countdown_start = get_user_meta($user_id, $user_first_visit_meta_key, true);
+
         if (!$countdown_start) {
             return;
         }
-        
-        $duration = (int) ($response['countdown']['duration_minutes'] ?? 0);
-        $end_time = $countdown_start + ($duration * 60);
-        $remaining = max(0, $end_time - time());
 
-        $should_show = true;
+        $description         = 'Buy within next 2 hours to avail this discount. Hurry, clock is ticking...';
+        $button_url          = 'https://cf7addons.com/discount-deal/';
+        $button_text         = 'Grab this deal now';
+        $discount_percentage = 60;
+
+        $campaign_restart    = false; // set to false to disable
+        $interval_time       = (float) 168; // interval in hours (support float values, e.g. 0.01 = 36 seconds)
+        $duration            = 109; // duration in minutes
+        $end_time            = $countdown_start + ($duration * 60);
+        $remaining           = max(0, $end_time - time());
+
+        $should_show = true; // set to false to disable
 
         // Handle restart logic
         if ($remaining === 0) {
-            $restart = $response['countdown']['restart'] ?? null;
-            $interval_hours = (float) ($response['countdown']['interval_hours'] ?? 0);
+            $restart = $campaign_restart; 
+            $interval_hours = $interval_time;  
 
             if ($restart === true && $interval_hours > 0) {
                 $next_start_time = $end_time + ($interval_hours * 3600);
@@ -119,7 +75,7 @@ class Uacf7_Helper_Banner {
             return;
         }
 
-        $countdown_html = '<div class="uacf7-fomo-countdown" data-end-time="' . esc_attr($end_time) . '"></div>';
+        $countdown_html = '<div class="uacf7-promo-countdown" data-end-time="' . esc_attr($end_time) . '"></div>';
 
         ob_start();
         ?>
@@ -131,20 +87,20 @@ class Uacf7_Helper_Banner {
                         <path d="M9 5.44473V17M9 5.44473C8.67847 4.11978 8.12484 2.98706 7.41132 2.19428C6.6978 1.4015 5.8575 0.985449 5 1.00039C4.41063 1.00039 3.8454 1.23451 3.42865 1.65125C3.0119 2.06798 2.77778 2.6332 2.77778 3.22256C2.77778 3.81191 3.0119 4.37713 3.42865 4.79387C3.8454 5.2106 4.41063 5.44473 5 5.44473M9 5.44473C9.32153 4.11978 9.87516 2.98706 10.5887 2.19428C11.3022 1.4015 12.1425 0.985449 13 1.00039C13.5894 1.00039 14.1546 1.23451 14.5713 1.65125C14.9881 2.06798 15.2222 2.6332 15.2222 3.22256C15.2222 3.81191 14.9881 4.37713 14.5713 4.79387C14.1546 5.2106 13.5894 5.44473 13 5.44473M15.2222 9.00019V15.2223C15.2222 15.6937 15.0349 16.1459 14.7015 16.4793C14.3681 16.8127 13.9159 17 13.4444 17H4.55556C4.08406 17 3.63187 16.8127 3.29848 16.4793C2.96508 16.1459 2.77778 15.6937 2.77778 15.2223V9.00019M1.88889 5.44473H16.1111C16.602 5.44473 17 5.84268 17 6.33359V8.11133C17 8.60224 16.602 9.00019 16.1111 9.00019H1.88889C1.39797 9.00019 1 8.60224 1 8.11133V6.33359C1 5.84268 1.39797 5.44473 1.88889 5.44473Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <span class="promo-discount-percent"><?php echo esc_html($response['discount_percentage']); ?>%</span>
+                <span class="promo-discount-percent"><?php echo esc_html($discount_percentage); ?>%</span>
                 <span class="promo-discount-text"><?php echo __('Discount', 'ultimate-addons-cf7'); ?></span>
             </div>
             <div class="promo-description">
-                <p><?php echo esc_html($response['description']); ?></p>
+                <p><?php echo esc_html($description); ?></p>
                 <div class="dicount-timer">
                     <div class="countdown">
                         <?php echo $countdown_html; ?>
                     </div>
-                    <a class="discount-btn" href="<?php echo esc_url($response['button']['url']) . '?fomo=' . urlencode($end_time); ?>" target="_blank" class="tf-btn tf-btn-primary">
+                    <a class="discount-btn" href="<?php echo esc_url($button_url) . '?ending=' . urlencode($end_time); ?>" target="_blank" class="tf-btn tf-btn-primary">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.00006 20.9989H19.0001M11.5621 3.26487C11.6052 3.18648 11.6686 3.12111 11.7457 3.07558C11.8227 3.03005 11.9106 3.00603 12.0001 3.00603C12.0895 3.00603 12.1774 3.03005 12.2544 3.07558C12.3315 3.12111 12.3949 3.18648 12.4381 3.26487L15.3901 8.86887C15.4605 8.99863 15.5587 9.1112 15.6778 9.19849C15.7968 9.28578 15.9337 9.34562 16.0787 9.37373C16.2236 9.40184 16.3729 9.39751 16.516 9.36105C16.659 9.32459 16.7923 9.25691 16.9061 9.16287L21.1831 5.49887C21.2652 5.43209 21.3663 5.39309 21.472 5.38747C21.5777 5.38186 21.6824 5.40992 21.7712 5.46762C21.8599 5.52532 21.928 5.60968 21.9657 5.70856C22.0034 5.80744 22.0088 5.91574 21.9811 6.01787L19.1471 16.2639C19.0892 16.4735 18.9646 16.6586 18.7921 16.7911C18.6195 16.9235 18.4086 16.9961 18.1911 16.9979H5.81006C5.59239 16.9964 5.38117 16.9239 5.20845 16.7914C5.03573 16.6589 4.91095 16.4737 4.85306 16.2639L2.02006 6.01887C1.99231 5.91674 1.99768 5.80844 2.0354 5.70956C2.07312 5.61068 2.14124 5.52632 2.22996 5.46862C2.31868 5.41092 2.42342 5.38286 2.5291 5.38847C2.63478 5.39409 2.73595 5.43309 2.81806 5.49987L7.09406 9.16387C7.20786 9.25791 7.34107 9.32559 7.48412 9.36205C7.62718 9.39851 7.77653 9.40284 7.92146 9.37473C8.06639 9.34663 8.20329 9.28678 8.32235 9.19949C8.44141 9.1122 8.53966 8.99963 8.61006 8.86987L11.5621 3.26487Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <?php echo esc_html($response['button']['text']); ?>
+                        <?php echo esc_html($button_text); ?>
                     </a>
                 </div>
             </div>
@@ -166,7 +122,7 @@ class Uacf7_Helper_Banner {
         ?>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                const countdown = document.querySelector('.uacf7-fomo-countdown');
+                const countdown = document.querySelector('.uacf7-promo-countdown');
                 if (!countdown) return;
 
                 const endTime = parseInt(countdown.getAttribute('data-end-time')) * 1000;

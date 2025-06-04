@@ -850,7 +850,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 	/* max-height: 100vh; */
 	/* overflow-y: auto; */
 }
-.plugin-item { 
+.uacf7-plugin-item { 
     border-bottom: 1px solid #eee;
     background-color: #fff;
     padding: 24px;
@@ -859,61 +859,61 @@ form.tag-generator-panel[data-version="2"] .control-box{
     margin-bottom: 0;
     position: relative;
 }
-.plugin-item:hover { 
+.uacf7-plugin-item:hover { 
     box-shadow: 0px 4px 30px 0px rgba(6,4,12,.0784313725); 
 }
-.plugin-btn{
+.uacf7-plugin-btn{
     font-weight: 600;
 }
-.plugin-item h4 {
+.uacf7-plugin-item h4 {
     font-size: 16px;
     margin: 5px 0;
     font-weight: 600;
     color: #1d2327;
 }
 
-.plugin-item p {
+.uacf7-plugin-item p {
     font-size: 13px;
     color: #4f4e52;
     margin: 0;
 }
-.plugin-info-wrapper{
+.uacf7-plugin-info-wrapper{
     display: flex; 
     gap: 10px; 
     flex-direction: column;
     position: relative;
 }
-.plugin-info-wrapper img {
+.uacf7-plugin-info-wrapper img {
 	width: 32px;
 	height: 32px;
 	border: 1px solid #bebcfd;
 	border-radius: 50%;
 }
-.plugin-info-wrapper img.beaf-logo{
+.uacf7-plugin-info-wrapper img.beaf-logo{
     border-radius: 0;
 }
-.plugin-info {
+.uacf7-plugin-info {
 	display: flex;
 	gap: 10px;
 	justify-content: space-between;
 	align-items: flex-start;
 }
-.plugin-button { 
+.uacf7-plugin-button { 
     padding: 5px; 
     border-radius: 4px; 
     font-size: 14px; 
     text-decoration: none;
     position: relative;
 }
-.plugin-button.install { 
+.uacf7-plugin-button.install { 
     /* background: #007cba;  */
     color: #382673; 
 }
-.plugin-button.activate { 
+.uacf7-plugin-button.activate { 
     /* background: #382673;  */
     color: #382673; 
 }
-.plugin-button.pro, .plugin-button.activate-pro { 
+.uacf7-plugin-button.pro, .uacf7-plugin-button.activate-pro { 
     /* background: #ff9800; */
     color: #ff9800; 
 }
@@ -927,7 +927,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
     color: #ff5722; 
     opacity: 0.8; 
 }
-.plugin-button.activate-pro{
+.uacf7-plugin-button.activate-pro{
     color: #ff5722;
 }
 .uacf7-sidebar-content {
@@ -951,7 +951,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 
 /* Loader */
 
-.plugin-button:not(.active):not(.active-pro) {
+.uacf7-plugin-button:not(.active):not(.active-pro) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -964,7 +964,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
     flex-direction: column;
 }
 
-.plugin-button.loading {
+.uacf7-plugin-button.loading {
     background: #ccc;
     cursor: not-allowed;
 }
@@ -980,11 +980,11 @@ form.tag-generator-panel[data-version="2"] .control-box{
     margin-left: 8px;
 }
 
-.plugin-button.loading .loader {
+.uacf7-plugin-button.loading .loader {
     display: inline-block;
 }
 
-.customization-quote{
+.uacf7-sidebar-customization-quote{
     background: #fff;
     padding: 20px;
     border-radius: 6px;
@@ -992,20 +992,20 @@ form.tag-generator-panel[data-version="2"] .control-box{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.customization-quote .quote-header{
+.uacf7-sidebar-customization-quote .uacf7-quote-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.customization-quote .quote-header a{
+.uacf7-sidebar-customization-quote .uacf7-quote-header a{
     color: #382673;
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
 }
 
-.customization-quote .quote-header i {
+.uacf7-sidebar-customization-quote .uacf7-quote-header i {
 	color: #fff;
 	background-color: #ff0000;
 	padding: 5px;
@@ -1016,15 +1016,15 @@ form.tag-generator-panel[data-version="2"] .control-box{
 	justify-content: center;
 	align-items: center;
 }
-.customization-quote h3 {
+.uacf7-sidebar-customization-quote h3 {
     margin-bottom: 5px;
     font-size: 16px;
 }
-.customization-quote p {
+.uacf7-sidebar-customization-quote p {
     margin-top: 0;
 }
 
-.quick-access {
+.uacf7-quick-access {
     background: #fff;
     border-radius: 12px;
     padding: 20px;
@@ -1033,7 +1033,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
     margin-bottom: 10px;
 }
 
-.quick-access-wrapper{
+.uacf7-quick-access-wrapper{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -1043,25 +1043,25 @@ form.tag-generator-panel[data-version="2"] .control-box{
     padding: 5px;
 }
 
-.quick-access h3 {
+.uacf7-quick-access h3 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 15px;
     margin-top: 0px;
 }
 
-.access-item {
+.uacf7-access-item {
     background: #fff;
     border-radius: 8px;
     transition: all ease-in-out 0.3s;
     width: 100%;
 }
 
-.access-item:hover {
+.uacf7-access-item:hover {
 	box-shadow: 0px 4px 30px 0px rgba(6,4,12,.0784313725);
 }
 
-.access-item a {
+.uacf7-access-item a {
     display: flex;
     align-items: center;
     padding: 12px;
@@ -1071,7 +1071,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
     color: #333;
 }
 
-.access-item .icon {
+.uacf7-access-item .icon {
     font-size: 18px;
     margin-right: 10px;
 }
@@ -1220,7 +1220,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 	display: none;
 }
 
-.plugin-item.featured {
+.uacf7-plugin-item.featured {
     border-radius: 6px;
     border: 4px solid transparent;
     background: linear-gradient(white, white) padding-box, 
@@ -1497,8 +1497,6 @@ form.tag-generator-panel[data-version="2"] .control-box{
     background: #F61A39;
 }
 
-
-
 @media screen and (max-width: 1860px) {
     .uacf7-sidebar-promo .promo-description {
         gap: 8px;
@@ -1514,7 +1512,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 }
 
 @media screen and (max-width: 1700px) {
-    .plugin-item {
+    .uacf7-plugin-item {
         padding: 18px;
     }
 }
@@ -1629,7 +1627,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
         grid-template-columns: 1fr 1fr;
         gap: 16px;
     }
-    .plugin-item {
+    .uacf7-plugin-item {
         padding: 16px;
     }
 }
@@ -1669,7 +1667,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
         padding: 10px 14px;
     }
 
-    .quick-access {
+    .uacf7-quick-access {
         padding: 14px;
     }
 
