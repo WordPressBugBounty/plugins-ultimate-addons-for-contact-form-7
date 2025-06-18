@@ -41,7 +41,6 @@ class UACF7_DATABASE {
 		add_action( 'wp_ajax_nopriv_uacf7dp_view_table_data', array( $this, 'uacf7dp_view_table_data' ) );
 
 		add_action( 'wp_ajax_uacf7dp_deleted_table_datas', [ $this, 'uacf7dp_deleted_table_datas' ] );
-		add_action( 'wp_ajax_nopriv_uacf7dp_deleted_table_datas', array( $this, 'uacf7dp_deleted_table_datas' ) );
 
 		$option = get_option( 'uacf7_settings' );
 
@@ -298,52 +297,50 @@ class UACF7_DATABASE {
 			$site_title = get_bloginfo( 'name' );
 			$site_title = str_replace( " ", "-", $site_title );
 			$file_name = $today . '-' . $form_title . '—' . $site_title;
-			$form_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM " . $wpdb->prefix . "uacf7_form WHERE form_id = %d ", $form_id ) );
-			
-			$list = [];
-			$all_keys = [];
 
-			// First pass: Collect all unique keys
-			foreach ( $form_data as $fdata ) {
-				$data = json_decode( $fdata->form_value, true );
-				if ( is_array( $data ) ) {
-					foreach ( $data as $key => $value ) {
-						$all_keys[ $key ] = true;
-					}
-				}
-			}
+			$field_rows = $wpdb->get_results( $wpdb->prepare(
+				'SELECT DISTINCT fields_name FROM ' . $wpdb->prefix . 'uacf7dp_data_entry WHERE cf7_form_id = %d',
+				$form_id
+			) );
 
-			$all_keys = array_keys( $all_keys ); // Unique field names
+			$all_keys = wp_list_pluck( $field_rows, 'fields_name' );
 			$all_keys[] = 'Date';
 
-			// Add header row
+			$list = [];
 			$list[] = $all_keys;
 
-			// Second pass: Build rows
-			foreach ( $form_data as $fdata ) {
-				$data = json_decode( $fdata->form_value, true );
+			// Step 2: Get all submission rows sorted by data_id
+			$rows = $wpdb->get_results( $wpdb->prepare(
+				'SELECT * FROM ' . $wpdb->prefix . 'uacf7dp_data_entry 
+				WHERE cf7_form_id = %d 
+				ORDER BY data_id, id ASC',
+				$form_id
+			) );
+
+			// Step 3: Group by data_id
+			$grouped = [];
+			foreach ( $rows as $row ) {
+				$grouped[ $row->data_id ][ $row->fields_name ] = $row->value;
+				$grouped[ $row->data_id ]['Date'] = $row->created_at ?? ''; // Use created_at if available
+			}
+
+			// Step 4: Generate data rows
+			foreach ( $grouped as $entry ) {
 				$row = [];
-	
 				foreach ( $all_keys as $key ) {
-					if ( $key === 'Date' ) {
-						$row[] = $fdata->form_date;
-						continue;
-					}
-	
-					$value = isset( $data[ $key ] ) ? $data[ $key ] : '';
-	
+					$value = isset( $entry[ $key ] ) ? $entry[ $key ] : '';
+
 					if ( is_array( $value ) ) {
-						$value = implode( ", ", $value );
+						$value = implode( ', ', $value );
 					}
-	
+
 					if ( strstr( $value, $replace_dir ) ) {
 						$value = str_replace( $replace_dir, "", $value );
 						$value = $dir . $replace_dir . $value;
 					}
-	
+
 					$row[] = $value;
 				}
-	
 				$list[] = $row;
 			}
 			
@@ -620,13 +617,12 @@ class UACF7_DATABASE {
 		);
 
 		$form_data = $wpdb->get_results( $get_form_data );
-
 		$uacf7dp_sortable = $this->uacf7dp_data_sortable( $form_data );
-
-		$fields = $this->uacf7dp_get_db_fields( $form_id );
-
-		$orgFieldsData = apply_filters( 'uacf7dp_column_default_fields', $uacf7dp_sortable, $fields );
 		
+		$fields = $this->uacf7dp_get_db_fields( $form_id );
+		
+		$orgFieldsData = apply_filters( 'uacf7dp_column_default_fields', $uacf7dp_sortable, $fields );
+
 		wp_send_json_success(
 			array(
 				'fields' => $fields,
@@ -638,7 +634,7 @@ class UACF7_DATABASE {
 
 	public function uacf7dp_data_sortable( $form_data ) {
 		$result = [];
-
+		
 		foreach ( $form_data as $item ) {
 			$dataId = $item->data_id;
 
@@ -656,7 +652,6 @@ class UACF7_DATABASE {
 				'value' => $item->value,
 			];
 		}
-
 		return $result;
 	}
 

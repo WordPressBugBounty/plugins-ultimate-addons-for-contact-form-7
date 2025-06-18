@@ -48,40 +48,34 @@ jQuery(document).ready(function () {
         /*
         * Cheeck current step fields. Expect Checkbox, Radio button and hidden fields
         */
-        var uacf7_current_step_fields = uacf7_current_step.find('.wpcf7-form-control:not(.uacf7-hidden .wpcf7-form-control, span.wpcf7-form-control)').map(function () {
-            if (typeof this.name !== 'undefined') {
-                var nameIndex = this.name.indexOf('[]');
-                if (nameIndex !== -1) {
-                    var fieldName = this.name.replace('[]', '');
-                } else {
-                    var fieldName = this.name;
-                }
-                return fieldName;
-            }
+        var uacf7_current_step_fields = uacf7_current_step.find('input, select, textarea').filter(function () {
+            return this.offsetParent !== null && this.name;
+        }).map(function () {
+            return this.name.replace(/\[\]$/, '');
         }).get();
 
         /*
         * Cheeck current step fields. Only Checkbox and Radio button
         */
-        if (uacf7_current_step.find('.wpcf7-form-control input').length > 0) {
-            uacf7_current_step.find('.wpcf7-form-control input').each(function () {
+        // if (uacf7_current_step.find('.wpcf7-form-control input').length > 0) {
+        //     uacf7_current_step.find('.wpcf7-form-control input').each(function () {
 
-                var Value = jQuery('.wpcf7-form-control input[name="' + this.name + '"]:checked').val();
+        //         var Value = jQuery('.wpcf7-form-control input[name="' + this.name + '"]:checked').val();
 
-                if (jQuery(this).is("input[type='checkbox']")) {
-                    if (typeof Value == 'undefined') {
-                        var checkboxName = this.name.replace('[]', '');
-                        uacf7_current_step_fields.push(checkboxName);
-                    }
+        //         if (jQuery(this).is("input[type='checkbox']")) {
+        //             if (typeof Value == 'undefined') {
+        //                 var checkboxName = this.name.replace('[]', '');
+        //                 uacf7_current_step_fields.push(checkboxName);
+        //             }
 
-                } else {
-                    if (typeof Value == 'undefined') {
-                        var checkboxName = this.name;
-                        uacf7_current_step_fields.push(checkboxName);
-                    }
-                }
-            });
-        }
+        //         } else {
+        //             if (typeof Value == 'undefined') {
+        //                 var checkboxName = this.name;
+        //                 uacf7_current_step_fields.push(checkboxName);
+        //             }
+        //         }
+        //     });
+        // }
 
         function uacf7_onlyUnique(value, index, self) {
             return self.indexOf(value) === index;

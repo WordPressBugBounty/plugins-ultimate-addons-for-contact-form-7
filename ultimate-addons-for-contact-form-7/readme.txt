@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.18
+Stable tag: 3.5.19
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -461,25 +461,20 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.19 - 17/05/2025 =
+
+- Fixed: PDF Generator body background image not displaying correctly.
+- Added: Placeholder text for spam protection field.
+- Fixed: Validation issue in multistep forms where hidden required checkboxes were skipped.
+- Fixed: Spacing issue in Star Rating component.
+- Fixed: Background color issue in Form Styler textarea.
+- Fixed: CSV export mistakenly included deleted files.
+- Improved: Save and continue feature settings added to multistep forms.
+
 = 3.5.18 - 06/04/2025 =
 
 - Fixed: cURL error issue has been resolved.
 - Improved: Overall system stability has been enhanced.
-
-= 3.5.17 - 30/05/2025 =
-
-- Improved: System stability has been enhanced.
-
-= 3.5.16 - 22/05/2025 =
-
-- Tweak: Notice banner close behavior tweaked.
-- Tweak: Sidebar information updated.
-- Improved: System stability has been enhanced.
-
-= 3.5.15 - 11/05/2025 =
-
-- Notice: Rebranded dashboard notice updated.
-- Updated: Plugin information in readme.txt file.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

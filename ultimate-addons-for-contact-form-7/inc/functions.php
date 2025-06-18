@@ -141,9 +141,11 @@ Function: uacf7_print_r
 Return: checked
 */
 if ( ! function_exists( 'uacf7_print_r' ) ) {
-	function uacf7_print_r( $value ) {
+	function uacf7_print_r( ...$args ) {
 		echo '<pre style="padding-left: 180px;">';
-		print_r( $value );
+		foreach ( $args as $arg ) {
+			print_r( $arg );
+		}
 		echo '</pre>';
 		// exit;
 	}
@@ -1968,49 +1970,6 @@ function migrate_redirection_data_to_uacf7() {
 	}
 
 }
-
-
-add_action('admin_notices', 'uacf7_plugin_rename_notice');
-add_action('wp_ajax_uacf7_dismiss_plugin_rename_notice', 'uacf7_dismiss_plugin_rename_notice');
-
-function uacf7_plugin_rename_notice() {
-	if ( get_option('uacf7_dismiss_rename_notice') ) {
-		return;
-	}
-
-	$nonce = wp_create_nonce('uacf7_dismiss_rename_notice');
-
-	echo '
-	<div class="notice notice-info is-dismissible uacf7-plugin-rename-notice">
-		<div class="uacf7_info_wrap">
-			<h3>Important update notice!</h3>
-			<p>We’ve renamed <strong>Ultimate Addons for Contact Form 7</strong> to <strong>Ultra Addons for Contact Form 7</strong> as part of a branding update. You’ll now find all settings under the <strong>CF7 Addons</strong> menu. <a href="https://cf7addons.com/ultra-addons-for-contact-form-7/" target="_blank">Learn More</a></p>
-		</div>
-		<div class="uacf7_compa_wrap">
-			<p>Thank you for your continued support — we\'re excited to keep improving the plugin for you!</p>
-		</div>
-	</div>
-
-	<script type="text/javascript">
-	jQuery(document).ready(function ($) {
-		$(document).on("click", ".uacf7-plugin-rename-notice .notice-dismiss", function () {
-			$.post(ajaxurl, {
-				action: "uacf7_dismiss_plugin_rename_notice",
-				security: "' . esc_js($nonce) . '"
-			});
-		});
-	});
-	</script>';
-}
-
-function uacf7_dismiss_plugin_rename_notice() {
-	check_ajax_referer('uacf7_dismiss_rename_notice', 'security');
-
-	update_option('uacf7_dismiss_rename_notice', 1);
-
-	wp_send_json_success();
-}
-
 
 
 

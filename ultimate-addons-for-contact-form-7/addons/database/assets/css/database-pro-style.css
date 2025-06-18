@@ -523,6 +523,7 @@ div#uacf7dp_table_container_wrap div#uacf7dp_table_container #uacf7dp-database-t
   color: #5d5676;
   margin: 0;
   gap: 10px;
+  cursor: pointer;
 }
 div#uacf7dp_table_container_wrap div#uacf7dp_table_container #uacf7dp-database-tablePro_wrapper .dt-buttons button:hover {
   color: #ffffff;

@@ -958,6 +958,7 @@ class UACF7_MULTISTEP {
 			$tag_type[] = $field[0];
 			$count++;
 		}
+
 		$form = wpcf7_contact_form( $_REQUEST['form_id'] );
 		$all_form_tags = $form->scan_form_tags();
 		$invalid_fields = false;
@@ -1018,6 +1019,7 @@ class UACF7_MULTISTEP {
 			}
 
 		}
+
 		// $result = apply_filters('wpcf7_validate', $result, $tags); 
 		$is_valid = $result->is_valid();
 		if ( ! $is_valid ) {

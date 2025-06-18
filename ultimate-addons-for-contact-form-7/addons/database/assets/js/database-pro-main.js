@@ -4,7 +4,7 @@
         function tablerowDelete(rowData) {
             // Loader 
             $('#loading').css({ display: 'flex' });
-
+            
             $.ajax({
                 url: uACF7DP_Pram.ajaxurl,
                 type: 'POST',
@@ -208,9 +208,11 @@
                         {
                             text: `${icons.csv} CSV`,
                             action: function (e, dt, node, config) {
-                                const form_id = window.location.search.split('form_id=')[1];
+                                
+                                const params = new URLSearchParams(window.location.search);
+                                const form_id = params.get('form_id');
                                 const ajax_nonce = uACF7DP_Pram.nonce;
-                        
+
                                 $.ajax({
                                     url: uACF7DP_Pram.ajaxurl,
                                     method: 'POST',
@@ -317,6 +319,7 @@
                         deleteIcon.on('click', function () {
                             // Ask for confirmation before deleting
                             if (confirm(`Are you sure you want to delete this row?`)) {
+                                console.log(rowData);
                                 // Remove the selected row from the DataTable
                                 tablerowDelete(rowData);
                                 table.row(selectedRowIndex).remove().draw();
