@@ -625,7 +625,7 @@ class UACF7_DATABASE {
 
 		wp_send_json_success(
 			array(
-				'fields' => $fields,
+				'fields' => array_map( 'esc_js', $fields ),
 				'data_sorted' => $orgFieldsData,
 			)
 		);
@@ -662,8 +662,10 @@ class UACF7_DATABASE {
 
 		$fields = array();
 		foreach ( $data as $k => $v ) {
-			$fields[ $v->fields_name ] = $v->fields_name;
+			$sanitized_key = sanitize_text_field( $v->fields_name );
+			$fields[ $sanitized_key ] = $sanitized_key;
 		}
+
 		if ( $fields ) {
 			$fields = apply_filters( 'uacf7dp_adminSide_fields', $fields, $form_id );
 		}
@@ -809,18 +811,22 @@ class UACF7_DATABASE {
 		$data = [ 
 			'status' => 'unread',
 		];
-		$data = array_merge( $data, $contact_form_data );
+
+		$form_field_names = wp_list_pluck( $tags, 'name' ); // whitelist of valid fields
+		$data             = array_merge( [ 'status' => 'unread' ], $contact_form_data );
+
 		$insert_data = [];
 		foreach ( $data as $key => $value ) {
-			if ( ! in_array( $key, $skip_tag_insert ) ) {
-
+			if ( ! in_array( $key, $skip_tag_insert, true ) && in_array( $key, $form_field_names, true ) ) {
+				$safe_key = sanitize_key( $key ); // not strictly needed here but safe
 				if ( is_array( $value ) ) {
-					$insert_data[ $key ] = array_map( 'esc_html', $value );
+					$insert_data[ $safe_key ] = array_map( 'esc_html', $value );
 				} else {
-					$insert_data[ $key ] = esc_html( $value );
+					$insert_data[ $safe_key ] = esc_html( $value );
 				}
 			}
 		}
+
 
 		// Initialize the variable to avoid warnings
 		$extra_fields_data = [];

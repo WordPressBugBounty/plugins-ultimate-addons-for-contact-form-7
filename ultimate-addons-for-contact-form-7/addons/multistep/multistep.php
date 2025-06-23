@@ -940,7 +940,7 @@ class UACF7_MULTISTEP {
 		}
 
 		$current_step_fields = explode( ',', $_REQUEST['current_fields_to_check'] );
-
+		
 		// Validation with Repeater 
 		$validation_fields = explode( ',', $_REQUEST['validation_fields'] );
 		$tag_name = [];
