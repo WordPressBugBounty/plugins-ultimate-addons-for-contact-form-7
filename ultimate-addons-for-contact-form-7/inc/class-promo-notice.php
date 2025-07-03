@@ -262,7 +262,7 @@ class UACF7_PROMO_NOTICE {
                 
             </script>
             <?php 
-            $inline_js = `jQuery(document).ready(function($) {
+            $inline_js = "jQuery(document).ready(function($) {
                     $(document).on('click', '.uacf7_promo_side_notice_dismiss', function( event ) { 
                         jQuery('.uacf7_promo_side_preview').css('display', 'none')
                         data = {
@@ -279,9 +279,9 @@ class UACF7_PROMO_NOTICE {
                             }
                         });
                     });
-                });`;
+                });";
 
-            wp_add_inline_script('uacf7-promo-script', $inline_js);
+            wp_add_inline_script('uacf7-admin-script', $inline_js);
          endif; ?>
         <?php
 	}
