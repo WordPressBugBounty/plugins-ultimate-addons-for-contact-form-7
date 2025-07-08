@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.23
+Stable tag: 3.5.24
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -467,6 +467,10 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.24 - 08/07/2025 =
+
+- Fixed: Issue with bulk selection functionality has been resolved.
+
 = 3.5.23 - 03/07/2025 =
 
 - Introduced: Google Sheets Integration Addon for "Ultra Addons for Contact Form 7".
@@ -478,11 +482,6 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 - Fixed: Resolved a content sanitization issue affecting the sidebar display.
 - Fixed: Addressed and resolved the security vulnerability reported by Wordfence.
-
-= 3.5.21 - 25/06/2025 =
-
-- Introduced: Google reCAPTCHA Integration Addon for "Ultra Addons for Contact Form 7".
-- Improvements: Added Bulk Delete option to the Database addon.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
