@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.26
+Stable tag: 3.5.27
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -227,7 +227,7 @@ With [Global Form Styler](https://cf7addons.com/preview/global-form-styler/), st
 
 = Contact Form 7 to Blog Submission =
 
-Create a [Frontend post submission form](https://cf7addons.com/preview/contact-form-7-to-post-type/) with Contact Form 7. Each submission publishes a new post you can manage from your dashboard and display on your site. Add title, description, category, and featured image by default. Connect any custom field using the Custom Field feature for added flexibility.
+Create a [Frontend post submission form](https://cf7addons.com/preview/contact-form-7-to-post-type/) with Contact Form 7. Each submission publishes a new post you can manage from your dashboard and display on your site. Add title, description, category, and featured image by default. Easily connect any custom fields for added flexibility.
 
 = Contact Form 7 to Custom Post Type =
 
@@ -251,11 +251,11 @@ Our [Contact Form 7 Repeater field](https://cf7addons.com/preview/repeater-field
 
 = Contact Form 7 Star Rating Field Pro =
 
-While the free version offers one Star Field icon, the Pro version enhances your options with [5 Built-In Rating Styles](https://cf7addons.com/preview/star-rating-pro/). If these styles don't meet your needs, the Pro version further allows the addition of any icon from Font Awesome. 
+While the free version offers one Star Field icon, the Pro version enhances your options with [5 Built-In Rating Styles](https://cf7addons.com/preview/star-rating-pro/). If these styles don't meet your needs, the Pro version also allows adding any icon from Font Awesome. 
 
 = Contact form 7 Whatsapp Integration + CF7 Tag Support  =
 
-Tag support for CF7 fields allows data to be passed through the redirect URL. Additionally, you can activate [WhatsApp Contact Form 7 integration](https://cf7addons.com/preview/contact-form-7-whatsapp-integration/). For instance, by using tag support in the format https://yourdomain.com/?name=[your-name], the name field can be forwarded to WhatsApp or any desired destination. 
+Tag support for CF7 fields allows data to pass through the redirect URL. Additionally, you can activate [WhatsApp Contact Form 7 integration](https://cf7addons.com/preview/contact-form-7-whatsapp-integration/). For instance, using tag support in the format https://yourdomain.com/?name=[your-name], the name field can be forwarded to WhatsApp or any desired destination. 
 
 = Contact form 7 WooCommerce Checkout / Auto Add to Cart =
 
@@ -263,11 +263,11 @@ Integrate [WooCommerce Checkout](https://cf7addons.com/preview/contact-form-7-wo
 
 = Choose Specific / Multiple / Categorize WooCommerce Product =
 
-The Pro version allows you to add [Specific WooCommerce Product](https://cf7addons.com/preview/woocommerce-product-dropdown/) to Contact Form 7 forms by Product ID. It also allows customers to select [Multiple WooCommerce Products](https://cf7addons.com/preview/multiple-product/) and displays products by [WooCommerce Category](https://cf7addons.com/preview/categorized-product/). A complete WooCommerce integration for Contact Form 7.
+The Pro version allows you to add [Specific WooCommerce Product](https://cf7addons.com/preview/woocommerce-product-dropdown/) to Contact Form 7 forms by Product ID. It also lets customers select [Multiple WooCommerce Products](https://cf7addons.com/preview/multiple-product/) and displays products by [WooCommerce Category](https://cf7addons.com/preview/categorized-product/).
 
 = Contact Form 7 Product Grid View with Thumbnails =
 
-Display your products in an impressive [WooCommerce Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/), allowing for addition based on ID, Category, or Tags. This feature enhances the visual appeal and organization of your product listings. 
+Display products in [WooCommerce Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/), allowing addition based on ID, Category, or Tags. This feature enhances the visual appeal and organization of your product listings. 
 
 = Spam protection Contact form 7 (Pro) =
 
@@ -275,7 +275,7 @@ With [Anti Spam Contact form 7 (Pro)](https://cf7addons.com/preview/spam-protect
 
 = Contact form 7 DB plugin (Pro) =
 
-[Contact form 7 Database plugin](https://cf7addons.com/preview/best-contact-form-7-database-addon/) Pro addon offers an advanced solution for managing and organizing form inquiries more efficiently.
+[Contact Form 7 Database plugin](https://cf7addons.com/preview/best-contact-form-7-database-addon/) Pro addon offers an advanced solution for managing and organizing form inquiries more efficiently.
 
 = Mailchimp with Contact Form 7 (Pro) =
 
@@ -283,7 +283,7 @@ Our [Contact Form 7 Extension for Mailchimp (Pro)](https://cf7addons.com/preview
 
 = Contact form 7 Preview before submit =
 
-The [Contact form 7 preview](https://cf7addons.com/preview/form-preview-submission/) addon adds a submission preview feature to your forms, enabling users to review and confirm their information before submission.  
+The [Contact Form 7 preview](https://cf7addons.com/preview/form-preview-submission/) addon adds a submission preview feature to your forms, enabling users to review and confirm their information before submission.  
 
 = Contact form 7 Save progress and Continue Later =
 
@@ -481,11 +481,10 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
-= 3.5.26 - 10/08/2025 =
+= 3.5.27 - 10/08/2025 =
 
-- Fixed: Styling issue with Form Styler radio and checkbox input fields.
-- Fixed: Prepopulate fields issue affecting select and checkbox inputs.
-- Fixed: Styling issue with Form Styler textarea issue has been resolved. 
+- Fixed: Multistep issue in Elementor Popup.
+- Fixed: Conditional field issue in PDF generator.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
