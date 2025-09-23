@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.27
+Stable tag: 3.5.28
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -481,10 +481,9 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
-= 3.5.27 - 10/08/2025 =
+= 3.5.28 - 23/09/2025 =
 
-- Fixed: Multistep issue in Elementor Popup.
-- Fixed: Conditional field issue in PDF generator.
+- Fixed: Conditional logic for multiple checkbox selection has been updated.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
