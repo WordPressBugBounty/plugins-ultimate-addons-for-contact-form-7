@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.28
+Stable tag: 3.5.29
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -480,6 +480,11 @@ Just install our plugin, and you'll get access to a variety of free templates!
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.5.29 - 25/09/2025 =
+
+- Added: Mailchimp tags selection feature (Pro).
+- Fixed: Deprecated issue in drag and drop multiple file uploads.
 
 = 3.5.28 - 23/09/2025 =
 
