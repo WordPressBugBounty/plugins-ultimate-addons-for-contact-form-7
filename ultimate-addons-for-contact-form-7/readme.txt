@@ -4,11 +4,11 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.5.29
+Stable tag: 3.5.30
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-50+ Essential Ultra Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Templates, Columns, WooCommerce, Mailchimp & more
+50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Templates, Columns, WooCommerce, Mailchimp & more
 
 == Description ==
 
@@ -22,7 +22,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
-Equipped with over 45 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
+Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website Contact Forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
 
 = FREE ADDONS =
 
@@ -481,14 +481,15 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.30 - 05/10/2025 =
+
+- Compatibility: Fully compatible with WordPress 6.8.3
+- Update: Readme.txt information updated
+
 = 3.5.29 - 25/09/2025 =
 
 - Added: Mailchimp tags selection feature (Pro).
 - Fixed: Deprecated issue in drag and drop multiple file uploads.
-
-= 3.5.28 - 23/09/2025 =
-
-- Fixed: Conditional logic for multiple checkbox selection has been updated.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
