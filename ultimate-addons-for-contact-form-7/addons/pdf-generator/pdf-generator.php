@@ -50,17 +50,29 @@ class UACF7_PDF_GENERATOR {
 	 * Enqueue script Backend
 	 */
 
-	public function wp_enqueue_admin_script() {
+	public function wp_enqueue_admin_script( $hook ) {
 
-		wp_enqueue_script( 'pdf-generator-admin', UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js', array( 'jquery' ), true );
+		// Only enqueue on Database page
+		if ( $hook !== 'cf7-addons_page_ultimate-addons-db' ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'pdf-generator-admin',
+			UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js',
+			array( 'jquery' ),
+			'1.0.0',
+			true
+		);
+
+		$pdf_settings = array();
 		$pdf_settings['codeEditor'] = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
-		$pdf_settings['ajaxurl'] = admin_url( 'admin-ajax.php' );
-		$pdf_settings['nonce'] = wp_create_nonce( 'uacf7-pdf-generator' );
-		wp_localize_script( 'jquery', 'pdf_settings', $pdf_settings );
+		$pdf_settings['ajaxurl']    = admin_url( 'admin-ajax.php' );
+		$pdf_settings['nonce']      = wp_create_nonce( 'uacf7-pdf-generator' );
 
-		// require UACF7_PATH . 'third-party/vendor/autoload.php';
-
+		wp_localize_script( 'pdf-generator-admin', 'pdf_settings', $pdf_settings );
 	}
+
 
 	public function uacf7_post_meta_options_pdf_generator( $value, $post_id ) {
 
@@ -316,6 +328,11 @@ class UACF7_PDF_GENERATOR {
 	public function uacf7_get_generated_pdf() {
 		if ( ! isset( $_POST ) || empty( $_POST ) ) {
 			return;
+		}
+
+		// Capability check
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Unauthorized', 403 );
 		}
 
 		if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7-pdf-generator' ) ) {

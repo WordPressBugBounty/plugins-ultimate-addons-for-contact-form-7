@@ -388,6 +388,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 
 						<?php echo $this->tf_get_sidebar_plugin_list(); ?>
 
+						<?php echo $this->uacf7_get_sidebar_collab_plugin_list(); ?>
+
 						<div class="uacf7-sidebar-customization-quote">
 							<div class="uacf7-quote-header">
 								<i class="fa-solid fa-code"></i>
@@ -581,6 +583,82 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			</ul>
 
 			<?php 
+		}
+
+		public function uacf7_get_sidebar_collab_plugin_list() {
+			$plugins = [
+				[
+					'name'       => 'Depicter — Popup & Slider Builder',
+					'slug'       => 'depicter',
+					'file_name'  => 'depicter',
+					'subtitle'   => 'All in One Popup & Slider Builder with AI Assistant. Improve users engagement rate or sales by Depicter Popup, Notification Bar, and Slider builder.',
+					'image'      => 'https://ps.w.org/depicter/assets/icon-128x128.gif?rev=3304240',
+					// 'pro'        => [
+					// 	'slug'      => 'hydra-booking-pro',
+					// 	'file_name' => 'hydra-booking-pro',
+					// 	'url'       => 'https://hydrabooking.com/',
+					// ],
+				],
+			]
+
+			?>
+			<ul class="uacf7-collab-plugins">
+				<?php foreach ($plugins as $plugin): 
+					$plugin_path = $plugin['slug'] . '/' . $plugin['file_name'] . '.php';
+					$installed = file_exists(WP_PLUGIN_DIR . '/' . $plugin_path);
+					$activated = $installed && is_plugin_active($plugin_path);
+
+					$pro_installed = false;
+					$pro_activated = false;
+					
+					if (!empty($plugin['pro'])) {
+						$pro_path = $plugin['pro']['slug'] . '/' . $plugin['pro']['file_name'] . '.php';
+						$pro_installed = file_exists(WP_PLUGIN_DIR . '/' . $pro_path);
+						$pro_activated = $pro_installed && is_plugin_active($pro_path);
+					}
+
+					?>
+					<li class="uacf7-plugin-item collab-plugin-item <?php echo esc_attr($plugin['slug'] == 'hydra-booking' ? 'featured' : ''); ?>" data-plugin-slug="<?php echo esc_attr($plugin['slug']); ?>">
+						<div class="uacf7-plugin-info-wrapper">
+							<div class="uacf7-plugin-info">
+								<img src="<?php echo esc_url($plugin['image']); ?>" alt="<?php echo esc_attr($plugin['name']); ?>" class="<?php echo esc_attr($plugin['name'] == 'BEAF' ? 'beaf-logo' : ''); ?>" width="40" height="40">
+								<div class="uacf7-plugin-btn">
+									<span class="badge free">Free</span>
+									<?php if (!$installed): ?>
+										<button class="uacf7-plugin-button install" data-action="install" data-plugin="<?php echo esc_attr($plugin['slug']); ?>" data-plugin_filename="<?php echo esc_attr($plugin['file_name']); ?>">
+											Install <span class="loader"></span>
+										</button>
+									<?php elseif (!$activated): ?>
+										<button class="uacf7-plugin-button activate" data-action="activate" data-plugin="<?php echo esc_attr($plugin['slug']); ?>" data-plugin_filename="<?php echo esc_attr($plugin['file_name']); ?>" >
+											Activate <span class="loader"></span>
+										</button>
+									<?php else: ?>
+										<span class="uacf7-plugin-button plugin-status active">Activated</span>
+									<?php endif; ?>
+
+									<?php if (!empty($plugin['pro'])): ?>
+										<?php if (!$pro_installed): ?>
+											<a href="<?php echo esc_url($plugin['pro']['url']); ?>" class="uacf7-plugin-button pro" target="_blank">Get Pro</a>
+										<?php elseif (!$pro_activated): ?>
+											<button class="uacf7-plugin-button activate-pro" data-action="activate" data-plugin="<?php echo esc_attr($plugin['pro']['slug']); ?>" data-plugin_filename="<?php echo esc_attr($plugin['pro']['file_name']); ?>">
+												Activate Pro <span class="loader"></span>
+											</button>
+										<?php else: ?>
+											<span class="uacf7-plugin-button plugin-status active-pro">Pro Activated</span>
+										<?php endif; ?>
+									<?php endif; ?>
+								</div>
+							</div>
+							<div class="uacf7-plugin-content">
+								<h4><?php echo esc_html($plugin['name']); ?></h4>
+								<p><?php echo esc_html($plugin['subtitle']); ?></p>
+								<strong></strong>
+							</div>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php
 		}
 
 		public function uacf7_themefic_manage_plugin() {

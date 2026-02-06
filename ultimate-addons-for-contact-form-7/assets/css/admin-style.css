@@ -860,6 +860,11 @@ form.tag-generator-panel[data-version="2"] .control-box{
     margin-bottom: 0;
     position: relative;
 }
+
+.uacf7-plugin-item.uacf7-collab-plugins {
+
+}
+
 .uacf7-plugin-item:hover { 
     box-shadow: 0px 4px 30px 0px rgba(6,4,12,.0784313725); 
 }
@@ -939,6 +944,9 @@ form.tag-generator-panel[data-version="2"] .control-box{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
+}
+.uacf7-sidebar-content ul.uacf7-collab-plugins{
+    display: block;
 }
 .badge.free {
 	background: rgba(0,165,140,.1019607843);

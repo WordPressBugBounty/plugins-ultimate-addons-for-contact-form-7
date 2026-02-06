@@ -2,13 +2,13 @@
 Contributors: themefic, hasanet, hemelhasan, mdrejon, raihan143
 Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.5.30
+Stable tag: 3.5.36
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Templates, Columns, WooCommerce, Mailchimp & more
+50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step, Redirection, Columns, WooCommerce, Mailchimp & more
 
 == Description ==
 
@@ -481,15 +481,23 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
-= 3.5.30 - 05/10/2025 =
+= 3.5.36 - 04/02/2026 =
 
-- Compatibility: Fully compatible with WordPress 6.8.3
-- Update: Readme.txt information updated
+- System stability has been improved.
 
-= 3.5.29 - 25/09/2025 =
+= 3.5.35 - 07/01/2026 =
 
-- Added: Mailchimp tags selection feature (Pro).
-- Fixed: Deprecated issue in drag and drop multiple file uploads.
+- Fixed: Conditional field migration Patchstack vulnerability.
+
+= 3.5.34 - 11/12/2025 =
+
+- Fixed: Authorization vulnerability in PDF Generator.
+
+= 3.5.33 - 08/12/2025 =
+
+- Compatibility: Fully compatible with WordPress (v6.9).
+- Compatibility: Fully compatible with Contact Form 7 (v6.1.4).
+- Fixed: jQuery error in Console.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

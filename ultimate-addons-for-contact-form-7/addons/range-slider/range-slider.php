@@ -704,7 +704,8 @@ class UACF7_range_Slider {
 
 		wp_register_script( 'jquery-ui', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js', array( 'jquery' ), false, true );
 		wp_register_script( 'touch-punch', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js', array( 'jquery' ), false, true );
-		wp_enqueue_script( 'jquery-ui' );
+		// wp_enqueue_script( 'jquery-ui' );
+		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'touch-punch' );
 
 	}

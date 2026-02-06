@@ -305,7 +305,14 @@ class UACF7_DATABASE {
 			) );
 
 			$all_keys = wp_list_pluck( $field_rows, 'fields_name' );
-			$all_keys[] = 'Date';
+			
+			$option = get_option( 'uacf7_settings' );
+
+			if(isset( $option['uacf7_enable_database_pro'] ) && $option['uacf7_enable_database_pro'] != true || ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' )){
+
+				$all_keys[] = 'Date';
+
+			}
 
 			$list = [];
 			$list[] = $all_keys;
@@ -322,7 +329,14 @@ class UACF7_DATABASE {
 			$grouped = [];
 			foreach ( $rows as $row ) {
 				$grouped[ $row->data_id ][ $row->fields_name ] = $row->value;
-				$grouped[ $row->data_id ]['Date'] = $row->created_at ?? ''; // Use created_at if available
+				if(isset( $option['uacf7_enable_database_pro'] ) && $option['uacf7_enable_database_pro'] != true || ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' )){
+					// Fallback to entry creation time using id or current time
+					if ( ! isset( $grouped[ $row->data_id ]['Date'] ) ) {
+						$grouped[ $row->data_id ]['Date'] = ! empty( $row->created_at )
+							? date_i18n( 'Y-m-d H:i:s', strtotime( $row->created_at ) )
+							: date_i18n( 'Y-m-d H:i:s' );
+					}
+				}
 			}
 
 			// Step 4: Generate data rows

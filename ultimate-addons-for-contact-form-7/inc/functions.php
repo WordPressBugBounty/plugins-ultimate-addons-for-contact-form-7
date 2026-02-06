@@ -1503,7 +1503,7 @@ function uacf7_migration_notice() {
 		echo '<div class="notice notice-warning">
 			<p><strong>Ultra Addons for Contact Form 7 – Migrate Your Conditional Data:</strong> <br> We\'ve detected conditional data from <strong>Conditional Fields for Contact Form 7</strong>. Easily migrate it with our built-in tool and unlock 40+ powerful addons in one place. Would you like to proceed?</p>
 			<p>
-				<a href="' . esc_url(admin_url('admin.php?action=uacf7_migrate_conditional_fields')) . '" class="button button-primary">Migrate Now</a>
+				<a href="' . esc_url(wp_nonce_url(admin_url('admin.php?action=uacf7_migrate_conditional_fields'), 'uacf7_migrate_conditional_fields_nonce')) . '" class="button button-primary">Migrate Now</a>
 				<a href="' . esc_url(add_query_arg('uacf7_dismiss_conditional_migration_notice', '1')) . '" class="button button-secondary">Not Now</a>
 			</p>
 		</div>';
@@ -1511,12 +1511,21 @@ function uacf7_migration_notice() {
 }
 
 function uacf7_handle_conditional_notice_dismiss() {
-	if (isset($_GET['uacf7_dismiss_conditional_migration_notice']) && $_GET['uacf7_dismiss_conditional_migration_notice'] === '1') {
-		update_option('uacf7_migration_done', time() + (15 * DAY_IN_SECONDS));
 
-		wp_redirect(remove_query_arg('uacf7_dismiss_conditional_migration_notice'));
-		exit;
-	}
+    if ( empty($_GET['uacf7_dismiss_conditional_migration_notice']) || $_GET['uacf7_dismiss_conditional_migration_notice'] !== '1' ) {
+        return;
+    }
+
+    if ( ! current_user_can('manage_options') ) {
+        return;
+    }
+
+    update_option('uacf7_migration_done', time() + (15 * DAY_IN_SECONDS));
+
+    wp_safe_redirect(
+        remove_query_arg('uacf7_dismiss_conditional_migration_notice')
+    );
+    exit;
 }
 
 function uacf7_migration_success_notice() {
@@ -1528,14 +1537,33 @@ function uacf7_migration_success_notice() {
 }
 
 function uacf7_migrate_conditional_fields_handler() {
-	if (isset($_GET['action']) && $_GET['action'] === 'uacf7_migrate_conditional_fields') {
-		enable_conditional_field();
-		uacf7_migrate_conditional_fields();
 
-		update_option('uacf7_migration_done', true);
-		wp_redirect(admin_url('admin.php?page=wpcf7&uacf7_migration_success=1'));
-		exit;
-	}
+    if ( empty($_GET['action']) || $_GET['action'] !== 'uacf7_migrate_conditional_fields' ) {
+        return;
+    }
+
+    if ( ! current_user_can('manage_options') ) {
+        wp_die(__('You are not allowed to perform this action.', 'ultimate-addons-cf7'));
+    }
+
+    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce($_GET['_wpnonce'], 'uacf7_migrate_conditional_fields_nonce') ) {
+        wp_die(__('Security check failed.', 'ultimate-addons-cf7'));
+    }
+
+    if ( get_option('uacf7_migration_done') ) {
+        wp_safe_redirect(admin_url('admin.php?page=wpcf7'));
+        exit;
+    }
+
+    enable_conditional_field();
+    uacf7_migrate_conditional_fields();
+
+    update_option('uacf7_migration_done', true);
+
+    wp_safe_redirect(
+        admin_url('admin.php?page=wpcf7&uacf7_migration_success=1')
+    );
+    exit;
 }
 
 function uacf7_migrate_conditional_fields() {
@@ -1865,7 +1893,7 @@ function uacf7_redirection_migration_notice() {
 		echo '<div class="notice notice-warning">
 			<p><strong>Ultra Addons for Contact Form 7 – Migrate Your Redirection Settings:</strong><br> We\'ve detected redirection settings from <strong>Redirection for Contact Form 7</strong>. Easily migrate them with our built-in tool—no need for multiple plugins! Plus, access 40+ powerful addons in one place. Would you like to proceed?</p>
 			<p>
-				<a href="' . esc_url(admin_url('admin.php?action=uacf7_migrate_redirection')) . '" class="button button-primary">Migrate Now</a>
+				<a href="' . esc_url(wp_nonce_url(admin_url('admin.php?action=uacf7_migrate_redirection'), 'uacf7_migrate_redirection_nonce')) . '" class="button button-primary">Migrate Now</a>
 				<a href="' . esc_url(add_query_arg('uacf7_dismiss_redirection_notice', '1')) . '" class="button button-secondary">Not Now</a>
 			</p>
 		</div>';
@@ -1873,11 +1901,21 @@ function uacf7_redirection_migration_notice() {
 }
 
 function uacf7_handle_redirection_dismiss_notice() {
-	if (isset($_GET['uacf7_dismiss_redirection_notice']) && $_GET['uacf7_dismiss_redirection_notice'] === '1') {
-		update_option('uacf7_redirection_migration_done', time() + (15 * DAY_IN_SECONDS));
-		wp_redirect(remove_query_arg('uacf7_dismiss_redirection_notice'));
-		exit;
-	}
+
+    if ( empty($_GET['uacf7_dismiss_redirection_notice']) || $_GET['uacf7_dismiss_redirection_notice'] !== '1' ) {
+        return;
+    }
+
+    if ( ! current_user_can('manage_options') ) {
+        return;
+    }
+
+    update_option('uacf7_redirection_migration_done', time() + (15 * DAY_IN_SECONDS));
+
+    wp_safe_redirect(
+        remove_query_arg('uacf7_dismiss_redirection_notice')
+    );
+    exit;
 }
 
 function enable_redirection_field() {
@@ -1900,18 +1938,35 @@ function uacf7_redirection_migration_success_notice() {
 	}
 }
 
-/**
- * Handle the migration process when "Migrate Now" button is clicked.
- */
 function uacf7_migrate_redirection_handler() {
-	if (isset($_GET['action']) && $_GET['action'] === 'uacf7_migrate_redirection') {
-		enable_redirection_field();
-		migrate_redirection_data_to_uacf7();
 
-		update_option('uacf7_redirection_migration_done', true);
-		wp_redirect(admin_url('admin.php?page=wpcf7&uacf7_redirection_migration_success=1'));
-		exit;
-	}
+    if ( empty($_GET['action']) ||  $_GET['action'] !== 'uacf7_migrate_redirection' ) {
+        return;
+    }
+
+    if ( ! current_user_can('manage_options') ) {
+        wp_die(__('You are not allowed to perform this action.', 'ultimate-addons-cf7'));
+    }
+
+    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce($_GET['_wpnonce'], 'uacf7_migrate_redirection_nonce') ) {
+        wp_die(__('Security check failed.', 'ultimate-addons-cf7'));
+    }
+
+    // Prevent double migration
+    if ( get_option('uacf7_redirection_migration_done') ) {
+        wp_safe_redirect(admin_url('admin.php?page=wpcf7'));
+        exit;
+    }
+
+    enable_redirection_field();
+    migrate_redirection_data_to_uacf7();
+
+    update_option('uacf7_redirection_migration_done', true);
+
+    wp_safe_redirect(
+        admin_url('admin.php?page=wpcf7&uacf7_redirection_migration_success=1')
+    );
+    exit;
 }
 
 function migrate_redirection_data_to_uacf7() {
