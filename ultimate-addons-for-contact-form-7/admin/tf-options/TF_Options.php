@@ -64,12 +64,10 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				return;
 			}
 
-			//  Checked Currenct can save option
-			$current_user = wp_get_current_user();
-			$current_user_role = $current_user->roles[0];
-
-			if ( $current_user_role !== 'administrator' && ! is_admin() ) {
-				wp_die( 'You do not have sufficient permissions to access this page.' );
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error(
+					[ 'message' => __( 'You do not have sufficient permissions to access this page.', 'ultimate-addons-cf7' ) ]
+				);
 			}
 
 			$imported_data = json_decode( wp_unslash( trim( $_POST['tf_import_option'] ) ), true );
