@@ -2044,6 +2044,32 @@ function uacf7_utm_generator( $url, $utm_params = array() ) {
 	return esc_url( $url . ( strpos( $url, '?' ) === false ? '?' : '&' ) . $query_string );
 }
 
+add_action( 'wpcf7_after_create', 'uacf7_duplicate_form_meta', 10, 1 );
+
+function uacf7_duplicate_form_meta( $contact_form ) {
+
+    // New form ID
+    $new_form_id = $contact_form->id();
+
+    // Get source form ID from request when duplicating
+    if ( empty( $_REQUEST['post'] ) ) {
+        return;
+    }
+
+    $old_form_id = intval( $_REQUEST['post'] );
+
+    if ( ! $old_form_id || $old_form_id === $new_form_id ) {
+        return;
+    }
+
+    // Get our addon meta
+    $meta = get_post_meta( $old_form_id, 'uacf7_form_opt', true );
+
+    if ( ! empty( $meta ) ) {
+        update_post_meta( $new_form_id, 'uacf7_form_opt', $meta );
+    }
+}
+
 
 // function uacf7_check_and_install_hydra_booking($upgrader_object, $options) {
 	

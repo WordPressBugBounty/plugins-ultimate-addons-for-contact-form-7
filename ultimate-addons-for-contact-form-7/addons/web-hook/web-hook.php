@@ -196,13 +196,13 @@ class UACF7_WEB_HOOK {
 
 		//Admin Option
 		$web_hook_enable = isset( $Web_hook['uacf7_enable_web_hook'] ) ? $Web_hook['uacf7_enable_web_hook'] : false;
-		$request_api = isset( $Web_hook['uacf7_web_hook_api'] ) ? $Web_hook['uacf7_web_hook_api'] : '';
-		$request_method = isset( $Web_hook['uacf7_web_hook_request_method'] ) ? $Web_hook['uacf7_web_hook_request_method'] : '';
-		$request_format = isset( $Web_hook['uacf7_web_hook_request_format'] ) ? $Web_hook['uacf7_web_hook_request_format'] : '';
-		$header_request = isset( $Web_hook['uacf7_web_hook_header_request'] ) ? $Web_hook['uacf7_web_hook_header_request'] : '';
-		$body_request = isset( $Web_hook['uacf7_web_hook_body_request'] ) ? $Web_hook['uacf7_web_hook_body_request'] : '';
+		$request_api     = isset( $Web_hook['uacf7_web_hook_api'] ) ? $Web_hook['uacf7_web_hook_api'] : '';
+		$request_method  = isset( $Web_hook['uacf7_web_hook_request_method'] ) ? $Web_hook['uacf7_web_hook_request_method'] : '';
+		$request_format  = isset( $Web_hook['uacf7_web_hook_request_format'] ) ? $Web_hook['uacf7_web_hook_request_format'] : '';
+		$header_request  = isset( $Web_hook['uacf7_web_hook_header_request'] ) ? $Web_hook['uacf7_web_hook_header_request'] : '';
+		$body_request    = isset( $Web_hook['uacf7_web_hook_body_request'] ) ? $Web_hook['uacf7_web_hook_body_request'] : '';
 
-		$api_endpoint = $request_api;
+		$api_endpoint       = $request_api;
 		$api_request_method = $request_method;
 
 		// Return if not enable
@@ -236,7 +236,13 @@ class UACF7_WEB_HOOK {
 					}
 				} else {
 					$header_value = $header['uacf7_web_hook_header_request_value'];
-					$header_parameter = $contact_form_data[ $header['uacf7_web_hook_header_request_parameter'] ];
+					$param_key = $header['uacf7_web_hook_header_request_parameter'];
+					$param_key = rtrim( $param_key, '[]' );
+					$header_parameter = isset( $contact_form_data[ $param_key ] ) ? $contact_form_data[ $param_key ] : '';
+					
+					if ( is_array( $header_parameter ) ) {
+						$header_parameter = implode( ', ', $header_parameter );
+					}
 				}
 				// Add data to the $post_data array
 				$header_data[ $header_value ] = $header_parameter;
@@ -246,12 +252,21 @@ class UACF7_WEB_HOOK {
 		// Check if $body_request is an array
 		if ( is_array( $body_request ) ) {
 			// Loop through each item in the array
+			
 			foreach ( $body_request as $body ) {
-				// Access individual values using keys
-				$body_value = $body['uacf7_web_hook_body_request_value'];
-				$body_parameter = $contact_form_data[ $body['uacf7_web_hook_body_request_parameter'] ];
 
-				// Add data to the $body_data array
+				$body_value = $body['uacf7_web_hook_body_request_value'];
+				$param_key  = $body['uacf7_web_hook_body_request_parameter'];
+				// Remove [] from checkbox field names
+    			$param_key = rtrim( $param_key, '[]' );
+
+				$body_parameter = isset( $contact_form_data[ $param_key ] ) ? $contact_form_data[ $param_key ] : '';
+				
+				// Handle checkbox / multi-select fields
+				if ( is_array( $body_parameter ) ) {
+					$body_parameter = implode( ', ', $body_parameter );
+				}
+
 				$body_data[ $body_value ] = $body_parameter;
 			}
 		}
@@ -266,8 +281,11 @@ class UACF7_WEB_HOOK {
 		$request_args = array(
 			'body' => $body_data,
 			'headers' => array_merge(
-				//Need loop for additional input
-				[ 'Content-Type' => 'application/json' ],
+				[
+					'Content-Type' => $request_format === 'json'
+						? 'application/json'
+						: 'application/x-www-form-urlencoded'
+				],
 				$header_data,
 			),
 			'method' => $api_request_method,
