@@ -1320,7 +1320,15 @@ function uacf7_install_hydra_booking() {
 function uacf7_dismiss_booking_pro_notice() {
     check_ajax_referer('uacf7_admin_nonce', 'security');
 
-    update_option('uacf7_booking_pro_notice_dismissed', true);
+	$interval_days = get_option('uacf7_booking_pro_notice_interval_days', 30);
+	$allowed_intervals = array(30, 60, 90);
+
+	if (!in_array((int) $interval_days, $allowed_intervals, true)) {
+		$interval_days = 30;
+	}
+
+	update_option('uacf7_booking_pro_notice_dismissed', true);
+	update_option('uacf7_booking_pro_notice_next_show_at', time() + ((int) $interval_days * DAY_IN_SECONDS));
 
     wp_send_json_success();
 }
@@ -1328,15 +1336,20 @@ function uacf7_dismiss_booking_pro_notice() {
 add_action('wp_ajax_uacf7_dismiss_booking_pro_notice', 'uacf7_dismiss_booking_pro_notice');
 
 function uacf7_booking_pro_admin_notice() {
-    if (get_option('uacf7_booking_pro_notice_dismissed')) {
-        return;
-    }
+	$interval_days = (int) get_option('uacf7_booking_pro_notice_interval_days', 30);
+	$allowed_intervals = array(30, 60, 90);
+	if (!in_array($interval_days, $allowed_intervals, true)) {
+		$interval_days = 30;
+	}
 
-	$last_updated = get_option('uacf7_plugin_last_updated', 0);
+	// Keep legacy option in sync with the new cadence options.
+	update_option('uacf7_booking_pro_notice_interval_days', $interval_days);
+	update_option('uacf7_booking_pro_notice_next_show_at_days', $interval_days);
 
-	if (time() - $last_updated < 6 * HOUR_IN_SECONDS) {
-        return; // If not 6 hours yet, don't show the notice
-    }
+	$next_show_at = (int) get_option('uacf7_booking_pro_notice_next_show_at', 0);
+	if ($next_show_at > time()) {
+		return;
+	}
 
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	if ( is_plugin_active( 'hydra-booking/hydra-booking.php' ) ) {
@@ -1442,7 +1455,7 @@ function uacf7_booking_pro_admin_notice() {
 
     <div class="notice hydra-notice is-dismissible uacf7-booking-pro-notice" style="border-left-color: #b32d2e;">
 		<div class="notice-text" style="width: 70%;">
-			<strong style="display: block;">Hey <?php echo wp_get_current_user()->display_name; ?>! Want to enhance your Booking/Appointment Addon?</strong>
+			<strong style="display: block;">Hey <?php echo esc_html( wp_get_current_user()->display_name ); ?>! Want to enhance your Booking/Appointment Addon?</strong>
 			<p>HydraBooking: More than Booking Addon, with extra features for your convenience.</p>
 		</div>
 		<div class="notice-button" style="width: 30%;">
