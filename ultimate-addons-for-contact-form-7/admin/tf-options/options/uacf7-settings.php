@@ -326,7 +326,7 @@ UACF7_Settings::option(
 								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/database-pro/',
 								'is_pro'             => true,
 							),
-
+ 
 							'uacf7_enable_mailwkeely_pro' => array(
 								'id' => 'uacf7_enable_mailwkeely_pro',
 								  // 'child_field' => 'uacf7_enable_database_field',

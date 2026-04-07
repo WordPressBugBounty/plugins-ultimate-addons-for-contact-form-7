@@ -71,6 +71,90 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 				}  
 				
 			}
+
+			if ( ! empty( $this->field['query_args'] ) && $this->field['options'] == 'salesforce' ) {
+
+				// Not connected → stop early
+				if ( ! UACF7_Salesforce_Client::is_connected() ) {
+					$this->field['options'] = [
+						'' => 'Connect Salesforce first'
+					];
+					return;
+				}
+
+				$this->field['options'] = array(
+					'' => 'Select Salesforce Field'
+				);
+
+				$object = '';
+
+				if (!empty($this->field['query_args']['post_id'])) {
+					$post_id = $this->field['query_args']['post_id'];
+
+					$settings = uacf7_get_form_option($post_id, 'salesforce');
+					
+					if (!empty($settings['uacf7_salesforce_object'])) {
+						$object = ucfirst($settings['uacf7_salesforce_object']);
+					}
+				}
+				
+				try {
+
+					$cache_key = 'uacf7_sf_fields_' . strtolower($object);
+					$cached = get_transient($cache_key);
+
+					if ($cached !== false) {
+
+						$this->field['options'] = apply_filters(
+							'uacf7_salesforce_field_options',
+							$cached,
+							$object
+						);
+
+					} else {
+
+						$client = new UACF7_Salesforce_Client();
+						$response = $client->get_fields($object);
+
+						if ( is_wp_error($response) ) {
+							$this->field['options'] = [
+								'' => $response->get_error_message()
+							];
+							
+							return;
+						}
+
+						$options = ['' => 'Select Salesforce Field'];
+
+						if (!empty($response['fields'])) {
+							foreach ($response['fields'] as $field) {
+
+								if (empty($field['createable'])) continue;
+
+								$options[$field['name']] = sprintf(
+									'%s',
+									$field['label'],
+								);
+							}
+						}
+
+						set_transient($cache_key, $options, 1 * HOUR_IN_SECONDS);
+
+						$this->field['options'] = apply_filters(
+							'uacf7_salesforce_field_options',
+							$options,
+							$object
+						);
+					}
+
+				} catch (Exception $e) {
+
+					$this->field['options'] = [
+						'' => 'Error loading fields'
+					];
+				}
+			}
+
 			if($this->field['options'] == 'post_types'){
 				$post_types = get_post_types();
 				$this->field['options'] = array();
