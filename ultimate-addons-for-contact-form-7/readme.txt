@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.5.40
+Stable tag: 3.5.41
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -79,6 +79,7 @@ Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is
 * Slack Integration
 * Twilio Integration
 * Prevent Duplicate Entries
+* Salesforce Integration
 
 ### How It works:
 
@@ -321,6 +322,10 @@ Our [Google Sheets Integration](https://cf7addons.com/preview/prevent-duplicate-
 
 Our [Google Sheets Integration](https://cf7addons.com/preview/slack/) connects Contact Form 7 with Slack, enabling real-time form submission notifications to your Slack channels. Keep your team informed instantly with no manual effort.
 
+= Contact Form 7 Salesforce Integration =
+
+Our [Salesforce Integration](https://themefic.com/docs/uacf7/pro-addons/salesforce-integration/) connects Contact Form 7 with Salesforce, enabling real-time form submission entries to be sent directly to your Salesforce account. Keep your contacts, leads, and inquiries organized automatically with no manual effort.
+
 **More Pro addons are in development and will be available soon.**
 
 ### Join our Community to stay updated
@@ -480,6 +485,11 @@ Just install our plugin, and you'll get access to a variety of free templates!
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.5.41 - 09/04/2026 =
+
+- New Addon.: Salesforce Integration with Contact Form 7.
+- Improved: System stability has been improved.
 
 = 3.5.40 - 07/04/2026 =
 

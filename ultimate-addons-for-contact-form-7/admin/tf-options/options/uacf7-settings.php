@@ -422,6 +422,17 @@ UACF7_Settings::option(
 								'demo_link'          => 'https://cf7addons.com/preview/pabbly-zapier-webhook/',
 								'documentation_link' => 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/',
 							),
+							'uacf7_enable_salesforce_integration' => array(
+								'id'                 => 'uacf7_enable_salesforce_integration',
+								'type'               => 'switch',
+								'label'              => __( 'Salesforce Integration', 'ultimate-addons-cf7' ),
+								'image_url'          => UACF7_URL . 'assets/admin/images/addons/Salesforce.png',
+								'default'            => false,
+								'subtitle'           => __( 'Integrate with Salesforce to save form entries as leads and contacts', 'ultimate-addons-cf7' ),
+								'demo_link'          => 'https://cf7addons.com/preview/salesforce-integration/',
+								'documentation_link' => 'https://themefic.com/docs/uacf7/pro-addons/salesforce-integration/',
+								'is_pro'             => true
+							),
 						),
 					),
 					'extra_fields_addons' => array(

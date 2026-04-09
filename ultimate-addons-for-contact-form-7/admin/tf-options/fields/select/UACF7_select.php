@@ -86,7 +86,7 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 					'' => 'Select Salesforce Field'
 				);
 
-				$object = '';
+				$object = 'Account';
 
 				if (!empty($this->field['query_args']['post_id'])) {
 					$post_id = $this->field['query_args']['post_id'];
