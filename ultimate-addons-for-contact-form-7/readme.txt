@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 4.2
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.5.41
+Stable tag: 3.5.42
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -459,8 +459,8 @@ Just install our plugin, and you'll get access to a variety of free templates!
 27. Pre-populate Field (Form Example)
 28. Save to Database Data List With View and Export
 29. Save to Database for Multiple Forms 
-30. Send PDF Using Contact form 7 (Settings)
-31. Generated PDF View Using Contact form 7
+30. Send PDF Using Contact Form 7 (Settings)
+31. Generated PDF View Using Contact Form 7
 32. WooCommerce Checkout (Form Example)
 33. WooCommerce Checkout Page
 34. Repeater Field (Settings)
@@ -486,23 +486,14 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
+= 3.5.42 - 10/04/2026 =
+
+- System stability has been improved.
+
 = 3.5.41 - 09/04/2026 =
 
 - New Addon.: Salesforce Integration with Contact Form 7.
 - Improved: System stability has been improved.
-
-= 3.5.40 - 07/04/2026 =
-
-- Improved: Dashboard widget for quick overview and status insights.
-
-= 3.5.39 - 24/03/2026 =
-
-- System stability has been improved.
-
-= 3.5.38 - 11/03/2026 =
-
-- Improved: Security has been improved.
-- Compatible with WordPress (v6.9.3).
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
