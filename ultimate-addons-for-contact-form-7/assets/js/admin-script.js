@@ -310,7 +310,30 @@ jQuery(document).ready(function($) {
     });
 });
 
+jQuery(function ($) {
 
+	$(document).on(
+		'click',
+		'.uacf7-promo-close',
+		function () {
+
+			const $banner = $(this).closest(
+				'.uacf7-promo-banner'
+			);
+
+			$.post(
+				uacf7Promo.ajaxurl,
+				{
+					action: 'uacf7_dismiss_promo_notice',
+					nonce: uacf7Promo.nonce
+				},
+				function () {
+					$banner.slideUp(200);
+				}
+			);
+		}
+	);
+});
 
 
 

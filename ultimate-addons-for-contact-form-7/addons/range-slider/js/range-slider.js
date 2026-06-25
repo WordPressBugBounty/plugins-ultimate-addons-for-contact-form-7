@@ -4,7 +4,7 @@
     $('.uacf7-slider.uacf7-range').each(function () {
       
       $(document).on('input', '.uacf7-slider.uacf7-range', function(){ 
-          $(this).parent().parent().find('.uacf7-value').html($(this).val());
+          $(this).parent().parent().find('.uacf7-value').text($(this).val());
           
         }); 
     });
@@ -27,7 +27,7 @@
               values: [min, def],
               slide: function (event, ui) {
                 $(this).parent().parent().find("#uacf7-amount").val(ui.values[0] +  " "+label+" " + " "+separator+" " + ui.values[1] +  " "+label+" ");
-                $(this).parent().parent().find(".uacf7-amount").html(ui.values[0] +  " "+label+" " + " "+separator+" " + ui.values[1] +  " "+label+" " );
+                $(this).parent().parent().find(".uacf7-amount").text(ui.values[0] +  " "+label+" " + " "+separator+" " + ui.values[1] +  " "+label+" " );
               }
             });
             $(this).parent().parent().find("#uacf7-amount").val($(this).slider("values", 0) + " - " + $(this).slider("values", 1));
@@ -57,8 +57,8 @@
             values: [min, def],
             slide: function (event, ui) {
               $(this).parent().parent().find("#uacf7-amount").val(ui.values[0] + " - " + ui.values[1]); 
-              $(this).parent().parent().find(".min-value-"+style+"").html(ui.values[0]);
-              $(this).parent().parent().find(".max-value-"+style+"").html(ui.values[1]);
+              $(this).parent().parent().find(".min-value-"+style+"").text(ui.values[0]);
+              $(this).parent().parent().find(".max-value-"+style+"").text(ui.values[1]);
             }
           });
           $(this).parent().parent().find("#uacf7-amount").val($(this).slider("values", 0) + " - " + $(this).slider("values", 1));

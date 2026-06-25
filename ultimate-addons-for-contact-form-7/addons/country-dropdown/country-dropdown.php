@@ -102,7 +102,7 @@ class UACF7_COUNTRY_DROPDOWN {
 
 		ob_start(); ?>
 		<select <?php echo $atts; ?> id="uacf7_country_api">
-			<option value="">Select a Country</option>
+			<option value=""><?php echo esc_html__( 'Select a Country', 'ultimate-addons-cf7' ); ?></option>
 		</select>
 		<?php
 		$api_country = ob_get_clean();
@@ -270,7 +270,7 @@ class UACF7_COUNTRY_DROPDOWN {
 				<textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea>
 
 				<br>
-				<?php echo _e( ' One ID per line. ', 'ultimate-addons-cf7' ) ?>
+				<?php echo esc_html( __( ' One ID per line. ', 'ultimate-addons-cf7' ) ); ?>
 				<?php
 				$default_country = ob_get_clean();
 				/*

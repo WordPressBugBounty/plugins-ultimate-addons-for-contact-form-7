@@ -196,7 +196,7 @@ class UACF7_SIGNATURE {
 			</div>
 			<div class="control_div">
 				<button data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>"
-					class="clear-button"><?php _e( 'Clear', 'ultimate-addons-cf7' ); ?></button>
+					class="clear-button"><?php echo esc_html__( 'Clear', 'ultimate-addons-cf7' ); ?></button>
 			</div>
 
 		</span>

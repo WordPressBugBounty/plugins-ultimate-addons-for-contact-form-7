@@ -3,7 +3,7 @@
  * Plugin Name: Ultra Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.5.43
+ * Version: 3.5.44
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -30,7 +30,7 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
 
-		define( 'UACF7_VERSION', '3.5.43' );
+		define( 'UACF7_VERSION', '3.5.44' );
 
 		if ( ! class_exists( 'Appsero\Client' ) ) {
 			require_once( __DIR__ . '/inc/app/src/Client.php' );
@@ -200,6 +200,17 @@ class Ultimate_Addons_CF7 {
 					'uacf7_nonce' => wp_create_nonce( 'updates' ),
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'pro_active' => $pro_active
+				)
+			);
+
+			wp_localize_script(
+				'uacf7-admin-script',
+				'uacf7Promo',
+				array(
+					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce(
+						'uacf7_notice_nonce'
+					),
 				)
 			);
 			

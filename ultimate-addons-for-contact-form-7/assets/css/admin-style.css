@@ -895,7 +895,7 @@ form.tag-generator-panel[data-version="2"] .control-box{
 	border: 1px solid #bebcfd;
 	border-radius: 50%;
 }
-.uacf7-plugin-info-wrapper img.beaf-logo{
+.uacf7-plugin-info-wrapper img.uacf7-logo{
     border-radius: 0;
 }
 .uacf7-plugin-info {
@@ -1761,3 +1761,173 @@ form.tag-generator-panel[data-version="2"] .control-box{
 }
 
 
+/*
+* Dashboard promo banner notice
+*/
+
+.uacf7-dashboard-promo-banner-header {
+    margin-bottom:24px;
+    max-width:1631px;
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+}
+
+.uacf7-promo-banner{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    position:relative;
+    padding: 12px 16px 12px 24px;
+    border:1px solid transparent;
+    border-radius:8px;
+    min-height:96px;
+    box-sizing:border-box;
+    background: 
+        linear-gradient(90deg, #D5B7FF 0%, var(--Color-Fill-White, #FFF) 50%, #FEDFA9 100%) padding-box,
+        linear-gradient(to right, #473080 0%, #FFF 50%, #E89700 100%) border-box;
+}
+
+.uacf7-promo-close {
+    position: absolute;
+    top: -8PX;
+    left: -8px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: #888;
+    background: #fff;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.uacf7-promo-icon{
+    flex:0 0 70px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.uacf7-promo-content{
+    flex:1;
+    text-align:center;
+}
+
+.uacf7-promo-content h3{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#2c2c2c;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 120%;
+    background: linear-gradient(90deg, var(--Color-Text-Title, #2C273F) 0%, #613F00 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-content h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.uacf7-promo-content p{
+    margin:4px 0 0;
+    font-size:14px;
+    color:#666;
+    color: var(--Color-Text-Paragraph, #5D5676);
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-content p {
+    color: var(--color-text-muted, #6B7280);
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    line-height: 24px;
+}
+
+.uacf7-promo-action{
+    flex:0 0 auto;
+}
+
+.uacf7-promo-action .button{
+    font-family: "Inter", sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 150%;
+
+    display: flex;
+    padding: 12px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    background: var(--Color-Primary-Default, #382673);
+    transition: background-color 0.3s ease;
+}
+
+.uacf7-promo-action .button .buy-now-text {
+    display: inline-block;
+}
+
+.uacf7-promo-action .button .arrow-icon {
+    display: none;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-action .button .arrow-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-action .button .arrow-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-icon {
+	width: 44px;
+	aspect-ratio: 11/13;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-action .button .buy-now-text {
+    display: none;
+}
+
+.uacf7-sidebar-promo-header .uacf7-promo-action .button {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+@media (max-width:768px){
+
+    .uacf7-promo-banner{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .uacf7-promo-content{
+        text-align:center;
+    }
+}
