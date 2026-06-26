@@ -1838,7 +1838,12 @@ function uacf7_show_hydra_modal() {
 
 
 function install_hydrabooking() {
-    check_ajax_referer('install_hydra_booking', 'nonce');
+
+	if( ! current_user_can('install_plugins')) {
+		wp_send_json_error(['message' => 'Permission denied']);
+	}
+
+	check_ajax_referer('install_hydra_booking', 'nonce');
 
     include_once ABSPATH . 'wp-admin/includes/plugin.php';
     include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
