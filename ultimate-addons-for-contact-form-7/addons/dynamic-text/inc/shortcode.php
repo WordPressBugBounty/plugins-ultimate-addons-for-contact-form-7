@@ -23,16 +23,28 @@ if (!function_exists('UACF7_URL')) {
 
         switch ($part) {
             case 'host':
-                return $parsed_url['host'] ?? '';
+                return esc_html(
+                    sanitize_text_field($parsed_url['host'] ?? '')
+                );
             case 'path':
-                return $parsed_url['path'] ?? '';
+                return esc_html(
+                    sanitize_text_field($parsed_url['path'] ?? '')
+                );
             case 'query':
                 // If a key is provided, return its value
                 if (!empty($key) && isset($query_array[$key])) {
                     return sanitize_text_field($query_array[$key]);
                 }
                 // Otherwise, return full query string
-                return urldecode(http_build_query($query_array, '', '&', PHP_QUERY_RFC3986));
+                $query = http_build_query(
+                    array_map( 'sanitize_text_field', $query_array ),
+                    '',
+                    '&',
+                    PHP_QUERY_RFC3986
+                );
+
+                return esc_html( $query );
+
             default:
                 // Return only base URL (no query string)
                 $scheme = 'https';
@@ -50,8 +62,11 @@ if (!function_exists('UACF7_URL')) {
 if(!function_exists('UACF7_URL_WITH_PERAMETERS')){
   
     function UACF7_URL_WITH_PERAMETERS($val){ 
-        $data = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        return $data;
+        $current = home_url(
+            wp_unslash($_SERVER['REQUEST_URI'])
+        );
+
+        return esc_url($current);
     }
 
     add_shortcode('UACF7_URL_WITH_PERAMETERS', 'UACF7_URL_WITH_PERAMETERS'); 
