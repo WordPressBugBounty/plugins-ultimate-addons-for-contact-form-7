@@ -723,7 +723,7 @@ class UACF7_CF {
 					$condition_status[] = $matched ? 'true' : 'false';
 				}
 
-				// ✅ Replace content like mail logic
+				// Replace content like mail logic
 				if ( $uacf7_cf_conditions_for == 'all' && ! in_array( 'false', $condition_status, true ) ) {
 					if ( $uacf7_cf_hs == 'show' ) {
 						$pdf_content = preg_replace( '/\['.$uacf7_cf_group.'\]/s', '', $pdf_content );
