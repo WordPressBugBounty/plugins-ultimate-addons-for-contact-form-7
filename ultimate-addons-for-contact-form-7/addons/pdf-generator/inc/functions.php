@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
             $ContactForm = WPCF7_ContactForm::get_instance($form_id); 
             $all_fields = $ContactForm->scan_form_tags();
             ?>
-            <h3> <strong><?php echo esc_html__( 'Form Tags :', 'ultimate-addons-cf7' ); ?>  </strong>
+            <h3> <strong><?php echo esc_html__( 'Form Tags :', 'ultimate-addons-for-contact-form-7' ); ?>  </strong>
                 <strong>
                     <?php
                         foreach ($all_fields as $tag) {

@@ -44,11 +44,11 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 					} 
 					// uacf7_print_r($tags);
 					
-					$exclude = isset($this->field['query_args']['exclude']) ? $this->field['query_args']['exclude'] : array();
+					$exclude_types = isset( $this->field['query_args']['exclude_types'] ) && is_array( $this->field['query_args']['exclude_types'] ) ? $this->field['query_args']['exclude_types'] : array();
 					
 					foreach ( $tags as $tag ) { 
 
-						if ($tag['type'] == '' || in_array($tag['basetype'], $exclude) ) continue; 
+						if ($tag['type'] == '' || in_array($tag['basetype'], $exclude_types, true) ) continue; 
 
 						if( $tag['type'] == 'checkbox'  ) {   
 							$tag_name =  is_array($tag['options']) && !in_array('exclusive', $tag['options']) ? $tag['name'].'[]'  : $tag['name'];
@@ -170,7 +170,7 @@ if ( ! class_exists( 'UACF7_select' ) ) {
 				}
 			}
 
-			echo '<select name="' . $this->field_name() . '" id="' . esc_attr( $this->field_name() ) . '" data-depend-id="' . esc_attr( $this->field['id'] ) . '' . $this->parent_field . '" class="tf-select"  '. $this->field_attributes() .'>';
+			echo '<select name="' . esc_attr($this->field_name()) . '" id="' . esc_attr( $this->field_name() ) . '" data-depend-id="' . esc_attr( $this->field['id'] ) . '' . esc_attr( $this->parent_field ) . '" class="tf-select"  '. esc_attr( $this->field_attributes() ) .'>';
 			if ( ! empty( $this->field['placeholder'] ) ) {
 				echo '<option value="">' . esc_html( $this->field['placeholder'] ) . '</option>';
 			}

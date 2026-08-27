@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! function_exists( 'uacf7_addons_included' ) ) {
 

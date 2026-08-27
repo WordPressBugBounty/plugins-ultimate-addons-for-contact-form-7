@@ -30,7 +30,7 @@ class UACF7_TELEGRAM {
 	public function uacf7_post_meta_options_telegram( $value, $post_id ) {
 
 		$telegram = apply_filters( 'uacf7_post_meta_options_telegram_pro', $data = array(
-			'title' => __( 'Telegram', 'ultimate-addons-cf7' ),
+			'title' => __( 'Telegram', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-brands fa-telegram',
 			'checked_field' => 'uacf7_telegram_enable',
 			'fields' => array(
@@ -38,10 +38,11 @@ class UACF7_TELEGRAM {
 				'uacf7_telegram_heading' => array(
 					'id' => 'uacf7_telegram_heading',
 					'type' => 'heading',
-					'label' => __( 'Telegram Integration', 'ultimate-addons-cf7' ),
+					'label' => __( 'Telegram Integration', 'ultimate-addons-for-contact-form-7' ),
 					'subtitle' => sprintf(
-						__( 'Forward form submission data to Telegram automatically. See Demo %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://cf7addons.com/preview/contact-form-7-telegram/" target="_blank" rel="noopener">Example</a>'
+						/* translators: %1s: demo link */
+						__( 'Forward form submission data to Telegram automatically. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://cf7addons.com/preview/contact-form-7-telegram/" target="_blank" rel="noopener">' . esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 
@@ -50,23 +51,24 @@ class UACF7_TELEGRAM {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/" target="_blank" rel="noopener">Telegram Integration</a>'
+						/* translators: %1s: demo link */
+						__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/" target="_blank" rel="noopener">' . esc_html__( 'Telegram Integration', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'uacf7_telegram_enable' => array(
 					'id' => 'uacf7_telegram_enable',
 					'type' => 'switch',
-					'label' => __( ' Enable Telegram Integration', 'ultimate-addons-cf7' ),
-					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
-					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'label' => __( ' Enable Telegram Integration', 'ultimate-addons-for-contact-form-7' ),
+					'label_on' => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+					'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
 					'default' => false,
 					'field_width' => 50,
 				),
 				'uacf7_telegram_form_options_heading' => array(
 					'id' => 'uacf7_telegram_form_options_heading',
 					'type' => 'heading',
-					'label' => __( 'Telegram Option ', 'ultimate-addons-cf7' ),
+					'label' => __( 'Telegram Option ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_telegram_enable_icon' => array(
 					'id' => 'uacf7_telegram_enable_icon',
@@ -78,17 +80,17 @@ class UACF7_TELEGRAM {
 				'uacf7_telegram_bot_token' => array(
 					'id' => 'uacf7_telegram_bot_token',
 					'type' => 'text',
-					'label' => __( ' Telegram BOT Token ', 'ultimate-addons-cf7' ),
-					'placeholder' => __( ' Paste here Telegram BOT TOKEN..... ', 'ultimate-addons-cf7' ),
-					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#creating-a-bot-with-botfather">Click here</a> to learn how to get BOT Token.', 'ultimate-addons-cf7' ),
+					'label' => __( ' Telegram BOT Token ', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( ' Paste here Telegram BOT TOKEN..... ', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#creating-a-bot-with-botfather">Click here</a> to learn how to get BOT Token.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_telegram_chat_id' => array(
 					'id' => 'uacf7_telegram_chat_id',
 					'type' => 'text',
-					'label' => __( ' Telegram Chat ID ', 'ultimate-addons-cf7' ),
-					'placeholder' => __( ' Paste here Telegram Chat ID..... ', 'ultimate-addons-cf7' ),
-					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#getting-the-user-chat-id">Click here</a> to learn how to get Chat ID.', 'ultimate-addons-cf7' ),
+					'label' => __( ' Telegram Chat ID ', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( ' Paste here Telegram Chat ID..... ', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#getting-the-user-chat-id">Click here</a> to learn how to get Chat ID.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 
@@ -163,7 +165,9 @@ class UACF7_TELEGRAM {
 
 
 			if ( is_wp_error( $response ) ) {
-				error_log( 'Telegram API request failed: ' . $response->get_error_message() );
+				// Telegram API request failed. This is a non-blocking integration, so we
+				// do not emit production debug output here.
+				return;
 			}
 		}
 

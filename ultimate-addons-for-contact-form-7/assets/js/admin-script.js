@@ -192,66 +192,6 @@ function uacf7_progressbar_style() {
     }
 }
 
-
-jQuery(document).ready(function ($) {
-
-    let urlParams = new URLSearchParams(window.location.search);
-    let pageSlug = urlParams.get("page");
-
-    let noticeContainer;
-    if (pageSlug === "uacf7_addons") {
-        noticeContainer = $('.tf-setting-dashboard .tf-setting-top-bar');
-    } else if (pageSlug === "uacf7-setup-wizard") {
-        noticeContainer = $('.uacf7-single-step-content.chooes-addon').find('.hydra-installation-notice');
-    } else {
-        return; 
-    }
-
-    $('#uacf7_enable_hydra_booking_form').on('change', function () {
-        if ($(this).is(':checked')) {
-
-            $('.uacf7-notice').remove();
-
-            let notice = $(`
-                <div class="uacf7-notice">
-                    <span class="uacf7-loader"></span> Hydra Booking plugin is installing... Please do not reload the page.
-                </div>
-            `);
-
-            noticeContainer.after(notice);
-            notice.fadeIn(500);
-
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'uacf7_install_hydra_booking',
-                    security: uacf7_admin_data.uacf7_nonce
-                },
-                success: function (response) {
-                    if (response.success) {
-                        notice.html(`<span class="uacf7-checkmark"><i class="fa-regular fa-circle-check"></i></span> ${response.data.message}`)
-                              .removeClass('error')
-                              .addClass('success')
-                              .fadeIn(500);
-                    } else {
-                        notice.html(`<span class="uacf7-error"><i class="fa-regular fa-circle-xmark"></i></span> ${response.data.message}`)
-                              .removeClass('success')
-                              .addClass('error')
-                              .fadeIn(500);
-                    }
-                },
-                error: function () {
-                    notice.html('<span class="uacf7-error"><i class="fa-regular fa-circle-xmark"></i></span> An error occurred while installing the plugin.')
-                          .removeClass('success')
-                          .addClass('error')
-                          .fadeIn(500);
-                }
-            });
-        }
-    });
-});
-
 jQuery(document).ready(function($) {
     $('.uacf7-plugin-button').not('.pro').on('click', function(e) {
         e.preventDefault();

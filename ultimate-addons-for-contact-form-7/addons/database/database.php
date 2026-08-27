@@ -34,18 +34,16 @@ class UACF7_DATABASE {
 		add_action( 'admin_enqueue_scripts', [ $this, 'wp_enqueue_admin_script_pro' ] );
 
 		add_action( 'wp_ajax_uacf7dp_get_table_data', [ $this, 'ajax_get_table_data' ] );
-		add_action( 'wp_ajax_nopriv_uacf7dp_get_table_data', array( $this, 'ajax_get_table_data' ) );
 
 		// For Viwe the data on popup
 		add_action( 'wp_ajax_uacf7dp_view_table_data', [ $this, 'uacf7dp_view_table_data' ] );
-		add_action( 'wp_ajax_nopriv_uacf7dp_view_table_data', array( $this, 'uacf7dp_view_table_data' ) );
 
 		add_action( 'wp_ajax_uacf7dp_deleted_table_datas', [ $this, 'uacf7dp_deleted_table_datas' ] );
 		add_action( 'wp_ajax_uacf7dp_bulk_deleted_table_datas', [ $this, 'uacf7_ajax_bulk_delete' ] );
 
 		$option = get_option( 'uacf7_settings' );
 
-		if(isset( $option['uacf7_enable_database_pro'] ) && $option['uacf7_enable_database_pro'] != true || ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ){
+		if(isset( $option['uacf7_enable_database_pro'] ) && $option['uacf7_enable_database_pro'] != true || ! class_exists( 'Ultimate_Addons_CF7_PRO' ) ){
 			add_filter( 'uacf7dp_send_form_data_before_insert', [ $this, 'uacf7dp_get_form_data_before_insert' ], 10, 2 );
 		}
 
@@ -103,13 +101,14 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7dp_data_table_func() {
 		global $wpdb;
-		$charset_collate = $wpdb->get_charset_collate();
+		$uacf7_db = $wpdb;
+		$charset_collate = $uacf7_db->get_charset_collate();
 
-		$uacf7dp_table = $wpdb->prefix . 'uacf7dp_data';
-		$uacf7dp_table_entry = $wpdb->prefix . 'uacf7dp_data_entry';
+		$uacf7dp_table = $uacf7_db->prefix . 'uacf7dp_data';
+		$uacf7dp_table_entry = $uacf7_db->prefix . 'uacf7dp_data_entry';
 
 		// form info table 
-		if ( $wpdb->get_var( "show tables like '$uacf7dp_table'" ) != $uacf7dp_table ) {
+		if ( $uacf7_db->get_var( "show tables like '$uacf7dp_table'" ) != $uacf7dp_table ) {
 			$sql = 'CREATE TABLE ' . $uacf7dp_table . ' (
                 `data_id` int(11) NOT NULL AUTO_INCREMENT,
 				`cf7_form_id` int(11) NOT NULL,
@@ -123,7 +122,7 @@ class UACF7_DATABASE {
 		}
 
 		// form entry table 
-		if ( $wpdb->get_var( "show tables like '$uacf7dp_table_entry'" ) != $uacf7dp_table_entry ) {
+		if ( $uacf7_db->get_var( "show tables like '$uacf7dp_table_entry'" ) != $uacf7dp_table_entry ) {
 			$sql = 'CREATE TABLE ' . $uacf7dp_table_entry . ' (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `cf7_form_id` int(11) NOT NULL,
@@ -140,7 +139,7 @@ class UACF7_DATABASE {
 
 			maybe_convert_table_to_utf8mb4( $uacf7dp_table_entry );
 			$sql = 'ALTER TABLE ' . $uacf7dp_table_entry . ' change fields_name fields_name VARCHAR(250) character set utf8, change value value text character set utf8;';
-			$wpdb->query( $sql );
+			$uacf7_db->query( $sql );
 		}
 
 	}
@@ -152,6 +151,7 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7dp_get_form_data_before_insert( $insert_data, $extra ) {
 		global $wpdb;
+		$uacf7_db = $wpdb;
 		$submission = WPCF7_Submission::get_instance();
 		$data = array_merge( $insert_data, $extra );
 		$submit_ip = $extra['submit_ip'];
@@ -159,8 +159,8 @@ class UACF7_DATABASE {
 
 		$submit_form_id = $submission->get_contact_form()->id();
 
-		$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->prefix . 'uacf7dp_data(`cf7_form_id`, `submit_ip`, `submit_time`) VALUES (%d, %d, %s)', $submit_form_id, $submit_ip, $submit_time ) );
-		$data_id = $wpdb->insert_id;
+		$uacf7_db->query( $uacf7_db->prepare( 'INSERT INTO ' . $uacf7_db->prefix . 'uacf7dp_data(`cf7_form_id`, `submit_ip`, `submit_time`) VALUES (%d, %d, %s)', $submit_form_id, $submit_ip, $submit_time ) );
+		$data_id = $uacf7_db->insert_id;
 
 		$uacf7dp_no_save_fields = uacf7dp_no_save_fields();
 
@@ -174,7 +174,7 @@ class UACF7_DATABASE {
 					$v = implode( "\n", $v );
 				}
 
-				$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->prefix . 'uacf7dp_data_entry(`cf7_form_id`, `data_id`, `fields_name`, `value`) VALUES (%d,%d,%s,%s)', $submit_form_id, $data_id, $k, $v ) );
+				$uacf7_db->query( $uacf7_db->prepare( 'INSERT INTO ' . $uacf7_db->prefix . 'uacf7dp_data_entry(`cf7_form_id`, `data_id`, `fields_name`, `value`) VALUES (%d,%d,%s,%s)', $submit_form_id, $data_id, $k, $v ) );
 			}
 		}
 	}
@@ -186,13 +186,13 @@ class UACF7_DATABASE {
 	 */
 	public function uacf7dp_check_tables_existence() {
 		global $wpdb;
-
-		$uacf7dp_table = $wpdb->prefix . 'uacf7dp_data';
-		$uacf7dp_table_entry = $wpdb->prefix . 'uacf7dp_data_entry';
+		$uacf7_db = $wpdb;
+		$uacf7dp_table = $uacf7_db->prefix . 'uacf7dp_data';
+		$uacf7dp_table_entry = $uacf7_db->prefix . 'uacf7dp_data_entry';
 
 		// Check if tables exist
-		$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '$uacf7dp_table'" ) == $uacf7dp_table &&
-			$wpdb->get_var( "SHOW TABLES LIKE '$uacf7dp_table_entry'" ) == $uacf7dp_table_entry;
+		$table_exists = $uacf7_db->get_var( "SHOW TABLES LIKE '$uacf7dp_table'" ) == $uacf7dp_table &&
+			$uacf7_db->get_var( "SHOW TABLES LIKE '$uacf7dp_table_entry'" ) == $uacf7dp_table_entry;
 
 		return $table_exists;
 	}
@@ -202,8 +202,8 @@ class UACF7_DATABASE {
 	 */
 
 	public function wp_enqueue_admin_script() {
-		wp_enqueue_style( 'database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css' );
-		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), null, true );
+		wp_enqueue_style( 'database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css', array(), UACF7_VERSION, 'all' );
+		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), UACF7_VERSION, true );
 		wp_localize_script(
 			'database-admin',
 			'database_admin_url',
@@ -243,27 +243,25 @@ class UACF7_DATABASE {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 
 				// Enqueue DataTables CSS
-				wp_enqueue_style( 'database-pro-admin-style', UACF7_ADDONS . '/database/assets/css/database-pro-style.css' );
-				wp_enqueue_style( 'database-table-style', 'https://cdn.datatables.net/v/ju/jqc-1.12.4/jszip-3.10.1/dt-1.13.10/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/r-2.5.0/rr-1.4.1/sc-2.3.0/sl-1.7.0/sr-1.3.0/datatables.min.css' );
+				wp_enqueue_style( 'database-modern-admin-style', UACF7_ADDONS . '/database/assets/css/database-modern-style.css', array(), UACF7_VERSION, 'all' );
+				wp_enqueue_style( 'database-table-style', UACF7_ADDONS . '/database/assets/css/datatables.min.css', array(), UACF7_VERSION, 'all' );
 
 				// Enqueue DataTables JS
-				wp_enqueue_script( 'database-table-script', 'https://cdn.datatables.net/v/ju/jqc-1.12.4/jszip-3.10.1/dt-1.13.10/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/r-2.5.0/rr-1.4.1/sc-2.3.0/sl-1.7.0/sr-1.3.0/datatables.min.js', array( 'jquery' ), null, true );
+				wp_enqueue_script( 'database-table-script', UACF7_ADDONS . '/database/assets/js/datatables.min.js', array( 'jquery' ), UACF7_VERSION, true );
 
 				// Enqueue PDFMake
-				wp_enqueue_script( 'database-pro-pdfmake', 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js', array(), null, true );
+				wp_enqueue_script( 'database-modern-pdfmake', UACF7_ADDONS . '/database/assets/js/pdfmake.min.js', array(), UACF7_VERSION, true );
 				// Enqueue PDFMake Fonts
-				wp_enqueue_script( 'database-pro-pdfmake-font', 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js', array(), null, true );
+				wp_enqueue_script( 'database-modern-pdfmake-font', UACF7_ADDONS . '/database/assets/js/vfs_fonts.js', array(), UACF7_VERSION, true );
 				
 
-				wp_enqueue_script( 'uacf7dp-database-icons-script', UACF7_ADDONS . '/database/assets/js/icons.js', array(), null, true );
-				wp_enqueue_script( 'uacf7dp-database-table-script', UACF7_ADDONS . '/database/assets/js/database-pro-main.js', array(), null, true );
+				wp_enqueue_script( 'uacf7dp-database-icons-script', UACF7_ADDONS . '/database/assets/js/icons.js', array(), UACF7_VERSION, true );
+				wp_enqueue_script( 'uacf7dp-database-table-script', UACF7_ADDONS . '/database/assets/js/database-modern-main.js', array(), UACF7_VERSION, true );
 				wp_localize_script( 'uacf7dp-database-table-script', 'uACF7DP_Pram', array(
 					'admin_url' => get_admin_url() . 'admin.php',
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 					'nonce'     => wp_create_nonce( 'uacf7dp-nonce' ),
 				) );
-
-				wp_enqueue_script( 'jquery-ui', 'https://code.jquery.com/ui/1.13.3/jquery-ui.min.js', array( 'jquery' ), null, true );
 
 			}
 		}
@@ -280,15 +278,16 @@ class UACF7_DATABASE {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( 'You do not have permission to perform this action.' );
 		}
-
-		if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7dp-nonce' ) ) {
-			exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		$nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'uacf7dp-nonce' ) ) {
+			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
 		}
 
 		if ( isset( $_POST['form_id'] ) && 0 < $_POST['form_id'] ) {
 			global $wpdb;
+			$uacf7_db = $wpdb;
 			$form_id = intval( $_POST['form_id'] );
-			$today = date( "Y-m-d" );
+			$today = gmdate( "Y-m-d" );
 			$upload_dir = wp_upload_dir();
 			$dir = $upload_dir['baseurl'];
 			$replace_dir = '/uacf7-uploads/';
@@ -299,8 +298,8 @@ class UACF7_DATABASE {
 			$site_title = str_replace( " ", "-", $site_title );
 			$file_name = $today . '-' . $form_title . '—' . $site_title;
 
-			$field_rows = $wpdb->get_results( $wpdb->prepare(
-				'SELECT DISTINCT fields_name FROM ' . $wpdb->prefix . 'uacf7dp_data_entry WHERE cf7_form_id = %d',
+			$field_rows = $uacf7_db->get_results( $uacf7_db->prepare(
+				'SELECT DISTINCT fields_name FROM ' . $uacf7_db->prefix . 'uacf7dp_data_entry WHERE cf7_form_id = %d',
 				$form_id
 			) );
 
@@ -318,8 +317,8 @@ class UACF7_DATABASE {
 			$list[] = $all_keys;
 
 			// Step 2: Get all submission rows sorted by data_id
-			$rows = $wpdb->get_results( $wpdb->prepare(
-				'SELECT * FROM ' . $wpdb->prefix . 'uacf7dp_data_entry 
+			$rows = $uacf7_db->get_results( $uacf7_db->prepare(
+				'SELECT * FROM ' . $uacf7_db->prefix . 'uacf7dp_data_entry 
 				WHERE cf7_form_id = %d 
 				ORDER BY data_id, id ASC',
 				$form_id
@@ -360,25 +359,39 @@ class UACF7_DATABASE {
 			}
 			
 			// Set the headers
-			ob_start();
-			header( 'Content-Type: text/csv' );
-			header( 'Content-Disposition: attachment; filename="' . $file_name . '"' );
-			$fp = fopen( 'php://output', 'w' );
+			$csv_rows = array();
 
 			foreach ( $list as $fields ) {
-				fputcsv( $fp, $fields );
+				$csv_fields = array();
+
+				foreach ( $fields as $field ) {
+					$field = is_scalar( $field ) ? (string) $field : '';
+
+					/*
+					* Escape double quotes according to CSV rules.
+					*/
+					$field = str_replace( '"', '""', $field );
+
+					/*
+					* Wrap every value in double quotes.
+					*/
+					$csv_fields[] = '"' . $field . '"';
+				}
+
+				$csv_rows[] = implode( ',', $csv_fields );
 			}
-			fclose( $fp );
-			$csv_data = ob_get_clean();
-			$data = [ 
-				'status' => true,
+
+			$csv_data = implode( "\r\n", $csv_rows ) . "\r\n";
+
+			$data = array(
+				'status'    => true,
 				'file_name' => $file_name,
-				'csv' => $csv_data,
-			];
+				'csv'       => $csv_data,
+			);
 		} else {
 			$data = [ 
 				'status' => false,
-				'message' => esc_html( 'Something went wrong! Form ID not found.', 'ultimate-addons-cf7' ),
+				'message' => esc_html( 'Something went wrong! Form ID not found.', 'ultimate-addons-for-contact-form-7' ),
 			];
 		}
 
@@ -397,8 +410,8 @@ class UACF7_DATABASE {
 
 		add_submenu_page(
 			'uacf7_settings',
-			__( 'Database', 'ultimate-addons-cf7' ),
-			__( 'Database', 'ultimate-addons-cf7' ),
+			__( 'Database', 'ultimate-addons-for-contact-form-7' ),
+			__( 'Database', 'ultimate-addons-for-contact-form-7' ),
 			'manage_options',
 			'ultimate-addons-db',
 			apply_filters( 'uacf7_database_admin_page', array( $this, 'uacf7_create_database_page' ) ),
@@ -409,9 +422,7 @@ class UACF7_DATABASE {
 
 	public function uacf7_create_database_page() {
 		global $wpdb;
-
-		$form_id = isset( $_GET['form_id'] ) ? $_GET['form_id'] : null;
-
+		$uacf7_db = $wpdb;
 		$list_forms = get_posts(
 			array(
 				'post_type' => 'wpcf7_contact_form',
@@ -425,26 +436,30 @@ class UACF7_DATABASE {
 				<div class="loading"></div>
 			</div>
 			<div id="uacf7dp_addons_header" class="uacf7dp-tabcontent">
-				<img src="<?php echo UACF7_ADDONS ?>/database/assets/images/ultimate-logo.png" alt="logo" />
+				<img src="<?php echo esc_url(UACF7_ADDONS) ?>/database/assets/images/ultimate-logo.png" alt="logo" />
 				<h4 class="uacf7dp_main-heading">
-					<?php echo esc_html__( 'Database', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Database', 'ultimate-addons-for-contact-form-7' ); ?>
 				</h4>
 				<div class="uacf7dp_header-form">
 					<h4>
-						<?php echo esc_html__( 'Select form', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Select form', 'ultimate-addons-for-contact-form-7' ); ?>
 					</h4>
 
+					<?php
+					$selected_form_id = filter_input( INPUT_GET, 'form_id', FILTER_VALIDATE_INT );
+					$selected_form_id = false === $selected_form_id || null === $selected_form_id ? 0 : absint( $selected_form_id );
+					?>
 					<select name="select_from_submit" id="select_from_submit">
-						<option value=" 0" <?php selected( isset( $_POST['form-id'] ) && $_POST['form-id'] == 0 ); ?>>
-							<?php echo esc_html__( 'Select form', 'ultimate-addons-cf7' ); ?>
+						<option value="0" <?php selected( $selected_form_id, 0 ); ?>>
+							<?php echo esc_html__( 'Select form', 'ultimate-addons-for-contact-form-7' ); ?>
 						</option>
 						<?php
 						foreach ( $list_forms as $form ) {
 							// count number of data
-							$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM " . $wpdb->prefix . "uacf7dp_data WHERE cf7_form_id = %d", $form->ID ) );
+							$count = $uacf7_db->get_var( $uacf7_db->prepare( "SELECT COUNT(*) FROM " . $uacf7_db->prefix . "uacf7dp_data WHERE cf7_form_id = %d", $form->ID ) );
 
-							echo '<option value="' . esc_attr( $form->ID ) . '" ' . selected( isset( $_POST['form-id'] ) && $_POST['form-id'] == $form->ID, true ) . '>';
-							echo esc_attr( $form->post_title ) . ' ( ' . $count . ' )';
+							echo '<option value="' . esc_attr( $form->ID ) . '" ' . selected( $selected_form_id, $form->ID, false ) . '>';
+							echo esc_attr( $form->post_title ) . ' ( ' . esc_attr( $count ) . ' )';
 							echo '</option>';
 						}
 						?>
@@ -458,7 +473,7 @@ class UACF7_DATABASE {
 					<table id="uacf7dp-database-tablePro"></table>
 				</div>
 				<div class="uacf7dp_table_empty">
-					<img src="<?php echo UACF7_ADDONS ?>/database/assets/images/select.png" alt="thum" />
+					<img src="<?php echo esc_url(UACF7_ADDONS) ?>/database/assets/images/select.png" alt="thum" />
 					<p>
 						<span>To view data, please select a form</span>
 						Once selected, the data will be displayed on the screen.
@@ -487,18 +502,21 @@ class UACF7_DATABASE {
 	// PopUp Data view Processing
 	public function uacf7dp_view_table_data() {
 		global $wpdb;
+		$uacf7_db = $wpdb;
 
 		// Capability check
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( 'You do not have permission to perform this action.' );
 		}
 
-		// nonce verify
-		uacf7dp_checkNonce();
+		// Nonce verify.
+		if ( ! check_ajax_referer( 'uacf7dp-nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'mess' => 'Nonce is invalid' ) );
+		}
 
-		// Get from Table
-		$form_id = isset( $_POST['cf7_form_id'] ) && $_POST['cf7_form_id'] >= 0 ? intval( $_POST['cf7_form_id'] ) : 0;
-		$all_data = isset( $_POST['all_data'] ) && is_array( $_POST['all_data'] ) ? $_POST['all_data'] : null;
+		// Get from Table.
+		$form_id = isset( $_POST['cf7_form_id'] ) ? absint( wp_unslash( $_POST['cf7_form_id'] ) ) : 0;
+		$all_data = isset( $_POST['all_data'] ) && is_array( $_POST['all_data'] ) ? map_deep( wp_unslash( $_POST['all_data'] ), 'sanitize_text_field' ) : array();
 
 		$encryptionKey = 'AES-256-CBC';
 
@@ -598,26 +616,34 @@ class UACF7_DATABASE {
 
 		$html .= '</table></div>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 		wp_die();
 	}
 
 
 	public function ajax_get_table_data() {
-		uacf7dp_checkNonce();
-		global $wpdb;
-		$cf7d_entry_order_by = '`data_id` DESC';
-		$form_id = isset( $_POST['form_id'] ) && $_POST['form_id'] >= 0 ? intval( $_POST['form_id'] ) : 0;
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'You do not have permission to perform this action.' );
+		}
 
-		$get_form_data = $wpdb->prepare(
+		if ( ! check_ajax_referer( 'uacf7dp-nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'mess' => 'Nonce is invalid' ) );
+		}
+
+		global $wpdb;
+		$uacf7_db = $wpdb;
+		$cf7d_entry_order_by = '`data_id` DESC';
+		$form_id = isset( $_POST['form_id'] ) ? absint( wp_unslash( $_POST['form_id'] ) ) : 0;
+
+		$get_form_data = $uacf7_db->prepare(
 			"SELECT * 
-			FROM {$wpdb->prefix}uacf7dp_data_entry 
+			FROM {$uacf7_db->prefix}uacf7dp_data_entry 
 			WHERE `cf7_form_id` = %d 
 				AND data_id IN (
 					SELECT data_id 
 					FROM (
 						SELECT data_id 
-						FROM {$wpdb->prefix}uacf7dp_data_entry 
+						FROM {$uacf7_db->prefix}uacf7dp_data_entry 
 						WHERE `cf7_form_id` = %d 
 						GROUP BY `data_id` 
 						ORDER BY %s
@@ -630,7 +656,7 @@ class UACF7_DATABASE {
 			$cf7d_entry_order_by
 		);
 
-		$form_data = $wpdb->get_results( $get_form_data );
+		$form_data = $uacf7_db->get_results( $get_form_data );
 		$uacf7dp_sortable = $this->uacf7dp_data_sortable( $form_data );
 		
 		$fields = $this->uacf7dp_get_db_fields( $form_id );
@@ -671,8 +697,9 @@ class UACF7_DATABASE {
 
 	public function uacf7dp_get_db_fields( $form_id ) {
 		global $wpdb;
-		$sql = sprintf( 'SELECT `fields_name` FROM `' . $wpdb->prefix . 'uacf7dp_data_entry` WHERE cf7_form_id = %d GROUP BY `fields_name`', $form_id );
-		$data = $wpdb->get_results( $sql );
+		$uacf7_db = $wpdb;
+		$sql = sprintf( 'SELECT `fields_name` FROM `' . $uacf7_db->prefix . 'uacf7dp_data_entry` WHERE cf7_form_id = %d GROUP BY `fields_name`', $form_id );
+		$data = $uacf7_db->get_results( $sql );
 
 		$fields = array();
 		foreach ( $data as $k => $v ) {
@@ -738,8 +765,6 @@ class UACF7_DATABASE {
 	 * Ultimate form save into the database
 	 */
 	public function uacf7_save_to_database( $form ) {
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-
 		if ( ! is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
 			if ( defined( 'UACF7_PRO_PATH_ADDONS' ) ) {
 				require_once( UACF7_PRO_PATH_ADDONS . '/database-pro/functions.php' );
@@ -750,8 +775,9 @@ class UACF7_DATABASE {
 			}
 		}
 		global $wpdb;
+		$uacf7_db = $wpdb;
 		$encryptionKey = 'AES-256-CBC';
-		$table_name = $wpdb->prefix . 'uacf7_form';
+		$table_name = $uacf7_db->prefix . 'uacf7_form';
 
 		$submission = WPCF7_Submission::get_instance();
 		$ContactForm = WPCF7_ContactForm::get_instance( $form->id() );
@@ -782,17 +808,15 @@ class UACF7_DATABASE {
 			wp_mkdir_p( $uacf7_dirname );
 		}
 
-		foreach ( $_FILES as $file_key => $file ) {
-			array_push( $uploaded_files, $file_key );
-		}
-
-		// var_dump( $files );
+		// CF7 already validates and normalizes uploaded files for the current submission.
 		foreach ( $files as $file_key => $file ) {
+			if ( ! empty( $file ) ) {
+				$uploaded_files[] = $file_key;
+			}
 
 			// var_dump( $file_key );
 
-			if ( ! empty( $file ) ) {
-				if ( in_array( $file_key, $uploaded_files ) ) {
+			if ( ! empty( $file ) && in_array( $file_key, $uploaded_files, true ) ) {
 					$file = is_array( $file ) ? reset( $file ) : $file;
 
 					// var_dump( $file );
@@ -805,15 +829,14 @@ class UACF7_DATABASE {
 					} else {
 						copy( $file, $dir . $dir_link );
 					}
-					array_push( $data_file, [ $file_key => $dir_link ] );
-				}
+				array_push( $data_file, [ $file_key => $dir_link ] );
 			}
 
 		}
 
 		$key_count = 0;
 		foreach ( $contact_form_data as $key => $value ) {
-			if ( in_array( $key, $uploaded_files ) ) {
+			if ( in_array( $key, $uploaded_files, true ) ) {
 				if ( ! empty( $data_file ) && is_array( $data_file ) ) {
 					$contact_form_data[ $key ] = $data_file[ $key_count ][ $key ];
 				}
@@ -854,7 +877,7 @@ class UACF7_DATABASE {
 
 		$insert_data = json_encode( $insert_data );
 
-		$wpdb->insert(
+		$uacf7_db->insert(
 			$table_name,
 			array(
 				'form_id' => $form->id(),
@@ -863,7 +886,7 @@ class UACF7_DATABASE {
 			)
 		);
 
-		$uacf7_db_insert_id = $wpdb->insert_id;
+		$uacf7_db_insert_id = $uacf7_db->insert_id;
 
 		//  print_r($uacf7_enable_track_order);
 
@@ -876,21 +899,30 @@ class UACF7_DATABASE {
 	}
 
 	public function uacf7dp_deleted_table_datas() {
-		uacf7dp_checkNonce();
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'You do not have permission to perform this action.' );
+		}
+
+		if ( ! check_ajax_referer( 'uacf7dp-nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'mess' => 'Nonce is invalid' ) );
+		}
+
 		global $wpdb;
 
-		$form_id = isset( $_POST['cf7_form_id'] ) && $_POST['cf7_form_id'] >= 0 ? intval( $_POST['cf7_form_id'] ) : 0;
-		$data_id = isset( $_POST['data_id'] ) && $_POST['data_id'] >= 0 ? intval( $_POST['data_id'] ) : 0;
+		$uacf7_db = $wpdb;
+
+		$form_id = isset( $_POST['cf7_form_id'] ) ? absint( wp_unslash( $_POST['cf7_form_id'] ) ) : 0;
+		$data_id = isset( $_POST['data_id'] ) ? absint( wp_unslash( $_POST['data_id'] ) ) : 0;
 
 		// Check if the provided IDs are valid
 		if ( $form_id <= 0 || $data_id <= 0 ) {
 			wp_send_json_error( array( 'message' => 'Invalid cf7_form_id or data_id.' ) );
 		}
 
-		$wpdb->delete( "{$wpdb->prefix}uacf7dp_data", array( 'cf7_form_id' => $form_id, 'data_id' => $data_id ) );
+		$uacf7_db->delete( "{$uacf7_db->prefix}uacf7dp_data", array( 'cf7_form_id' => $form_id, 'data_id' => $data_id ) );
 
 		// Delete from wp_uacf7dp_data_entry
-		$wpdb->delete( "{$wpdb->prefix}uacf7dp_data_entry", array( 'cf7_form_id' => $form_id, 'data_id' => $data_id ) );
+		$uacf7_db->delete( "{$uacf7_db->prefix}uacf7dp_data_entry", array( 'cf7_form_id' => $form_id, 'data_id' => $data_id ) );
 
 		wp_send_json_success( array( 'message' => 'Data processed successfully' ) );
 		wp_die();
@@ -898,11 +930,19 @@ class UACF7_DATABASE {
 
 	function uacf7_ajax_bulk_delete() {
 
-		uacf7dp_checkNonce();
-		global $wpdb;
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'You do not have permission to perform this action.' );
+		}
 
-		$form_id = isset( $_POST['form_id'] ) && $_POST['form_id'] >= 0 ? intval( $_POST['form_id'] ) : 0;
-		$ids     = isset($_POST['ids']) ? array_map('intval', $_POST['ids']) : [];
+		if ( ! check_ajax_referer( 'uacf7dp-nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'mess' => 'Nonce is invalid' ) );
+		}
+
+		global $wpdb;
+		$uacf7_db = $wpdb;
+
+		$form_id = isset( $_POST['form_id'] ) ? absint( wp_unslash( $_POST['form_id'] ) ) : 0;
+		$ids = isset( $_POST['ids'] ) && is_array( $_POST['ids'] ) ? array_map( 'absint', wp_unslash( $_POST['ids'] ) ) : array();
 
 		if ( $form_id <= 0 ) {
 			wp_send_json_error( array( 'message' => 'Invalid form id.' ) );
@@ -912,16 +952,16 @@ class UACF7_DATABASE {
 			wp_send_json_error(['message' => 'No IDs provided for deletion.']);
 		}
 
-		$data_table  = $wpdb->prefix . 'uacf7dp_data';
-		$entry_table = $wpdb->prefix . 'uacf7dp_data_entry';
+		$data_table  = $uacf7_db->prefix . 'uacf7dp_data';
+		$entry_table = $uacf7_db->prefix . 'uacf7dp_data_entry';
 
 		// Loop and delete for each ID
 		foreach ($ids as $data_id) {
-			$wpdb->delete($data_table, array(
+			$uacf7_db->delete($data_table, array(
 				'cf7_form_id' => $form_id,
 				'data_id'     => $data_id
 			));
-			$wpdb->delete($entry_table, array(
+			$uacf7_db->delete($entry_table, array(
 				'cf7_form_id' => $form_id,
 				'data_id'     => $data_id
 			));

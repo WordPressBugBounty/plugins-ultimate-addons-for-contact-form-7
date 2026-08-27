@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! function_exists( 'uacf7dp_column_default_fields' ) ) {
 	function uacf7dp_column_default_fields( $item, $column_name ) {
@@ -24,7 +25,7 @@ if ( ! function_exists( 'uacf7dp_column_default_fields' ) ) {
 
 if ( ! function_exists( 'uacf7dp_checkNonce' ) ) {
 	function uacf7dp_checkNonce() {
-		$nonce = sanitize_text_field( $_POST['nonce'] );
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'uacf7dp-nonce' ) ) {
 			wp_send_json_error( array( 'mess' => 'Nonce is invalid' ) );
 		}

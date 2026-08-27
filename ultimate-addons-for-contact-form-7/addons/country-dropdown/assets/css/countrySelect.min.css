@@ -184,7 +184,7 @@ only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
     .country-select .flag {
-        background-image: url(../img/flags@2x.png);
+        background-image: url(../img/flags2x.png);
         background-size: 5630px 15px
     }
 }

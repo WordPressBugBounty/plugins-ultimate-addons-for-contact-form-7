@@ -30,17 +30,18 @@ class UACF7_PRE_POPULATE {
             $all_forms[$form->ID] = $form->post_title; 
         }
         $pre_populated = apply_filters('uacf7_post_meta_options_pre_populated_pro', $data = array(
-            'title'  => __( 'Pre-Populate Field', 'ultimate-addons-cf7' ),
+            'title'  => __( 'Pre-Populate Field', 'ultimate-addons-for-contact-form-7' ),
             'icon'   => 'fa-solid fa-arrow-up-right-dots',
             'checked_field'   => 'pre_populate_enable',
             'fields' => array(
                 'uacf7_pre_populated_heading' => array(
                     'id'    => 'uacf7_pre_populated_heading',
                     'type'  => 'heading', 
-                    'label' => __( 'Pre-Populate Field Settings', 'ultimate-addons-cf7' ),
+                    'label' => __( 'Pre-Populate Field Settings', 'ultimate-addons-for-contact-form-7' ),
                     'subtitle' => sprintf(
-                        __( 'Sends data from one form to another, after the first form submission. See Demo %1s.', 'ultimate-addons-cf7' ),
-                         '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Example</a>'
+                        /* translators: %1s: demo link */
+                        __( 'Sends data from one form to another, after the first form submission. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+                         '<a href="https://cf7addons.com/preview/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">'.esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ).'</a>'
                                   )
                       ),
                       'pre_populate_docs' => array(
@@ -48,43 +49,44 @@ class UACF7_PRE_POPULATE {
                         'type'    => 'notice',
                         'style'   => 'success',
                         'content' => sprintf( 
-                            __( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">Pre-populate Field</a>'
+                            /* translators: %1$s: documentation link */
+                            __( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">'.esc_html__( 'Pre-populate Field', 'ultimate-addons-for-contact-form-7' ).'</a>'
                         )
                       ),
                 'pre_populate_enable' => array(
                     'id'        => 'pre_populate_enable',
                     'type'      => 'switch',
-                    'label'     => __( ' Enable Pre-Populate Field', 'ultimate-addons-cf7' ),
-                    'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
-                    'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Enable Pre-Populate Field', 'ultimate-addons-for-contact-form-7' ),
+                    'label_on'  => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+                    'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
                     'default'   => false, 
                 ),
                 'pre_populate_form_options_heading' => array(
                     'id'        => 'pre_populate_form_options_heading',
                     'type'      => 'heading',
-                    'label'     => __( 'Pre Populate Option ', 'ultimate-addons-cf7' ),
+                    'label'     => __( 'Pre Populate Option ', 'ultimate-addons-for-contact-form-7' ),
                 ),
                 'pre_populate_form' => array(
                     'id'        => 'pre_populate_form',
                     'type'      => 'select',
-                    'label'     => __( ' Select Other Form', 'ultimate-addons-cf7' ),
-                    'subtitle'     => __( 'The data will be sent to this form.', 'ultimate-addons-cf7' ),
+                    'label'     => __( ' Select Other Form', 'ultimate-addons-for-contact-form-7' ),
+                    'subtitle'     => __( 'The data will be sent to this form.', 'ultimate-addons-for-contact-form-7' ),
                     'options'     => $all_forms, 
                 ),
                 'data_redirect_url' => array(
                     'id'        => 'data_redirect_url',
                     'type'      => 'text',
-                    'label'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ),
-                    'subtitle'     => __( 'Insert the Page URL of the Other Form.', 'ultimate-addons-cf7' ),
-                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-cf7' ), 
+                    'label'     => __( ' Redirect URL ', 'ultimate-addons-for-contact-form-7' ),
+                    'subtitle'     => __( 'Insert the Page URL of the Other Form.', 'ultimate-addons-for-contact-form-7' ),
+                    'placeholder'     => __( ' Redirect URL ', 'ultimate-addons-for-contact-form-7' ), 
                 ),
 
               'pre_populate_passing_field' => array(
                 'id' => 'pre_populate_passing_field',
                 'type' => 'repeater',
                 'label' => 'Select Pre-Populate Field',
-                'subtitle'     => __( 'The data inserted on these fields will be forwarded to the other form.', 'ultimate-addons-cf7' ),
+                'subtitle'     => __( 'The data inserted on these fields will be forwarded to the other form.', 'ultimate-addons-for-contact-form-7' ),
                 'class' => 'tf-field-class',
                 'fields' => array(
                     'field_name' => array(
@@ -93,7 +95,7 @@ class UACF7_PRE_POPULATE {
                         'options'  => 'uacf7',
                         'query_args' => array(
                             'post_id'      => $post_id,  
-                            'exclude'      => ['submit'], 
+                            'exclude_types'      => ['submit'], 
                         ), 
                      )
                  ),
@@ -113,7 +115,7 @@ class UACF7_PRE_POPULATE {
     */
     
     public function wp_enqueue_script() {
-		wp_enqueue_script( 'pre-populate-script', UACF7_ADDONS . '/pre-populate-field/assets/js/pre-populate.js', array('jquery'), null, true ); 
+		wp_enqueue_script( 'pre-populate-script', UACF7_ADDONS . '/pre-populate-field/assets/js/pre-populate.js', array('jquery'), UACF7_VERSION, true ); 
         wp_localize_script( 'pre-populate-script', 'pre_populate_url',
             array( 
                     'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -131,12 +133,12 @@ class UACF7_PRE_POPULATE {
         if ( ! isset( $_POST ) || empty( $_POST ) ) {
 			return;
 		}
-        
-        if ( !wp_verify_nonce($_POST['ajax_nonce'], 'uacf7-pre-populate')) {
-            exit(esc_html__("Security error", 'ultimate-addons-cf7'));
+        $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+        if ( !wp_verify_nonce($nonce, 'uacf7-pre-populate')) {
+            exit(esc_html__("Security error", 'ultimate-addons-for-contact-form-7'));
         }
 
-        $form_id = $_POST['form_id']; 
+        $form_id = isset( $_POST['form_id'] ) ? sanitize_text_field( wp_unslash( $_POST['form_id'] ) ) : ''; 
         $pre_populate = uacf7_get_form_option( $form_id, 'pre_populated' );
         $pre_populate_enable = isset($pre_populate['pre_populate_enable']) ? $pre_populate['pre_populate_enable'] : false;
         if($pre_populate_enable == true){
@@ -157,9 +159,9 @@ class UACF7_PRE_POPULATE {
                 'pre_populate_form' => $pre_populate_form,
             ];
             
-            echo wp_send_json($data);
+            wp_send_json($data);
         }else{
-            echo false;
+            wp_send_json(false);
         }  
         wp_die();
     }

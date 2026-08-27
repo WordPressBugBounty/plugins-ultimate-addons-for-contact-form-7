@@ -31,8 +31,8 @@ if ( ! class_exists( 'UACF7_icon' ) ) {
                         <i class="ri-close-line"></i>
                     </span>
                 </div>
-                <a href="#" class="tf-admin-btn tf-modal-btn"><i class="ri-add-fill"></i><?php esc_html_e( 'Add Icon', 'ultimate-addons-cf7' ); ?></a>
-                <input type="hidden" class="tf-icon-value" name="<?php echo esc_attr( $this->field_name() ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo $this->field_attributes() ?>/>
+                <a href="#" class="tf-admin-btn tf-modal-btn"><i class="ri-add-fill"></i><?php esc_html_e( 'Add Icon', 'ultimate-addons-for-contact-form-7' ); ?></a>
+                <input type="hidden" class="tf-icon-value" name="<?php echo esc_attr( $this->field_name() ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo esc_attr( $this->field_attributes() ) ?>/>
             </div>
 			<?php
 		}
@@ -44,7 +44,7 @@ if ( ! class_exists( 'UACF7_icon' ) ) {
                     <div class="container tf-modal-content">
                         <div class="tf-modal-header">
                             <div class="tf-icon-search">
-                                <input type="text" placeholder="<?php esc_html_e( 'Search', 'ultimate-addons-cf7' ); ?>" class="tf-icon-search-input"/>
+                                <input type="text" placeholder="<?php esc_html_e( 'Search', 'ultimate-addons-for-contact-form-7' ); ?>" class="tf-icon-search-input"/>
                             </div>
                             <a data-dismiss="modal" class="tf-modal-close">&#10005;</a>
                         </div>
@@ -96,7 +96,7 @@ if ( ! class_exists( 'UACF7_icon' ) ) {
                             </div>
                         </div>
                         <div class="tf-modal-footer">
-                            <a class="tf-icon-insert tf-admin-btn tf-btn-secondary disabled"><?php esc_html_e( 'Insert', 'ultimate-addons-cf7' ); ?></a>
+                            <a class="tf-icon-insert tf-admin-btn tf-btn-secondary disabled"><?php esc_html_e( 'Insert', 'ultimate-addons-for-contact-form-7' ); ?></a>
                         </div>
                     </div>
                 </div>
@@ -107,28 +107,28 @@ if ( ! class_exists( 'UACF7_icon' ) ) {
 		public function get_icon_list() {
 			$icons = array(
 				'fontawesome_4' => array(
-					'label'      => __( 'Font Awesome 4', 'ultimate-addons-cf7' ),
+					'label'      => __( 'Font Awesome 4', 'ultimate-addons-for-contact-form-7' ),
 					'label_icon' => 'fa-regular fa-font-awesome',
 					'icons'      => $this->fontawesome_four_icons(),
 				),
 				'fontawesome_5' => array(
-					'label'      => __( 'Font Awesome 5', 'ultimate-addons-cf7' ),
+					'label'      => __( 'Font Awesome 5', 'ultimate-addons-for-contact-form-7' ),
 					'label_icon' => 'fa-regular fa-font-awesome',
 					'icons'      => $this->fontawesome_five_icons(),
 				),
 				'fontawesome_6' => array(
-					'label'      => __( 'Font Awesome 6', 'ultimate-addons-cf7' ),
+					'label'      => __( 'Font Awesome 6', 'ultimate-addons-for-contact-form-7' ),
 					'label_icon' => 'fa-regular fa-font-awesome',
 					'icons'      => $this->fontawesome_six_icons(),
 				),
 				'remixicon'     => array(
-					'label'      => __( 'Remix Icon', 'ultimate-addons-cf7' ),
+					'label'      => __( 'Remix Icon', 'ultimate-addons-for-contact-form-7' ),
 					'label_icon' => 'ri-remixicon-line',
 					'icons'      => $this->remix_icon(),
 				),
 			);
 
-			$icons = apply_filters( 'tf_icon_list', $icons );
+			$icons = apply_filters( 'uacf7_icon_list', $icons );
 
 			return $icons;
 		}

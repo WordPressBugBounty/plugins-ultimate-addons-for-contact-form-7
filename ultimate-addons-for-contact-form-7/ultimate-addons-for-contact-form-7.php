@@ -3,13 +3,14 @@
  * Plugin Name: Ultra Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.5.47
+ * Version: 3.5.48
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: ultimate-addons-cf7
+ * Text Domain: ultimate-addons-for-contact-form-7
  * Domain Path: /languages
+ * Requires Plugins: contact-form-7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,11 +30,20 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'UACF7_VERSION', '3.5.48' );
 
-		define( 'UACF7_VERSION', '3.5.47' );
+		/*
+		 * ---------------------------------------------------------
+		 * Legacy text-domain migration
+		 * ---------------------------------------------------------
+		 *
+		 * Must run while the plugin is loading so its hooks are
+		 * registered before WordPress reaches init/admin_init.
+		 */
+		require_once UACF7_PATH . 'inc/class-uacf7-text-domain-migration.php';
 
-		if ( ! class_exists( 'Appsero\Client' ) ) {
-			require_once( __DIR__ . '/inc/app/src/Client.php' );
+		if ( class_exists( 'UACF7_Text_Domain_Migration' ) ) {
+			UACF7_Text_Domain_Migration::init( __FILE__ );
 		}
 
 		//Plugin loaded
@@ -53,11 +63,6 @@ class Ultimate_Addons_CF7 {
 	 * Ultimate addons loaded
 	 */
 	public function uacf7_plugin_loaded() {
-		//Register text domain
-		load_plugin_textdomain( 'ultimate-addons-cf7', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
-		// Initialize the appsero
-		$this->appsero_init_tracker_ultimate_addons_for_contact_form_7();
 
 		//Enqueue admin scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 2 );
@@ -118,12 +123,13 @@ class Ultimate_Addons_CF7 {
 		?>
 		<div class="notice notice-error">
 			<p>
-				<?php printf(
-					__( '%s requires %s to be installed and active. You can install and activate it from %s', 'ultimate-addons-cf7' ),
+				<?php wp_kses_post( sprintf(
+					/* translators: %1$s: Plugin Name, %2$s: Required Plugin Name, %3$s: Link to install the required plugin */
+					__( '%1$s requires %2$s to be installed and active. You can install and activate it from %3$s', 'ultimate-addons-for-contact-form-7' ),
 					'<strong>Ultra Addons for Contact Form 7</strong>',
 					'<strong>Contact form 7</strong>',
-					'<a href="' . admin_url( 'plugin-install.php?tab=search&s=contact+form+7' ) . '">here</a>.'
-				); ?>
+					'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&s=contact+form+7' ) ) . '">here</a>.'
+				) ); ?>
 			</p>
 		</div>
 		<?php
@@ -173,12 +179,12 @@ class Ultimate_Addons_CF7 {
 		$pro_active = is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' );
 
 		if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
-			wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', 'sadf' );
+			wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', array(), UACF7_VERSION, 'all' );
 
 			// // wp_enqueue_media();
 			wp_enqueue_script( 'wp-color-picker' );
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array( 'jquery' ), null, true );
+			wp_enqueue_script( 'uacf7-admin-script', UACF7_URL . 'assets/js/admin-script.js', array( 'jquery' ), UACF7_VERSION, true );
 			wp_localize_script(
 				'uacf7-admin',
 				'uacf7_options',
@@ -221,31 +227,13 @@ class Ultimate_Addons_CF7 {
 
 	// Enqueue admin scripts
 	public function uacf7_frontend_scripts() {
-		wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', '' );
-		wp_enqueue_style( 'uacf7-form-style', UACF7_URL . 'assets/css/form-style.css', '' );
+		wp_enqueue_style( 'uacf7-frontend-style', UACF7_URL . 'assets/css/uacf7-frontend.css', array(), UACF7_VERSION, 'all' );
+		wp_enqueue_style( 'uacf7-form-style', UACF7_URL . 'assets/css/form-style.css', array(), UACF7_VERSION, 'all' );
 	}
 
-	/**
-	 * Initialize the plugin tracker
-	 *
-	 * @return void
-	 */
-	public function appsero_init_tracker_ultimate_addons_for_contact_form_7() {
-
-		$client = new Appsero\Client( '7d0e21bd-f697-4c80-8235-07b65893e0dd', 'Ultra Addons for Contact Form 7', __FILE__ );
-
-		// Change Admin notice text
-
-		$notice = sprintf( $client->__trans( 'Want to help make <strong>%1$s</strong> even more awesome? Allow %1$s to collect non-sensitive diagnostic data and usage information. I agree to get Important Product Updates & Discount related information on my email from  %1$s (I can unsubscribe anytime).' ), $client->name );
-		$client->insights()->notice( $notice );
-
-		// Active insights
-		$client->insights()->init();
-
-	}
 }
 
 /*
  * Object - Ultimate_Addons_CF7
  */
-$ultimate_addons_cf7 = new Ultimate_Addons_CF7();
+new Ultimate_Addons_CF7();

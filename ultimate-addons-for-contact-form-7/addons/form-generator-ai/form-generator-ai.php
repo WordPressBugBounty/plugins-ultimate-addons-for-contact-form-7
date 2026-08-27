@@ -33,11 +33,11 @@ class UACF7_FORM_GENERATOR {
 
 	// Add Admin Scripts
 	public function admin_scripts() {
-		wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), null, true );
-		wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'uacf7-form-generator-ai-choices-js', UACF7_ADDONS . '/form-generator-ai/assets/js/choices.min.js', array(), UACF7_VERSION, true );
+		wp_enqueue_script( 'uacf7-form-generator-ai-admin-js', UACF7_ADDONS . '/form-generator-ai/assets/js/admin-form-generator-ai.js', array( 'jquery' ), UACF7_VERSION, true );
 		// wp_enqueue_style( 'uacf7-form-generator-ai-choices-css', UACF7_ADDONS . '/form-generator-ai/assets/css/choices.css' ); 
 
-		wp_enqueue_style( 'uacf7-form-generator-ai-admin-css', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css' );
+		wp_enqueue_style( 'uacf7-form-generator-ai-admin-css', UACF7_ADDONS . '/form-generator-ai/assets/css/admin-form-generator-ai.css', array(), UACF7_VERSION, 'all' );
 
 		wp_localize_script( 'uacf7-form-generator-ai-admin-js', 'uacf7_form_ai',
 			array(
@@ -63,29 +63,30 @@ class UACF7_FORM_GENERATOR {
 					<div class="uacf7-ai-form-column">
 						<div class="uacf7-form-input-wrap">
 
-							<h4><?php echo _e( 'Create a', 'ultimate-addons-cf7' ); ?></h4>
+							<h4><?php echo esc_html__( 'Create a', 'ultimate-addons-for-contact-form-7' ); ?></h4>
 							<div class="uacf7-form-input-inner">
 								<select class="form-control uacf7-choices" data-trigger name="uacf7-form-generator-ai"
 									id="uacf7-form-generator-ai" placeholder="This is a placeholder" multiple>
 								</select>
 								<button
-									class="uacf7_ai_search_button"><?php echo _e( 'Generate With AI', 'ultimate-addons-cf7' ); ?></button>
+									class="uacf7_ai_search_button"><?php echo esc_html__( 'Generate With AI', 'ultimate-addons-for-contact-form-7' ); ?></button>
 							</div>
 
 						</div>
 						<div class="uacf7-doc-notice">
-							<?php echo sprintf(
-								__( 'Not sure how to use this? Check our step by step  %1s.', 'ultimate-addons-cf7' ),
-								'<a href="https://themefic.com/docs/uacf7/free-addons/ai-form-generator/" target="_blank">documentation</a>'
-							); ?>
+							<?php echo wp_kses_post( sprintf(
+								/* Translators: 1: documentation link */
+								__( 'Not sure how to use this? Check our step by step  %1s.', 'ultimate-addons-for-contact-form-7' ),
+								'<a href="'.esc_url('https://themefic.com/docs/uacf7/free-addons/ai-form-generator/').'" target="_blank">'.esc_html__('documentation', 'ultimate-addons-for-contact-form-7').'</a>'
+							) ); ?>
 						</div>
 					</div>
 					<div class="uacf7-ai-form-column">
 						<div class="uacf7-ai-codeblock">
 							<div class="uacf7-ai-navigation">
-								<span class="uacf7-ai-code-reset"> <?php echo _e( 'Reset', 'ultimate-addons-cf7' ); ?></span>
-								<span class="uacf7-ai-code-copy"> <?php echo _e( 'Copy', 'ultimate-addons-cf7' ); ?></span>
-								<span class="uacf7-ai-code-insert"> <?php echo _e( 'Insert', 'ultimate-addons-cf7' ); ?></span>
+								<span class="uacf7-ai-code-reset"> <?php echo esc_html__( 'Reset', 'ultimate-addons-for-contact-form-7' ); ?></span>
+								<span class="uacf7-ai-code-copy"> <?php echo esc_html__( 'Copy', 'ultimate-addons-for-contact-form-7' ); ?></span>
+								<span class="uacf7-ai-code-insert"> <?php echo esc_html__( 'Insert', 'ultimate-addons-for-contact-form-7' ); ?></span>
 							</div>
 							<textarea name="uacf7_ai_code_content" id="uacf7_ai_code_content"></textarea>
 						</div>
@@ -95,12 +96,46 @@ class UACF7_FORM_GENERATOR {
 			</div>
 		</div>
 		<?php
-		echo ob_get_clean();
+		
+		$popup_markup = ob_get_clean();
+		$allowed_popup_html = array(
+			'div'      => array(
+				'class' => true,
+				'title' => true,
+			),
+			'h4'       => array(),
+			'span'     => array(
+				'class' => true,
+			),
+			'select'   => array(
+				'class'        => true,
+				'data-trigger' => true,
+				'name'         => true,
+				'id'           => true,
+				'placeholder'  => true,
+				'multiple'     => true,
+			),
+			'button'   => array(
+				'class' => true,
+			),
+			'textarea' => array(
+				'name' => true,
+				'id'   => true,
+			),
+			'a'        => array(
+				'href'   => true,
+				'target' => true,
+			),
+		);
+
+		// Output securely using wp_kses
+		echo wp_kses( $popup_markup, $allowed_popup_html );
 	}
 
 	public function uacf7_form_generator_ai_get_tag() {
-		if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce' ) ) {
-			exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		$ajax_nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
+		if ( empty( $ajax_nonce ) || ! wp_verify_nonce( $ajax_nonce, 'uacf7-form-generator-ai-nonce' ) ) {
+			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
 		}
 		$tag_generator = WPCF7_TagGenerator::get_instance( 'panel', true );
 
@@ -171,29 +206,35 @@ class UACF7_FORM_GENERATOR {
 			'value_form' => $secend_option_form,
 		];
 
-		echo wp_send_json( $data );
+		wp_send_json( $data );
 		die();
 
 	}
 
 	// Ai form Get Tag Ajax Function
 	public function uacf7_form_generator_ai() {
-		if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7-form-generator-ai-nonce' ) ) {
-			exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		$ajax_nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
+		if ( empty( $ajax_nonce ) || ! wp_verify_nonce( $ajax_nonce, 'uacf7-form-generator-ai-nonce' ) ) {
+			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
 		}
 		$vaue = '';
-		$uacf7_default = $_POST['searchValue'];
+		$raw_uacf7_default = isset( $_POST['searchValue'] ) ? map_deep( wp_unslash( $_POST['searchValue'] ), 'sanitize_text_field' ) : '';
+		if ( is_array( $raw_uacf7_default ) ) {
+			$uacf7_default = array_map( 'sanitize_text_field', $raw_uacf7_default );
+		} else {
+			$uacf7_default = sanitize_text_field( $raw_uacf7_default );
+		}
 
-		if ( count( $uacf7_default ) > 0 && $uacf7_default[0] == 'form' ) {
+		if ( is_array( $uacf7_default ) && count( $uacf7_default ) > 0 && $uacf7_default[0] === 'form' ) {
 			$value = require_once apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/uacf7-forms.php' );
-		} elseif ( count( $uacf7_default ) > 0 && $uacf7_default[0] == 'tag' ) {
+		} elseif ( is_array( $uacf7_default ) && count( $uacf7_default ) > 0 && $uacf7_default[0] === 'tag' ) {
 			$value = require_once apply_filters( 'uacf7_ai_form_generator_template', UACF7_FORM_AI_PATH . '/templates/uacf7-tags.php' );
 		}
 		$data = [ 
 			'status' => 'success',
 			'value' => $value,
 		];
-		echo wp_send_json( $data );
+		wp_send_json( $data );
 		die();
 	}
 
@@ -228,7 +269,7 @@ class UACF7_FORM_GENERATOR {
 						$open_wrapper = false;
 					}
 				} else {
-					echo $form_part; // Output the content, sanitized
+					echo wp_kses_post( $form_part ); // Output the content, sanitized
 				}
 			}
 

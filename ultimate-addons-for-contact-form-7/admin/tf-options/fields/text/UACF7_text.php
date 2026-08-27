@@ -11,12 +11,12 @@ if ( ! class_exists( 'UACF7_text' ) ) {
 
 		public function render() {
 			$type        = ( ! empty( $this->field['type'] ) ) ? $this->field['type'] : 'text';
-			$placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . $this->field['placeholder'] . '"' : '';
+			$placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . esc_attr( $this->field['placeholder'] ) . '"' : '';
 			if(isset($this->field['validate']) && $this->field['validate'] == 'no_space_no_special') {
 				//remove special characters, replace space with underscore and convert to lowercase
 				$this->value = sanitize_title(str_replace(' ', '_', strtolower($this->value)));
 			}
-			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name() ) . '" id="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '" ' . $placeholder . ' ' . $this->field_attributes() . '/>';
+			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name() ) . '" id="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '" ' . wp_kses_post( $placeholder ) . ' ' . esc_attr( $this->field_attributes() ) . '/>';
 		}
 
 		public function sanitize() {

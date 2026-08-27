@@ -36,17 +36,18 @@ class UACF7_SUBMISSION_ID {
 	function uacf7_post_meta_options_submission_id( $value, $post_id ) {
 
 		$submission_id = apply_filters( 'uacf7_post_meta_options_submission_id_pro', $data = array(
-			'title' => __( 'Submission ID', 'ultimate-addons-cf7' ),
+			'title' => __( 'Submission ID', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-solid fa-fingerprint',
 			'checked_field' => 'uacf7_submission_id_enable',
 			'fields' => array(
 				'uacf7_submission_id_heading' => array(
 					'id' => 'uacf7_submission_id_heading',
 					'type' => 'heading',
-					'label' => __( 'Unique Submission ID Settings', 'ultimate-addons-cf7' ),
+					'label' => __( 'Unique Submission ID Settings', 'ultimate-addons-for-contact-form-7' ),
 					'subtitle' => sprintf(
-						__( 'Add an unique id to every form submission to keep a record of each submission. The ID can be added on the "Subject Line" of your form. See Demo %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Example</a>'
+						/* translators: %1$s: demo link */
+						__( 'Add an unique id to every form submission to keep a record of each submission. The ID can be added on the "Subject Line" of your form. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://cf7addons.com/preview/unique-id-for-contact-form-7/" target="_blank" rel="noopener">'.esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 
@@ -55,53 +56,54 @@ class UACF7_SUBMISSION_ID {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank" rel="noopener">Submission ID</a>'
+						/* translators: %1$s: documentation link */
+						__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank" rel="noopener">'.esc_html__( 'Submission ID', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 
 				'uacf7_submission_id_enable' => array(
 					'id' => 'uacf7_submission_id_enable',
 					'type' => 'switch',
-					'label' => __( ' Enable Submission ID', 'ultimate-addons-cf7' ),
-					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
-					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'label' => __( ' Enable Submission ID', 'ultimate-addons-for-contact-form-7' ),
+					'label_on' => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+					'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
 					'default' => false,
 				),
 				'uacf7_submission_form_options_heading' => array(
 					'id' => 'uacf7_submission_form_options_heading',
 					'type' => 'heading',
-					'label' => __( 'Submission Option ', 'ultimate-addons-cf7' ),
+					'label' => __( 'Submission Option ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_submission_id' => array(
 					'id' => 'uacf7_submission_id',
 					'type' => 'number',
-					'label' => __( ' Submission ID Starts from ', 'ultimate-addons-cf7' ),
-					'placeholder' => __( ' 1 ', 'ultimate-addons-cf7' ),
-					'description' => __( 'Enter the starting number for the countdown, for example, 101. The default setting is 1.', 'ultimate-addons-cf7' ),
+					'label' => __( ' Submission ID Starts from ', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( ' 1 ', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( 'Enter the starting number for the countdown, for example, 101. The default setting is 1.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_submission_id_step' => array(
 					'id' => 'uacf7_submission_id_step',
 					'type' => 'number',
-					'label' => __( 'ID Step Increment ', 'ultimate-addons-cf7' ),
-					'placeholder' => __( ' 1 ', 'ultimate-addons-cf7' ),
-					'description' => __( ' Set how much the number will increase with each submission. For instance, if you set it to 2 and the ID starts from 101, the number will increment in the following sequence with each submission: 101, 103, 105, and so on. The default setting is 1.', 'ultimate-addons-cf7' ),
+					'label' => __( 'ID Step Increment ', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( ' 1 ', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( ' Set how much the number will increase with each submission. For instance, if you set it to 2 and the ID starts from 101, the number will increment in the following sequence with each submission: 101, 103, 105, and so on. The default setting is 1.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_submission_id_send_to_sub_line' => array(
 					'id' => 'uacf7_submission_id_send_to_sub_line',
 					'type' => 'switch',
-					'label' => __( 'Show Submission ID in the Mail Subject Line (Dynamic)', 'ultimate-addons-cf7' ),
-					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
-					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'label' => __( 'Show Submission ID in the Mail Subject Line (Dynamic)', 'ultimate-addons-for-contact-form-7' ),
+					'label_on' => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+					'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
 					'default' => false,
 					'field_width' => 50,
 				),
 				'uacf7_submission_id_place' => array(
 					'id' => 'uacf7_submission_id_place',
 					'type' => 'select',
-					'label' => __( 'ID Placement on the Subject Line', 'ultimate-addons-cf7' ),
+					'label' => __( 'ID Placement on the Subject Line', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'left' => 'Left',
 						'right' => 'Right',
@@ -116,7 +118,8 @@ class UACF7_SUBMISSION_ID {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Note: You can use the Submission Shortcode to the mail subject line to see the ID number : <i>[uacf7_submission_id-your_id]</i> <br><b>And if you want to use the manual option then be sure to turn off dynamic otherwise it will be duplicated</b>', 'ultimate-addons-cf7' )
+						/* translators: %1$s: documentation link */
+						__( 'Note: You can use the Submission Shortcode to the mail subject line to see the ID number : <i>[uacf7_submission_id-your_id]</i> <br><b>And if you want to use the manual option then be sure to turn off dynamic otherwise it will be duplicated</b>', 'ultimate-addons-for-contact-form-7' )
 					)
 				),
 			),
@@ -203,15 +206,15 @@ class UACF7_SUBMISSION_ID {
 	 * Submission ID Realtime update in the Frontend
 	 */
 	public function uacf7_update_submission_id() {
-
-		if ( ! wp_verify_nonce( $_POST['ajax_nonce'], 'uacf7-submission-id-nonce' ) ) {
-			exit( esc_html__( "Security error", 'ultimate-addons-cf7' ) );
+		$nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'uacf7-submission-id-nonce' ) ) {
+			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
 		}
-		$form_id = $_POST['form_id'];
+		$form_id = isset( $_POST['form_id'] ) ? sanitize_text_field( wp_unslash( $_POST['form_id'] ) ) : '';
 		$submission = uacf7_get_form_option( $form_id, 'submission_id' );
 		$meta_data = isset( $submission['uacf7_submission_id'] ) ? $submission['uacf7_submission_id'] : 0;
 
-		echo wp_send_json( [ 
+		wp_send_json( [ 
 			'form_id' => $form_id,
 			'meta_data' => $meta_data
 		] );
@@ -229,18 +232,25 @@ class UACF7_SUBMISSION_ID {
 
 		if ( $uacf7_submission_id_enable == true ) {
 
-			$submission_value = isset( $submission['uacf7_submission_id'] ) ? $submission['uacf7_submission_id'] : 0;
-			if ( $submission_value != '' || $submission_value != null || $submission_value != 0 ) {
+			$submission_value = isset( $submission['uacf7_submission_id'] ) ? sanitize_text_field( $submission['uacf7_submission_id'] ) : 0;
+			if ( ! empty( $submission_value ) ) {
 
 				global $wpdb;
+				$uacf7_form = $wpdb;
 				$table_name = $wpdb->prefix . 'uacf7_form';
-				$id = $uacf7_db_id;
+				$id = absint( $uacf7_db_id );
 
-				// update submission id existing database
-				$sql = $wpdb->prepare( "UPDATE $table_name SET submission_id= %s WHERE id= %s", $submission_value, $id );
-
-
-				$wpdb->query( $sql );
+				// update submission id existing database using parameterized API
+				// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
+				// phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching
+				$uacf7_form->update(
+					$table_name,
+					array( 'submission_id' => $submission_value ),
+					array( 'id' => $id ),
+					array( '%s' ),
+					array( '%d' )
+				);
+				
 			}
 		}
 
@@ -338,8 +348,8 @@ class UACF7_SUBMISSION_ID {
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 
-			<input hidden id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo $atts; ?>>
-			<span><?php echo $validation_error; ?></span>
+			<input hidden id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo esc_attr( $atts ); ?>>
+			<span><?php echo wp_kses_post( $validation_error ); ?></span>
 		</span>
 
 		<?php
@@ -358,7 +368,7 @@ class UACF7_SUBMISSION_ID {
 
 		$tag_generator->add(
 			'uacf7_submission_id',
-			__( 'Submission ID', 'ultimate-addons-cf7' ),
+			__( 'Submission ID', 'ultimate-addons-for-contact-form-7' ),
 			[ $this, 'tg_pane_submission_id' ],
 			array( 'version' => '2' )
 		);
@@ -369,9 +379,9 @@ class UACF7_SUBMISSION_ID {
 
 		$field_types = array(
 			'uacf7_submission_id' => array(
-				'display_name' => __( 'Submission ID', 'ultimate-addons-cf7' ),
-				'heading' => __( 'Generate a Unique Submission ID.', 'ultimate-addons-cf7' ),
-				'description' => __( '', 'ultimate-addons-cf7' ),
+				'display_name' => __( 'Submission ID', 'ultimate-addons-for-contact-form-7' ),
+				'heading' => __( 'Generate a Unique Submission ID.', 'ultimate-addons-for-contact-form-7' ),
+				'description' => '',
 			),
 		);
 
@@ -385,7 +395,7 @@ class UACF7_SUBMISSION_ID {
 			?></h3>
 
 			<p><?php
-			$description = wp_kses(
+			echo wp_kses(
 				$field_types['uacf7_submission_id']['description'],
 				array(
 					'a' => array( 'href' => true ),
@@ -394,13 +404,13 @@ class UACF7_SUBMISSION_ID {
 				array( 'http', 'https' )
 			);
 
-			echo $description;
 			?></p>
 			<div class="uacf7-doc-notice">
-				<?php echo sprintf(
-					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank">Unique Submission ID</a>'
-				); ?>
+				<?php echo wp_kses_post( sprintf(
+					/* translators: %1$s: documentation link */
+					__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+					'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank">' . esc_html__( 'Unique Submission ID', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+				) ); ?>
 			</div>
 		</header>
 

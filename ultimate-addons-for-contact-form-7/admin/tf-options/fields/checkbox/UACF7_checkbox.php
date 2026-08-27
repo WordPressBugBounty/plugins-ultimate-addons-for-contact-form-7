@@ -20,15 +20,15 @@ if ( ! class_exists( 'UACF7_checkbox' ) ) {
 				foreach ( $this->field['options'] as $key => $value ) {
 					$checked = ( is_array( $this->value ) && in_array( $key, $this->value ) ) ? ' checked' : '';
 					if($key !== ''){
-						echo '<li><input type="checkbox" id="' . $this->field_name() . '[' . $key . ']" name="' . $this->field_name() . '[]" data-depend-id="'. esc_attr( $this->field['id'] ) .'" class="tf-group-checkbox" value="' . esc_attr( $key ) . '" ' . $checked . ' '. $this->field_attributes() .'/><label for="' . $this->field_name() . '[' . $key . ']">' . $value . '</label></li>';
+						echo '<li><input type="checkbox" id="' . esc_attr( $this->field_name() ) . '[' . esc_attr( $key ) . ']" name="' . esc_attr( $this->field_name() ) . '[]" data-depend-id="'. esc_attr( $this->field['id'] ) .'" class="tf-group-checkbox" value="' . esc_attr( $key ) . '" ' . esc_attr( $checked ) . ' '. esc_attr( $this->field_attributes() ) .'/><label for="' . esc_attr( $this->field_name() ) . '[' . esc_attr( $key ) . ']">' . esc_html( $value ) . '</label></li>';
 					} else {
 						//disabled checkbox
-						echo '<li><input type="checkbox" id="' . $this->field_name() . '[' . $key . ']" name="' . $this->field_name() . '[]" data-depend-id="'. esc_attr( $this->field['id'] ) .'" class="tf-group-checkbox" value="' . esc_attr( $key ) . '" ' . $checked . ' '. $this->field_attributes() .' disabled/><label for="' . $this->field_name() . '[' . $key . ']">' . $value . '</label></li>';
+						echo '<li><input type="checkbox" id="' . esc_attr( $this->field_name() ) . '[' . esc_attr( $key ) . ']" name="' . esc_attr( $this->field_name() ) . '[]" data-depend-id="'. esc_attr( $this->field['id'] ) .'" class="tf-group-checkbox" value="' . esc_attr( $key ) . '" ' . esc_attr( $checked ) . ' '. esc_attr( $this->field_attributes() ) .' disabled/><label for="' . esc_attr( $this->field_name() ) . '[' . esc_attr( $key ) . ']">' . esc_html( $value ) . '</label></li>';
 					}
 				}
 				echo '</ul>';
 			} else {
-				echo '<input type="checkbox" id="' . $this->field_name() . '" name="' . $this->field_name() . '" value="1" ' . checked( $this->value, 1, false ) . ' '. $this->field_attributes() .'/><label for="' . $this->field_name() . '">' . $this->field['title'] . '</label>';
+				echo '<input type="checkbox" id="' . esc_attr( $this->field_name() ) . '" name="' . esc_attr( $this->field_name() ) . '" value="1" ' . checked( $this->value, 1, false ) . ' '. esc_attr( $this->field_attributes() ) .'/><label for="' . esc_attr( $this->field_name() ) . '">' . esc_html( $this->field['title'] ) . '</label>';
 			}
 		} 
 		public function sanitize() {

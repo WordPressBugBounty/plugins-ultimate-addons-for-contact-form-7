@@ -1,0 +1,2 @@
+<?php
+return ['project-id-version'=>'Ultra Addons for Contact Form 7','report-msgid-bugs-to'=>'','pot-creation-date'=>'2022-11-21 09:52+0000','po-revision-date'=>'2026-08-16 06:08+0000','last-translator'=>'','language-team'=>'Portuguese (Brazil)','language'=>'pt_BR','plural-forms'=>'nplurals=2; plural=n != 1;','mime-version'=>'1.0','content-type'=>'text/plain; charset=UTF-8','content-transfer-encoding'=>'8bit','x-generator'=>'Loco https://localise.biz/','x-loco-version'=>'2.6.3; wp-6.1.1','x-domain'=>'ultimate-addons-for-contact-form-7','messages'=>[]];

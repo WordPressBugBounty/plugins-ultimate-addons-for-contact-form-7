@@ -109,12 +109,12 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 						<?php if ( $this->metabox_post_type == 'uacf7' ) : ?>
 							<div class="tf-metabox-title">
 								<h3>
-									<?php echo esc_html( 'Addons for CF7 Options', 'ultimate-addons-cf7' ) ?>
+									<?php echo esc_html( 'Addons for CF7 Options', 'ultimate-addons-for-contact-form-7' ) ?>
 								</h3>
 
 								<span>
-									<?php echo esc_html( 'VERSION : ', 'ultimate-addons-cf7' ); ?>
-									<?php echo UACF7_VERSION ?>
+									<?php echo esc_html( 'VERSION : ', 'ultimate-addons-for-contact-form-7' ); ?>
+									<?php echo esc_html( UACF7_VERSION ); ?>
 								</span>
 							</div>
 						<?php endif; ?>
@@ -192,7 +192,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 		 */
 		public function save_metabox( $post_id ) {
 			// Add nonce for security and authentication.
-			$nonce_name = isset( $_POST['tf_meta_box_nonce'] ) ? $_POST['tf_meta_box_nonce'] : '';
+			$nonce_name = isset( $_POST['tf_meta_box_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['tf_meta_box_nonce'] ) ) : '';
 			$nonce_action = 'tf_meta_box_nonce_action';
 
 			// $post_id = $form->id();
@@ -227,7 +227,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 			} else {
 				$tf_meta_box_value = array();
 			}
-			$metabox_request = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? $_POST[ $this->metabox_id ] : array();
+			$metabox_request = ( ! empty( $_POST[ $this->metabox_id ] ) ) ? map_deep( wp_unslash( $_POST[ $this->metabox_id ] ),  'sanitize_text_field' ) : array();
 
 			if ( ! empty( $metabox_request ) && ! empty( $this->metabox_sections ) ) {
 				// uacf7_print_r($metabox_request);
@@ -256,7 +256,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 
 			if ( ! empty( $tf_meta_box_value ) ) {
 				//            
-				$meta_data = apply_filters( 'tf_metabox_before_save_option', $tf_meta_box_value, $post_id );
+				$meta_data = apply_filters( 'uacf7_metabox_before_save_option', $tf_meta_box_value, $post_id );
 
 				update_post_meta( $post_id, $this->metabox_id, $meta_data );
 			} else {

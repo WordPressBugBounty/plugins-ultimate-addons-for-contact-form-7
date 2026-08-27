@@ -31,17 +31,18 @@ class UACF7_range_Slider {
 	public function uacf7_post_meta_options_range_slider( $value, $post_id ) {
 
 		$range_silder = apply_filters( 'uacf7_post_meta_options_range_slider_pro', $data = array(
-			'title' => __( 'Range Slider', 'ultimate-addons-cf7' ),
+			'title' => __( 'Range Slider', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-solid fa-sliders',
 			'checked_field' => 'uacf7_range_selection_color',
 			'fields' => array(
 				'uacf7_range_slider_heading' => array(
 					'id' => 'uacf7_range_slider_heading',
 					'type' => 'heading',
-					'label' => __( 'Range Slider Settings', 'ultimate-addons-cf7' ),
+					'label' => __( 'Range Slider Settings', 'ultimate-addons-for-contact-form-7' ),
 					'subtitle' => sprintf(
-						__( 'Add beautiful Range slider fields to Contact Form 7, with multiple preview layouts available on Pro. See Demo %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://cf7addons.com/preview/contact-form-7-range-slider/" target="_blank" rel="noopener">Example</a>'
+						/* translators: %1s: demo link */
+						__( 'Add beautiful Range slider fields to Contact Form 7, with multiple preview layouts available on Pro. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://cf7addons.com/preview/contact-form-7-range-slider/" target="_blank" rel="noopener">'.esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 				'range_slider_docs' => array(
@@ -49,43 +50,44 @@ class UACF7_range_Slider {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank" rel="noopener">Range Slider</a>',
-						'<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-range-slider-pro/" target="_blank" rel="noopener">Range Slider (Pro)</a>'
+						/* translators: %1s: demo link */
+						__( 'Confused? Check our Documentation on  %1$s and %2$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>',
+						'<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-range-slider-pro/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider (Pro)', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 				'uacf7_range_slider_form_options_heading' => array(
 					'id' => 'uacf7_range_slider_form_options_heading',
 					'type' => 'heading',
-					'label' => __( 'Range Slider Option ', 'ultimate-addons-cf7' ),
+					'label' => __( 'Range Slider Option ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_range_selection_color' => array(
 					'id' => 'uacf7_range_selection_color',
 					'type' => 'color',
-					'label' => __( ' Slider Selection Color', 'ultimate-addons-cf7' ),
+					'label' => __( ' Slider Selection Color', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
 				'uacf7_range_handle_color' => array(
 					'id' => 'uacf7_range_handle_color',
 					'type' => 'color',
-					'label' => __( ' Slider Handle Color ', 'ultimate-addons-cf7' ),
+					'label' => __( ' Slider Handle Color ', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
 				'uacf7_range_handle_width' => array(
 					'id' => 'uacf7_range_handle_width',
 					'type' => 'number',
-					'label' => __( ' Slider Handle Width', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. 5 (Do not add px or em)', 'ultimate-addons-cf7' ),
+					'label' => __( ' Slider Handle Width', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'E.g. 5 (Do not add px or em)', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
 				'uacf7_range_handle_height' => array(
 					'id' => 'uacf7_range_handle_height',
 					'type' => 'number',
-					'label' => __( ' Slider Handle Height', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. 10 (Do not add px or em)', 'ultimate-addons-cf7' ),
+					'label' => __( ' Slider Handle Height', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'E.g. 10 (Do not add px or em)', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
@@ -93,16 +95,16 @@ class UACF7_range_Slider {
 				'uacf7_range_handle_border_radius' => array(
 					'id' => 'uacf7_range_handle_border_radius',
 					'type' => 'number',
-					'label' => __( ' Handle Border Radius', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. 8 (Do not add px or em)', 'ultimate-addons-cf7' ),
+					'label' => __( ' Handle Border Radius', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'E.g. 8 (Do not add px or em)', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
 				'uacf7_range_slider_height' => array(
 					'id' => 'uacf7_range_slider_height',
 					'type' => 'number',
-					'label' => __( ' Slider Height (px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'E.g. 20 (Do not add px or em)', 'ultimate-addons-cf7' ),
+					'label' => __( ' Slider Height (px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'E.g. 20 (Do not add px or em)', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50
 
 				),
@@ -213,7 +215,7 @@ class UACF7_range_Slider {
 					value="<?php echo esc_attr( $default ); ?>" class="uacf7-slider uacf7-range">
 			</span>
 			<span>
-				<?php echo $validation_error; ?>
+				<?php echo wp_kses_post( $validation_error ); ?>
 			</span>
 			</div>
 			<?php
@@ -248,7 +250,7 @@ class UACF7_range_Slider {
 			</div>
 
 			<span>
-				<?php echo $validation_error; ?>
+				<?php echo wp_kses_post( $validation_error );?>
 			</span>
 			</div>
 			<?php
@@ -268,7 +270,7 @@ class UACF7_range_Slider {
 
 		$tag_generator->add(
 			'uacf7_range_slider',
-			__( 'Range Slider', 'ultimate-addons-cf7' ),
+			__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ),
 			[ $this, 'tg_panel_range_slider' ],
 			array( 'version' => '2' )
 		);
@@ -279,9 +281,9 @@ class UACF7_range_Slider {
 
 		$field_types = array(
 			'uacf7_range_slider' => array(
-				'display_name' => __( 'Range Slider', 'ultimate-addons-cf7' ),
-				'heading' => __( 'Range Slider', 'ultimate-addons-cf7' ),
-				'description' => __( '', 'ultimate-addons-cf7' ),
+				'display_name' => __( 'Range Slider', 'ultimate-addons-for-contact-form-7' ),
+				'heading' => __( 'Range Slider', 'ultimate-addons-for-contact-form-7' ),
+				'description' => '',
 			),
 		);
 
@@ -293,7 +295,7 @@ class UACF7_range_Slider {
 			?></h3>
 
 			<p><?php
-			$description = wp_kses(
+			echo wp_kses(
 				$field_types['uacf7_range_slider']['description'],
 				array(
 					'a' => array( 'href' => true ),
@@ -301,14 +303,13 @@ class UACF7_range_Slider {
 				),
 				array( 'http', 'https' )
 			);
-
-			echo $description;
 			?></p>
 			<div class="uacf7-doc-notice">
-				<?php echo sprintf(
-					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">Range Slider</a>'
-				); ?>
+				<?php echo wp_kses_post( sprintf(
+					/* translators: %1$s: documentation link */
+					__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>'
+				) ); ?>
 			</div>
 		</header>
 		<div class="control-box uacf7-control-box">
@@ -327,30 +328,30 @@ class UACF7_range_Slider {
 			?>
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Show Values', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Show Values', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="radio" data-tag-part="option" data-tag-option="show_value:" name="show_value" id="show_value_on"
 					value="on" />
-				<?php echo esc_html( 'On', 'ultimate-addons-cf7' ); ?></label>
+				<?php echo esc_html( 'On', 'ultimate-addons-for-contact-form-7' ); ?></label>
 				<input type="radio" data-tag-part="option" data-tag-option="show_value:" name="show_value" id="show_value_off"
 					value="off" />
-				<?php echo esc_html( 'Off', 'ultimate-addons-cf7' ); ?></label></table>
+				<?php echo esc_html( 'Off', 'ultimate-addons-for-contact-form-7' ); ?></label></table>
 
 			</fieldset>
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Slider Type', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Slider Type', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="radio" name="handle" data-tag-part="option" data-tag-option="handle:" id="single_handle"
 					value="1" />
-				<?php echo esc_html( 'Single Handle', 'ultimate-addons-cf7' ); ?>
+				<?php echo esc_html( 'Single Handle', 'ultimate-addons-for-contact-form-7' ); ?>
 
 				<input type="radio" name="handle" data-tag-part="option" data-tag-option="handle:" id="double_handle"
 					value="2" />
-				<?php echo esc_html( 'Double Handle', 'ultimate-addons-cf7' ); ?>
+				<?php echo esc_html( 'Double Handle', 'ultimate-addons-for-contact-form-7' ); ?>
 
 			</fieldset>
 
@@ -358,7 +359,7 @@ class UACF7_range_Slider {
 			<?php ob_start() ?>
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Range Slider Style', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Range Slider Style', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 				<select name="values" disabled data-tag-part="value" id="tag-generator-panel-range-style">
 					<option value="default">Default</option>
@@ -368,7 +369,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Range Label', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Range Label', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="text" name="label" class="tg-range_label oneline option" id="tag-generator-panel-text-min"
@@ -379,7 +380,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Range Separator', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Range Separator', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="text" name="separator" class="tg-range_separator oneline option" id="tag-generator-panel-text-min"
@@ -390,7 +391,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Minimum Label', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Minimum Label', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="text" name="min_label" class="tg-min_label oneline option" id="tag-generator-panel-text-min"
@@ -401,7 +402,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Maximum Label', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Maximum Label', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="text" name="max_label" class="tg-max_label oneline option" id="tag-generator-panel-text-min"
@@ -410,17 +411,17 @@ class UACF7_range_Slider {
 				<a href="https://cf7addons.com/preview/range-slider/pro" style="color:red">(Pro)</a>
 
 				<div class="uacf7-doc-notice uacf7-guide">
-					<?php echo esc_attr( __( "You can configure the slider's styles using the 'Range Slider' tab located below.", 'ultimate-addons-cf7' ) ); ?>
+					<?php echo esc_attr( __( "You can configure the slider's styles using the 'Range Slider' tab located below.", 'ultimate-addons-for-contact-form-7' ) ); ?>
 				</div>
 			</fieldset>
 			<?php
 			$range_style = ob_get_clean();
-			echo apply_filters( 'uacf7_range_slider_style_field', $range_style );
+			echo wp_kses_post( apply_filters( 'uacf7_range_slider_style_field', $range_style ) );
 			?>
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Minimum range', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Minimum range', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 				<input type="number" data-tag-part="option" data-tag-option="min:" name="min" id="tag-generator-panel-text-min"
 					placeholder="15" />
@@ -428,7 +429,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Maximum range', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Maximum range', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="number" data-tag-part="option" data-tag-option="max:" name="max" id="tag-generator-panel-text-max"
@@ -437,7 +438,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Default Value', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Default Value', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="number" data-tag-part="option" data-tag-option="default:" name="default"
@@ -446,7 +447,7 @@ class UACF7_range_Slider {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Range steps', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Range steps', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input type="number" data-tag-part="option" data-tag-option="step:" name="step"
@@ -603,7 +604,7 @@ class UACF7_range_Slider {
 
 			<?php
 
-			echo '<div class="uacf7-form-' . $cf->id() . '">' . $form . '</div>';
+			echo '<div class="uacf7-form-' . esc_attr( $cf->id() ) . '">' . wp_kses_post( $form ) . '</div>';
 			$properties['form'] = ob_get_clean();
 
 		}
@@ -613,7 +614,7 @@ class UACF7_range_Slider {
 	public function uacf7_contact_form_properties( $properties, $cf ) {
 		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 
-			wp_register_style( 'uacf7-rangeSlider-dynamic', UACF7_URL . 'addons/range-slider/css/uacf7-range.css', array(), null );
+			wp_register_style( 'uacf7-rangeSlider-dynamic', UACF7_URL . 'addons/range-slider/css/uacf7-range.css', array(), UACF7_VERSION, 'all' );
 
 			$form_id = $cf->id();
 			$range_slider = uacf7_get_form_option( $form_id, 'range_slider' );
@@ -698,16 +699,48 @@ class UACF7_range_Slider {
 	 * Enqueue Slider scripts
 	 */
 	public function enqueue_slider_scripts() {
-		wp_enqueue_script( 'uacf7-range-slider', UACF7_URL . 'addons/range-slider/js/range-slider.js', array( 'jquery', 'jquery-ui' ), false, true );
-		wp_enqueue_style( 'jquery-ui-style', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
-		wp_enqueue_style( 'range-slider-style', UACF7_URL . 'addons/range-slider/css/style.css' );
 
-		wp_register_script( 'jquery-ui', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js', array( 'jquery' ), false, true );
-		wp_register_script( 'touch-punch', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js', array( 'jquery' ), false, true );
-		// wp_enqueue_script( 'jquery-ui' );
-		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'touch-punch' );
+		/*
+		* WordPress core provides:
+		* - jquery-ui-slider
+		* - jquery-touch-punch
+		*/
+		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'jquery-touch-punch' );
 
+		/*
+		* Plugin-specific range slider script.
+		*/
+		wp_enqueue_script(
+			'uacf7-range-slider',
+			UACF7_URL . 'addons/range-slider/js/range-slider.js',
+			array(
+				'jquery',
+				'jquery-ui-slider',
+				'jquery-touch-punch',
+			),
+			UACF7_VERSION,
+			true
+		);
+
+		/*
+		* jQuery UI theme CSS.
+		* WordPress core does not provide a complete jQuery UI theme stylesheet,
+		* so this can remain bundled locally.
+		*/
+		wp_enqueue_style(
+			'uacf7-jquery-ui-style',
+			UACF7_URL . 'addons/range-slider/css/jquery-ui.css',
+			array(),
+			UACF7_VERSION
+		);
+
+		wp_enqueue_style(
+			'uacf7-range-slider-style',
+			UACF7_URL . 'addons/range-slider/css/style.css',
+			array( 'uacf7-jquery-ui-style' ),
+			UACF7_VERSION
+		);
 	}
 
 }

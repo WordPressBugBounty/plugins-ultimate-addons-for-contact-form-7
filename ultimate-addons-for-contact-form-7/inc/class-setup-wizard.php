@@ -36,7 +36,16 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			if ( ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 				add_action( 'wp_ajax_contact_form_7_ajax_install_plugin', 'wp_ajax_install_plugin' );
 			}
-			self::$current_step = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : 'welcome';
+
+			// Validate any wizard step requested from the URL before it is consumed.
+			// The wizard's step information is request-driven, so it must be checked for
+			// a nonce when a step is explicitly supplied.
+			$requested_step = isset( $_GET['step'] ) ? sanitize_key( wp_unslash( $_GET['step'] ) ) : 'welcome';
+			$wizard_nonce   = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+			if ( 'welcome' !== $requested_step && ! wp_verify_nonce( $wizard_nonce, 'uacf7_setup_wizard_step' ) ) {
+				$requested_step = 'welcome';
+			}
+			self::$current_step = $requested_step;
 		}
 
 		public function uacf7_settings_options_wizard( $option ) {
@@ -51,8 +60,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			if ( current_user_can( 'manage_options' ) ) {
 				add_submenu_page(
 					'uacf7-setup-wizard',
-					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
-					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-cf7' ),
+					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-for-contact-form-7' ),
+					esc_html__( 'UACF7 Setup Wizard', 'ultimate-addons-for-contact-form-7' ),
 					'manage_options',
 					'uacf7-setup-wizard',
 					[ $this, 'uacf7_wizard_page' ],
@@ -65,7 +74,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		 * Remove all notice in setup wizard page
 		 */
 		public function remove_notice() {
-			if ( isset( $_GET['page'] ) && $_GET['page'] == 'uacf7-setup-wizard' ) {
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			if ( $screen && is_string( $screen->id ) && false !== strpos( $screen->id, 'uacf7-setup-wizard' ) ) {
 				remove_all_actions( 'admin_notices' );
 				remove_all_actions( 'all_admin_notices' );
 			}
@@ -79,14 +89,28 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 			check_ajax_referer( 'updates', '_ajax_nonce' );
 			// Check user capabilities
-			if ( ! current_user_can( 'install_plugins' ) ) {
+			if ( ! current_user_can( 'activate_plugins' ) ) {
 				wp_send_json_error( 'Permission denied' );
 			}
 
-			// activate the plugin
-			$plugin_slug = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
-			$file_name = sanitize_text_field( wp_unslash( $_POST['file_name'] ) );
-			$result = activate_plugin( $plugin_slug . '/' . $file_name . '.php' );
+			// Only plugins explicitly supported by this wizard may be activated.
+			$allowed_plugins = array(
+				'contact-form-7' => 'contact-form-7/wp-contact-form-7.php',
+			);
+			$plugin_slug = isset( $_POST['slug'] ) ? sanitize_key( wp_unslash( $_POST['slug'] ) ) : '';
+			$file_name   = isset( $_POST['file_name'] ) ? sanitize_key( wp_unslash( $_POST['file_name'] ) ) : '';
+			$plugin_file = $plugin_slug . '/' . $file_name . '.php';
+
+			if ( ! isset( $allowed_plugins[ $plugin_slug ] ) || $allowed_plugins[ $plugin_slug ] !== $plugin_file ) {
+				wp_send_json_error( 'Invalid plugin.' );
+			}
+
+			$plugin_file = validate_plugin( $plugin_file );
+			if ( is_wp_error( $plugin_file ) ) {
+				wp_send_json_error( 'Invalid plugin.' );
+			}
+
+			$result = activate_plugin( $plugin_file );
 
 			if ( is_wp_error( $result ) ) {
 				wp_send_json_error( 'Error: ' . $result->get_error_message() );
@@ -103,13 +127,13 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 
 			check_ajax_referer( 'updates', '_ajax_nonce' );
 			// Check user capabilities
-			if ( ! current_user_can( 'install_plugins' ) ) {
+			if ( ! current_user_can( 'activate_plugins' ) ) {
 				wp_send_json_error( 'Permission denied' );
 			}
 
 			$vaue = '';
 			$uacf7_default[0] = 'form';
-			$uacf7_default[1] = $_POST['searchValue'];
+			$uacf7_default[1] = isset( $_POST['searchValue'] ) ? map_deep( wp_unslash( $_POST['searchValue'] ), 'sanitize_text_field' ) : '';
 
 
 			if ( count( $uacf7_default ) > 0 && $uacf7_default[0] == 'form' ) {
@@ -120,7 +144,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 				'status' => 'success',
 				'value' => $value,
 			];
-			echo wp_send_json( $data );
+			wp_send_json( $data );
 			die();
 		}
 
@@ -131,13 +155,14 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 		public function uacf7_form_quick_create_form() {
 			check_ajax_referer( 'updates', '_ajax_nonce' );
 			// Check user capabilities
-			if ( ! current_user_can( 'install_plugins' ) ) {
+			if ( ! current_user_can( 'activate_plugins' ) ) {
 				wp_send_json_error( 'Permission denied' );
 			}
 
 			$vaue = '';
-			$form_name = $_POST['form_name'];
-			$form_value = str_replace( "\\", "", $_POST['form_value'] );
+			$form_name = isset( $_POST['form_name'] ) ? sanitize_text_field( wp_unslash( $_POST['form_name'] ) ) : '';
+			$form_value = isset( $_POST['form_value'] ) ? sanitize_textarea_field( wp_unslash( $_POST['form_value'] ) ) : '';
+			$form_value = str_replace( "\\", "", $form_value );
 			$message = '';
 			$status = 'success';
 
@@ -171,7 +196,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 				'edit_url' => admin_url( 'admin.php?page=wpcf7&post=' . $contact_form->id() . '&action=edit' ),
 				'message' => $message,
 			];
-			echo wp_send_json( $data );
+			wp_send_json( $data );
 			die();
 		}
 
@@ -353,15 +378,15 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							</span>
 
 							<div class="uacf7-single-step-content-inner">
-								<h1><?php echo _e( 'Welcome to Ultra Addons for Contact Form 7', 'ultimate-addons-cf7' ) ?></h1>
+								<h1><?php echo esc_html__( 'Welcome to Ultra Addons for Contact Form 7', 'ultimate-addons-for-contact-form-7' ) ?></h1>
 
-								<p><?php echo _e( "The easiest and best Contact Form 7 Addons Plugin for WordPress. With 45+ essential features, this all-in-one plugin includes nearly all the basic to advanced options for your site's contact form.", 'ultimate-addons-cf7' ) ?>
+								<p><?php echo esc_html__( "The easiest and best Contact Form 7 Addons Plugin for WordPress. With 45+ essential features, this all-in-one plugin includes nearly all the basic to advanced options for your site's contact form.", 'ultimate-addons-for-contact-form-7' ) ?>
 								</p>
 
 								<div class="uacf7-step-plugin-required">
-									<p><?php echo esc_html( 'To continue, the plugin requires Contact Form 7' ) ?> <br> to be
+									<p><?php echo esc_html__( 'To continue, the plugin requires Contact Form 7', 'ultimate-addons-for-contact-form-7' ) ?> <br> to be
 										<?php if ( $uacf7_plugin_status == 'not_active' ) {
-											echo '<strong>' . esc_html( "installed" ) . '</strong> ' . esc_html( " & activated.", ) . ' ';
+											echo '<strong>' . esc_html__( "installed", 'ultimate-addons-for-contact-form-7' ) . '</strong> ' . esc_html__( " & activated.", 'ultimate-addons-for-contact-form-7' ) . ' ';
 										} else {
 											echo esc_html( "installed & activated." );
 										} ?>
@@ -396,8 +421,8 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 						data-step="2">
 						<div class="uacf7-single-step-content-wrap">
 							<div class="hydra-installation-notice"></div>
-							<h2><?php echo _e( 'Activate your addons', 'ultimate-addons-cf7' ) ?></h2>
-							<p><?php echo _e( 'Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized ', 'ultimate-addons-cf7' ) ?><strong><?php echo _e( 'Alphabetically', 'ultimate-addons-cf7' ) ?></strong>.
+							<h2><?php echo esc_html__( 'Activate your addons', 'ultimate-addons-for-contact-form-7' ) ?></h2>
+							<p><?php echo esc_html__( 'Please activate only the addons you need. This helps avoid loading unnecessary assets (JS, CSS). Both Free and Pro addons are available here, organized ', 'ultimate-addons-for-contact-form-7' ) ?><strong><?php echo esc_html__( 'Alphabetically', 'ultimate-addons-for-contact-form-7' ) ?></strong>.
 							</p>
 							<form method="post" action="" class="tf-option-form tf-ajax-save" enctype="multipart/form-data">
 
@@ -425,33 +450,74 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 											data-parent="<?php echo esc_attr( $section_key ) ?>"
 											data-filter="<?php echo esc_html( strtolower( $field['label'] ) ) ?>">
 											<?php
-											$label_class = '';
-											if ( isset( $field['is_pro'] ) ) {
-												$label_class .= $field['is_pro'] == true ? 'tf-field-disable tf-field-pro' : '';
-												$badge = '<span class="addon-status pro">' . esc_html( 'Pro' ) . '</span>';
-											} else {
-												$badge = '<span class="addon-status">' . esc_html( 'Free' ) . '</span>';
-											}
+											$addon_ui = apply_filters(
+												'uacf7_addon_ui',
+												array(
+													'status_label'     => __( 'Free', 'ultimate-addons-for-contact-form-7' ),
+													'status_class'     => 'free',
+													'label_class'      => '',
+													'input_attributes' => array(),
+												),
+												$field,
+												'uacf7_settings'
+											);
+
+											$label_class = isset( $addon_ui['label_class'] ) ? $addon_ui['label_class'] : '';
+
+											$status_label = isset( $addon_ui['status_label'] )
+												? $addon_ui['status_label']
+												: '';
+
+											$status_class = isset( $addon_ui['status_class'] )
+												? $addon_ui['status_class']
+												: '';
+
+											$input_attributes = isset( $addon_ui['input_attributes'] ) && is_array( $addon_ui['input_attributes'] )
+												? $addon_ui['input_attributes']
+												: array();
+
 											$child = isset( $field['child_field'] ) ? $field['child_field'] : '';
-											$is_pro = isset( $field['is_pro'] ) ? 'pro' : '';
+
 											$default = $field['default'] == true ? 'checked' : '';
+
 											$default = isset( $data[ $field['id'] ] ) && $data[ $field['id'] ] == 1 ? 'checked' : $default;
+
 											$value = isset( $data[ $field['id'] ] ) ? $data[ $field['id'] ] : 0;
+
 											$demo_link = isset( $field['demo_link'] ) ? $field['demo_link'] : '#';
+
 											$documentation_link = isset( $field['documentation_link'] ) ? $field['documentation_link'] : '#';
 
-											// echo $default; 
 											?>
 											<div class="uacf7-single-addons-wrap">
-												<?php echo $badge; ?>
+												<?php if ( ! empty( $status_label ) ) : ?>
+													<span class="addon-status <?php echo esc_attr( $status_class ); ?>">
+														<?php echo esc_html( $status_label ); ?>
+													</span>
+												<?php endif; ?>
 												<h2 class="uacf7-single-addon-title"><?php echo esc_html( $field['label'] ) ?></h2>
 												<div class="uacf7-addon-toggle-wrap">
 													<input type="checkbox" id="<?php echo esc_attr( $field['id'] ) ?>"
 														data-child="<?php echo esc_attr( $child ) ?>"
-														data-is-pro="<?php echo esc_attr( $is_pro ) ?>" <?php echo esc_attr( $default ) ?>
+														<?php
+														if ( ! empty( $input_attributes ) ) {
+															foreach ( $input_attributes as $attribute => $attribute_value ) {
+																$attribute = sanitize_key( $attribute );
+																if ( empty( $attribute ) ) {
+																	continue;
+																}
+																printf(
+																	'%s="%s" ',
+																	esc_attr( $attribute ),
+																	esc_attr( $attribute_value )
+																);
+															}
+														}
+
+														?>
+														<?php echo esc_attr( $default ) ?>
 														value="<?php echo esc_html( $value ); ?>" class="uacf7-addon-input-field"
 														name="<?php echo esc_attr( $id ) ?>" id="uacf7_enable_redirection">
-
 													<label class="uacf7-addon-toggle-inner <?php echo esc_attr( $label_class ) ?> "
 														for="<?php echo esc_attr( $field['id'] ) ?>">
 														<span class="uacf7-addon-toggle-track"><svg width="16" height="17"
@@ -479,12 +545,12 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 							<div class="uacf7-single-step-content-inner">
 								<div class="uacf7-form-generate">
 									<h3>
-										<?php echo sprintf(
-											__( 'AI Form Generator<span>Our AI Form Generator creates a basic form for you, based on your selected category from the dropdown menu below. You can then customize this form to suit your specific requirements.</span>', 'ultimate-addons-cf7' ) ); ?>
+										<?php echo wp_kses_post( sprintf(
+											__( 'AI Form Generator<span>Our AI Form Generator creates a basic form for you, based on your selected category from the dropdown menu below. You can then customize this form to suit your specific requirements.</span>', 'ultimate-addons-for-contact-form-7' ) ) ); ?>
 									</h3>
 									<label for="uacf7-select-form">
 										<select name="uacf7-select-form" class="tf-select2" id="uacf7-select-form">
-											<option value=""><?php echo esc_html( 'Choose Form type', 'ultimate-addons-cf7' ) ?>
+											<option value=""><?php echo esc_html__( 'Choose Form type', 'ultimate-addons-for-contact-form-7' ) ?>
 											</option>
 											<?php
 											foreach ( $option_form as $key => $form ) :
@@ -497,7 +563,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</div>
 								<button class="uacf7-generate-form uacf7-setup-widzard-btn" style="display:none;"
 									data-current-step="1"
-									data-next-step="2"><?php echo esc_html( 'Generate with AI', 'ultimate-addons-cf7' ) ?>
+									data-next-step="2"><?php echo esc_html__( 'Generate with AI', 'ultimate-addons-for-contact-form-7' ) ?>
 
 									<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<g clip-path="url(#clip0_143_4913)">
@@ -514,7 +580,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 								</button>
 							</div>
 							<div class="uacf7-single-step-content-inner">
-								<img src="<?php echo UACF7_URL ?>assets/admin/images/quick-setup.svg" alt="quick-setup">
+								<img src="<?php echo esc_url( UACF7_URL ) ?>assets/admin/images/quick-setup.svg" alt="quick-setup">
 
 								<div class="uacf7-generated-template" style="display:none">
 									<!-- <textarea name="uacf7-generated-form" id="uacf7_ai_code_content" cols="30" rows="10"></textarea> -->
@@ -522,7 +588,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 										<textarea name="uacf7-generated-form" id="uacf7_ai_code_content"></textarea>
 									</div>
 									<button
-										class="uacf7-create-form uacf7-setup-widzard-btn "><?php echo esc_html( 'Create your form', 'ultimate-addons-cf7' ) ?></button>
+										class="uacf7-create-form uacf7-setup-widzard-btn "><?php echo esc_html__( 'Create your form', 'ultimate-addons-for-contact-form-7' ) ?></button>
 								</div>
 							</div>
 						</div>
@@ -533,13 +599,13 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					<div class="uacf7-wizard-footer-inner">
 						<div class="uacf7-wizard-footer-left">
 							<a href="<?php echo esc_url( admin_url() ) ?>"
-								class="uacf7-wizard-footer-left-link uacf7-back-dashboard"><?php echo esc_html( 'Back to Dashboard', 'ultimate-addons-cf7' ) ?></a>
+								class="uacf7-wizard-footer-left-link uacf7-back-dashboard"><?php echo esc_html__( 'Back to Dashboard', 'ultimate-addons-for-contact-form-7' ) ?></a>
 						</div>
 
 						<div class="uacf7-wizard-footer-right">
 
 							<a href="<?php echo esc_url( admin_url() ) ?>admin.php?page=uacf7_settings#tab=mailchimp" class="wizard_uacf7_btn_back_addon" style="display: none">
-								<?php echo esc_html( 'Go to settings', 'ultimate-addons-cf7' ) ?>
+								<?php echo esc_html__( 'Go to settings', 'ultimate-addons-for-contact-form-7' ) ?>
 							</a>
 
 							<button
@@ -586,7 +652,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 					$url = admin_url( 'admin.php?page=uacf7-setup-wizard' );
 				}
 
-				wp_redirect( $url );
+				wp_safe_redirect( $url );
 				exit;
 			}
 		}

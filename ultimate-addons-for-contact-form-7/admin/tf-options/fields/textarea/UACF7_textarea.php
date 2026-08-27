@@ -10,9 +10,9 @@ if ( ! class_exists( 'UACF7_textarea' ) ) {
 		}
 
 		public function render() {
-			$placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . $this->field['placeholder'] . '"' : '';
+			$placeholder = ( ! empty( $this->field['placeholder'] ) ) ? 'placeholder="' . esc_attr( $this->field['placeholder'] ) . '"' : '';
 			$value = $this->field['id'] == 'uacf7_booking_calendar_key' ? stripslashes($this->value) : $this->value;
-			echo '<textarea name="' . esc_attr( $this->field_name() ) . '" id="' . esc_attr( $this->field_name() ) . '"' . $placeholder . ' '. $this->field_attributes() .'>' . $value . '</textarea>';
+			echo '<textarea name="' . esc_attr( $this->field_name() ) . '" id="' . esc_attr( $this->field_name() ) . '"' . wp_kses_post($placeholder) . ' '. esc_attr( $this->field_attributes() ) .'>' . esc_textarea( $value ) . '</textarea>';
 		}
 
 	}

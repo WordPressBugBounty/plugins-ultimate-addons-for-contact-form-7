@@ -18,17 +18,18 @@ class UACF7_uacf7style {
 	// Add Placeholder Options
 	public function uacf7_post_meta_options_styler( $value, $post_id ) {
 		$redirection = apply_filters( 'uacf7_post_meta_options_styler_pro', $data = array(
-			'title' => __( 'Form Styler', 'ultimate-addons-cf7' ),
+			'title' => __( 'Form Styler', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-solid fa-mortar-pestle',
 			'checked_field' => 'uacf7_enable_form_styles',
 			'fields' => array(
 				'styler_heading' => array(
 					'id' => 'styler_heading',
 					'type' => 'heading',
-					'label' => __( 'Single Form Styler Settings', 'ultimate-addons-cf7' ),
+					'label' => __( 'Single Form Styler Settings', 'ultimate-addons-for-contact-form-7' ),
 					'subtitle' => sprintf(
-						__( 'Style your entire form without any CSS coding, including colors, margins, button styles, and font sizes. These options overrides Global Form Styler Settings. See Demo %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://cf7addons.com/preview/contact-form-7-style-addon/" target="_blank">Example</a>'
+						/* translators: %1$s: demo link */
+						__( 'Style your entire form without any CSS coding, including colors, margins, button styles, and font sizes. These options overrides Global Form Styler Settings. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://cf7addons.com/preview/contact-form-7-style-addon/" target="_blank">' . esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'styler_docs' => array(
@@ -36,30 +37,31 @@ class UACF7_uacf7style {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Confused? Check our Documentation on  %1s and %2s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">Single Form Styler</a>',
-						'<a href="https://themefic.com/docs/uacf7/pro-addons/global-form-styler-for-contact-form-7/" target="_blank">Global Form Styler</a>'
+						/* translators: %1$s: demo link, %2$s: demo link */
+						__( 'Confused? Check our Documentation on  %1$s and %2$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">' . esc_html__( 'Single Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>',
+						'<a href="https://themefic.com/docs/uacf7/pro-addons/global-form-styler-for-contact-form-7/" target="_blank">' . esc_html__( 'Global Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'uacf7_enable_form_styles' => array(
 					'id'        => 'uacf7_enable_form_styles',
 					'type'      => 'switch',
-					'label'     => __( 'Enable Form Styles', 'ultimate-addons-cf7' ),
-					'label_on'  => __( 'Yes', 'ultimate-addons-cf7' ),
-					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'label'     => __( 'Enable Form Styles', 'ultimate-addons-for-contact-form-7' ),
+					'label_on'  => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+					'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
 					'default'   => false
 				),
 				'styler_heading_label' => array(
 					'id'       => 'styler_heading_label',
 					'type'     => 'heading',
-					'label'    => __( 'Label Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'All changes on this section are applicable to the "Label" items. Ensure each label is enclosed within a <label></label> tag.', 'ultimate-addons-cf7' ),   //Sydur fix the html here
+					'label'    => __( 'Label Options', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'All changes on this section are applicable to the "Label" items. Ensure each label is enclosed within a <label></label> tag.', 'ultimate-addons-for-contact-form-7' ),   //Sydur fix the html here
 				),
 				'uacf7_uacf7style_label_color_option' => array(
 					'id'       => 'uacf7_uacf7style_label_color_option',
 					'type'     => 'color',
-					'label'    => __( 'Color Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Change the text and background colors of the labels.', 'ultimate-addons-cf7' ),
+					'label'    => __( 'Color Options', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'Change the text and background colors of the labels.', 'ultimate-addons-for-contact-form-7' ),
 					'class'    => 'tf-field-class',
 					// 'default' => '#ffffff',
 					'multiple' => true,
@@ -72,7 +74,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_label_font_style' => array(
 					'id'      => 'uacf7_uacf7style_label_font_style',
 					'type'    => 'select',
-					'label'   => __( 'Font Style', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Style', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal',
 						'italic' => "Italic",
@@ -82,7 +84,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_label_font_weight' => array(
 					'id'      => 'uacf7_uacf7style_label_font_weight',
 					'type'    => 'select',
-					'label'   => __( 'Font Weight ', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Weight ', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal / 400',
 						'300'    => "300",
@@ -95,100 +97,100 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_label_font_size' => array(
 					'id'          => 'uacf7_uacf7style_label_font_size',
 					'type'        => 'number',
-					'label'       => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Font Size (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Placeholder Font Size (in px)', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_uacf7style_label_font_family' => array(
 					'id'          => 'uacf7_uacf7style_label_font_family',
 					'type'        => 'text',
-					'label'       => __( 'Font Name ', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-cf7" ),
-					'placeholder' => __( 'Enter Placeholder Font Name ', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Font Name ', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-for-contact-form-7" ),
+					'placeholder' => __( 'Enter Placeholder Font Name ', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'styler_heading_label_padding' => array(
 					'id'      => 'styler_heading_label_padding',
 					'type'    => 'heading',
 					'class'   => 'heading-inner',
-					'title'   => __( 'Padding (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Padding (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_label_padding_top' => array(
 					'id'          => 'uacf7_uacf7style_label_padding_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_padding_right' => array(
 					'id'          => 'uacf7_uacf7style_label_padding_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_padding_bottom' => array(
 					'id'          => 'uacf7_uacf7style_label_padding_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_padding_left' => array(
 					'id'          => 'uacf7_uacf7style_label_padding_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'styler_heading_label_margin' => array(
 					'id'      => 'styler_heading_label_margin',
 					'class'   => 'heading-inner',
 					'type'    => 'heading',
-					'title'   => __( 'Margin (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Margin (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_label_margin_top' => array(
 					'id'          => 'uacf7_uacf7style_label_margin_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_margin_right' => array(
 					'id'          => 'uacf7_uacf7style_label_margin_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_margin_bottom' => array(
 					'id'          => 'uacf7_uacf7style_label_margin_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_label_margin_left' => array(
 					'id'          => 'uacf7_uacf7style_label_margin_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'styler_heading_input' => array(
 					'id'       => 'styler_heading_label',
 					'type'     => 'heading',
-					'label'    => __( 'Input Field Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'All modifications in this section are applicable to "Input" fields, such as text, textarea, dropdown, email, etc.', 'ultimate-addons-cf7' ),
+					'label'    => __( 'Input Field Options', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'All modifications in this section are applicable to "Input" fields, such as text, textarea, dropdown, email, etc.', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_input_color_option' => array(
 					'id'       => 'uacf7_uacf7style_input_color_option',
 					'type'     => 'color',
-					'label'    => __( 'Color Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Change the text and background colors of the input fields.', 'ultimate-addons-cf7' ),
+					'label'    => __( 'Color Options', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'Change the text and background colors of the input fields.', 'ultimate-addons-for-contact-form-7' ),
 					'class'    => 'tf-field-class',
 					// 'default' => '#ffffff',
 					'multiple' => true,
@@ -201,7 +203,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_input_font_style' => array(
 					'id'      => 'uacf7_uacf7style_input_font_style',
 					'type'    => 'select',
-					'label'   => __( 'Font Style', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Style', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal',
 						'italic' => "Italic",
@@ -211,7 +213,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_input_font_weight' => array(
 					'id'      => 'uacf7_uacf7style_input_font_weight',
 					'type'    => 'select',
-					'label'   => __( 'Font Weight ', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Weight ', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal / 400',
 						'300' => "300",
@@ -224,124 +226,124 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_input_font_size' => array(
 					'id'          => 'uacf7_uacf7style_input_font_size',
 					'type'        => 'number',
-					'label'       => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Input Font Size', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Font Size (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Input Font Size', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_uacf7style_input_font_family' => array(
 					'id'          => 'uacf7_uacf7style_input_font_family',
 					'type'        => 'text',
-					'label'       => __( 'Font Name ', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-cf7" ),
-					'placeholder' => __( 'Enter Input Font Name ', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Font Name ', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) ", "ultimate-addons-for-contact-form-7" ),
+					'placeholder' => __( 'Enter Input Font Name ', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_uacf7style_input_height' => array(
 					'id'          => 'uacf7_uacf7style_input_height',
 					'type'        => 'number',
-					'label'       => __( 'Input Height (in px)', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Input Height', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Input Height (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Input Height', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 
 				'uacf7_uacf7style_textarea_input_height' => array(
 					'id'          => 'uacf7_uacf7style_textarea_input_height',
 					'type'        => 'number',
-					'label'       => __( 'Input (Textarea) Height (in px)', 'ultimate-addons-cf7' ),
-					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Textarea Height', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Input (Textarea) Height (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle'    => __( 'E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Textarea Height', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'styler_heading_input_padding' => array(
 					'id'      => 'styler_heading_input_padding',
 					'type'    => 'heading',
 					'class'   => 'heading-inner',
-					'title'   => __( 'Padding (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Padding (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_input_padding_top' => array(
 					'id'          => 'uacf7_uacf7style_input_padding_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_padding_right' => array(
 					'id'          => 'uacf7_uacf7style_input_padding_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_padding_bottom' => array(
 					'id'          => 'uacf7_uacf7style_input_padding_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_padding_left' => array(
 					'id'          => 'uacf7_uacf7style_input_padding_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'styler_heading_input_margin' => array(
 					'id'      => 'styler_heading_input_margin',
 					'class'   => 'heading-inner',
 					'type'    => 'heading',
-					'title'   => __( 'Margin (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Margin (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_input_margin_top' => array(
 					'id'          => 'uacf7_uacf7style_input_margin_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_margin_right' => array(
 					'id'          => 'uacf7_uacf7style_input_margin_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_margin_bottom' => array(
 					'id'          => 'uacf7_uacf7style_input_margin_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_margin_left' => array(
 					'id'          => 'uacf7_uacf7style_input_margin_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'styler_heading_input_border' => array(
 					'id'    => 'styler_heading_input_border',
 					'class' => 'heading-inner',
 					'type'  => 'heading',
-					'title' => __( 'Border ', 'ultimate-addons-cf7' ),
+					'title' => __( 'Border ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_input_border_width' => array(
 					'id'          => 'uacf7_uacf7style_input_border_width',
 					'type'        => 'number',
-					'label'       => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter input border width', 'ultimate-addons-cf7' ),
-					'content'     => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Border Width (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter input border width', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_border_style' => array(
 					'id'      => 'uacf7_uacf7style_input_border_style',
 					'type'    => 'select',
-					'label'   => __( 'Border Style ', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Border Style ', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'solid'  => "Solid",
 						'dotted' => "Dotted",
@@ -354,17 +356,17 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_input_border_radius' => array(
 					'id'          => 'uacf7_uacf7style_input_border_radius',
 					'type'        => 'number',
-					'label'       => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter input border radius', 'ultimate-addons-cf7' ),
-					'content'     => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Border Radius (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter input border radius', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( ' E.g. 16(Do not add px or em ). ', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_input_border_color' => array(
 					'id'          => 'uacf7_uacf7style_input_border_color',
 					'type'        => 'color',
 					'field_width' => 25,
-					'label'       => __( 'Border Color', 'ultimate-addons-cf7' ),
-					// 'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-cf7' ), 
+					'label'       => __( 'Border Color', 'ultimate-addons-for-contact-form-7' ),
+					// 'subtitle'     => __( 'Customize Placeholder Color Options', 'ultimate-addons-for-contact-form-7' ), 
 					'class' => 'tf-field-class',
 					// 'default' => '#ffffff',
 					'multiple' => false,
@@ -377,13 +379,13 @@ class UACF7_uacf7style {
 				'styler_heading_button' => array(
 					'id'       => 'styler_heading_label',
 					'type'     => 'heading',
-					'label'    => __( 'Submit Button Options', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'All modifications in this section are applicable to the "Submit" button of the form.', 'ultimate-addons-cf7' ),
+					'label'    => __( 'Submit Button Options', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'All modifications in this section are applicable to the "Submit" button of the form.', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_btn_color_option' => array(
 					'id'    => 'uacf7_uacf7style_btn_color_option',
 					'type'  => 'color',
-					'label' => __( 'Button Color', 'ultimate-addons-cf7' ),
+					'label' => __( 'Button Color', 'ultimate-addons-for-contact-form-7' ),
 					'class' => 'tf-field-class',
 					  // 'default' => '#ffffff',
 					'multiple' => true,
@@ -398,15 +400,15 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_btn_font_size' => array(
 					'id'          => 'uacf7_uacf7style_btn_font_size',
 					'type'        => 'number',
-					'label'       => __( 'Font Size (in px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Button Font Size', 'ultimate-addons-cf7' ),
-					'content'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Font Size (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Button Font Size', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( 'E.g. 16 (Do not add px or em ).', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_uacf7style_btn_font_style' => array(
 					'id'      => 'uacf7_uacf7style_btn_font_style',
 					'type'    => 'select',
-					'label'   => __( 'Font Style', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Style', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal',
 						'italic' => "Italic",
@@ -416,7 +418,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_btn_font_weight' => array(
 					'id'      => 'uacf7_uacf7style_btn_font_weight',
 					'type'    => 'select',
-					'label'   => __( 'Font Weight', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Font Weight', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'normal' => 'Normal / 400',
 						'300'    => "300",
@@ -429,15 +431,15 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_btn_width' => array(
 					'id'          => 'uacf7_uacf7style_btn_width',
 					'type'        => 'text',
-					'label'       => __( 'Width (in px or %)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter input border width', 'ultimate-addons-cf7' ),
-					'content'     => __( ' E.g. 100px or 100%.', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Width (in px or %)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter input border width', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( ' E.g. 100px or 100%.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_uacf7style_btn_border_style' => array(
 					'id'      => 'uacf7_uacf7style_btn_border_style',
 					'type'    => 'select',
-					'label'   => __( 'Border Style ', 'ultimate-addons-cf7' ),
+					'label'   => __( 'Border Style ', 'ultimate-addons-for-contact-form-7' ),
 					'options' => array(
 						'none'   => 'None',
 						'dotted' => "Dotted",
@@ -450,23 +452,23 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_btn_border_width' => array(
 					'id'          => 'uacf7_uacf7style_btn_border_width',
 					'type'        => 'number',
-					'label'       => __( 'Border Width (in px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Button border width', 'ultimate-addons-cf7' ),
-					'content'     => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Border Width (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Button border width', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 33,
 				),
 				'uacf7_uacf7style_btn_border_radius' => array(
 					'id'          => 'uacf7_uacf7style_btn_border_radius',
 					'type'        => 'number',
-					'label'       => __( 'Border Radius (in px)', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Enter Button border radius', 'ultimate-addons-cf7' ),
-					'content'     => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Border Radius (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Enter Button border radius', 'ultimate-addons-for-contact-form-7' ),
+					'content'     => __( ' E.g. 16 (Do not add px or em ).', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 33,
 				),
 				'uacf7_uacf7style_btn_border_color' => array(
 					'id'    => 'uacf7_uacf7style_btn_border_color',
 					'type'  => 'color',
-					'label' => __( 'Border Color', 'ultimate-addons-cf7' ),
+					'label' => __( 'Border Color', 'ultimate-addons-for-contact-form-7' ),
 					'class' => 'tf-field-class',
 					// 'default' => '#ffffff',
 					'multiple' => false,
@@ -482,7 +484,7 @@ class UACF7_uacf7style {
 				'uacf7_uacf7style_btn_border_color_hover' => array(
 					'id'    => 'uacf7_uacf7style_btn_border_color_hover',
 					'type'  => 'color',
-					'label' => __( 'Border Color (Hover)', 'ultimate-addons-cf7' ),
+					'label' => __( 'Border Color (Hover)', 'ultimate-addons-for-contact-form-7' ),
 					'class' => 'tf-field-class',
 					// 'default' => '#ffffff',
 					'multiple' => false,
@@ -499,76 +501,76 @@ class UACF7_uacf7style {
 					'id'      => 'uacf7_uacf7style_btn_padding',
 					'type'    => 'heading',
 					'class'   => 'heading-inner',
-					'title'   => __( 'Padding (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Padding (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em).', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_btn_padding_top' => array(
 					'id'          => 'uacf7_uacf7style_btn_padding_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_padding_right' => array(
 					'id'          => 'uacf7_uacf7style_btn_padding_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_padding_bottom' => array(
 					'id'          => 'uacf7_uacf7style_btn_padding_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_padding_left' => array(
 					'id'          => 'uacf7_uacf7style_btn_padding_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_margin' => array(
 					'id'      => 'uacf7_uacf7style_btn_margin',
 					'class'   => 'heading-inner',
 					'type'    => 'heading',
-					'title'   => __( 'Margin (in px)', 'ultimate-addons-cf7' ),
-					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-cf7' ),
+					'title'   => __( 'Margin (in px)', 'ultimate-addons-for-contact-form-7' ),
+					'content' => __( ' E.g. 16 (Do not add px or em). ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_btn_margin_top' => array(
 					'id'          => 'uacf7_uacf7style_btn_margin_top',
 					'type'        => 'number',
-					'label'       => __( 'Top', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Top', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Top', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_margin_right' => array(
 					'id'          => 'uacf7_uacf7style_btn_margin_right',
 					'type'        => 'number',
-					'label'       => __( 'Right', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Right', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Right', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_margin_bottom' => array(
 					'id'          => 'uacf7_uacf7style_btn_margin_bottom',
 					'type'        => 'number',
-					'label'       => __( 'Bottom', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Bottom', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Bottom', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_btn_margin_left' => array(
 					'id'          => 'uacf7_uacf7style_btn_margin_left',
 					'type'        => 'number',
-					'label'       => __( 'Left', 'ultimate-addons-cf7' ),
-					'placeholder' => __( 'Left', 'ultimate-addons-cf7' ),
+					'label'       => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
+					'placeholder' => __( 'Left', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 25,
 				),
 				'uacf7_uacf7style_ua_custom_header' => array(
 					'id'    => 'uacf7_uacf7style_ua_custom_header',
 					'type'  => 'heading',
-					'label' => __( 'Custom CSS', 'ultimate-addons-cf7' ),
+					'label' => __( 'Custom CSS', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_uacf7style_ua_custom_css' => array(
 					'id'   => 'uacf7_uacf7style_ua_custom_css',
@@ -662,7 +664,7 @@ class UACF7_uacf7style {
 				$ua_custom_css              = $form_meta['uacf7_uacf7style_ua_custom_css'];
 				?>
 				<style>
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> label {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> label {
 						<?php
 						// Color
 						if ( ! empty( $label_color ) ) {
@@ -724,18 +726,18 @@ class UACF7_uacf7style {
 						?>
 					}
 
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="email"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="number"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="password"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="search"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="tel"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="text"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="url"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="date"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="radio"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="checkbox"],
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> select,
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="email"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="number"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="password"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="search"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="tel"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="text"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="url"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="date"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="radio"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="checkbox"],
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> select,
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> textarea {
 						<?php
 						// Color
 						if ( ! empty( $input_color ) ) {
@@ -816,8 +818,8 @@ class UACF7_uacf7style {
 						?>
 					}
 
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-radio span,
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> .wpcf7-checkbox span {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> .wpcf7-radio span,
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> .wpcf7-checkbox span {
 						<?php
 						// Color
 						if ( ! empty( $input_color ) ) {
@@ -846,7 +848,7 @@ class UACF7_uacf7style {
 						?>
 					}
 
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> textarea {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> textarea {
 						<?php
 						// Height
 						if ( ! empty( $textarea_input_height ) ) {
@@ -859,7 +861,7 @@ class UACF7_uacf7style {
 						width: 100%;
 					}
 
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"] {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="submit"] {
 						<?php
 						// Color
 						if ( ! empty( $btn_color ) ) {
@@ -940,7 +942,7 @@ class UACF7_uacf7style {
 						?>
 					}
 
-					.uacf7-uacf7style-<?php esc_attr_e( $cfform->id() ); ?> input[type="submit"]:hover {
+					.uacf7-uacf7style-<?php echo esc_attr( $cfform->id() ); ?> input[type="submit"]:hover {
 						<?php
 						// Hover color
 						if ( ! empty( $btn_color_hover ) ) {
@@ -959,10 +961,10 @@ class UACF7_uacf7style {
 						?>
 					}
 
-					<?php echo $ua_custom_css ?>
+					<?php echo wp_kses_post( $ua_custom_css ); ?>
 				</style>
 
-				<?php echo '<div class="uacf7-uacf7style uacf7-uacf7style-' . esc_attr( $cfform->id() ) . '">' . $form . '</div>';
+				<?php echo '<div class="uacf7-uacf7style uacf7-uacf7style-' . esc_attr( $cfform->id() ) . '">' . wp_kses_post( $form ) .'</div>';
 				$properties['form'] = ob_get_clean();
 			endif;
 		}
@@ -971,7 +973,7 @@ class UACF7_uacf7style {
 	}
 
 	public function old_uacf7_properties( $properties, $cfform ) {
-		wp_register_style( 'uacf7-single-form-styler', UACF7_URL . 'addons/styler/css/uacf7-single-form-styler.css', [], null );
+		wp_register_style( 'uacf7-single-form-styler', UACF7_URL . 'addons/styler/css/uacf7-single-form-styler.css', [], UACF7_VERSION );
 
 		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			$form = $properties['form'];

@@ -19,9 +19,9 @@ if ( ! class_exists( 'UACF7_map' ) ) {
               }
             endif;
             $args              = wp_parse_args( $this->field, array(
-                'placeholder'    => esc_html__( 'Search Address...', 'ultimate-addons-cf7' ),
-                'latitude_text'  => esc_html__( 'Latitude', 'ultimate-addons-cf7' ),
-                'longitude_text' => esc_html__( 'Longitude', 'ultimate-addons-cf7' ),
+                'placeholder'    => esc_html__( 'Search Address...', 'ultimate-addons-for-contact-form-7' ),
+                'latitude_text'  => esc_html__( 'Latitude', 'ultimate-addons-for-contact-form-7' ),
+                'longitude_text' => esc_html__( 'Longitude', 'ultimate-addons-for-contact-form-7' ),
                 'address_field'  => '',
                 'height'         => '250',
               ) );

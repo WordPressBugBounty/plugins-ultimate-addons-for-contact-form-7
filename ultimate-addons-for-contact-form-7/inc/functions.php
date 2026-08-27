@@ -11,28 +11,11 @@ if ( file_exists( UACF7_PATH . 'inc/class-setup-wizard.php' ) ) {
 	require_once UACF7_PATH . 'inc/class-setup-wizard.php';
 }
 
-//Require ultimate Promo Notice
-if ( file_exists( UACF7_PATH . 'inc/class-promo-notice.php' ) ) {
-
-    require_once ( UACF7_PATH .'inc/class-promo-notice.php');
-}
-
-if ( file_exists( UACF7_PATH . 'inc/dashboard-promo-notice.php' ) ) {
-
-    require_once ( UACF7_PATH .'inc/dashboard-promo-notice.php');
-}
-
 //Require Dashboard Notice
 if ( file_exists( UACF7_PATH . 'inc/class-dashboard-widget.php' ) ) {
 
     require_once ( UACF7_PATH .'inc/class-dashboard-widget.php');
 }
-
-//Require ultimate Promo Notice
-// if ( file_exists( UACF7_PATH . 'inc/class-helper-banner.php' ) ) {
-
-//     require_once ( UACF7_PATH .'inc/class-helper-banner.php');
-// }
 
 if ( file_exists( UACF7_PATH . 'admin/admin-menu.php' ) ) {
 	require_once UACF7_PATH . 'admin/admin-menu.php';
@@ -46,14 +29,14 @@ function uacf7_post_meta_options_import_export( $value, $post_id ) {
 	if ( ! empty( $value ) ) {
 
 		$import_export = apply_filters( 'uacf7_post_meta_options_import_export_pro', $data = array(
-			'title' => __( 'Import/Export', 'ultimate-addons-cf7' ),
+			'title' => __( 'Import/Export', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-solid fa-file-export',
 			'fields' => array(
 				'placeholder_heading' => array(
 					'id' => 'placeholder_heading',
 					'type' => 'heading',
-					'label' => __( 'Import/Export', 'ultimate-addons-cf7' ),
-					'subtitle' => __( 'Import and export all addon settings associated with this form. Please save the form in order to generate the export file.', 'ultimate-addons-cf7' )
+					'label' => __( 'Import/Export', 'ultimate-addons-for-contact-form-7' ),
+					'subtitle' => __( 'Import and export all addon settings associated with this form. Please save the form in order to generate the export file.', 'ultimate-addons-for-contact-form-7' )
 				),
 				'uacf7_import_export_backup' => array(
 					'id' => 'uacf7_import_export_backup',
@@ -154,7 +137,8 @@ if ( ! function_exists( 'uacf7_print_r' ) ) {
 	function uacf7_print_r( ...$args ) {
 		echo '<pre style="padding-left: 180px;">';
 		foreach ( $args as $arg ) {
-			print_r( $arg );
+			$debug_output = wp_json_encode( $arg, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+			echo esc_html( false !== $debug_output ? $debug_output : '' );
 		}
 		echo '</pre>';
 		// exit;
@@ -182,109 +166,6 @@ if ( ! function_exists( 'uacf7_get_form_option' ) ) {
 	}
 }
 
-
-/*
- * Hook: uacf7_multistep_pro_features
- * Multistep pro features demo
- */
-add_action( 'uacf7_multistep_pro_features', 'uacf7_multistep_pro_features_demo', 5, 2 );
-function uacf7_multistep_pro_features_demo( $all_steps, $form_id ) {
-	if ( ! isset( $all_steps[0] ) )
-		return;
-	if ( empty( array_filter( $all_steps ) ) )
-		return;
-	?>
-	<div class="multistep_fields_row" style="display: flex; flex-direction: column;">
-		<?php
-		$step_count = 1;
-		foreach ( $all_steps as $step ) {
-			?>
-			<h3><strong>Step <?php echo $step_count; ?> <a style="color:red" target="_blank"
-						href="https://cf7addons.com/pricing/">(Pro)</a></strong></h3>
-			<?php
-			if ( $step_count == 1 ) {
-				?>
-				<div>
-					<p><label
-							for="<?php echo 'next_btn_' . $step->name; ?>"><?php echo __( 'Change next button text for this Step', 'ultimate-addons-cf7' ) ?></label>
-					</p>
-					<input id="<?php echo 'next_btn_' . $step->name; ?>" type="text" name="" value=""
-						placeholder="<?php echo esc_html__( 'Next', 'ultimate-addons-cf7-pro' ) ?>">
-				</div>
-				<?php
-			} else {
-
-				if ( count( $all_steps ) == $step_count ) {
-					?>
-					<div>
-						<p><label for="<?php echo 'prev_btn_' . $step->name; ?>">
-								<?php echo __( 'Change previous button text for this Step', 'ultimate-addons-cf7' ) ?>
-							</label></p>
-						<input id="<?php echo 'prev_btn_' . $step->name; ?>" type="text" name="" value=""
-							placeholder="<?php echo esc_html__( 'Previous', 'ultimate-addons-cf7-pro' ) ?>">
-					</div>
-					<?php
-
-				} else {
-					?>
-					<div class="multistep_fields_row-">
-						<div class="multistep_field_column">
-							<p><label for="<?php echo 'prev_btn_' . $step->name; ?>">
-									<?php echo __( 'Change previous button text for this Step', 'ultimate-addons-cf7' ) ?>
-								</label></p>
-							<input id="<?php echo 'prev_btn_' . $step->name; ?>" type="text" name="" value=""
-								placeholder="<?php echo esc_html__( 'Previous', 'ultimate-addons-cf7-pro' ) ?>">
-						</div>
-
-						<div class="multistep_field_column">
-							<p><label for="<?php echo 'next_btn_' . $step->name; ?>">
-									<?php echo __( 'Change next button text for this Step', 'ultimate-addons-cf7' ) ?>
-								</label></p>
-							<input id="<?php echo 'next_btn_' . $step->name; ?>" type="text" name="" value=""
-								placeholder="<?php echo esc_html__( 'Next', 'ultimate-addons-cf7-pro' ) ?>">
-						</div>
-					</div>
-					<?php
-				}
-
-			}
-			?>
-			<div class="uacf7_multistep_progressbar_image_row">
-				<p><label for="<?php echo esc_attr( 'uacf7_progressbar_image_' . $step->name ); ?>">
-						<?php echo __( 'Add progressbar image for this step', 'ultimate-addons-cf7' ) ?>
-					</label></p>
-				<input class="uacf7_multistep_progressbar_image"
-					id="<?php echo esc_attr( 'uacf7_progressbar_image_' . $step->name ); ?>" type="url" name="" value=""> <a
-					class="button-primary" href="#">
-					<?php echo __( 'Add or Upload Image', 'ultimate-addons-cf7' ) ?>
-				</a>
-
-				<div class="multistep_fields_row step-title-description col-50">
-					<div class="multistep_field_column">
-						<p><label for="<?php echo 'step_desc_' . $step->name; ?>">
-								<?php echo __( 'Step description', 'ultimate-addons-cf7' ) ?>
-							</label></p>
-						<textarea id="<?php echo 'step_desc_' . $step->name; ?>" type="text" name="" cols="40" rows="3"
-							placeholder="<?php echo esc_html__( 'Step description', 'ultimate-addons-cf7-pro' ) ?>"></textarea>
-					</div>
-
-					<div class="multistep_field_column">
-						<p><label for="<?php echo 'desc_title_' . $step->name; ?>">
-								<?php echo __( 'Description title', 'ultimate-addons-cf7' ) ?>
-							</label></p>
-						<input id="<?php echo 'desc_title_' . $step->name; ?>" type="text" name="" value=""
-							placeholder="<?php echo esc_html__( 'Description title', 'ultimate-addons-cf7-pro' ) ?>">
-					</div>
-				</div>
-			</div>
-			<?php
-			$step_count++;
-		}
-		?>
-	</div>
-	<?php
-}
-
 /*
  * Progressbar style
  */
@@ -308,7 +189,7 @@ function uacf7_multistep_progressbar_style( $form_id ) {
 			<?php if ( ! empty( $uacf7_multistep_circle_height ) )
 				echo 'height: ' . esc_attr( $uacf7_multistep_circle_height ) . 'px;'; ?>
 			<?php if ( $uacf7_multistep_circle_border_radious != '' )
-				echo 'border-radius: ' . $uacf7_multistep_circle_border_radious . 'px;'; ?>
+				echo 'border-radius: ' . esc_attr( $uacf7_multistep_circle_border_radious ) . 'px;'; ?>
 			<?php if ( ! empty( $uacf7_multistep_circle_height ) )
 				echo 'line-height: ' . esc_attr( $uacf7_multistep_circle_height ) . 'px;'; ?>
 			<?php if ( ! empty( $uacf7_multistep_circle_bg_color ) )
@@ -321,7 +202,7 @@ function uacf7_multistep_progressbar_style( $form_id ) {
 
 		.steps-form .steps-row .steps-step .btn-circle img {
 			<?php if ( $uacf7_multistep_circle_border_radious != 0 )
-				echo 'border-radius: ' . $uacf7_multistep_circle_border_radious . 'px !important;'; ?>
+				echo 'border-radius: ' . esc_attr( $uacf7_multistep_circle_border_radious ) . 'px !important;'; ?>
 		}
 
 		.steps-form .steps-row .steps-step .btn-circle.uacf7-btn-active,
@@ -381,7 +262,7 @@ function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
 		
 		$form = $properties['form'];
 		ob_start();
-		echo '<div class="uacf7-form-wrapper-container uacf7-form-' . $cfform->id() . ' '.$auto_cart_class.' '.$uacf7_formStyler_class.'">' . $form . '</div>';
+		echo '<div class="uacf7-form-wrapper-container uacf7-form-' . esc_attr( $cfform->id() ) . ' ' . esc_attr( $auto_cart_class ) . ' ' . esc_attr( $uacf7_formStyler_class ) . '">' . wp_kses_post( $form ) . '</div>';
 		$properties['form'] = ob_get_clean();
 
 	}
@@ -423,32 +304,33 @@ if ( ! function_exists( 'uacf7_review_notice' ) ) {
 			</style>
 			<div class="notice notice-info themefic_review_notice">
 
-				<?php echo sprintf(
-					__( ' <p>Hey %1$s 👋, You have been using <b>%2$s</b> for quite a while. If you feel %2$s is helping your business to grow in any way, would you please help %2$s to grow by simply leaving a 5* review on the WordPress Forum?', 'ultimate-addons-cf7' ),
-					$current_user->display_name,
+				<?php echo wp_kses_post( sprintf(
+					/* translators: %1$s: User Name, %2$s: Plugin Name */
+					__( ' <p>Hey %1$s 👋, You have been using <b>%2$s</b> for quite a while. If you feel %2$s is helping your business to grow in any way, would you please help %2$s to grow by simply leaving a 5* review on the WordPress Forum?', 'ultimate-addons-for-contact-form-7' ),
+					esc_html( $current_user->display_name ),
 					'Ultra Addons for Contact Form 7'
-				); ?>
+				) ); ?>
 
 				<ul>
 					<li><a target="_blank"
 							href="<?php echo esc_url( 'https://wordpress.org/plugins/ultimate-addons-for-contact-form-7/#reviews' ) ?>"
 							class=""><span
-								class="dashicons dashicons-external"></span><?php _e( ' Ok, you deserve it!', 'ultimate-addons-cf7' ) ?></a>
+								class="dashicons dashicons-external"></span><?php esc_html_e( ' Ok, you deserve it!', 'ultimate-addons-for-contact-form-7' ) ?></a>
 					</li>
 					<li><a href="#" class="already_done" data-status="already"><span class="dashicons dashicons-smiley"></span>
-							<?php _e( 'I already did', 'ultimate-addons-cf7' ) ?></a></li>
+							<?php esc_html_e( 'I already did', 'ultimate-addons-for-contact-form-7' ) ?></a></li>
 					<li><a href="#" class="later" data-status="later"><span class="dashicons dashicons-calendar-alt"></span>
-							<?php _e( 'Maybe Later', 'ultimate-addons-cf7' ) ?></a></li>
+							<?php esc_html_e( 'Maybe Later', 'ultimate-addons-for-contact-form-7' ) ?></a></li>
 					<li><a target="_blank"
 							href="<?php echo esc_url( 'https://themefic.com/docs/ultimate-addons-for-contact-form-7/' ) ?>"
 							class=""><span class="dashicons dashicons-sos"></span>
-							<?php _e( 'I need help', 'ultimate-addons-cf7' ) ?></a></li>
+							<?php esc_html_e( 'I need help', 'ultimate-addons-for-contact-form-7' ) ?></a></li>
 					<li><a href="#" class="never" data-status="never"><span
-								class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'ultimate-addons-cf7' ) ?>
+								class="dashicons dashicons-dismiss"></span><?php esc_html_e( 'Never show again', 'ultimate-addons-for-contact-form-7' ) ?>
 						</a></li>
 				</ul>
 				<button type="button" class="notice-dismiss review_notice_dismiss" data-status="never"><span
-						class="screen-reader-text"><?php _e( 'Dismiss this notice.', 'ultimate-addons-cf7' ) ?></span></button>
+						class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'ultimate-addons-for-contact-form-7' ) ?></span></button>
 			</div>
 
 			<!--   Themefic Plugin Review Admin Notice Script -->
@@ -462,6 +344,7 @@ if ( ! function_exists( 'uacf7_review_notice' ) ) {
 						data = {
 							action: 'uacf7_review_notice_callback',
 							status: status,
+							nonce: '<?php echo esc_js( wp_create_nonce( 'uacf7_review_notice_nonce' ) ); ?>',
 						};
 
 						$.ajax({
@@ -500,7 +383,9 @@ if ( ! function_exists( 'uacf7_review_notice' ) ) {
 if ( ! function_exists( 'uacf7_review_notice_callback' ) ) {
 
 	function uacf7_review_notice_callback() {
-		$status = $_POST['status'];
+		check_ajax_referer( 'uacf7_review_notice_nonce', 'nonce' );
+
+		$status = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
 		if ( $status == 'already' ) {
 			update_option( 'uacf7_review_notice_status', '1' );
 		} else if ( $status == 'never' ) {
@@ -516,93 +401,6 @@ if ( ! function_exists( 'uacf7_review_notice_callback' ) ) {
 	add_action( 'wp_ajax_uacf7_review_notice_callback', 'uacf7_review_notice_callback' );
 
 }
-
-// if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
-// 	function uacf7_new_updated_announcement() {
-// 		$current_user = wp_get_current_user();
-// 		$imgurl = UACF7_URL . 'assets/img/';
-// if ( ! function_exists( 'uacf7_new_updated_announcement' ) ) {
-// 	function uacf7_new_updated_announcement() {
-// 		$current_user = wp_get_current_user();
-// 		$imgurl = UACF7_URL . 'assets/img/';
-// 		<div class="notice themefic_review_notice uacf7_new_updated_anno"> -->
-// echo sprintf(
-// 				__( '
-//                     <a style="background-image: url(%2$s/uacf7_new_updated_anno.png)" class="uacf7_new_updated_anno_banner_url" target="_blank" href="https://themefic.com/uacf7-revamped-plugin-installation-and-options/">
-// 						<div class="uacf7_new_updated_anno_info_wrap">
-// 							<h3>
-// 								Introducing Addons For Contact Form 7 v3.3.0!
-// 							</h3>
-// 							<p>Get ready for an exciting announcement! We will soon unveil the highly anticipated release of <b>Addons Contact Form 7 v3.3.0</b>. Your user experience will be enhanced, and we recommend backing up your site before updating for a smooth transition</p>
-// 						</div>
-// 						<button class="uacf7_new_updated_anno_button">
-// 							Explore What’s New
-// 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-// 								<path d="M16.0032 9.41421L7.39663 18.0208L5.98242 16.6066L14.589 8H7.00324V6H18.0032V17H16.0032V9.41421Z" fill="#382673"/>
-// 							</svg>
-// 						</button>
-// 					</a>
-//                     ', 'ultimate-addons-cf7' ),
-// 				$current_user->user_login, $imgurl,
-// 				'ultimate-addons-cf7'
-// 			); 
-
-// <a class="uacf7_new_updated_anno_close uacf7_never" href="#" data-status="uacf7_never">
-// 	<span class="dashicons dashicons-dismiss"></span>
-// </a> 
-
-// <script>
-// 				jQuery(document).ready(function ($) {
-// 					$(document).on('click', '.uacf7_never', function (event) {
-// 						event.preventDefault();
-// 						var $this = $(this);
-// 						var status = $this.attr('data-status');
-// 						$this.closest('.themefic_review_notice').css('display', 'none')
-// 						data = {
-// 							action: 'uacf7_review_announcement_callback',
-// 							status: status,
-// 						};
-
-// 						$.ajax({
-// 							url: ajaxurl,
-// 							type: 'post',
-// 							data: data,
-// 							success: function (data) {
-// 							},
-// 							error: function (data) {
-// 							}
-// 						});
-// 					});
-// 				});
-//</script>
-
-// </div> 
-
-//}
-
-// 	if ( ! isset( $_COOKIE['uacf7_review_announcement_status'] ) ) {
-// 		//add_action( 'admin_notices', 'uacf7_new_updated_announcement' );
-// 	}
-
-// }
-
-// Themefic Plugin Review Admin Notice Ajax Callback 
-// if ( ! function_exists( 'uacf7_review_announcement_callback' ) ) {
-
-// 	function uacf7_review_announcement_callback() {
-// 		$status = $_POST['status'];
-// 		if ( $status == 'uacf7_never' ) {
-// 			$cookie_name = "uacf7_review_announcement_status";
-// 			$cookie_value = "1";
-// 			setcookie( $cookie_name, $cookie_value, time() + ( 86400 * 7 ), "/" );
-// 			update_option( 'uacf7_review_announcement_status', '0' );
-// 		}
-// 		wp_die();
-// 	}
-// 	add_action( 'wp_ajax_uacf7_review_announcement_callback', 'uacf7_review_announcement_callback' );
-
-// }
-
 
 // Themefic Plugin Migration Callback 
 if ( ! function_exists( 'uacf7_form_option_Migration_callback' ) ) {
@@ -1242,8 +1040,8 @@ if ( ! function_exists( 'uacf7_form_option_Migration_callback' ) ) {
 
 }
 
-$plugin_file = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
-add_filter( "in_plugin_update_message-{$plugin_file}", 'uacf7_plugin_update_message', 10, 2 );
+$uacf7_plugin_file = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
+add_filter( "in_plugin_update_message-{$uacf7_plugin_file}", 'uacf7_plugin_update_message', 10, 2 );
 
 function uacf7_plugin_update_message( $plugin_data, $response ) {
 	// $new_version = $response->new_version;
@@ -1262,69 +1060,25 @@ function uacf7_plugin_update_message( $plugin_data, $response ) {
 	// var_dump( $new_version );
 
 	if ( isset( $new_version ) && version_compare( $new_version, $plugin_data['Version'], '>' ) && $new_version === '3.0.0' ) {
-		echo sprintf(
-			__( '
-				<div class="uacf7_plugin_page_notices" >
-					<div class="uacf7_info_wrap">
-						<h3>Important update notice!</h3>
-						<p>We’ve renamed <strong> Ultimate Addons for Contact Form 7 </strong> to <strong>Ultra Addons for Contact Form 7</strong> as part of a branding update. You’ll now find all settings under the <strong>CF7 Addons</strong>  menu. <a href="https://cf7addons.com/ultra-addons-for-contact-form-7/" target="_blank">Learn More</a></p>
+		echo wp_kses_post(
+			sprintf(
+				__( '
+					<div class="uacf7_plugin_page_notices" >
+						<div class="uacf7_info_wrap">
+							<h3>Important update notice!</h3>
+							<p>We’ve renamed <strong> Ultimate Addons for Contact Form 7 </strong> to <strong>Ultra Addons for Contact Form 7</strong> as part of a branding update. You’ll now find all settings under the <strong>CF7 Addons</strong>  menu. <a href="https://cf7addons.com/ultra-addons-for-contact-form-7/" target="_blank">Learn More</a></p>
 					</div>
 					<div class="uacf7_compa_wrap">
 						<p>Thank you for your continued support — we\'re excited to keep improving the plugin for you!</p>
 					</div>
 				</div>
-				', 'ultimate-addons-cf7' ),
-			'ultimate-addons-cf7'
-		);
+				', 'ultimate-addons-for-contact-form-7' ),
+			'ultimate-addons-for-contact-form-7'
+		) );
 	}
 
 	return $plugin_data;
 
-}
-
-
-add_action('wp_ajax_uacf7_install_hydra_booking', 'uacf7_install_hydra_booking');
-
-function uacf7_install_hydra_booking() {
-    check_ajax_referer('uacf7_admin_nonce', 'security');
-
-    if (!current_user_can('install_plugins')) {
-        wp_send_json_error(['message' => 'Permission denied']);
-    }
-
-    include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-    include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-    $plugin_slug = 'hydra-booking';
-    $plugin_file = 'hydra-booking/hydra-booking.php';
-
-    // Check if already installed
-    if (is_plugin_active($plugin_file)) {
-        wp_send_json_success(['message' => 'Hydra Booking Plugin is already active.']);
-    }
-
-    $api = plugins_api('plugin_information', ['slug' => $plugin_slug]);
-
-    if (is_wp_error($api)) {
-        wp_send_json_error(['message' => 'Plugin info could not be retrieved.']);
-    }
-
-    $upgrader = new Plugin_Upgrader(new WP_Ajax_Upgrader_Skin());
-    $result = $upgrader->install($api->download_link);
-
-    if (is_wp_error($result)) {
-        wp_send_json_error(['message' => 'Hydra Booking Plugin Installation failed.']);
-    }
-
-    // Activate plugin
-    $activate = activate_plugin($plugin_file);
-
-    if (is_wp_error($activate)) {
-        wp_send_json_error(['message' => 'Hydra Booking Plugin Activation failed.']);
-    }
-
-    wp_send_json_success(['message' => 'Hydra Booking Plugin installed and activated successfully.']);
 }
 
 function uacf7_dismiss_booking_pro_notice() {
@@ -1471,14 +1225,14 @@ function uacf7_booking_pro_admin_notice() {
 		<div class="notice-button" style="width: 30%;">
 			<p>
 				<span>
-				<img src="<?php echo UACF7_URL; ?>assets/img/person-1.png" alt="user">
-				<img src="<?php echo UACF7_URL; ?>assets/img/person-2.png" alt="person">
-				<img src="<?php echo UACF7_URL; ?>assets/img/person-3.png" alt="person">
+				<img src="<?php echo esc_url( UACF7_URL ); ?>assets/img/person-1.png" alt="user">
+				<img src="<?php echo esc_url( UACF7_URL ); ?>assets/img/person-2.png" alt="person">
+				<img src="<?php echo esc_url( UACF7_URL ); ?>assets/img/person-3.png" alt="person">
 				</span>	
 				Loved by many
 			</p>
 
-			<a href="<?php echo admin_url( 'plugin-install.php?tab=search&s=hydra+booking' ) ?>" class="hydra-button">Try Hydra Booking</a>
+			<a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&s=hydra+booking' ) ); ?>" class="hydra-button">Try Hydra Booking</a>
 		</div>
     </div>
 
@@ -1487,7 +1241,7 @@ function uacf7_booking_pro_admin_notice() {
             $('.uacf7-booking-pro-notice').on('click', '.notice-dismiss', function () {
                 $.post(ajaxurl, {
                     action: 'uacf7_dismiss_booking_pro_notice',
-                    security: '<?php echo wp_create_nonce("uacf7_admin_nonce"); ?>'
+                    security: '<?php echo esc_js( wp_create_nonce("uacf7_admin_nonce") ); ?>'
                 });
             });
         });
@@ -1506,7 +1260,7 @@ add_action('admin_notices',  'uacf7_migration_success_notice');
 add_action('admin_init', 'uacf7_handle_conditional_notice_dismiss');
 
 
-function enable_conditional_field() {
+function uacf7_enable_conditional_field() {
 	$options = uacf7_settings();
 
 	if ( ! isset( $options['uacf7_enable_conditional_field'] ) || ! $options['uacf7_enable_conditional_field'] ) {
@@ -1527,7 +1281,7 @@ function uacf7_migration_notice() {
 			<p><strong>Ultra Addons for Contact Form 7 – Migrate Your Conditional Data:</strong> <br> We\'ve detected conditional data from <strong>Conditional Fields for Contact Form 7</strong>. Easily migrate it with our built-in tool and unlock 40+ powerful addons in one place. Would you like to proceed?</p>
 			<p>
 				<a href="' . esc_url(wp_nonce_url(admin_url('admin.php?action=uacf7_migrate_conditional_fields'), 'uacf7_migrate_conditional_fields_nonce')) . '" class="button button-primary">Migrate Now</a>
-				<a href="' . esc_url(add_query_arg('uacf7_dismiss_conditional_migration_notice', '1')) . '" class="button button-secondary">Not Now</a>
+				<a href="' . esc_url( wp_nonce_url( add_query_arg( 'uacf7_dismiss_conditional_migration_notice', '1' ), 'uacf7_dismiss_conditional_migration_notice' ) ) . '" class="button button-secondary">Not Now</a>
 			</p>
 		</div>';
 	}
@@ -1535,13 +1289,18 @@ function uacf7_migration_notice() {
 
 function uacf7_handle_conditional_notice_dismiss() {
 
-    if ( empty($_GET['uacf7_dismiss_conditional_migration_notice']) || $_GET['uacf7_dismiss_conditional_migration_notice'] !== '1' ) {
+    $dismiss_notice = filter_input( INPUT_GET, 'uacf7_dismiss_conditional_migration_notice', FILTER_UNSAFE_RAW );
+    $dismiss_notice = is_string( $dismiss_notice ) ? sanitize_text_field( $dismiss_notice ) : '';
+
+    if ( '1' !== $dismiss_notice ) {
         return;
     }
 
     if ( ! current_user_can('manage_options') ) {
         return;
     }
+
+    check_admin_referer( 'uacf7_dismiss_conditional_migration_notice' );
 
     update_option('uacf7_migration_done', time() + (15 * DAY_IN_SECONDS));
 
@@ -1552,7 +1311,9 @@ function uacf7_handle_conditional_notice_dismiss() {
 }
 
 function uacf7_migration_success_notice() {
-	if (isset($_GET['uacf7_migration_success']) && $_GET['uacf7_migration_success'] == 1) {
+	$migration_success = filter_input( INPUT_GET, 'uacf7_migration_success', FILTER_VALIDATE_INT );
+
+	if ( 1 === $migration_success ) {
 		echo '<div class="notice notice-success is-dismissible">
 			<p>Migration completed successfully.</p>
 		</div>';
@@ -1566,11 +1327,11 @@ function uacf7_migrate_conditional_fields_handler() {
     }
 
     if ( ! current_user_can('manage_options') ) {
-        wp_die(__('You are not allowed to perform this action.', 'ultimate-addons-cf7'));
+        wp_die(esc_html__('You are not allowed to perform this action.', 'ultimate-addons-for-contact-form-7'));
     }
 
-    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce($_GET['_wpnonce'], 'uacf7_migrate_conditional_fields_nonce') ) {
-        wp_die(__('Security check failed.', 'ultimate-addons-cf7'));
+    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'uacf7_migrate_conditional_fields_nonce') ) {
+        wp_die(esc_html__('Security check failed.', 'ultimate-addons-for-contact-form-7'));
     }
 
     if ( get_option('uacf7_migration_done') ) {
@@ -1578,7 +1339,7 @@ function uacf7_migrate_conditional_fields_handler() {
         exit;
     }
 
-    enable_conditional_field();
+    uacf7_enable_conditional_field();
     uacf7_migrate_conditional_fields();
 
     update_option('uacf7_migration_done', true);
@@ -1712,184 +1473,6 @@ function uacf7_preserve_line_breaks($contact_form) {
     $contact_form->set_properties($properties);
 }
 
-
-
-add_action('admin_footer', 'uacf7_show_hydra_modal');
-
-function uacf7_show_hydra_modal() {
-
-    if (!isset($_GET['page']) || $_GET['page'] !== 'uacf7_addons') {
-        return;
-    }
-
-    $user_id = get_current_user_id();
-
-	if (!current_user_can('install_plugins')) {
-        return;
-    }
-	
-    $modal_shown = get_user_meta($user_id, 'uacf7_modal_shown', true);
-
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-    $plugin_slug = 'hydra-booking/hydra-booking.php';
-    $plugin_installed = file_exists(WP_PLUGIN_DIR . '/hydra-booking'); 
-    $plugin_activated = is_plugin_active($plugin_slug);
-
-    if ($plugin_activated || $modal_shown) {
-        return;
-    }
-
-    ?>
-    <div id="uacf7-modal" class="uacf7-modal">
-        <div class="uacf7-modal-content">
-            <span id="uacf7-modal-close" class="uacf7-modal-close">&times;</span>
-            <h2>Hey <?php echo wp_get_current_user()->display_name; ?>! Want to make your Booking/Appointment Addon stand out?</h2>
-            <p>HydraBooking offers everything you love about the Booking Addon—plus powerful new features designed to make your life easier.</p>
-            <div class="hydra-modal-users">
-                <div class="users">
-                    <span>
-                        <img src="<?php echo UACF7_URL; ?>assets/img/person-1.png" alt="user">
-                        <img src="<?php echo UACF7_URL; ?>assets/img/person-2.png" alt="person">
-                        <img src="<?php echo UACF7_URL; ?>assets/img/person-3.png" alt="person">
-                    </span>    
-                    Many people are already using this...
-                </div>
-            </div>
-            <button id="uacf7-install-plugin">Try HydraBooking</button>
-        </div>
-    </div>
-
-    <script>
-    jQuery(document).ready(function ($) {
-		$('#uacf7-modal').fadeIn();
-
-		$('#uacf7-modal-close').click(function () {
-			$('#uacf7-modal').fadeOut();
-			$.post('<?php echo admin_url('admin-ajax.php'); ?>', {
-				action: 'uacf7_set_modal_shown',
-				nonce: '<?php echo wp_create_nonce("uacf7_modal_nonce"); ?>'
-			});
-		});
-
-		$('#uacf7-install-plugin').click(function () {
-			let $button = $(this);
-			showLoading($button, 'Installing...');
-
-			$.ajax({
-				type: 'POST',
-				url: '<?php echo admin_url('admin-ajax.php'); ?>',
-				data: {
-					action: 'install_hydrabooking',
-					nonce: '<?php echo wp_create_nonce("install_hydra_booking"); ?>'
-				},
-				success: function (response) {
-					if (response.success) {
-						showSuccess($button, 'Installed ✅');
-						setTimeout(() => {
-							showLoading($button, 'Activating...');
-							activateHydraBooking($button);
-						}, 1000);
-					} else {
-						showError($button, 'Installation Failed! Try Again');
-					}
-				},
-				error: function () {
-					showError($button, 'Installation Failed! Try Again');
-				}
-			});
-		});
-
-		function activateHydraBooking($button) {
-			$.ajax({
-				type: 'POST',
-				url: '<?php echo admin_url('admin-ajax.php'); ?>',
-				data: {
-					action: 'activate_hydrabooking',
-					nonce: '<?php echo wp_create_nonce("activate_hydra_booking"); ?>'
-				},
-				success: function (response) {
-					if (response.success) {
-						showSuccess($button, 'Activated 🎉');
-					} else {
-						showError($button, 'Activation Failed! Try Again');
-					}
-				},
-				error: function () {
-					showError($button, 'Activation Failed! Try Again');
-				}
-			});
-		}
-
-		function showLoading($button, text) {
-			$button.html(`<span class="loader"></span> ${text}`).prop('disabled', true);
-		}
-
-		function showSuccess($button, text) {
-			$button.html(text).prop('disabled', true);
-		}
-
-		function showError($button, text) {
-			$button.html(text).prop('disabled', false);
-		}
-	});
-    </script>
-    <?php
-}
-
-
-function install_hydrabooking() {
-
-	if( ! current_user_can('install_plugins')) {
-		wp_send_json_error(['message' => 'Permission denied']);
-	}
-
-	check_ajax_referer('install_hydra_booking', 'nonce');
-
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-    include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-    include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-    include_once ABSPATH . 'wp-admin/includes/file.php';
-
-    $plugin_slug = 'hydra-booking';
-
-    // Fetch plugin information
-    $api = plugins_api('plugin_information', ['slug' => $plugin_slug]);
-    if (is_wp_error($api)) {
-        wp_send_json_error(['message' => 'Plugin info could not be retrieved.']);
-    }
-
-    // Install the plugin
-    $upgrader = new Plugin_Upgrader(new Automatic_Upgrader_Skin());
-    $installed = $upgrader->install($api->download_link);
-
-    if (is_wp_error($installed)) {
-        wp_send_json_error(['message' => 'Plugin installation failed.']);
-    }
-
-    wp_send_json_success(['message' => 'Plugin installed successfully.']);
-}
-add_action('wp_ajax_install_hydrabooking', 'install_hydrabooking');
-
-
-function activate_hydrabooking() {
-    check_ajax_referer('activate_hydra_booking', 'nonce');
-
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-    $plugin_file = 'hydra-booking/hydra-booking.php';
-
-    // Activate the plugin
-    $activated = activate_plugin($plugin_file);
-
-    if (is_wp_error($activated)) {
-        wp_send_json_error(['message' => 'Plugin activation failed.']);
-    }
-
-    wp_send_json_success(['message' => 'Plugin activated successfully.']);
-}
-add_action('wp_ajax_activate_hydrabooking', 'activate_hydrabooking');
-
-
 function uacf7_set_modal_shown() {
     check_ajax_referer('uacf7_modal_nonce', 'nonce');
 
@@ -1899,7 +1482,6 @@ function uacf7_set_modal_shown() {
     wp_send_json_success(['message' => 'Modal status updated.']);
 }
 add_action('wp_ajax_uacf7_set_modal_shown', 'uacf7_set_modal_shown');
-
 
 
 add_action('admin_notices', 'uacf7_redirection_migration_notice');
@@ -1922,7 +1504,7 @@ function uacf7_redirection_migration_notice() {
 			<p><strong>Ultra Addons for Contact Form 7 – Migrate Your Redirection Settings:</strong><br> We\'ve detected redirection settings from <strong>Redirection for Contact Form 7</strong>. Easily migrate them with our built-in tool—no need for multiple plugins! Plus, access 40+ powerful addons in one place. Would you like to proceed?</p>
 			<p>
 				<a href="' . esc_url(wp_nonce_url(admin_url('admin.php?action=uacf7_migrate_redirection'), 'uacf7_migrate_redirection_nonce')) . '" class="button button-primary">Migrate Now</a>
-				<a href="' . esc_url(add_query_arg('uacf7_dismiss_redirection_notice', '1')) . '" class="button button-secondary">Not Now</a>
+				<a href="' . esc_url( wp_nonce_url( add_query_arg( 'uacf7_dismiss_redirection_notice', '1' ), 'uacf7_dismiss_redirection_notice' ) ) . '" class="button button-secondary">Not Now</a>
 			</p>
 		</div>';
 	}
@@ -1930,13 +1512,18 @@ function uacf7_redirection_migration_notice() {
 
 function uacf7_handle_redirection_dismiss_notice() {
 
-    if ( empty($_GET['uacf7_dismiss_redirection_notice']) || $_GET['uacf7_dismiss_redirection_notice'] !== '1' ) {
+    $dismiss_notice = filter_input( INPUT_GET, 'uacf7_dismiss_redirection_notice', FILTER_UNSAFE_RAW );
+    $dismiss_notice = is_string( $dismiss_notice ) ? sanitize_text_field( $dismiss_notice ) : '';
+
+    if ( '1' !== $dismiss_notice ) {
         return;
     }
 
     if ( ! current_user_can('manage_options') ) {
         return;
     }
+
+    check_admin_referer( 'uacf7_dismiss_redirection_notice' );
 
     update_option('uacf7_redirection_migration_done', time() + (15 * DAY_IN_SECONDS));
 
@@ -1946,7 +1533,7 @@ function uacf7_handle_redirection_dismiss_notice() {
     exit;
 }
 
-function enable_redirection_field() {
+function uacf7_enable_redirection_field() {
 	$options = uacf7_settings();
 
 	if ( ! isset( $options['uacf7_enable_redirection'] ) || ! $options['uacf7_enable_redirection'] ) {
@@ -1959,7 +1546,9 @@ function enable_redirection_field() {
  * Show success notice after successful migration.
  */
 function uacf7_redirection_migration_success_notice() {
-	if (isset($_GET['uacf7_redirection_migration_success']) && $_GET['uacf7_redirection_migration_success'] == 1) {
+	$migration_success = filter_input( INPUT_GET, 'uacf7_redirection_migration_success', FILTER_VALIDATE_INT );
+
+	if ( 1 === $migration_success ) {
 		echo '<div class="notice notice-success is-dismissible">
 			<p>Redirection migration completed successfully.</p>
 		</div>';
@@ -1973,11 +1562,11 @@ function uacf7_migrate_redirection_handler() {
     }
 
     if ( ! current_user_can('manage_options') ) {
-        wp_die(__('You are not allowed to perform this action.', 'ultimate-addons-cf7'));
+        wp_die(esc_html__('You are not allowed to perform this action.', 'ultimate-addons-for-contact-form-7'));
     }
 
-    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce($_GET['_wpnonce'], 'uacf7_migrate_redirection_nonce') ) {
-        wp_die(__('Security check failed.', 'ultimate-addons-cf7'));
+    if ( empty($_GET['_wpnonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'uacf7_migrate_redirection_nonce') ) {
+        wp_die(esc_html__('Security check failed.', 'ultimate-addons-for-contact-form-7'));
     }
 
     // Prevent double migration
@@ -1986,8 +1575,8 @@ function uacf7_migrate_redirection_handler() {
         exit;
     }
 
-    enable_redirection_field();
-    migrate_redirection_data_to_uacf7();
+    uacf7_enable_redirection_field();
+    uacf7_migrate_redirection_data_to_uacf7();
 
     update_option('uacf7_redirection_migration_done', true);
 
@@ -1997,7 +1586,7 @@ function uacf7_migrate_redirection_handler() {
     exit;
 }
 
-function migrate_redirection_data_to_uacf7() {
+function uacf7_migrate_redirection_data_to_uacf7() {
 
 	$redirect_actions = get_posts([
 		'post_type' => 'wpcf7r_action',
@@ -2061,7 +1650,7 @@ function migrate_redirection_data_to_uacf7() {
 }
 
 function uacf7_utm_generator( $url, $utm_params = array() ) {
-	$host_url = parse_url( get_site_url(), PHP_URL_HOST );
+	$host_url = wp_parse_url( get_site_url(), PHP_URL_HOST );
 	$utm_params = array_merge( array(
 		'utm_source'   => 'uacf7_' . $host_url,
 		'utm_medium'   => 'plugin',
@@ -2079,12 +1668,14 @@ function uacf7_duplicate_form_meta( $contact_form ) {
     // New form ID
     $new_form_id = $contact_form->id();
 
-    // Get source form ID from request when duplicating
-    if ( empty( $_REQUEST['post'] ) ) {
-        return;
+    // Get source form ID from request when duplicating.
+    $old_form_id = filter_input( INPUT_POST, 'post', FILTER_VALIDATE_INT );
+
+    if ( ! $old_form_id ) {
+        $old_form_id = filter_input( INPUT_GET, 'post', FILTER_VALIDATE_INT );
     }
 
-    $old_form_id = intval( $_REQUEST['post'] );
+    $old_form_id = absint( $old_form_id );
 
     if ( ! $old_form_id || $old_form_id === $new_form_id ) {
         return;
@@ -2097,68 +1688,4 @@ function uacf7_duplicate_form_meta( $contact_form ) {
         update_post_meta( $new_form_id, 'uacf7_form_opt', $meta );
     }
 }
-
-
-// function uacf7_check_and_install_hydra_booking($upgrader_object, $options) {
-	
-// 	if ($options['action'] !== 'update' || $options['type'] !== 'plugin') {
-// 		return;
-// 	}
-
-// 	$ultimate_addons_slug = 'ultimate-addons-for-contact-form-7/ultimate-addons-for-contact-form-7.php';
-
-// 	if (empty($options['plugins']) || !is_array($options['plugins'])) {
-// 		return;
-// 	}
-
-// 	if (!in_array($ultimate_addons_slug, $options['plugins'])) {
-// 		return;
-// 	}
-
-//     $options = uacf7_settings();
-
-//     if (!isset($options['uacf7_enable_booking_form']) || !$options['uacf7_enable_booking_form']) {
-//         return;
-//     }
-
-//     $hydra_plugin_slug = 'hydra-booking/hydra-booking.php';
-//     if (is_plugin_active($hydra_plugin_slug) || file_exists(WP_PLUGIN_DIR . '/' . $hydra_plugin_slug)) {
-//         return; 
-//     }
-
-//     uacf7_install_hydra_booking_on_plugin_update();
-// }
-
-// add_action('upgrader_process_complete', 'uacf7_check_and_install_hydra_booking', 10, 2);
-
-// function uacf7_install_hydra_booking_on_plugin_update() {
-//     if (!current_user_can('install_plugins')) {
-//         return;
-//     }
-
-//     include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-//     include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-//     include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-//     $plugin_slug = 'hydra-booking';
-//     $plugin_file = 'hydra-booking/hydra-booking.php';
-
-//     $api = plugins_api('plugin_information', ['slug' => $plugin_slug]);
-
-//     if (is_wp_error($api) || empty($api->download_link)) {
-//         return;
-//     }
-
-//     $upgrader = new Plugin_Upgrader(new WP_Upgrader_Skin());
-//     $result = $upgrader->install($api->download_link);
-
-//     if (is_wp_error($result)) {
-//         return; 
-//     }
-
-//     activate_plugin($plugin_file);
-// }
-
-
-
 

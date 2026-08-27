@@ -1,0 +1,2487 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultra Addons for Contact Form 7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-21 09:52+0000\n"
+"PO-Revision-Date: 2026-08-16 06:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
+"X-Domain: ultimate-addons-for-contact-form-7"
+
+#: inc/functions.php:1152
+msgid ""
+"\n"
+"\t\t\t\t\t<div class=\"uacf7_plugin_page_notices\" >\n"
+"\t\t\t\t\t\t<div class=\"uacf7_info_wrap\">\n"
+"\t\t\t\t\t\t\t<h3>Important update notice!</h3>\n"
+"\t\t\t\t\t\t\t<p>We’ve renamed <strong> Ultimate Addons for Contact Form 7 "
+"</strong> to <strong>Ultra Addons for Contact Form 7</strong> as part of a "
+"branding update. You’ll now find all settings under the <strong>CF7 "
+"Addons</strong>  menu. <a href=\"https://cf7addons.com/ultra-addons-for-"
+"contact-form-7/\" target=\"_blank\">Learn More</a></p>\n"
+"\t\t\t\t\t</div>\n"
+"\t\t\t\t\t<div class=\"uacf7_compa_wrap\">\n"
+"\t\t\t\t\t\t<p>Thank you for your continued support — we're excited to keep "
+"improving the plugin for you!</p>\n"
+"\t\t\t\t\t</div>\n"
+"\t\t\t\t</div>\n"
+"\t\t\t\t"
+msgstr ""
+
+#: inc/class-setup-wizard.php:375
+msgid " & activated."
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:82
+#: addons/submission-id/ultimate-submission-id.php:90
+msgid " 1 "
+msgstr ""
+
+#. %1$s: User Name, %2$s: Plugin Name
+#: inc/functions.php:309
+#, php-format
+msgid ""
+" <p>Hey %1$s 👋, You have been using <b>%2$s</b> for quite a while. If you "
+"feel %2$s is helping your business to grow in any way, would you please help "
+"%2$s to grow by simply leaving a 5* review on the WordPress Forum?"
+msgstr ""
+
+#: addons/multistep/multistep.php:233
+msgid " Circle Border Radious"
+msgstr ""
+
+#: addons/multistep/multistep.php:226
+msgid " Circle Font Size"
+msgstr ""
+
+#: addons/multistep/multistep.php:219
+msgid " Circle Height"
+msgstr ""
+
+#: addons/multistep/multistep.php:211
+msgid " Circle Width"
+msgstr ""
+
+#: addons/styler/uacf7style.php:436
+msgid " E.g. 100px or 100%."
+msgstr ""
+
+#: addons/styler/uacf7style.php:457 addons/styler/uacf7style.php:465
+msgid " E.g. 16 (Do not add px or em )."
+msgstr ""
+
+#: addons/multistep/multistep.php:204 addons/styler/uacf7style.php:118
+#: addons/styler/uacf7style.php:264 addons/styler/uacf7style.php:505
+msgid " E.g. 16 (Do not add px or em)."
+msgstr ""
+
+#: addons/styler/uacf7style.php:153 addons/styler/uacf7style.php:299
+#: addons/styler/uacf7style.php:540
+msgid " E.g. 16 (Do not add px or em). "
+msgstr ""
+
+#: addons/styler/uacf7style.php:340 addons/styler/uacf7style.php:361
+msgid " E.g. 16(Do not add px or em ). "
+msgstr ""
+
+#: addons/signature/inc/signature.php:76
+msgid " E.g. Default is #000000"
+msgstr ""
+
+#: addons/signature/inc/signature.php:71
+msgid " E.g. Default is #dddddd"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:115 addons/styler/uacf7style.php:109
+#: addons/styler/uacf7style.php:238
+msgid " E.g. Roboto, sans-serif (Do not add special characters like '' or ;) "
+msgstr ""
+
+#: addons/signature/inc/signature.php:81 addons/signature/inc/signature.php:86
+msgid " E.g. There is no need to include units such as \"px\" or \"rem\"."
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:174
+msgid " Enable Mailchimp "
+msgstr ""
+
+#: addons/multistep/multistep.php:97
+msgid " Enable Multistep"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:103
+msgid " Enable PDF Generator "
+msgstr ""
+
+#: addons/placeholder/placeholder.php:56
+msgid " Enable Placeholder Styling"
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:60
+msgid " Enable Pre-Populate Field"
+msgstr ""
+
+#: addons/multistep/multistep.php:111
+msgid " Enable Progressbar "
+msgstr ""
+
+#: addons/redirection/redirect.php:82
+msgid " Enable Redirection"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:77
+msgid " Enable Signature"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:68
+msgid " Enable Submission ID"
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:62
+msgid " Enable Telegram Integration"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:53
+msgid " Enable Webhook "
+msgstr ""
+
+#: addons/range-slider/range-slider.php:98
+msgid " Handle Border Radius"
+msgstr ""
+
+#: inc/functions.php:318
+msgid " Ok, you deserve it!"
+msgstr ""
+
+#: addons/multistep/multistep.php:253
+msgid " Padding ( Left - Right )"
+msgstr ""
+
+#: addons/multistep/multistep.php:246
+msgid " Padding ( Top - Bottom )"
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:84
+msgid " Paste here Telegram BOT TOKEN..... "
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:92
+msgid " Paste here Telegram Chat ID..... "
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:80
+#: addons/pre-populate-field/pre-populate-field.php:82
+msgid " Redirect URL "
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:238
+msgid " Select Mailchimp Audience "
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:73
+msgid " Select Other Form"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:91
+msgid ""
+" Set how much the number will increase with each submission. For instance, "
+"if you set it to 2 and the ID starts from 101, the number will increment in "
+"the following sequence with each submission: 101, 103, 105, and so on. The "
+"default setting is 1."
+msgstr ""
+
+#: addons/range-slider/range-slider.php:74
+msgid " Slider Handle Color "
+msgstr ""
+
+#: addons/range-slider/range-slider.php:89
+msgid " Slider Handle Height"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:81
+msgid " Slider Handle Width"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:106
+msgid " Slider Height (px)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:67
+msgid " Slider Selection Color"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:81
+msgid " Submission ID Starts from "
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:246
+msgid " Subscriber Email "
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:258
+msgid " Subscriber First Name "
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:270
+msgid " Subscriber Last Name "
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:83
+msgid " Telegram BOT Token "
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:91
+msgid " Telegram Chat ID "
+msgstr ""
+
+#. %1$s: Plugin Name, %2$s: Required Plugin Name, %3$s: Link to install the required plugin
+#: ultimate-addons-for-contact-form-7.php:129
+#, php-format
+msgid ""
+"%1$s requires %2$s to be installed and active. You can install and activate "
+"it from %3$s"
+msgstr ""
+
+#: addons/column/column.php:129
+msgid "1 Column"
+msgstr ""
+
+#: addons/column/column.php:143
+msgid "2 Column"
+msgstr ""
+
+#: addons/column/column.php:159
+msgid "3 Column"
+msgstr ""
+
+#: addons/column/column.php:175
+msgid "4 Column"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step "
+"Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more,"
+" all in one."
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:85
+msgid ""
+"<a target=\"_blank\" href=\"https://themefic.com/docs/uacf7/free-"
+"addons/contact-form-7-telegram/#creating-a-bot-with-botfather\">Click "
+"here</a> to learn how to get BOT Token."
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:93
+msgid ""
+"<a target=\"_blank\" href=\"https://themefic.com/docs/uacf7/free-"
+"addons/contact-form-7-telegram/#getting-the-user-chat-id\">Click here</a> to "
+"learn how to get Chat ID."
+msgstr ""
+
+#: inc/class-setup-wizard.php:410
+msgid "Activate your addons"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:248
+msgid ""
+"Add a country dropdown list with flags to your form, automatically "
+"populating with country names. "
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:177
+msgid "Add a digital signature feature to your forms."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/signature/ultimate-signature.php:59
+#, php-format
+msgid "Add a digital signature feature to your forms. See Demo %1$s."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:157
+msgid ""
+"Add a unique ID to every form submission. The ID can be added on the "
+"\"Subject Line\" of your form."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/submission-id/ultimate-submission-id.php:49
+#, php-format
+msgid ""
+"Add an unique id to every form submission to keep a record of each "
+"submission. The ID can be added on the \"Subject Line\" of your form. See "
+"Demo %1$s."
+msgstr ""
+
+#. %1s: demo link
+#: addons/range-slider/range-slider.php:44
+#, php-format
+msgid ""
+"Add beautiful Range slider fields to Contact Form 7, with multiple preview "
+"layouts available on Pro. See Demo %1$s."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:237
+msgid "Add beautiful Range slider fields to Contact Form 7."
+msgstr ""
+
+#: addons/column/column.php:70 addons/column/column.php:81
+msgid "Add Column"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:151
+msgid "Add Condition"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:141
+#: admin/tf-options/classes/UACF7_Settings.php:142
+msgid "Add New Form"
+msgstr ""
+
+#. %1$s is replaced with the link to documentation.
+#: addons/spam-protection/ultimate-spam-protection.php:59
+#, php-format
+msgid "Add spam protection for your contact form 7 forms. %s ."
+msgstr ""
+
+#: admin/tf-options/metaboxes/uac7-review-post-meta.php:12
+#: admin/tf-options/metaboxes/uacf7-metabox.php:21
+msgid "Addons for CF7 Options"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:23
+msgid "Addons Settings"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:144
+msgid "AI Form Generator"
+msgstr ""
+
+#: inc/class-setup-wizard.php:494
+msgid ""
+"AI Form Generator<span>Our AI Form Generator creates a basic form for you, "
+"based on your selected category from the dropdown menu below. You can then "
+"customize this form to suit your specific requirements.</span>"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:279
+msgid "All"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:122
+#: admin/tf-options/classes/UACF7_Settings.php:123
+msgid "All Addons"
+msgstr ""
+
+#: addons/styler/uacf7style.php:58
+msgid ""
+"All changes on this section are applicable to the \"Label\" items. Ensure "
+"each label is enclosed within a <label></label> tag."
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:132
+#: admin/tf-options/classes/UACF7_Settings.php:133
+msgid "All Forms"
+msgstr ""
+
+#: addons/styler/uacf7style.php:187
+msgid ""
+"All modifications in this section are applicable to \"Input\" fields, such "
+"as text, textarea, dropdown, email, etc."
+msgstr ""
+
+#: addons/multistep/multistep.php:241
+msgid ""
+"All modifications in this section are applicable to the \"Button\" of the "
+"form."
+msgstr ""
+
+#: addons/multistep/multistep.php:159
+msgid ""
+"All modifications in this section are applicable to the \"Progressbar\" of "
+"the form."
+msgstr ""
+
+#: addons/styler/uacf7style.php:383
+msgid ""
+"All modifications in this section are applicable to the \"Submit\" button of "
+"the form."
+msgstr ""
+
+#: inc/class-setup-wizard.php:411
+msgid "Alphabetically"
+msgstr ""
+
+#: admin/tf-options/fields/repeater/UACF7_repeater.php:46
+msgid "Amenity"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:292
+msgid "API Integration"
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:232
+msgid "Are you sure you want to import this data?"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:309
+msgid "article"
+msgstr ""
+
+#: inc/class-setup-wizard.php:547
+msgid "Back to Dashboard"
+msgstr ""
+
+#: addons/signature/inc/signature.php:69
+msgid "Background Color"
+msgstr ""
+
+#. %1$s: demo link
+#: addons/mailchimp/mailchimp.php:180
+#, php-format
+msgid "Before enabling, ensure you have added your Mailchimp API key %1s."
+msgstr ""
+
+#: inc/class-dashboard-widget.php:212
+msgid "Blog"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:280
+msgid "Blog Info"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:220
+msgid "Body Background Color "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:205
+msgid "Body Background Image "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:232
+msgid "Body Content "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:210
+msgid "Body Content Color "
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:102
+msgid "Booking/Appointment with Hydra"
+msgstr ""
+
+#: addons/styler/uacf7style.php:333
+msgid "Border "
+msgstr ""
+
+#: addons/styler/uacf7style.php:368 addons/styler/uacf7style.php:471
+msgid "Border Color"
+msgstr ""
+
+#: addons/styler/uacf7style.php:487
+msgid "Border Color (Hover)"
+msgstr ""
+
+#: addons/multistep/multistep.php:234
+msgid "border radious"
+msgstr ""
+
+#: addons/styler/uacf7style.php:359 addons/styler/uacf7style.php:463
+msgid "Border Radius (in px)"
+msgstr ""
+
+#: addons/styler/uacf7style.php:346 addons/styler/uacf7style.php:442
+msgid "Border Style "
+msgstr ""
+
+#: addons/styler/uacf7style.php:338 addons/styler/uacf7style.php:455
+msgid "Border Width (in px)"
+msgstr ""
+
+#: addons/styler/uacf7style.php:137 addons/styler/uacf7style.php:138
+#: addons/styler/uacf7style.php:172 addons/styler/uacf7style.php:173
+#: addons/styler/uacf7style.php:283 addons/styler/uacf7style.php:284
+#: addons/styler/uacf7style.php:318 addons/styler/uacf7style.php:319
+#: addons/styler/uacf7style.php:524 addons/styler/uacf7style.php:525
+#: addons/styler/uacf7style.php:559 addons/styler/uacf7style.php:560
+msgid "Bottom"
+msgstr ""
+
+#: addons/styler/uacf7style.php:388
+msgid "Button Color"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:216
+msgid "Buy Now"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:78 addons/mailchimp/mailchimp.php:424
+msgid "Can't connect to the server. Please check internet connection."
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:31
+#: addons/spam-protection/ultimate-spam-protection.php:40
+msgid "CAPTCHA field is required. Please enter the answer."
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:32
+#: addons/spam-protection/ultimate-spam-protection.php:41
+msgid "CAPTCHA validated successfully."
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:33
+#: addons/spam-protection/ultimate-spam-protection.php:42
+msgid "CAPTCHA validation failed. Please try again."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:15
+msgid "CF7 Addons"
+msgstr ""
+
+#: addons/styler/uacf7style.php:193
+msgid "Change the text and background colors of the input fields."
+msgstr ""
+
+#: addons/styler/uacf7style.php:64
+msgid "Change the text and background colors of the labels."
+msgstr ""
+
+#: addons/placeholder/placeholder.php:70
+msgid "Change the Text Color & Background Color of Placeholders."
+msgstr ""
+
+#: addons/star-rating/star-rating.php:284
+msgid "Change the values of star. Default value: 1,2,3,4,5"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:908
+msgid "Chat Now"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:244
+msgid ""
+"Check \"Conditional Fields\" tab located under the Addons for CF7 Options "
+"for additional settings. Make sure to set those, otherwise the conditions "
+"may not work correctly."
+msgstr ""
+
+#: inc/class-dashboard-widget.php:167
+msgid "Check More Integrations"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:113
+#: addons/dynamic-text/dynamic-text.php:251
+msgid "Choose Field"
+msgstr ""
+
+#: addons/multistep/multistep.php:129
+msgid "Choose Form Layout / Style"
+msgstr ""
+
+#: inc/class-setup-wizard.php:498
+msgid "Choose Form type"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:139
+msgid ""
+"Choose whether you want both Mail 1 and Mail 2 users to receive the PDF as "
+"an attachment, or just one of them."
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:201
+msgid "Clear"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:867
+msgid ""
+"Click the button below to run the setup wizard of Ultra Addons for Contact "
+"Form 7. Your existing settings will not change."
+msgstr ""
+
+#: addons/multistep/multistep.php:184 addons/placeholder/placeholder.php:69
+#: addons/styler/uacf7style.php:63 addons/styler/uacf7style.php:192
+msgid "Color Options"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:59
+msgid "Column or Grid"
+msgstr ""
+
+#: addons/column/column.php:114
+msgid "Columns / Grid"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:922
+msgid "Common FAQs"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:242
+msgid "conditional area"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:158
+#: admin/tf-options/options/uacf7-settings.php:48
+msgid "Conditional Field"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:61
+#: addons/conditional-field/conditional-fields.php:91
+#: addons/conditional-field/conditional-fields.php:271
+msgid "Conditional Fields"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:94
+msgid "Conditional Fields (Pro)"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:68
+msgid "Conditional Fields Settings"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:101
+msgid "Conditional Option "
+msgstr ""
+
+#: addons/redirection/redirect.php:75
+msgid "Conditional Redirect"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:233
+msgid "Conditional Wraper"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:269
+msgid "Confused? Check our Documentation on"
+msgstr ""
+
+#. %1$s: documentation link
+#. %1s: demo link
+#. %1$s: demo link, %2$s: demo link
+#: addons/multistep/multistep.php:89 addons/range-slider/range-slider.php:54
+#: addons/styler/uacf7style.php:41
+#, php-format
+msgid "Confused? Check our Documentation on  %1$s and %2$s."
+msgstr ""
+
+#. %1$s: redirect to a page or external URL, %2$s: conditional redirect, %3$s: tag support
+#: addons/redirection/redirect.php:73
+#, php-format
+msgid "Confused? Check our Documentation on  %1$s, %2$s and %3$s ."
+msgstr ""
+
+#. %1$s: documentation link
+#. %1s: demo link
+#: addons/pdf-generator/pdf-generator.php:96
+#: addons/placeholder/placeholder.php:49
+#: addons/pre-populate-field/pre-populate-field.php:53
+#: addons/range-slider/range-slider.php:310
+#: addons/signature/ultimate-signature.php:69
+#: addons/submission-id/ultimate-submission-id.php:60
+#: addons/submission-id/ultimate-submission-id.php:411
+#: addons/telegram/ultimate-telegram.php:55 addons/web-hook/web-hook.php:46
+#: addons/signature/inc/signature.php:57
+#, php-format
+msgid "Confused? Check our Documentation on  %1$s."
+msgstr ""
+
+#. 1: Dynamic Text
+#. %1$s: demo link
+#. %1s: demo link
+#: addons/dynamic-text/dynamic-text.php:209 addons/mailchimp/mailchimp.php:192
+#: addons/multistep/multistep.php:412
+#: addons/signature/ultimate-signature.php:262
+#, php-format
+msgid "Confused? Check our Documentation on  %1s."
+msgstr ""
+
+#. 1: Link to Columns/Grid documentation, 2: Link to Custom Columns documentation.
+#. 1: Link to Conditional Fields documentation, 2: Link to Conditional Fields Pro documentation.
+#: addons/column/column.php:109
+#: addons/conditional-field/conditional-fields.php:86
+#, php-format
+msgid "Confused? Check our Documentation on %1$s and %2$s."
+msgstr ""
+
+#. %1$s: Link to Country Dropdown documentation.
+#. %1$s: Link to the Product Dropdown documentation.
+#. %1$s: Documentation link
+#: addons/country-dropdown/country-dropdown.php:167
+#: addons/product-dropdown/product-dropdown.php:210
+#: addons/star-rating/star-rating.php:226
+#, php-format
+msgid "Confused? Check our Documentation on %1$s."
+msgstr ""
+
+#: addons/column/column.php:82
+msgid "Contact form 7 columns / Grid Layout"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:900
+msgid "Contact Us"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:88
+#: admin/tf-options/fields/backup/UACF7_Backup.php:26
+msgid "Copy"
+msgstr ""
+
+#: addons/country-dropdown/country-dropdown.php:148
+#: addons/country-dropdown/country-dropdown.php:160
+#: addons/country-dropdown/country-dropdown.php:169
+msgid "Country Dropdown"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:245
+msgid "Country Dropdown Field"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:66
+msgid "Create a"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:115
+msgid "Create Form"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:95
+msgid ""
+"Create stunning multi-step forms with Contact Form 7. Ideal for long forms "
+"and surveys."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/multistep/multistep.php:79
+#, php-format
+msgid ""
+"Create stunning multi-step forms with Contact Form 7. Ideal solution for "
+"long forms. See Demo %1$s."
+msgstr ""
+
+#: inc/class-setup-wizard.php:536
+msgid "Create your form"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:283
+msgid "Current post info"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:265
+msgid "Current URL"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:268
+msgid "Current URL Host (Domain)"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:274
+msgid "Current URL Path"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:271
+msgid "Current URL Query String"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:277
+msgid "Current URL with Perameters"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:286
+msgid "Current User info"
+msgstr ""
+
+#: addons/column/column.php:117
+msgid "Custom Columns"
+msgstr ""
+
+#: addons/styler/uacf7style.php:573
+msgid "Custom CSS"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:291
+msgid "Custom CSS for PDF"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:289
+msgid "Custom fields"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:564
+msgid "Custom plugin & theme development"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:142
+msgid "Custom value"
+msgstr ""
+
+#: addons/database/database.php:415 addons/database/database.php:416
+#: addons/database/database.php:443
+msgid "Database"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:122
+msgid "Database "
+msgstr ""
+
+#: addons/star-rating/star-rating.php:277
+msgid "Default Star Rating"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:441
+msgid "Default Value"
+msgstr ""
+
+#: addons/redirection/redirect.php:64
+msgid "Demo"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:48
+#: addons/signature/ultimate-signature.php:70
+#: addons/signature/ultimate-signature.php:263
+#: addons/signature/inc/signature.php:58
+#: admin/tf-options/options/uacf7-settings.php:174
+msgid "Digital Signature"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:117
+msgid "Disable Header and Footer of PDF"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:240
+msgid "Disabled"
+msgstr ""
+
+#: inc/functions.php:333
+msgid "Dismiss this notice."
+msgstr ""
+
+#: inc/class-dashboard-widget.php:204
+msgid "Docs"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:223
+#: admin/tf-options/classes/UACF7_Settings.php:422
+#: admin/tf-options/classes/UACF7_Settings.php:592
+#: admin/tf-options/classes/UACF7_Settings.php:892
+msgid "Documentation"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:80
+msgid "documentation"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:295
+msgid "Dynamic Arg"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:302
+msgid "Dynamic key"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:169
+#: addons/dynamic-text/dynamic-text.php:181
+#: addons/dynamic-text/dynamic-text.php:210
+msgid "Dynamic Text"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:204
+msgid "Dynamic Text "
+msgstr ""
+
+#: addons/range-slider/range-slider.php:90
+msgid "E.g. 10 (Do not add px or em)"
+msgstr ""
+
+#: addons/styler/uacf7style.php:405
+msgid "E.g. 16 (Do not add px or em )."
+msgstr ""
+
+#: addons/multistep/multistep.php:247 addons/multistep/multistep.php:254
+msgid "E.g. 16 (Do not add px or em)"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:107 addons/styler/uacf7style.php:101
+#: addons/styler/uacf7style.php:230 addons/styler/uacf7style.php:246
+#: addons/styler/uacf7style.php:255
+msgid "E.g. 16 (Do not add px or em)."
+msgstr ""
+
+#: addons/range-slider/range-slider.php:107
+msgid "E.g. 20 (Do not add px or em)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:82
+msgid "E.g. 5 (Do not add px or em)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:99
+msgid "E.g. 8 (Do not add px or em)"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:99
+msgid "E.g. Default is #000000"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:91
+msgid "E.g. Default is #dddddd"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:108
+#: addons/signature/ultimate-signature.php:116
+msgid "E.g. There is no need to include units such as \"px\" or \"rem\"."
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:131
+msgid "E.g. website-submission"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:61
+msgid "Easily create two columns, three Columns; even Four columns form."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:283
+msgid ""
+"Easily show WooCommerce products on forms with a dropdown, allowing "
+"customers to select and inquire about products. "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:899
+msgid "Email Support"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:107
+msgid "Enable Custom Value"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:105
+msgid "Enable Database Addon To Save Entries"
+msgstr ""
+
+#: addons/styler/uacf7style.php:49
+msgid "Enable Form Styles"
+msgstr ""
+
+#: addons/signature/inc/signature.php:63
+msgid "Enable Signature for Form"
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:79
+msgid "Enable Spam Protection"
+msgstr ""
+
+#: addons/redirection/redirect.php:125
+msgid "Enable this to open the redirection page in a new tab."
+msgstr ""
+
+#: addons/web-hook/web-hook.php:120 addons/web-hook/web-hook.php:159
+msgid "Enter a parameter key"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:68
+msgid "Enter a Request URL"
+msgstr ""
+
+#: addons/styler/uacf7style.php:464
+msgid "Enter Button border radius"
+msgstr ""
+
+#: addons/styler/uacf7style.php:456
+msgid "Enter Button border width"
+msgstr ""
+
+#: addons/styler/uacf7style.php:404
+msgid "Enter Button Font Size"
+msgstr ""
+
+#: addons/styler/uacf7style.php:360
+msgid "Enter input border radius"
+msgstr ""
+
+#: addons/styler/uacf7style.php:339 addons/styler/uacf7style.php:435
+msgid "Enter input border width"
+msgstr ""
+
+#: addons/styler/uacf7style.php:239
+msgid "Enter Input Font Name "
+msgstr ""
+
+#: addons/styler/uacf7style.php:231
+msgid "Enter Input Font Size"
+msgstr ""
+
+#: addons/styler/uacf7style.php:247
+msgid "Enter Input Height"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:116 addons/styler/uacf7style.php:110
+msgid "Enter Placeholder Font Name "
+msgstr ""
+
+#: addons/placeholder/placeholder.php:108 addons/styler/uacf7style.php:102
+msgid "Enter Placeholder Font Size (in px)"
+msgstr ""
+
+#: addons/styler/uacf7style.php:256
+msgid "Enter Textarea Height"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:83
+msgid ""
+"Enter the starting number for the countdown, for example, 101. The default "
+"setting is 1."
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:76
+#: addons/multistep/multistep.php:80 addons/pdf-generator/pdf-generator.php:87
+#: addons/placeholder/placeholder.php:40
+#: addons/pre-populate-field/pre-populate-field.php:44
+#: addons/range-slider/range-slider.php:45
+#: addons/signature/ultimate-signature.php:60 addons/styler/uacf7style.php:32
+#: addons/submission-id/ultimate-submission-id.php:50
+#: addons/telegram/ultimate-telegram.php:45 addons/web-hook/web-hook.php:37
+msgid "Example"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:195
+msgid "Extra Fields Addons"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:232
+msgid "Feature Request"
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:479
+msgid "Field not found!"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:232
+msgid "Field Visibility"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:114 addons/styler/uacf7style.php:108
+#: addons/styler/uacf7style.php:237
+msgid "Font Name "
+msgstr ""
+
+#: addons/multistep/multistep.php:227
+msgid "font size"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:106 addons/styler/uacf7style.php:100
+#: addons/styler/uacf7style.php:229 addons/styler/uacf7style.php:403
+msgid "Font Size (in px)"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:83 addons/styler/uacf7style.php:77
+#: addons/styler/uacf7style.php:206 addons/styler/uacf7style.php:411
+msgid "Font Style"
+msgstr ""
+
+#: addons/styler/uacf7style.php:421
+msgid "Font Weight"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:93 addons/styler/uacf7style.php:87
+#: addons/styler/uacf7style.php:216
+msgid "Font Weight "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:273
+msgid "Footer Background Color "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:283
+msgid "Footer Content"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:262
+msgid "Footer Content Color "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:130
+msgid ""
+"For instance, if you enter 'website-submission' as the file name, the "
+"resulting PDF will be named 'website-submission.pdf'."
+msgstr ""
+
+#: addons/styler/uacf7style.php:21
+msgid "Form Styler"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:82
+msgid "Form Styler (Single)"
+msgstr ""
+
+#: addons/pdf-generator/inc/functions.php:12
+msgid "Form Tags :"
+msgstr ""
+
+#. %1s: demo link
+#: addons/telegram/ultimate-telegram.php:44
+#, php-format
+msgid "Forward form submission data to Telegram automatically. See Demo %1$s."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:167
+msgid "Forward form submission data to Telegram."
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:283
+#: admin/tf-options/classes/UACF7_Settings.php:358
+msgid "Free"
+msgstr ""
+
+#: admin/tf-options/fields/date/UACF7_date.php:19
+msgid "From"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:29
+msgid "General Addons"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:243
+msgid ""
+"Generate a conditional tag to wrap the elements that can be shown "
+"conditionally."
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:233
+msgid "Generate a digital signature."
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:182
+msgid "Generate a Dynamic Text."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/pdf-generator/pdf-generator.php:86
+#, php-format
+msgid ""
+"Generate a PDF from submissions and send it to admin and the submitter's "
+"email. See Demo %1$s."
+msgstr ""
+
+#: addons/star-rating/star-rating.php:198
+msgid "Generate a Star Rating Field."
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:383
+msgid "Generate a Unique Submission ID."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:137
+msgid ""
+"Generate PDFs upon form submission; PDFs are sent to the admin and submitter "
+"email. "
+msgstr ""
+
+#: addons/product-dropdown/product-dropdown.php:180
+msgid "Generate Product Dropdown"
+msgstr ""
+
+#: addons/column/column.php:123
+msgid "Generate tag: Column"
+msgstr ""
+
+#: addons/multistep/multistep.php:465
+msgid "Generate tag: Multistep End"
+msgstr ""
+
+#: addons/multistep/multistep.php:384
+msgid "Generate tag: Step"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:72
+msgid "Generate With AI"
+msgstr ""
+
+#: inc/class-setup-wizard.php:511
+msgid "Generate with AI"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:533
+msgid "Get a free WordPress development quote"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:227
+msgid ""
+"Get customer feedback by adding a star rating field to your Contact Form 7. "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:539
+msgid "Get Free Quote"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:598
+msgid "Get Support"
+msgstr ""
+
+#: addons/styler/uacf7style.php:43
+msgid "Global Form Styler"
+msgstr ""
+
+#: inc/class-setup-wizard.php:553
+msgid "Go to settings"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:143
+msgid "Google Sheets"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:182
+msgid "Header Background Color "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:191
+msgid "Header Content"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:172
+msgid "Header Content Color "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:165
+msgid "Header Image "
+msgstr ""
+
+#: addons/multistep/multistep.php:220
+msgid "height"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:879
+msgid "Help Center"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:587
+msgid "Helpful Resources"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:167 addons/mailchimp/mailchimp.php:181
+#: addons/multistep/multistep.php:137
+msgid "here"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:243
+msgid "Hidden"
+msgstr ""
+
+#: addons/multistep/multistep.php:120
+msgid "Hide Progressbar Labels "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:942
+msgid "How to install UACF7 "
+msgstr ""
+
+#. URI of the plugin
+msgid "https://cf7addons.com/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themefic.com/"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:105
+msgid ""
+"Hydra Booking is a separate standalone plugin for advanced booking and "
+"appointments. It works with Contact Form 7 and supports calendar, time slots,"
+" and payments."
+msgstr ""
+
+#: inc/functions.php:321
+msgid "I already did"
+msgstr ""
+
+#: inc/functions.php:327
+msgid "I need help"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:106
+msgid "ID Placement on the Subject Line"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:89
+msgid "ID Step Increment "
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:138
+msgid "If"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:233
+msgid "If you wish to include extra content in the body of the PDF."
+msgstr ""
+
+#: admin/tf-options/fields/backup/UACF7_Backup.php:31
+msgid "Import"
+msgstr ""
+
+#: inc/functions.php:39
+msgid ""
+"Import and export all addon settings associated with this form. Please save "
+"the form in order to generate the export file."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:344
+msgid ""
+"Import and export all options associated with this settings panel. Please "
+"save it first in order to generate the export file. "
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:233
+msgid "Import Data cannot be empty!"
+msgstr ""
+
+#: inc/functions.php:32 inc/functions.php:38
+#: admin/tf-options/options/uacf7-settings.php:335
+#: admin/tf-options/options/uacf7-settings.php:342
+msgid "Import/Export"
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:231
+msgid "Imported successfully!"
+msgstr ""
+
+#: addons/styler/uacf7style.php:254
+msgid "Input (Textarea) Height (in px)"
+msgstr ""
+
+#: addons/styler/uacf7style.php:186
+msgid "Input Field Options"
+msgstr ""
+
+#: addons/styler/uacf7style.php:245
+msgid "Input Height (in px)"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:89
+msgid "Insert"
+msgstr ""
+
+#: addons/redirection/redirect.php:118
+msgid "Insert Any URL"
+msgstr ""
+
+#: addons/column/column.php:212
+msgid "Insert Tag"
+msgstr ""
+
+#: addons/column/column.php:131 addons/column/column.php:145
+#: addons/column/column.php:161 addons/column/column.php:177
+msgid "Insert tag"
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:81
+msgid "Insert the Page URL of the Other Form."
+msgstr ""
+
+#: inc/class-setup-wizard.php:375
+msgid "installed"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:115
+msgid ""
+"Integrate Contact Form 7 with Mailchimp. Add submissions to Mailchimp lists "
+"automatically."
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:170
+msgid "is"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:955
+msgid "Is Free version fully free or there is a gap? "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:604
+msgid "Join our Community"
+msgstr ""
+
+#: addons/multistep/multistep.php:432
+msgid "Label"
+msgstr ""
+
+#: addons/styler/uacf7style.php:57
+msgid "Label Options"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:187
+msgid "Latest posts from Ultra Addons for Contact Form 7"
+msgstr ""
+
+#: admin/tf-options/fields/map/UACF7_map.php:23
+msgid "Latitude"
+msgstr ""
+
+#: addons/styler/uacf7style.php:144 addons/styler/uacf7style.php:145
+#: addons/styler/uacf7style.php:179 addons/styler/uacf7style.php:180
+#: addons/styler/uacf7style.php:290 addons/styler/uacf7style.php:291
+#: addons/styler/uacf7style.php:325 addons/styler/uacf7style.php:326
+#: addons/styler/uacf7style.php:531 addons/styler/uacf7style.php:532
+#: addons/styler/uacf7style.php:566 addons/styler/uacf7style.php:567
+msgid "Left"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:907
+msgid "Live Chat"
+msgstr ""
+
+#: admin/tf-options/fields/map/UACF7_map.php:24
+msgid "Longitude"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:148 addons/mailchimp/mailchimp.php:320
+msgid "Mailchimp"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:298
+#: admin/tf-options/options/uacf7-settings.php:305
+msgid "Mailchimp API"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:163 addons/mailchimp/mailchimp.php:193
+#: admin/tf-options/options/uacf7-settings.php:112
+msgid "Mailchimp Integration"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:200
+msgid "Mailchimp Option "
+msgstr ""
+
+#: addons/styler/uacf7style.php:152 addons/styler/uacf7style.php:298
+#: addons/styler/uacf7style.php:539
+msgid "Margin (in px)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:405
+msgid "Maximum Label"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:432
+msgid "Maximum range"
+msgstr ""
+
+#: inc/functions.php:323
+msgid "Maybe Later"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:394
+msgid "Minimum Label"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:424
+msgid "Minimum range"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:325
+msgid "Miscellaneous"
+msgstr ""
+
+#: addons/multistep/multistep.php:90 addons/multistep/multistep.php:270
+#: addons/multistep/multistep.php:413
+#: admin/tf-options/options/uacf7-settings.php:92
+msgid "Multi-step Form"
+msgstr ""
+
+#: addons/multistep/multistep.php:91
+msgid "Multi-step Form (Pro)"
+msgstr ""
+
+#: addons/multistep/multistep.php:76
+msgid "Multi-step Form Settings"
+msgstr ""
+
+#: addons/multistep/multistep.php:372 addons/multistep/multistep.php:464
+msgid "Multistep End"
+msgstr ""
+
+#: addons/multistep/multistep.php:106
+msgid "Multistep Option "
+msgstr ""
+
+#: addons/multistep/multistep.php:365 addons/multistep/multistep.php:383
+msgid "Multistep Start"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:215
+msgid "Need Help?"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:555
+msgid ""
+"Need something built, fixed, or improved? We've got you covered. Starting at "
+"$25/hour only."
+msgstr ""
+
+#: inc/functions.php:329
+msgid "Never show again"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:190
+msgid "NEW"
+msgstr ""
+
+#: addons/multistep/multistep.php:285 addons/multistep/multistep.php:302
+msgid "Next"
+msgstr ""
+
+#: addons/multistep/multistep.php:240
+msgid "Next and Previous Button Style"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:176 addons/multistep/multistep.php:99
+#: addons/multistep/multistep.php:113 addons/multistep/multistep.php:122
+#: addons/pdf-generator/pdf-generator.php:105
+#: addons/placeholder/placeholder.php:58
+#: addons/pre-populate-field/pre-populate-field.php:62
+#: addons/redirection/redirect.php:84 addons/redirection/redirect.php:127
+#: addons/signature/ultimate-signature.php:79
+#: addons/spam-protection/ultimate-spam-protection.php:81
+#: addons/styler/uacf7style.php:51
+#: addons/submission-id/ultimate-submission-id.php:70
+#: addons/submission-id/ultimate-submission-id.php:99
+#: addons/telegram/ultimate-telegram.php:64 addons/web-hook/web-hook.php:55
+#: admin/tf-options/options/uacf7-settings.php:65
+#: admin/tf-options/options/uacf7-settings.php:258
+msgid "No"
+msgstr ""
+
+#. %1$s is replaced with the link to documentation.
+#: addons/spam-protection/ultimate-spam-protection.php:199
+#, php-format
+msgid "Not sure how to set this? Check our step by step  %1s."
+msgstr ""
+
+#. %1$s is replaced with the link to documentation.
+#: addons/spam-protection/ultimate-spam-protection.php:71
+#, php-format
+msgid "Not sure how to set this? Check our step-by-step documentation on  %s ."
+msgstr ""
+
+#. 1: documentation link
+#: addons/form-generator-ai/form-generator-ai.php:79
+#, php-format
+msgid "Not sure how to use this? Check our step by step  %1s."
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:209
+msgid ""
+"Note: If you dont see the field names in the field selection, please save "
+"the form and try again."
+msgstr ""
+
+#. %1$s: documentation link
+#: addons/submission-id/ultimate-submission-id.php:122
+msgid ""
+"Note: You can use the Submission Shortcode to the mail subject line to see "
+"the ID number : <i>[uacf7_submission_id-your_id]</i> <br><b>And if you want "
+"to use the manual option then be sure to turn off dynamic otherwise it will "
+"be duplicated</b>"
+msgstr ""
+
+#: admin/tf-options/fields/switch/UACF7_switch.php:16
+#: admin/tf-options/fields/switch/UACF7_switch.php:20
+msgid "Off"
+msgstr ""
+
+#: admin/tf-options/fields/switch/UACF7_switch.php:15
+#: admin/tf-options/fields/switch/UACF7_switch.php:19
+msgid "On"
+msgstr ""
+
+#: addons/redirection/redirect.php:124
+msgid "Open Page in a New Tab"
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:91
+#: admin/tf-options/classes/UACF7_Settings.php:1301
+msgid "Options imported successfully!"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:1308
+msgid "Options saved successfully!"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:184
+msgid "Pabbly/Zapier (Webhook)"
+msgstr ""
+
+#: addons/signature/inc/signature.php:84
+msgid "Pad Height"
+msgstr ""
+
+#: addons/signature/inc/signature.php:79
+msgid "Pad Width"
+msgstr ""
+
+#: addons/styler/uacf7style.php:117 addons/styler/uacf7style.php:263
+#: addons/styler/uacf7style.php:504
+msgid "Padding (in px)"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:199
+msgid "PDF Body Settings"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:248
+msgid "PDF Footer Settings"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:134
+msgid "PDF Generate"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:97
+#: addons/pdf-generator/pdf-generator.php:310
+msgid "PDF Generator"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:83
+msgid "PDF Generator Settings"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:150
+msgid "PDF Header Settings"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:129
+msgid "PDF Name "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:112
+msgid "PDF Option "
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:138
+msgid "PDF Send To "
+msgstr ""
+
+#: addons/signature/inc/signature.php:74
+msgid "Pen Color"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:29
+msgid "Placeholder Styler"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:36
+msgid "Placeholder Styler Settings"
+msgstr ""
+
+#: addons/placeholder/placeholder.php:64
+msgid "Placeholder Styles Option "
+msgstr ""
+
+#: addons/placeholder/placeholder.php:50
+#: admin/tf-options/options/uacf7-settings.php:72
+msgid "Placeholder Styling"
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:97
+msgid "Placeholder Text"
+msgstr ""
+
+#: inc/class-setup-wizard.php:411
+msgid ""
+"Please activate only the addons you need. This helps avoid loading "
+"unnecessary assets (JS, CSS). Both Free and Pro addons are available here, "
+"organized "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:946
+msgid "Please check our documentations"
+msgstr ""
+
+#. %1$s: Link to article.
+#: admin/tf-options/options/uacf7-settings.php:308
+#, php-format
+msgid ""
+"Please enter your Mailchimp API key. If you are not sure how to get the API "
+"Key, follow this %1s."
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:36
+msgid "Please sign first and confirm your signature before form submission"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:129
+msgid "Popular Integrations"
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:68
+msgid "Pre Populate Option "
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:33
+msgid "Pre-Populate Field"
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:54
+#: admin/tf-options/options/uacf7-settings.php:214
+msgid "Pre-populate Field"
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:40
+msgid "Pre-Populate Field Settings"
+msgstr ""
+
+#: addons/multistep/multistep.php:286 addons/multistep/multistep.php:300
+msgid "Previous"
+msgstr ""
+
+#. parent slug
+#: admin/tf-options/classes/UACF7_Settings.php:163
+#: admin/tf-options/classes/UACF7_Settings.php:164
+msgid "Pro License"
+msgstr ""
+
+#: addons/product-dropdown/product-dropdown.php:168
+#: addons/product-dropdown/product-dropdown.php:179
+#: addons/product-dropdown/product-dropdown.php:215
+msgid "Product Dropdown"
+msgstr ""
+
+#: addons/multistep/multistep.php:165
+msgid "Progressbar Height"
+msgstr ""
+
+#: addons/multistep/multistep.php:158
+msgid "Progressbar Styler"
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:87
+msgid "Protection Type"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:372
+msgid "Range Label"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:383
+msgid "Range Separator"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:34
+#: addons/range-slider/range-slider.php:55
+#: addons/range-slider/range-slider.php:273
+#: addons/range-slider/range-slider.php:284
+#: addons/range-slider/range-slider.php:285
+#: addons/range-slider/range-slider.php:311
+#: admin/tf-options/options/uacf7-settings.php:234
+msgid "Range Slider"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:56
+msgid "Range Slider (Pro)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:62
+msgid "Range Slider Option "
+msgstr ""
+
+#: addons/range-slider/range-slider.php:41
+msgid "Range Slider Settings"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:362
+msgid "Range Slider Style"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:450
+msgid "Range steps"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:247
+msgid "Rating Icon"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:893
+msgid "Read More"
+msgstr ""
+
+#: addons/redirection/redirect.php:95
+msgid "Redirect to"
+msgstr ""
+
+#: addons/redirection/redirect.php:74
+msgid "Redirect to a Page or External URL"
+msgstr ""
+
+#: addons/redirection/redirect.php:97
+msgid "Redirect to Internal Page"
+msgstr ""
+
+#. %1$s: demo link
+#: addons/redirection/redirect.php:63
+#, php-format
+msgid ""
+"Redirect users to a Thank You or external page based on form submission, "
+"with an option to open in a new tab. See Demo %1$s."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:40
+msgid "Redirect users to a Thank You or External page upon form submission."
+msgstr ""
+
+#: addons/redirection/redirect.php:144
+msgid "Redirection"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:38
+msgid "Redirection "
+msgstr ""
+
+#: addons/redirection/redirect.php:90
+msgid "Redirection Option "
+msgstr ""
+
+#: addons/redirection/redirect.php:60
+msgid "Redirection Settings"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:616
+msgid "Request a Feature"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:153
+msgid "Request Body"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:88
+msgid "Request Format"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:99
+msgid "Request Headers"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:74
+msgid "Request Method"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:67
+msgid "Request URL"
+msgstr ""
+
+#: addons/form-generator-ai/form-generator-ai.php:87
+msgid "Reset"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:207
+msgid ""
+"Retrieve dynamic data from a website to be used in hidden fields, including "
+"URL, blog, post, user info, and custom fields. "
+msgstr ""
+
+#: addons/styler/uacf7style.php:130 addons/styler/uacf7style.php:131
+#: addons/styler/uacf7style.php:165 addons/styler/uacf7style.php:166
+#: addons/styler/uacf7style.php:276 addons/styler/uacf7style.php:277
+#: addons/styler/uacf7style.php:311 addons/styler/uacf7style.php:312
+#: addons/styler/uacf7style.php:517 addons/styler/uacf7style.php:518
+#: addons/styler/uacf7style.php:552 addons/styler/uacf7style.php:553
+msgid "Right"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:1094
+msgid "Save"
+msgstr ""
+
+#: admin/tf-options/fields/map/UACF7_map.php:22
+msgid "Search Address..."
+msgstr ""
+
+#: inc/functions.php:1466 inc/functions.php:1886
+msgid "Security check failed."
+msgstr ""
+
+#: addons/database/database.php:285
+#: addons/form-generator-ai/form-generator-ai.php:138
+#: addons/form-generator-ai/form-generator-ai.php:218
+#: addons/mailchimp/mailchimp.php:52 addons/multistep/multistep.php:721
+#: addons/pre-populate-field/pre-populate-field.php:138
+#: addons/submission-id/ultimate-submission-id.php:211
+msgid "Security error"
+msgstr ""
+
+#. %1$s: Link to the live demo examples.
+#: addons/multistep/multistep.php:132
+#, php-format
+msgid "See live demo examples %1$s."
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:610
+msgid "See our Roadmap"
+msgstr ""
+
+#: admin/tf-options/fields/date/UACF7_date.php:21
+#: admin/tf-options/fields/date/UACF7_date.php:32
+#: admin/tf-options/fields/time/UACF7_time.php:20
+msgid "Select Date"
+msgstr ""
+
+#: addons/database/database.php:447 addons/database/database.php:456
+msgid "Select form"
+msgstr ""
+
+#: addons/redirection/redirect.php:106
+msgid "Select the Redirection Page "
+msgstr ""
+
+#: admin/tf-options/fields/time/UACF7_time.php:16
+msgid "Select Time"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:217
+msgid "Send data from one form to another, after the first form submission."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/mailchimp/mailchimp.php:166
+#, php-format
+msgid ""
+"Send form submissions to your Mailchimp lists automatically. See Demo %1s."
+msgstr ""
+
+#. %1s: demo link
+#: addons/pre-populate-field/pre-populate-field.php:43
+#, php-format
+msgid ""
+"Sends data from one form to another, after the first form submission. See "
+"Demo %1$s."
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:98
+msgid "Set the placeholder text for the CAPTCHA field."
+msgstr ""
+
+#. parent slug
+#. page_title
+#: inc/class-dashboard-widget.php:123
+#: admin/tf-options/classes/UACF7_Settings.php:152
+#: admin/tf-options/classes/UACF7_Settings.php:153
+msgid "Settings"
+msgstr ""
+
+#. parent slug
+#. page_title
+#: admin/admin-menu.php:18 admin/admin-menu.php:19
+#: admin/tf-options/classes/UACF7_Settings.php:866
+#: admin/tf-options/classes/UACF7_Settings.php:870
+msgid "Setup Wizard"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:106
+msgid "Setup your Conditional Logic"
+msgstr ""
+
+#: addons/dynamic-text/dynamic-text.php:237
+msgid "Show"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:50
+msgid "Show or hide Contact Form 7 fields based on Conditional Logic."
+msgstr ""
+
+#. %1$s: Link to the Conditional Fields example/demo.
+#: addons/conditional-field/conditional-fields.php:71
+#, php-format
+msgid ""
+"Show or hide Contact Form 7 fields based on Conditional Logic. See Demo %1$s."
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:97
+msgid "Show Submission ID in the Mail Subject Line (Dynamic)"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:331
+msgid "Show Values"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:221
+#: addons/signature/ultimate-signature.php:232
+msgid "Signature"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:37
+msgid "Signature Confirmed"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:85
+msgid "Signature Option "
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:90
+#: addons/signature/inc/signature.php:68
+msgid "Signature Pad Background Color"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:115
+#: addons/signature/inc/signature.php:83
+msgid "Signature Pad Height"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:107
+#: addons/signature/inc/signature.php:78
+msgid "Signature Pad Width"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:98
+#: addons/signature/inc/signature.php:73
+msgid "Signature Pen Color"
+msgstr ""
+
+#: addons/signature/ultimate-signature.php:56
+#: addons/signature/inc/signature.php:52
+msgid "Signature Settings"
+msgstr ""
+
+#: addons/styler/uacf7style.php:42
+msgid "Single Form Styler"
+msgstr ""
+
+#: addons/styler/uacf7style.php:28
+msgid "Single Form Styler Settings"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:568
+msgid "Site builds & redesigns"
+msgstr ""
+
+#: addons/multistep/multistep.php:203
+msgid "Size Options"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:158
+msgid "Slack Integration"
+msgstr ""
+
+#: addons/range-slider/range-slider.php:345
+msgid "Slider Type"
+msgstr ""
+
+#: addons/pdf-generator/pdf-generator.php:192
+#: addons/pdf-generator/pdf-generator.php:284
+msgid ""
+"Some tags you can use - Page numbers & date Tags : {PAGENO}, {DATE j-m-Y}, "
+"{nb}, {nbpg}. <br> Use any php <a href=\"https://www.php."
+"net/manual/en/function.date.php\" target=\"_blank\">Date</a> format for date "
+"shortcode {DATE format} "
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:79
+#: admin/tf-options/classes/UACF7_Settings.php:1284
+msgid "Something went wrong!"
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:143
+#: addons/spam-protection/ultimate-spam-protection.php:157
+#: addons/spam-protection/ultimate-spam-protection.php:171
+#: addons/spam-protection/ultimate-spam-protection.php:172
+#: admin/tf-options/options/uacf7-settings.php:256
+msgid "Spam Protection"
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:55
+msgid "Spam Protection Settings"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:291
+msgid "Star 1"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:299
+msgid "Star 2"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:307
+msgid "Star 3"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:315
+msgid "Star 4"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:323
+msgid "Star 5"
+msgstr ""
+
+#: addons/star-rating/star-rating.php:186
+#: addons/star-rating/star-rating.php:197
+#: addons/star-rating/star-rating.php:227
+#: admin/tf-options/options/uacf7-settings.php:224
+msgid "Star Rating"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:75 addons/mailchimp/mailchimp.php:421
+msgid "Status: "
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:125
+msgid ""
+"Store form data, view data in the admin backend, and export data in CSV "
+"format. "
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:75
+msgid ""
+"Style form placeholders, like text color and background color, without "
+"writing any CSS. "
+msgstr ""
+
+#. %1$s: demo link
+#: addons/placeholder/placeholder.php:39
+#, php-format
+msgid ""
+"Style form placeholders, like text color and background color, without "
+"writing any CSS. See Demo %1$s."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:85
+msgid ""
+"Style your entire form without any CSS coding, including colors, margins, "
+"button styles, and font sizes."
+msgstr ""
+
+#. %1$s: demo link
+#: addons/styler/uacf7style.php:31
+#, php-format
+msgid ""
+"Style your entire form without any CSS coding, including colors, margins, "
+"button styles, and font sizes. These options overrides Global Form Styler "
+"Settings. See Demo %1$s."
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:39
+#: addons/submission-id/ultimate-submission-id.php:61
+#: addons/submission-id/ultimate-submission-id.php:371
+#: addons/submission-id/ultimate-submission-id.php:382
+#: admin/tf-options/options/uacf7-settings.php:154
+msgid "Submission ID"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:76
+msgid "Submission Option "
+msgstr ""
+
+#: addons/styler/uacf7style.php:382
+msgid "Submit Button Options"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:208
+msgid "Support"
+msgstr ""
+
+#: addons/redirection/redirect.php:76
+msgid "Tag Support"
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:33
+msgid "Telegram"
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:41
+#: addons/telegram/ultimate-telegram.php:56
+#: admin/tf-options/options/uacf7-settings.php:164
+msgid "Telegram Integration"
+msgstr ""
+
+#: addons/telegram/ultimate-telegram.php:71
+msgid "Telegram Option "
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:89
+msgid "The data inserted on these fields will be forwarded to the other form."
+msgstr ""
+
+#: addons/pre-populate-field/pre-populate-field.php:74
+msgid "The data will be sent to this form."
+msgstr ""
+
+#: inc/class-setup-wizard.php:369
+msgid ""
+"The easiest and best Contact Form 7 Addons Plugin for WordPress. With 45+ "
+"essential features, this all-in-one plugin includes nearly all the basic to "
+"advanced options for your site's contact form."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:147
+msgid ""
+"The Form Generator Addon helps generating categorized contact forms with the "
+"power of AI."
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:107
+msgid ""
+"The process involves selecting a field and determining its visibility "
+"(either visible or hidden) based on whether any or all specified conditions "
+"are met. These conditions are triggered by the conditional value you "
+"establish for another field."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themefic"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:572
+msgid "Third-party integrations & API work"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:261
+msgid ""
+"This feature is highly effective in preventing spam submissions on websites, "
+"ensuring the integrity and reliability of the submitted data."
+msgstr ""
+
+#: addons/signature/inc/signature.php:53
+msgid "This feature will help you to add the signature in form ."
+msgstr ""
+
+#: addons/spam-protection/ultimate-spam-protection.php:56
+msgid ""
+"This feature will help you to protect your form submission from Spam attacks."
+msgstr ""
+
+#: admin/tf-options/fields/date/UACF7_date.php:20
+msgid "To"
+msgstr ""
+
+#: addons/multistep/multistep.php:442
+msgid ""
+"To activate the form, enable it from the \"Multi-step Form\" tab located "
+"under the Addons for CF7 Options. This tab also contains additional settings."
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:316
+msgid "To begin, you must enable the Mailchimp add-on."
+msgstr ""
+
+#: inc/class-setup-wizard.php:373
+msgid "To continue, the plugin requires Contact Form 7"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:880
+msgid ""
+"To help you to get started, we put together the documentation, support link, "
+"videos and FAQs here."
+msgstr ""
+
+#: addons/styler/uacf7style.php:123 addons/styler/uacf7style.php:124
+#: addons/styler/uacf7style.php:158 addons/styler/uacf7style.php:159
+#: addons/styler/uacf7style.php:269 addons/styler/uacf7style.php:270
+#: addons/styler/uacf7style.php:304 addons/styler/uacf7style.php:305
+#: addons/styler/uacf7style.php:510 addons/styler/uacf7style.php:511
+#: addons/styler/uacf7style.php:545 addons/styler/uacf7style.php:546
+msgid "Top"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:91 inc/class-dashboard-widget.php:101
+msgid "Total Active Forms"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:82
+msgid "Total Submissions"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:187
+msgid ""
+"Transfer form data to third-party services like Pabbly or Zapier via "
+"webhooks. "
+msgstr ""
+
+#. %1s: demo link
+#: addons/web-hook/web-hook.php:36
+#, php-format
+msgid ""
+"Transfer form data to third-party services like Pabbly or Zapier via "
+"webhooks. See Demo %1$s."
+msgstr ""
+
+#: inc/class-dashboard-widget.php:153
+msgid "Twilio Integration"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:225
+msgid "Type of Form"
+msgstr ""
+
+#: inc/class-setup-wizard.php:63 inc/class-setup-wizard.php:64
+msgid "UACF7 Setup Wizard"
+msgstr ""
+
+#: addons/signature/inc/signature.php:29
+msgid "UACF7 Signature"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:576
+msgid "UI/UX & Custom Design"
+msgstr ""
+
+#. Name of the plugin
+#: inc/class-dashboard-widget.php:24
+msgid "Ultra Addons for Contact Form 7"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:257
+msgid "Ultra Addons for Contact Form 7 (UACF7) Settings"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:412
+msgid "Unique Submission ID"
+msgstr ""
+
+#: addons/submission-id/ultimate-submission-id.php:46
+msgid "Unique Submission ID Settings"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:174
+msgid "Unlock Pro Features"
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:323
+msgid "Upcoming"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:182
+msgid "Upgrade Now"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:194
+msgid "v3.5.21: Added Google reCAPTCHA Support"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:197
+msgid "v3.5.23: Google Sheets Integration with Contact form 7"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:191
+msgid "v3.5.25: Twilio, Slack integration & Security Improvements"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:915
+msgid "Video Tutorials"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:445
+msgid "View Demo"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:119
+msgid "View Entries"
+msgstr ""
+
+#: addons/conditional-field/conditional-fields.php:126
+msgid "Visibility"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:916
+msgid "Watch Video"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:192
+msgid "Webhook"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:33
+msgid "Webhook (Pabbly/Zapier) Settings"
+msgstr ""
+
+#: addons/web-hook/web-hook.php:62
+msgid "Webhook Option "
+msgstr ""
+
+#: addons/web-hook/web-hook.php:47
+msgid "Webhook Setup"
+msgstr ""
+
+#: inc/class-setup-wizard.php:367
+msgid "Welcome to Ultra Addons for Contact Form 7"
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:929
+msgid "What is UACF7? "
+msgstr ""
+
+#: admin/tf-options/classes/UACF7_Settings.php:546
+msgid "White Label WordPress Development & Design Services"
+msgstr ""
+
+#: addons/multistep/multistep.php:212
+msgid "width"
+msgstr ""
+
+#: addons/styler/uacf7style.php:434
+msgid "Width (in px or %)"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:271
+msgid "WooCommerce Integration"
+msgstr ""
+
+#: admin/tf-options/options/uacf7-settings.php:280
+msgid "WooCommerce Product Dropdown"
+msgstr ""
+
+#: addons/mailchimp/mailchimp.php:175 addons/multistep/multistep.php:98
+#: addons/multistep/multistep.php:112 addons/multistep/multistep.php:121
+#: addons/pdf-generator/pdf-generator.php:104
+#: addons/placeholder/placeholder.php:57
+#: addons/pre-populate-field/pre-populate-field.php:61
+#: addons/redirection/redirect.php:83 addons/redirection/redirect.php:126
+#: addons/signature/ultimate-signature.php:78
+#: addons/spam-protection/ultimate-spam-protection.php:80
+#: addons/styler/uacf7style.php:50
+#: addons/submission-id/ultimate-submission-id.php:69
+#: addons/submission-id/ultimate-submission-id.php:98
+#: addons/telegram/ultimate-telegram.php:63 addons/web-hook/web-hook.php:54
+#: admin/tf-options/options/uacf7-settings.php:64
+#: admin/tf-options/options/uacf7-settings.php:257
+msgid "Yes"
+msgstr ""
+
+#: inc/functions.php:1462 inc/functions.php:1882
+msgid "You are not allowed to perform this action."
+msgstr ""
+
+#: addons/range-slider/range-slider.php:414
+msgid ""
+"You can configure the slider's styles using the 'Range Slider' tab located "
+"below."
+msgstr ""
+
+#: addons/column/column.php:83
+msgid ""
+"You can easily create two columns, three Columns even Four columns form with "
+"Contact form 7 using this feature. Just insert tag you need from below list."
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:69
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: admin/tf-options/TF_Options.php:96
+#: admin/tf-options/classes/UACF7_Settings.php:1295
+msgid "Your imported data is not valid"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:176
+msgid "✔ Conditional Logic"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:177
+msgid "✔ Custom Column Width"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:179
+msgid "✔ Drag & Drop File Upload & Signature"
+msgstr ""
+
+#: inc/class-dashboard-widget.php:178
+msgid "✔ Frontend Post Submission"
+msgstr ""

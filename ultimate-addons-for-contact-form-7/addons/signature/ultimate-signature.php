@@ -33,8 +33,8 @@ class UACF7_SIGNATURE {
 
 		wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [ 
 
-			'message_notice' => __( 'Please sign first and confirm your signature before form submission', 'ultimate-addons-cf7' ),
-			'message_success' => __( 'Signature Confirmed', 'ultimate-addons-cf7' ),
+			'message_notice' => __( 'Please sign first and confirm your signature before form submission', 'ultimate-addons-for-contact-form-7' ),
+			'message_success' => __( 'Signature Confirmed', 'ultimate-addons-for-contact-form-7' ),
 
 		] );
 
@@ -45,7 +45,7 @@ class UACF7_SIGNATURE {
 	public function uacf7_post_meta_options_signature( $value, $post_id ) {
 
 		$signature = apply_filters( 'uacf7_post_meta_options_signature_pro', $data = array(
-			'title' => __( 'Digital Signature', 'ultimate-addons-cf7' ),
+			'title' => __( 'Digital Signature', 'ultimate-addons-for-contact-form-7' ),
 			'icon' => 'fa-solid fa-signature',
 			'checked_field' => 'uacf7_signature_enable',
 			'fields' => array(
@@ -53,10 +53,11 @@ class UACF7_SIGNATURE {
 				'uacf7_sign_heading' => array(
 					'id' => 'uacf7_sign_heading',
 					'type' => 'heading',
-					'label' => __( 'Signature Settings', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Settings', 'ultimate-addons-for-contact-form-7' ),
 					'subtitle' => sprintf(
-						__( 'Add a digital signature feature to your forms. See Demo %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://cf7addons.com/preview/contact-form-7-signature-addon/" target="_blank" rel="noopener">Example</a>'
+						/* translators: %1$s: demo link */
+						__( 'Add a digital signature feature to your forms. See Demo %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://cf7addons.com/preview/contact-form-7-signature-addon/" target="_blank" rel="noopener">' . esc_html__( 'Example', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'signature_docs' => array(
@@ -64,37 +65,38 @@ class UACF7_SIGNATURE {
 					'type' => 'notice',
 					'style' => 'success',
 					'content' => sprintf(
-						__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank" rel="noopener">Digital Signature</a>'
+						/* translators: %1s: demo link */
+						__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
+						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank" rel="noopener">' . esc_html__( 'Digital Signature', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 
 				'uacf7_signature_enable' => array(
 					'id' => 'uacf7_signature_enable',
 					'type' => 'switch',
-					'label' => __( ' Enable Signature', 'ultimate-addons-cf7' ),
-					'label_on' => __( 'Yes', 'ultimate-addons-cf7' ),
-					'label_off' => __( 'No', 'ultimate-addons-cf7' ),
+					'label' => __( ' Enable Signature', 'ultimate-addons-for-contact-form-7' ),
+					'label_on' => __( 'Yes', 'ultimate-addons-for-contact-form-7' ),
+					'label_off' => __( 'No', 'ultimate-addons-for-contact-form-7' ),
 					'default' => false
 				),
 				'uacf7_signature_form_options_heading' => array(
 					'id' => 'uacf7_signature_form_options_heading',
 					'type' => 'heading',
-					'label' => __( 'Signature Option ', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Option ', 'ultimate-addons-for-contact-form-7' ),
 				),
 				'uacf7_signature_bg_color' => array(
 					'id' => 'uacf7_signature_bg_color',
 					'type' => 'color',
-					'label' => __( 'Signature Pad Background Color', 'ultimate-addons-cf7' ),
-					'description' => __( 'E.g. Default is #dddddd', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Pad Background Color', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( 'E.g. Default is #dddddd', 'ultimate-addons-for-contact-form-7' ),
 					'default' => '#dddddd',
 					'field_width' => 50,
 				),
 				'uacf7_signature_pen_color' => array(
 					'id' => 'uacf7_signature_pen_color',
 					'type' => 'color',
-					'label' => __( 'Signature Pen Color', 'ultimate-addons-cf7' ),
-					'description' => __( 'E.g. Default is #000000', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Pen Color', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( 'E.g. Default is #000000', 'ultimate-addons-for-contact-form-7' ),
 					'default' => '#000000',
 					'field_width' => 50,
 				),
@@ -102,16 +104,16 @@ class UACF7_SIGNATURE {
 				'uacf7_signature_pad_width' => array(
 					'id' => 'uacf7_signature_pad_width',
 					'type' => 'number',
-					'label' => __( 'Signature Pad Width', 'ultimate-addons-cf7' ),
-					'description' => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Pad Width', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-for-contact-form-7' ),
 					'default' => '300',
 					'field_width' => 50,
 				),
 				'uacf7_signature_pad_height' => array(
 					'id' => 'uacf7_signature_pad_height',
 					'type' => 'number',
-					'label' => __( 'Signature Pad Height', 'ultimate-addons-cf7' ),
-					'description' => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-cf7' ),
+					'label' => __( 'Signature Pad Height', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( 'E.g. There is no need to include units such as "px" or "rem".', 'ultimate-addons-for-contact-form-7' ),
 					'default' => '100',
 					'field_width' => 50,
 				),
@@ -187,16 +189,16 @@ class UACF7_SIGNATURE {
 		?>
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
-			<input hidden type="file" class="img_id_special" <?php echo $atts; ?>>
+			<input hidden type="file" class="img_id_special" <?php echo wp_kses_post( $atts ); ?>>
 
 			<div class="signature-pad" data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 				<canvas id="<?php echo sanitize_html_class( $tag->name ); ?>"
-					data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>" width="<?php echo $canvas_width; ?>"
-					height="<?php echo $canvas_height; ?>"></canvas>
+					data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>" width="<?php echo esc_attr( $canvas_width ); ?>"
+					height="<?php echo esc_attr( $canvas_height ); ?>"></canvas>
 			</div>
 			<div class="control_div">
 				<button data-field-name="<?php echo sanitize_html_class( $tag->name ); ?>"
-					class="clear-button"><?php echo esc_html__( 'Clear', 'ultimate-addons-cf7' ); ?></button>
+					class="clear-button"><?php echo esc_html__( 'Clear', 'ultimate-addons-for-contact-form-7' ); ?></button>
 			</div>
 
 		</span>
@@ -216,7 +218,7 @@ class UACF7_SIGNATURE {
 
 		$tag_generator->add(
 			'uacf7_signature',
-			__( 'Signature', 'ultimate-addons-cf7' ),
+			__( 'Signature', 'ultimate-addons-for-contact-form-7' ),
 			[ $this, 'tg_pane_signature' ],
 			array( 'version' => '2' )
 		);
@@ -227,9 +229,9 @@ class UACF7_SIGNATURE {
 
 		$field_types = array(
 			'uacf7_signature' => array(
-				'display_name' => __( 'Signature', 'ultimate-addons-cf7' ),
-				'heading' => __( 'Generate a digital signature.', 'ultimate-addons-cf7' ),
-				'description' => __( '', 'ultimate-addons-cf7' ),
+				'display_name' => __( 'Signature', 'ultimate-addons-for-contact-form-7' ),
+				'heading' => __( 'Generate a digital signature.', 'ultimate-addons-for-contact-form-7' ),
+				'description' => '',
 			),
 		);
 
@@ -243,7 +245,7 @@ class UACF7_SIGNATURE {
 			?></h3>
 
 			<p><?php
-			$description = wp_kses(
+			echo wp_kses(
 				$field_types['uacf7_signature']['description'],
 				array(
 					'a' => array( 'href' => true ),
@@ -252,14 +254,14 @@ class UACF7_SIGNATURE {
 				array( 'http', 'https' )
 			);
 
-			echo $description;
 			?></p>
 
             <div class="uacf7-doc-notice">
-				<?php echo sprintf(
-					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">Digital Signature</a>'
-				); ?>
+				<?php echo wp_kses_post( sprintf(
+					/* translators: %1s: demo link */
+					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-for-contact-form-7' ),
+					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank">' . esc_html__( 'Digital Signature', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+				) ); ?>
 			</div>
 			
 		</header>
@@ -297,7 +299,15 @@ class UACF7_SIGNATURE {
 	/** Validation Callback */
 	public function uacf7_signature_validation_filter( $result, $tag ) {
 		$name = $tag->name;
-		$empty = ! isset( $_FILES[ $name ]['name'] ) || empty( $_FILES[ $name ]['name'] ) && '0' !== $_FILES[ $name ]['name'];
+		$submission = WPCF7_Submission::get_instance();
+		$uploaded_files = $submission ? $submission->uploaded_files() : array();
+		$signature_file = isset( $uploaded_files[ $name ] ) ? $uploaded_files[ $name ] : '';
+
+		if ( is_array( $signature_file ) ) {
+			$signature_file = array_filter( $signature_file );
+		}
+
+		$empty = empty( $signature_file );
 
 		if ( $tag->is_required() and $empty ) {
 			$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );

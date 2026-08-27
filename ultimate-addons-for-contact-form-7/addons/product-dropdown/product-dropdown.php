@@ -19,7 +19,7 @@ class UACF7_PRODUCT_DROPDOWN {
 
 	public function admin_enqueue_script() {
 
-		wp_enqueue_script( 'uacf7-product-dropdown', UACF7_ADDONS . '/product-dropdown/assets/admin-script.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'uacf7-product-dropdown', UACF7_ADDONS . '/product-dropdown/assets/admin-script.js', array( 'jquery' ), UACF7_VERSION, true );
 	}
 
 
@@ -39,7 +39,6 @@ class UACF7_PRODUCT_DROPDOWN {
 		}
 
 		$validation_error = wpcf7_get_validation_error( $tag->name );
-
 		$class = wpcf7_form_controls_class( $tag->type );
 
 		if ( $validation_error ) {
@@ -47,7 +46,6 @@ class UACF7_PRODUCT_DROPDOWN {
 		}
 
 		$atts = array();
-
 		$atts['class'] = $tag->get_class_option( $class );
 		$atts['id'] = $tag->name;
 		$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
@@ -58,110 +56,45 @@ class UACF7_PRODUCT_DROPDOWN {
 
 		$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
-		$multiple = $tag->has_option( 'multiple' );
-		$display_price = $tag->has_option( 'display_price' );
-
 		if ( $tag->has_option( 'size' ) ) {
 			$size = $tag->get_option( 'size', 'int', true );
 			if ( $size ) {
 				$atts['size'] = $size;
-			} elseif ( $multiple ) {
-				$atts['size'] = 4;
-			} else {
-				$atts['size'] = 1;
 			}
 		}
-
-
-
 
 		if ( $data = (array) $tag->get_data_option() ) {
 			$tag->values = array_merge( $tag->values, array_values( $data ) );
 		}
 
 		$values = $tag->values;
-
-		$default_choice = $tag->get_default_option( null, array(
-			'multiple' => $multiple,
-		) );
-
-		$hangover = wpcf7_get_hangover( $tag->name );
-
-		if ( $tag->has_option( 'product_by:id' ) ) {
-
-			$product_by = 'id';
-
-		} elseif ( $tag->has_option( 'product_by:category' ) ) {
-
-			$product_by = 'category';
-
-		} elseif ( $tag->has_option( 'product_by:tag' ) ) {
-
-			$product_by = 'tag';
-
-		} else {
-			$product_by = '';
-		}
-
-
-
-
-
-		/** Product Sorting By Feature */
-
-		$query_array = [ 
+		$query_args = array(
 			'post_type' => 'product',
 			'posts_per_page' => -1,
 			'post_status' => 'publish',
-		];
+		);
 
+		$field_state = apply_filters( 'uacf7_product_dropdown_field_state', array(
+			'query_args' => $query_args,
+			'select_atts' => $atts,
+			'field_name' => $tag->name,
+			'default_option_args' => array(),
+		), $tag, $values );
 
-		$new_args = [
+		$query_args = isset( $field_state['query_args'] ) && is_array( $field_state['query_args'] ) ? $field_state['query_args'] : $query_args;
+		$atts = isset( $field_state['select_atts'] ) && is_array( $field_state['select_atts'] ) ? $field_state['select_atts'] : $atts;
+		$field_name = isset( $field_state['field_name'] ) ? $field_state['field_name'] : $tag->name;
+		$default_option_args = isset( $field_state['default_option_args'] ) && is_array( $field_state['default_option_args'] ) ? $field_state['default_option_args'] : array();
 
-		];
+		$field_state['query_args'] = $query_args;
+		$field_state['select_atts'] = $atts;
+		$field_state['field_name'] = $field_name;
+		$field_state['default_option_args'] = $default_option_args;
 
+		$default_choice = $tag->get_default_option( null, $default_option_args );
+		$hangover = wpcf7_get_hangover( $tag->name );
+		$products = new WP_Query( $query_args );
 
-		/** If Date Selected  */
-
-		// Default Sorting by Date from Woocommerce
-
-
-		/** If ASC Selected */
-		if ( $tag->has_option( 'order_by:asc' ) ) {
-			$asc_args = [ 
-				'orderby' => 'title',
-				'order' => 'ASC'
-			];
-
-			$new_args = array_merge( $new_args, $asc_args );
-		}
-
-		/** If DSC Selected */
-
-		if ( $tag->has_option( 'order_by:dsc' ) ) {
-			$asc_args = [ 
-				'orderby' => 'title',
-				'order' => 'DSC'
-			];
-
-			$new_args = array_merge( $new_args, $asc_args );
-		}
-
-
-		$very_last_array = array_merge( $query_array, $new_args );
-
-
-
-		$args = apply_filters( 'uacf7_product_dropdown_query', $very_last_array
-			, $values, $product_by );
-
-
-
-		$products = new WP_Query( $args );
-		if ( $multiple ) {
-			$atts['multiple'] = apply_filters( 'uacf7_multiple_attribute', '' );
-			$atts['uacf7-select2-type'] = 'multiple';
-		}
 		$dropdown = '<option value="">-Select-</option>';
 		while ( $products->have_posts() ) {
 			$products->the_post();
@@ -176,64 +109,47 @@ class UACF7_PRODUCT_DROPDOWN {
 				'value' => get_the_title(),
 				'selected' => $selected ? 'selected' : '',
 				'product-id' => get_the_id(),
-
 			);
 
 			$item_atts = wpcf7_format_atts( $item_atts );
-
 			$label = get_the_title();
-
-			$dropdown .= sprintf( '<option %1$s>%2$s</option>',
-				$item_atts, esc_html( $label ) );
+			$dropdown .= sprintf( '<option %1$s>%2$s</option>', $item_atts, esc_html( $label ) );
 		}
 		wp_reset_postdata();
 
-
-		if ( $tag->has_option( 'layout:select2' ) ) {
-			$atts['uacf7-select2-type'] = 'single';
-
-		}
-		if ( $tag->has_option( 'layout:select2' ) && $multiple ) {
-			$atts['uacf7-select2-type'] = 'multiple';
-		}
-
 		$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
-		$atts['name'] = $tag->name . ( $multiple ? '[]' : '' );
-
+		$atts['name'] = $field_name;
 		$atts = wpcf7_format_atts( $atts );
 
 		$dropdown = sprintf(
-			'<div class="%1$s"><span class="wpcf7-form-control-wrap %1$s"  data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span></div>',
+			'<div class="%1$s"><span class="wpcf7-form-control-wrap %1$s" data-name="%1$s"><select %2$s>%3$s</select></span><span>%4$s</span></div>',
 			sanitize_html_class( $tag->name ), $atts, $dropdown, $validation_error
 		);
 
-		if ( $tag->has_option( 'layout:grid' ) ) { // Grid Layout
-			$tag_name = $tag->name;
-			$html = apply_filters( 'uacf7_dorpdown_grid', $dropdown, $multiple, $products, $hangover, $default_choice, $tag_name, $validation_error, $display_price );
-		} else {
-			$html = $dropdown;
-		}
-
-		return $html;
+		return apply_filters( 'uacf7_product_dropdown_html', $dropdown, $tag, $field_state, $hangover, $default_choice, $validation_error );
 	}
 
-
-
 	public function wpcf7_product_dropdown_validation_filter( $result, $tag ) {
-		$name = $tag->name;
 
-		if ( isset( $_POST[ $name ] )
-			and is_array( $_POST[ $name ] ) ) {
-			foreach ( $_POST[ $name ] as $key => $value ) {
-				if ( '' === $value ) {
-					unset( $_POST[ $name ][ $key ] );
-				}
+		$name = $tag->name;
+		$submission = WPCF7_Submission::get_instance();
+		$posted_data = $submission ? $submission->get_posted_data() : array();
+		$posted_value = isset( $posted_data[ $name ] ) ? $posted_data[ $name ] : null;
+
+		if ( isset( $posted_value ) ) {
+			if ( is_array( $posted_value ) ) {
+				$posted_value = array_map( 'sanitize_text_field', $posted_value );
+				$posted_value = array_filter( $posted_value, static function ( $value ) {
+					return '' !== $value;
+				} );
+			} else {
+				$posted_value = sanitize_text_field( $posted_value );
 			}
 		}
 
-		$empty = ! isset( $_POST[ $name ] ) || empty( $_POST[ $name ] ) && '0' !== $_POST[ $name ];
+		$empty = null === $posted_value || '' === $posted_value || array() === $posted_value;
 
-		if ( $tag->is_required() and $empty ) {
+		if ( $tag->is_required() && $empty ) {
 			$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 		}
 
@@ -249,7 +165,7 @@ class UACF7_PRODUCT_DROPDOWN {
 
 		$tag_generator->add(
 			'uacf7_product_dropdown',
-			__( 'Product Dropdown', 'ultimate-addons-cf7' ),
+			__( 'Product Dropdown', 'ultimate-addons-for-contact-form-7' ),
 			[ $this, 'tg_pane_product_dropdown' ],
 			array( 'version' => '2' )
 		);
@@ -260,19 +176,14 @@ class UACF7_PRODUCT_DROPDOWN {
 
 		$field_types = array(
 			'uacf7_product_dropdown' => array(
-				'display_name' => __( 'Product Dropdown', 'ultimate-addons-cf7' ),
-				'heading' => __( 'Generate Product Dropdown', 'ultimate-addons-cf7' ),
-				'description' => __( '', 'ultimate-addons-cf7' ),
+				'display_name' => __( 'Product Dropdown', 'ultimate-addons-for-contact-form-7' ),
+				'heading' => __( 'Generate Product Dropdown', 'ultimate-addons-for-contact-form-7' ),
+				'description' => '',
 			),
 		);
 
 		$tgg = new WPCF7_TagGeneratorGenerator( $options['content'] );
 
-		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) || version_compare( get_option( 'woocommerce_db_version' ), '2.5', '<' ) ) {
-			$woo_activation = false;
-		} else {
-			$woo_activation = true;
-		}
 		?>
 
 		<header class="description-box">
@@ -281,7 +192,7 @@ class UACF7_PRODUCT_DROPDOWN {
 			?></h3>
 
 			<p><?php
-			$description = wp_kses(
+			echo wp_kses(
 				$field_types['uacf7_product_dropdown']['description'],
 				array(
 					'a' => array( 'href' => true ),
@@ -290,13 +201,22 @@ class UACF7_PRODUCT_DROPDOWN {
 				array( 'http', 'https' )
 			);
 
-			echo $description;
 			?></p>
 			<div class="uacf7-doc-notice">
-				<?php echo sprintf(
-					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/" target="_blank">Product Dropdown</a>'
-				); ?>
+				<?php
+					echo wp_kses_post(
+						sprintf(
+							/* translators: %1$s: Link to the Product Dropdown documentation. */
+							__(
+								'Confused? Check our Documentation on %1$s.',
+								'ultimate-addons-for-contact-form-7'
+							),
+							'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-woocommerce/' ) . '" target="_blank" rel="noopener noreferrer">' .
+								esc_html__( 'Product Dropdown', 'ultimate-addons-for-contact-form-7' ) .
+							'</a>'
+						)
+					);
+				?>
 			</div>
 		</header>
 
@@ -314,232 +234,20 @@ class UACF7_PRODUCT_DROPDOWN {
 
 			?>
 
-			<fieldset>
-				<legend>
-					<?php echo esc_html( __( 'Field Option', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
+			<?php
 
-				<div class="uacf7_field_wraping">
-					<div>
-						<?php ob_start(); ?>
-						<input type="checkbox" data-tag-part="option" data-tag-option="" disabled />
-
-						<?php echo esc_attr( __( 'Allow multiple selections ', 'ultimate-addons-cf7' ) ); ?>
-
-						<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">
-							(Pro)
-						</a>
-
-						<?php $multiple_attr = ob_get_clean(); ?>
-						<?php
-						/*
-						 * Tag generator field after field type
-						 */
-						echo apply_filters( 'uacf7_tag_generator_multiple_select_field', $multiple_attr );
-						?>
-					</div>
-
-					<div>
-						<?php ob_start(); ?>
-						<input type="checkbox" data-tag-part="option" data-tag-option="" disabled />
-						<?php echo esc_attr( __( 'Display Total of Selected Product Price', 'ultimate-addons-cf7' ) ); ?>
-
-						<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
-						<?php $display_price = ob_get_clean(); ?>
-
-						<?php
-						/*
-						 * Tag generator field after field type
-						 */
-						echo apply_filters( 'uacf7_tag_generator_display_price_field', $display_price );
-						?>
-					</div>
-				</div>
-
-			</fieldset>
-
-			<fieldset>
-				<?php ob_start(); ?>
-				<legend>
-					<?php echo esc_html( __( 'Show Product By', 'ultimate-addons-cf7' ) ); ?>
-					<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
-				</legend>
-
-				<input id="byID" name="product_by" disabled type="radio" value="id" checked />
-				<?php echo esc_html( __( ' Product ID', 'ultimate-addons-cf7' ) ); ?>
-
-				<input id="byCategory" name="product_by" disabled type="radio" value="category" />
-				<?php echo esc_html( __( 'Category', 'ultimate-addons-cf7' ) ); ?>
-
-				<input id="byTag" name="product_by" disabled type="radio" value="tag" />
-				<?php echo esc_html( __( 'Tag', 'ultimate-addons-cf7' ) ); ?>
-
-				<?php
-				$product_by = ob_get_clean();
-				echo apply_filters( 'uacf7_tag_generator_product_by_field', $product_by );
-				?>
-			</fieldset>
-
-			<fieldset>
-				<?php ob_start(); ?>
-				<legend>
-					<?php echo esc_attr( __( 'Product Order By', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
-
-				<label for="byDate">
-					<input id="byDate" name="order_by" class="" disabled type="radio" value="" checked>
-					<?php echo esc_html( __( ' Date (by Default)', 'ultimate-addons-cf7' ) ); ?></label>
-
-				<label for="byASC">
-					<input id="byASC" name="order_by" class="" disabled type="radio" value="asc">
-					<?php echo esc_html( __( 'ASC', 'ultimate-addons-cf7' ) ); ?>
-				</label>
-
-				<label for="byDSC">
-					<input id="byDSC" name="order_by" class="" disabled type="radio" value="dsc">
-					<?php echo esc_html( __( 'DSC', 'ultimate-addons-cf7' ) ); ?>
-				</label>
-				<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
-				<?php
-				$order_by = ob_get_clean();
-				echo apply_filters( 'uacf7_tag_generator_order_by_field', $order_by );
-				?>
-			</fieldset>
-
-			<fieldset class="tag-generator-panel-product-id">
-				<?php ob_start(); ?>
-				<legend for="tag-generator-panel-product-id">
-					<?php echo esc_attr( __( 'Product ID', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
-
-
-				<textarea class="values" name="" id="tag-generator-panel-product-id" cols="30" rows="10" disabled></textarea>
-				<br>
-				One ID per line.
-				<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">
-					(Pro)
-				</a>
-
-				<?php
-				$product_id_html = ob_get_clean();
-				/*
-				 * Tag generator field after name attribute.
+				/**
+				 * Allow extensions to register additional
+				 * Product Dropdown generator fields.
 				 */
-				echo apply_filters( 'uacf7_tag_generator_product_id_field', $product_id_html );
-				?>
-			</fieldset>
+				do_action(
+					'uacf7_product_dropdown_tag_generator_fields',
+					$tgg,
+					$contact_form,
+					$options
+				);
 
-
-			<fieldset class="tag-generator-panel-product-category">
-				<?php ob_start(); ?>
-
-				<legend for="tag-generator-panel-product-category">
-					<?php echo esc_attr( __( 'Product Category', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
-
-				<div>
-					<?php
-					$taxonomies = get_terms( array(
-						'taxonomy' => 'product_cat',
-						'hide_empty' => false
-					) );
-					if ( $woo_activation == true ) :
-						if ( ! empty( array_filter( $taxonomies ) ) ) :
-							$output = '<select id="tag-generator-panel-product-category">';
-							$output .= '<option value="">All</option>';
-							foreach ( $taxonomies as $category ) {
-								$output .= '<option value="">' . esc_html( $category->name ) . '</option>';
-							}
-							$output .= '</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
-
-							echo $output;
-						endif;
-					else :
-						$output = '<select id="tag-generator-panel-product-category">';
-						$output .= '<option value="">All</option>';
-						$output .= '</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
-						echo $output;
-						echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
-					endif;
-					?>
-				</div>
-
-				<?php
-				$product_dropdown_html = ob_get_clean();
-
-				/*
-				 * Tag generator field after name attribute.
-				 */
-				// echo $product_dropdown_html;
-				echo apply_filters( 'uacf7_tag_generator_product_category_field', $product_dropdown_html );
-				?>
-			</fieldset>
-
-			<fieldset class="tag-generator-panel-product-tag">
-				<?php ob_start(); ?>
-
-				<legend for="tag-generator-panel-product-tag">
-					<?php echo esc_attr( __( 'Product tag', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
-
-				<div>
-					<?php
-					$taxonomies = get_terms( array(
-						'taxonomy' => 'product_tag',
-						'hide_empty' => false
-					) );
-					if ( $woo_activation == true ) :
-						if ( ! empty( array_filter( $taxonomies ) ) ) :
-							$output = '<select data-tag-part="value" id="tag-generator-panel-product-tag">';
-							$output .= '<option value="all">All</option>';
-							foreach ( $taxonomies as $tag ) {
-								$output .= '<option value="' . esc_attr( $tag->slug ) . '">' . esc_html( $tag->name ) . '</option>';
-							}
-							$output .= '</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
-
-							echo $output;
-						endif;
-					else :
-						$output = '<select id="tag-generator-panel-product-tag">';
-						$output .= '<option value="">All</option>';
-						$output .= '</select> <a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>';
-						echo $output;
-						echo '<p style="color:red">Please install and activate WooCommerce plugin.</p>';
-					endif;
-					?>
-				</div>
-
-				<?php
-				$product_tag_html = ob_get_clean();
-
-				/*
-				 * Tag generator field after name attribute.
-				 */
-				echo apply_filters( 'uacf7_tag_generator_product_tag_field', $product_tag_html );
-				?>
-			</fieldset>
-
-			<fieldset>
-				<?php ob_start(); ?>
-				<legend>
-					<?php echo esc_html( __( 'Layout Style', 'ultimate-addons-cf7' ) ); ?>
-				</legend>
-
-				<label for="layoutDropdown"><input id="layoutDropdown" name="layout" class="option" disabled type="radio"
-						value="dropdown"> Dropdown</label>
-
-				<label for="layoutGrid"><input id="uacf7-select2" name="layout" class="option" type="radio" disabled
-						value="select2"> Select 2</label>
-				<label for="layoutGrid"><input id="layoutGrid" name="layout" class="option" type="radio" disabled value="grid">
-					Grid</label>
-				<a style="color:red" target="_blank" href="https://cf7addons.com/pricing/">(Pro)</a>
-
-				<?php
-				$select_layout_style = ob_get_clean();
-				echo apply_filters( 'uacf7_tag_generator_product_layout_style_by_field', $select_layout_style );
-				?>
-
-			</fieldset>
+			?>
 
 			<?php $tgg->print( 'class_attr' ); ?>
 

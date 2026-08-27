@@ -66,16 +66,17 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_send_json_error(
-					[ 'message' => __( 'You do not have sufficient permissions to access this page.', 'ultimate-addons-cf7' ) ]
+					[ 'message' => __( 'You do not have sufficient permissions to access this page.', 'ultimate-addons-for-contact-form-7' ) ]
 				);
 			}
 
-			$imported_data = json_decode( wp_unslash( trim( $_POST['tf_import_option'] ) ), true );
-			$form_id = stripslashes( $_POST['form_id'] );
+			$imported_data_json = isset( $_POST['tf_import_option'] ) ? sanitize_textarea_field( wp_unslash( $_POST['tf_import_option'] ) ) : '';
+			$imported_data = ! empty( $imported_data_json ) ? json_decode( trim( $imported_data_json ), true ) : '';
+			$form_id = isset( $_POST['form_id'] ) ? absint( wp_unslash( $_POST['form_id'] ) ) : 0;
 
 			$response = [ 
 				'status' => 'error',
-				'message' => __( 'Something went wrong!', 'ultimate-addons-cf7' ),
+				'message' => __( 'Something went wrong!', 'ultimate-addons-for-contact-form-7' ),
 			];
 
 			if ( ! empty( $imported_data ) && is_array( $imported_data ) ) {
@@ -87,12 +88,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				$response = [ 
 					'status' => 'success',
-					'message' => __( 'Options imported successfully!', 'tourfic' ),
+					'message' => __( 'Options imported successfully!', 'ultimate-addons-for-contact-form-7' ),
 				];
 			} else {
 				$response = [ 
 					'status' => 'error',
-					'message' => __( 'Your imported data is not valid', 'tourfic' ),
+					'message' => __( 'Your imported data is not valid', 'ultimate-addons-for-contact-form-7' ),
 				];
 			}
 
@@ -182,33 +183,18 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			);
 			$tf_options_post_type = array( 'uacf7_review' );
 
-
-			$uacf7_enable_cdn_load_css = uacf7_settings( 'uacf7_enable_cdn_load_css' );
-			$uacf7_enable_cdn_load_js = uacf7_settings( 'uacf7_enable_cdn_load_js' );
-
 			//Uacf7 CDN CSS
 			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
 
 				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/uacf7-admin.min.css', '', UACF7_VERSION );
 				// wp_enqueue_style('wp-color-picker');
 
-				if ( $uacf7_enable_cdn_load_css == true ) {
-					wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-remixicon', '//cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css', array(), $this->tf_options_version() );
-
-				} else {
-					wp_enqueue_style( 'uacf7-fontawesome-4', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-remixicon', UACF7_URL . 'assets/admin/libs/remixicon/remixicon.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-select2', UACF7_URL . 'assets/admin/libs/select2/select2.min.css', array(), $this->tf_options_version() );
-					wp_enqueue_style( 'uacf7-flatpickr', UACF7_URL . 'assets/admin/libs/flatpickr/flatpickr.min.css', array(), $this->tf_options_version() );
-
-				}
+				wp_enqueue_style( 'uacf7-fontawesome-4', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->tf_options_version() );
+				wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
+				wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
+				wp_enqueue_style( 'uacf7-remixicon', UACF7_URL . 'assets/admin/libs/remixicon/remixicon.css', array(), $this->tf_options_version() );
+				wp_enqueue_style( 'uacf7-select2', UACF7_URL . 'assets/admin/libs/select2/select2.min.css', array(), $this->tf_options_version() );
+				wp_enqueue_style( 'uacf7-flatpickr', UACF7_URL . 'assets/admin/libs/flatpickr/flatpickr.min.css', array(), $this->tf_options_version() );
 
 			}
 
@@ -218,40 +204,9 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 				// wp_enqueue_script( 'wp-color-picker' );
 				wp_enqueue_script( 'uacf7-admin', UACF7_URL . 'assets/admin/js/uacf7-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), UACF7_VERSION, true );
-
-				if ( $uacf7_enable_cdn_load_js == true ) {
-					wp_enqueue_script( 'uacf7-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
-					wp_enqueue_script( 'uacf7-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
-
-				} else {
-					wp_enqueue_script( 'uacf7-flatpickr', UACF7_URL . 'assets/admin/libs/flatpickr/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
-					wp_enqueue_script( 'uacf7-select2', UACF7_URL . 'assets/admin/libs/select2/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
-				}
-
-
-
-				// $tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
-				// if ( $tf_google_map != "googlemap" ) {
-				// 	if ( $uacf7_enable_cdn_load_js == true ) {
-
-				// 		wp_enqueue_script( 'uacf7-leaflet', esc_url( '//cdn.jsdelivr.net/npm/leaflet@' . '1.9' . '/dist/leaflet.js' ), array( 'jquery' ), '1.9', true );
-
-				// 	} else {
-
-				// 		wp_enqueue_script( 'uacf7-leaflet', UACF7_URL . 'assets/admin/libs/leaflet/leaflet.js', array( 'jquery' ), '1.9', true );
-
-				// 	}
-				// 	if ( $uacf7_enable_cdn_load_css == true ) {
-
-				// 		wp_enqueue_style( 'uacf7-leaflet', esc_url( '//cdn.jsdelivr.net/npm/leaflet@' . '1.9' . '/dist/leaflet.css' ), array(), '1.9' );
-
-				// 	} else {
-
-				// 		wp_enqueue_style( 'uacf7-leaflet', UACF7_URL . 'assets/admin/libs/leaflet/leaflet.css', array(), '1.9' );
-
-				// 	}
-
-
+				wp_enqueue_script( 'uacf7-flatpickr', UACF7_URL . 'assets/admin/libs/flatpickr/flatpickr.min.js', array( 'jquery' ), $this->tf_options_version(), true );
+				wp_enqueue_script( 'uacf7-select2', UACF7_URL . 'assets/admin/libs/select2/select2.min.js', array( 'jquery' ), $this->tf_options_version(), true );
+			
 				// }
 				wp_enqueue_script( 'jquery-ui-autocomplete' );
 
@@ -273,9 +228,9 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'nonce' => wp_create_nonce( 'tf_options_nonce' ),
 					'tf_export_import_msg' => array(
-						'imported' => __( 'Imported successfully!', 'ultimate-addons-cf7' ),
-						'import_confirm' => __( 'Are you sure you want to import this data?', 'ultimate-addons-cf7' ),
-						'import_empty' => __( 'Import Data cannot be empty!', 'ultimate-addons-cf7' ),
+						'imported' => __( 'Imported successfully!', 'ultimate-addons-for-contact-form-7' ),
+						'import_confirm' => __( 'Are you sure you want to import this data?', 'ultimate-addons-for-contact-form-7' ),
+						'import_empty' => __( 'Import Data cannot be empty!', 'ultimate-addons-for-contact-form-7' ),
 					)
 				)
 			);
@@ -299,22 +254,12 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function tf_options_wp_enqueue_scripts() {
-			$uacf7_enable_cdn_load_css = uacf7_settings( 'uacf7_enable_cdn_load_css' );
+		
+			wp_enqueue_style( 'uacf7-fontawesome-4', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->tf_options_version() );
+			wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
+			wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
+			wp_enqueue_style( 'uacf7-remixicon', UACF7_URL . 'assets/admin/libs/remixicon/remixicon.css', array(), $this->tf_options_version() );
 
-			if ( $uacf7_enable_cdn_load_css == true ) {
-
-				wp_enqueue_style( 'uacf7-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-remixicon', '//cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css', array(), $this->tf_options_version() );
-
-			} else {
-
-				wp_enqueue_style( 'uacf7-fontawesome-4', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-fontawesome-5', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-fontawesome-6', UACF7_URL . 'assets/admin/libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->tf_options_version() );
-				wp_enqueue_style( 'uacf7-remixicon', UACF7_URL . 'assets/admin/libs/remixicon/remixicon.css', array(), $this->tf_options_version() );
-			}
 		}
 
 
@@ -359,20 +304,68 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			// uacf7_print_r($field);
 			$class = isset( $field['class'] ) ? $field['class'] : '';
 
-			$is_pro = isset( $field['is_pro'] ) ? $field['is_pro'] : '';
 			$badge_up = isset( $field['badge_up'] ) ? $field['badge_up'] : '';
 
-			if ( function_exists( 'is_tf_pro' ) && is_tf_pro() ) {
-				$is_pro = false;
-			}
-			if ( $is_pro == true ) {
-				$class .= ' tf-field-disable tf-field-pro';
-			}
-			if ( $badge_up == true ) {
-				$class .= ' tf-field-disable tf-field-upcoming';
-			}
-			$tf_meta_box_dep_value = get_post_meta( get_the_ID(), $settings_id, true );
+			/**
+			 * Generic field badges.
+			 *
+			 * Free plugin only knows about its own generic/default badges.
+			 * Extensions can add additional badges through
+			 * `uacf7_option_field_state`.
+			 */
+			$badges = array();
 
+			if ( $badge_up == true ) {
+
+				$class .= ' tf-field-disable tf-field-upcoming';
+
+				$badges[] = array(
+					'label' => __(
+						'Upcoming',
+						'ultimate-addons-for-contact-form-7'
+					),
+					'class' => 'tf-upcoming',
+				);
+			}
+
+			/**
+			 * Generic field UI state.
+			 *
+			 * Extensions can modify:
+			 *
+			 * - field classes
+			 * - badges
+			 * - disabled state
+			 */
+			$field_state = apply_filters(
+				'uacf7_option_field_state',
+				array(
+					'class'    => $class,
+					'badges'   => $badges,
+					'disabled' => false,
+				),
+				$field,
+				$value,
+				$settings_id,
+				$parent,
+				$section_key
+			);
+
+			$class = isset( $field_state['class'] )
+				? $field_state['class']
+				: '';
+
+			$badges = isset( $field_state['badges'] ) && is_array( $field_state['badges'] )
+				? $field_state['badges']
+				: array();
+
+			/**
+			 * Pass generic disabled state to the actual
+			 * field renderer if an extension sets it.
+			 */
+			if ( ! empty( $field_state['disabled'] ) ) {
+				$field['disabled'] = true;
+			}
 
 			$depend = '';
 			if ( ! empty( $field['dependency'] ) ) {
@@ -415,22 +408,34 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			}
 			?>
 
-			<div class="tf-field tf-field-<?php echo esc_attr( $field['type'] ); ?> <?php echo esc_attr( $class ); ?> <?php echo ! empty( $visible ) ? $visible : ''; ?>"
-				<?php echo ! empty( $depend ) ? $depend : ''; ?> style="<?php echo esc_attr( $field_style ); ?>">
+			<div class="tf-field tf-field-<?php echo esc_attr( $field['type'] ); ?> <?php echo esc_attr( $class ); ?> <?php echo ! empty( $visible ) ? esc_attr( $visible ) : ''; ?>"
+				<?php echo ! empty( $depend ) ? wp_kses_post( $depend ) : ''; ?>
+				style="<?php echo esc_attr( $field_style ); ?>">
 				<div class="tf-field-wrap">
 					<?php if ( ! empty( $field['label'] ) ) : ?>
-						<label for="<?php echo esc_attr( $id ) ?>" class="tf-field-label">
-							<?php echo esc_html( $field['label'] ) ?>
-							<?php if ( $is_pro ) : ?>
-								<div class="tf-csf-badge"><span class="tf-pro">
-										<?php _e( "Pro", "ultimate-addons-cf7" ); ?>
-									</span></div>
-							<?php endif; ?>
-							<?php if ( $badge_up ) : ?>
-								<div class="tf-csf-badge"><span class="tf-upcoming">
-										<?php _e( "Upcoming", "ultimate-addons-cf7" ); ?>
-									</span></div>
-							<?php endif; ?>
+						<label for="<?php echo esc_attr( $id ); ?>" class="tf-field-label">
+							<?php echo esc_html( $field['label'] ); ?>
+							<?php
+							/**
+							 * Render all field badges generically.
+							 *
+							 * The Free plugin does not know whether a badge
+							 * represents Pro, Upcoming, or another extension.
+							 */
+							foreach ( $badges as $badge ) :
+								if ( empty( $badge['label'] ) ) {
+									continue;
+								}
+								$badge_class = isset( $badge['class'] )
+									? $badge['class']
+									: '';
+								?>
+								<div class="tf-csf-badge">
+									<span class="<?php echo esc_attr( $badge_class ); ?>">
+										<?php echo esc_html( $badge['label'] ); ?>
+									</span>
+								</div>
+							<?php endforeach; ?>
 						</label>
 					<?php endif; ?>
 
@@ -438,9 +443,16 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 						<span class="tf-field-sub-title">
 							<?php
 							if ( $field['id'] == 'styler_heading_label' ) {
-								echo esc_html( $field['subtitle'] );
+
+								echo esc_html(
+									$field['subtitle']
+								);
+
 							} else {
-								echo wp_kses_post( $field['subtitle'] );
+
+								echo wp_kses_post(
+									$field['subtitle']
+								);
 							}
 							?>
 						</span>
@@ -448,32 +460,36 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 					<div class="tf-fieldset">
 						<?php
-						$fieldClass = 'UACF7_' . $field['type'];
-						if ( class_exists( $fieldClass ) ) {
-							$_field = new $fieldClass( $field, $value, $settings_id, $parent, $section_key );
-							$_field->render();
-						} else {
-							echo '<p>' . __( 'Field not found!', 'ultimate-addons-cf7' ) . '</p>';
-						}
+							$fieldClass = 'UACF7_' . $field['type'];
+
+							if ( class_exists( $fieldClass ) ) {
+
+								$_field = new $fieldClass(
+									$field,
+									$value,
+									$settings_id,
+									$parent,
+									$section_key
+								);
+
+								$_field->render();
+
+							} else {
+
+								echo '<p>' . esc_html__( 'Field not found!', 'ultimate-addons-for-contact-form-7' ) . '</p>';
+							}
 						?>
 					</div>
 					<?php if ( ! empty( $field['description'] ) ) : ?>
-						<p class="description">
-							<?php echo wp_kses_post( $field['description'] ) ?>
-						</p>
+
+						<p class="description"><?php echo wp_kses_post( $field['description'] ); ?></p>
+
 					<?php endif; ?>
+
 				</div>
 
 			</div>
 			<?php
-		}
-
-		public function is_uacf7_pro_active() {
-			if ( is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' ) ) {
-				return true;
-			}
-
-			return false;
 		}
 
 	}

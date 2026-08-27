@@ -55,10 +55,10 @@ if ( ! class_exists( 'UACF7_select2' ) ) {
 						? $ContactForm->scan_form_tags( array( 'basetype'=> $specific ) )
 						: $ContactForm->scan_form_tags();
 
-					$exclude = isset( $args['query_args']['exclude'] ) ? $args['query_args']['exclude'] : array();
+					$exclude_types = isset( $args['query_args']['exclude_types'] ) && is_array( $args['query_args']['exclude_types'] ) ? $args['query_args']['exclude_types'] : array();
 
 					foreach ( $tags as $tag ) { 
-						if ( $tag['type'] == '' || in_array( $tag['basetype'], $exclude ) ) continue; 
+						if ( $tag['type'] == '' || in_array( $tag['basetype'], $exclude_types, true ) ) continue; 
 
 						if ( $tag['type'] == 'checkbox' ) {   
 							$tag_name = ( is_array( $tag['options'] ) && !in_array( 'exclusive', $tag['options'] ) )
@@ -126,7 +126,7 @@ if ( ! class_exists( 'UACF7_select2' ) ) {
 			$parent_class         = ( ! empty( $this->parent_field ) ) ? 'tf-select2-parent' : 'tf-select2';
 			$parent_class         = ( isset( $this->field['select2'] ) ) ? 'tf-select2' : $parent_class ;
 
-			echo '<select name="' . $field_name . '" id="' . $tf_select2_unique_id . '" class=" tf-select-two '.$parent_class.' " data-placeholder="' . esc_attr( $placeholder ) . '" ' . $multiple . ' '. $this->field_attributes() .'>';
+			echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr( $tf_select2_unique_id ) . '" class=" tf-select-two '.esc_attr($parent_class).' " data-placeholder="' . esc_attr( $placeholder ) . '" ' . esc_attr($multiple) . ' '. esc_attr( $this->field_attributes() ) .'>';
 			foreach ( $args['options'] as $key => $value ) {
 				$selected = '';
 
@@ -138,7 +138,7 @@ if ( ! class_exists( 'UACF7_select2' ) ) {
 					$selected = selected( $this->value, $key, false );
 				}
 
-				echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_html( $value ) . '</option>';
+				echo '<option value="' . esc_attr( $key ) . '" ' . esc_attr($selected) . '>' . esc_html( $value ) . '</option>';
 			}
 
 			echo '</select>';
@@ -158,31 +158,59 @@ if ( ! class_exists( 'UACF7_select2' ) ) {
 
 		private function set_config( $api_key = '', $path = '' ) {
 
-			$server_prefix = explode( "-", $api_key );
-
-			if ( ! isset( $server_prefix[1] ) ) {
-				return;
+			if ( empty( $api_key ) || empty( $path ) ) {
+				return '';
 			}
-			$server_prefix = $server_prefix[1];
 
-			$url = "https://$server_prefix.api.mailchimp.com/3.0/$path";
+			/*
+			* Mailchimp API keys normally end with the data-center suffix,
+			* for example: xxxxxxxxxxxxxxxxxxxxxxxx-us21
+			*/
+			$api_key_parts = explode( '-', $api_key );
 
-			$curl = curl_init( $url );
-			curl_setopt( $curl, CURLOPT_URL, $url );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+			if ( count( $api_key_parts ) < 2 ) {
+				return '';
+			}
 
-			$headers = array(
-				"Authorization: Bearer $api_key"
+			$server_prefix = sanitize_key( end( $api_key_parts ) );
+
+			/*
+			* Only allow expected Mailchimp data-center values such as us1, us21, etc.
+			*/
+			if ( ! preg_match( '/^[a-z]{2}[0-9]+$/', $server_prefix ) ) {
+				return '';
+			}
+
+			$path = ltrim( $path, '/' );
+
+			$url = sprintf(
+				'https://%s.api.mailchimp.com/3.0/%s',
+				$server_prefix,
+				$path
 			);
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
-			//for debug only!
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, false );
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
 
-			$resp = curl_exec( $curl );
-			curl_close( $curl );
+			$response = wp_safe_remote_get(
+				$url,
+				array(
+					'timeout' => 20,
+					'headers' => array(
+						'Authorization' => 'Bearer ' . $api_key,
+						'Accept'        => 'application/json',
+					),
+				)
+			);
 
-			return $resp;
+			if ( is_wp_error( $response ) ) {
+				return '';
+			}
+
+			$response_code = wp_remote_retrieve_response_code( $response );
+
+			if ( $response_code < 200 || $response_code >= 300 ) {
+				return '';
+			}
+
+			return wp_remote_retrieve_body( $response );
 		}
 
 	}

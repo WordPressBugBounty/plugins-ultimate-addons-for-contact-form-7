@@ -13,16 +13,17 @@ class UACF7_DBMigrator {
 
 	public function uacf7dp_check_free_db() {
 		global $wpdb;
-		$Saved_form_data = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "uacf7_form" );
+		$uacf7_db = $wpdb;
+		$Saved_form_data = $uacf7_db->get_results( "SELECT * FROM " . $uacf7_db->prefix . "uacf7_form" );
 		$ExtraFields = [];
 
 		if ( ! empty( $Saved_form_data ) ) {
 
 			// Delete all data from wp_uacf7dp_data
-			$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}uacf7dp_data" );
+			$uacf7_db->query( "TRUNCATE TABLE {$uacf7_db->prefix}uacf7dp_data" );
 
 			// Delete all data from wp_uacf7dp_data_entry
-			$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}uacf7dp_data_entry" );
+			$uacf7_db->query( "TRUNCATE TABLE {$uacf7_db->prefix}uacf7dp_data_entry" );
 
 			$getting_old_from_entrys = [];
 
@@ -52,6 +53,7 @@ class UACF7_DBMigrator {
 
 	public function uacf7dp_get_form_data_migrat( $insert_data ) {
 		global $wpdb;
+		$uacf7_db = $wpdb;
 		$Get_all_form_entry = $insert_data;
 
 		// Insert data to the pro data table 
@@ -60,8 +62,8 @@ class UACF7_DBMigrator {
 			$submit_ip = $data['submit_ip'];
 			$submit_time = $data['submit_time'];
 
-			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->prefix . 'uacf7dp_data(`cf7_form_id`, `submit_ip`, `submit_time`) VALUES (%d, %d, %s)', $submit_form_id, $submit_ip, $submit_time ) );
-			$data_id = $wpdb->insert_id;
+			$uacf7_db->query( $uacf7_db->prepare( 'INSERT INTO ' . $uacf7_db->prefix . 'uacf7dp_data(`cf7_form_id`, `submit_ip`, `submit_time`) VALUES (%d, %d, %s)', $submit_form_id, $submit_ip, $submit_time ) );
+			$data_id = $uacf7_db->insert_id;
 
 			$uacf7dp_no_save_fields = uacf7dp_no_save_fields();
 
@@ -72,7 +74,7 @@ class UACF7_DBMigrator {
 					if ( is_array( $v ) ) {
 						$v = implode( "\n", $v );
 					}
-					$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->prefix . 'uacf7dp_data_entry(`cf7_form_id`, `data_id`, `fields_name`, `value`) VALUES (%d,%d,%s,%s)', $submit_form_id, $data_id, $k, $v ) );
+					$uacf7_db->query( $uacf7_db->prepare( 'INSERT INTO ' . $uacf7_db->prefix . 'uacf7dp_data_entry(`cf7_form_id`, `data_id`, `fields_name`, `value`) VALUES (%d,%d,%s,%s)', $submit_form_id, $data_id, $k, $v ) );
 				}
 			}
 

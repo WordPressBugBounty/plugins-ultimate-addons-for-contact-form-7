@@ -1,10 +1,10 @@
  === Ultra Addons for Contact Form 7 ===
 Contributors: themefic, hasanet, hemelhasan, mdrejon, raihan143
 Tags: contact form, contact form 7, forms, custom form, form builder
-Requires at least: 4.2
-Tested up to: 7.0
+Requires at least: 6.8
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.47
+Stable tag: 3.5.48
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -54,7 +54,7 @@ Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is
 * Column (Custom Width)
 * Conditional Field Pro
 * Conditional Redirect
-* Conversational form
+* Conversational Form
 * Form Styler (Global)
 * Frontend Post Submission (CF7 to Post Type / Blog)
 * IP Geo Fields (Autocomplete Country, City, State, Zip Fields)
@@ -106,96 +106,68 @@ Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is
 
 ### Free Version:
 
-= AI Form Generator | Contact Form 7 Form Templates =
+= AI Form Generator | Contact Form 7 Templates =
+Quickly generate [Contact Form 7 templates free](https://cf7addons.com/preview/ai-form-generator/) using AI. Create custom, ready-to-use WordPress forms from text prompts in seconds.
 
-This feature empowers you to create a variety of [Contact Form 7 templates free](https://cf7addons.com/preview/ai-form-generator/) with the power of AI. These form templates serve as a foundation, facilitating a quick start for your website's forms.
-
-= Contact Form 7 Column / Grid Layout =
-Easily create forms with multiple columns - [Contact Form 7 two column](https://cf7addons.com/preview/contact-form-7-columns-or-grid/), three Columns, even four columns. Each form is fully responsive.
+= Contact Form 7 Columns & Grid Layout =
+Build responsive [Contact Form 7 column](https://cf7addons.com/preview/contact-form-7-columns-or-grid/), 2 column, 3 column, and 4 column layouts without writing custom CSS.
 
 = Contact Form 7 Conditional Fields =
+Create smart forms using [Conditional Fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-conditional-fields/) to show or hide fields dynamically based on user selections.
 
-Create smarter forms with [Conditional Fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-conditional-fields/). Show or hide fields dynamically based on user selections to build interactive and user-friendly forms.
-
-= Contact Form 7 Country Dropdown with Flag and Phone  =
-
-Add a [Contact Form 7 phone number with country code](https://cf7addons.com/preview/contact-form-7-country-dropdown/) with country flags and names. Create user-friendly phone fields with automatic country selection in Contact Form 7.
+= Contact Form 7 Country Dropdown with Flag & Phone =
+Add a [Contact Form 7 phone number with country code](https://cf7addons.com/preview/contact-form-7-country-dropdown/) featuring country flags and automated country codes.
 
 = Contact Form 7 Save to Database =
+Store and manage entries with the [Contact Form 7 save to database](https://cf7addons.com/preview/contact-form-7-database/) addon. View and export form submissions as CSV.
 
-Store and manage submissions with the [Contact Form 7 save to database](https://cf7addons.com/preview/contact-form-7-database/) addon. View form entries from your WordPress dashboard and export submission data as CSV files.
+= Contact Form 7 Digital Signature =
+Add a [Contact Form 7 digital signature](https://cf7addons.com/preview/contact-form-7-signature-addon/) field so users can draw and submit signatures directly on WordPress forms.
 
-= Contact Form 7 Signature Addon =
+= Contact Form 7 Dynamic Text & Hidden Fields =
+Auto-fill text and hidden fields using the [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) addon with URL parameters, user info, or post metadata.
 
-This feature introduces a [Contact Form 7 digital signature](https://cf7addons.com/preview/contact-form-7-signature-addon/) capability, allowing users to easily add a signature field to WordPress forms.
+= Form Styler | Contact Form 7 Style Customizer =
+Customize form appearance with the [Contact Form 7 style customizer](https://cf7addons.com/preview/contact-form-7-style-addon/). Change fonts, colors, borders, and button styles without CSS.
 
-= Contact Form 7 Dynamic Text Extension  =
-
-The [Dynamic text Contact Form 7](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) for Contact Form 7 lets you auto-populate text and hidden fields with values from URLs, posts, user data, or custom fields. Use it to auto-fill user info, post ID, title, slug, product number, and more via shortcodes.
-
-= Contact Form 7 Hidden Field =
-
-Generate dynamic hidden values with the [Contact Form 7 dynamic text extension](https://cf7addons.com/preview/contact-form-7-dynamic-text-extension/) addon. Automatically pass data into hidden fields for smarter form handling.
-
-= Form Styler | Contact form 7 Style =
-
-Customize your forms with the [Contact Form 7 style plugin](https://cf7addons.com/preview/contact-form-7-style-addon/). Easily change colors, fonts, fields, and button styles to create professional and fully responsive Contact Form 7 designs.
-
-= Contact Form 7 CSS Templates =
-
-Customize your forms with [Contact Form 7 Form Styler](https://cf7addons.com/preview/contact-form-7-style-addon/) and easily control the design, styling, and appearance of your Contact Form 7 forms.
-
-= Contact Form 7 Mailchimp Integration  =
-
-Connect your [Mailchimp and Contact Form 7](https://cf7addons.com/preview/contact-form-7-mailchimp/) accounts to automatically add form submissions to your selected Mailchimp audience using the Mailchimp API.
+= Contact Form 7 Mailchimp Integration =
+Connect [Mailchimp and Contact Form 7](https://cf7addons.com/preview/contact-form-7-mailchimp/) to automatically subscribe form respondents to your Mailchimp email lists.
 
 = Contact Form 7 Multi Step Forms =
-
-Our [Multi step Form Contact Form 7](https://cf7addons.com/preview/contact-form-7-multi-step-forms/) addon simplifies the process of creating multi-step forms with Contact Form 7. This option is perfect for managing longer forms efficiently. 
+Split long forms into manageable steps with the [Multi step Form Contact Form 7](https://cf7addons.com/preview/contact-form-7-multi-step-forms/) addon to boost conversions.
 
 = Contact Form 7 Webhook Integration =
+Send form submission data to external APIs, Zapier, Pabbly, and CRMs using [Contact Form 7 webhook](https://cf7addons.com/preview/pabbly-zapier-webhook/).
 
-Connect [Contact Form 7 webhook](https://cf7addons.com/preview/pabbly-zapier-webhook/) with any third-party service. Send form data automatically to external platforms, automation tools, and custom webhook endpoints.
-
-= Pre-populate Field | Contact Form 7 Auto Populate Fields  =
-
-Automatically fill form fields with [Pre-populate Fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-pre-populate-fields/). Populate input values from URL parameters and pass data between forms for a seamless user experience.
+= Pre-populate Fields for Contact Form 7 =
+Auto-fill form inputs from URL parameters and pass values between pages with [Pre-populate Fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-pre-populate-fields/).
 
 = Contact Form 7 PDF Generator =
-
-Generate PDFs automatically with the [Contact Form 7 PDF Generator](https://cf7addons.com/preview/pdf-generator/) addon. Create PDF files from form submissions and send them directly to admins and users via email.
+Generate PDF receipts from form entries automatically with the [Contact Form 7 PDF Generator](https://cf7addons.com/preview/contact-form-7-pdf-generator/) addon and email them to admins or users.
 
 = Contact Form 7 Placeholder Styler =
-
-Customize placeholder text with the [Placeholder Styler for Contact Form 7](https://cf7addons.com/preview/contact-form-7-placeholder-styling/). Change placeholder colors, fonts, and styles without writing custom CSS.
+Style placeholder text color, font, and size without coding via the [Placeholder Styler for Contact Form 7](https://cf7addons.com/preview/contact-form-7-placeholder-styling/).
 
 = Contact Form 7 Range Slider =
-
-Add interactive sliders with the [Contact Form 7 Range Slider](https://cf7addons.com/preview/contact-form-7-range-slider/) addon. Let users easily select numeric values, ranges, or preferences using a smooth slider field.
+Let users select numbers and ranges with interactive sliders using the [Contact Form 7 Range Slider](https://cf7addons.com/preview/contact-form-7-range-slider/) field.
 
 = Contact Form 7 Redirect after Submit =
-
-Redirect users after form submission with the [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon. Send users to thank you pages, custom URLs, or external websites after submitting a form.
+Redirect visitors to thank-you pages or external URLs with the [Redirection for Contact Form 7](https://cf7addons.com/preview/redirection-for-contact-form-7/) addon.
 
 = Contact Form 7 Star Rating Field =
+Collect user feedback, reviews, and ratings easily with the [Star Rating fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-star-rating/) addon.
 
-Collect customer feedback easily with the [Star Rating fields for Contact Form 7](https://cf7addons.com/preview/contact-form-7-star-rating/) addon. Add interactive star ratings to your forms for reviews, surveys, and feedback collection.
+= Contact Form 7 Unique Submission ID =
+Assign a tracking ID to every form entry with the [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon for streamlined order/inquiry management.
 
-= Contact Form 7 Submission ID  =
-
-Generate unique submission IDs with the [UniqueID for Contact Form 7](https://cf7addons.com/preview/unique-id-for-contact-form-7/) addon. Assign a tracking ID to every form entry for easier management, reference, and organization.
-
-= Contact Form 7 Spam Protection  =
-
-Protect your forms with the [Spam Protection for Contact Form 7](https://cf7addons.com/preview/spam-protection/) addon. Prevent spam submissions using arithmetic and image recognition CAPTCHA for enhanced Contact Form 7 security.
+= Contact Form 7 Spam Protection =
+Block bot spam using arithmetic and image CAPTCHA with [Spam Protection for Contact Form 7](https://cf7addons.com/preview/spam-protection/).
 
 = Contact Form 7 to Telegram =
+Get instant submission notifications sent straight to your channel with the [Telegram for Contact Form 7](https://cf7addons.com/preview/contact-form-7-telegram/) integration.
 
-Send Contact Form 7 submissions directly to your [Telegram channel](https://cf7addons.com/preview/contact-form-7-telegram/) for instant notifications and seamless team communication.
-
-= Contact Form 7 WooCommerce Integration =
-
-Connect WooCommerce with Contact Form 7 using the [WooCommerce Product Dropdown Field](https://cf7addons.com/preview/contact-form-7-woocommerce/) addon. Display WooCommerce products in a dropdown and let customers submit product inquiries through your forms.
+= Contact Form 7 WooCommerce Product Dropdown =
+Display WooCommerce products inside form dropdowns with the [WooCommerce Product Dropdown Field](https://cf7addons.com/preview/contact-form-7-woocommerce/) for quick inquiries.
 
 More free addons are on the way. **Stay tuned!**
 
@@ -203,132 +175,98 @@ More free addons are on the way. **Stay tuned!**
 
 The Pro version includes all the features available in the free version. Plus:
 
-= Contact Form 7 Booking Form / Appointment Form =
-
-This feature enables the creation of a [Booking form / Appointment Form](https://cf7addons.com/preview/contact-form-7-booking-form/) with Contact Form 7. It allows for the inclusion of calendar and time slots directly in the form, facilitating efficient booking management. 
+= Contact Form 7 Booking & Appointment Form =
+Add calendar scheduling and time slots with the [Contact Form 7 Booking Form](https://cf7addons.com/preview/contact-form-7-booking-form/) addon to manage appointments directly.
 
 = Custom Column Width for Contact Form 7 =
+Set custom grid column widths (e.g. 12%/88%, 30%/70%) using [Custom Columns & Grid](https://cf7addons.com/preview/custom-columns-for-contact-form-7/) for pixel-perfect layouts.
 
-This feature assists in customizing the [column widths of your form](https://cf7addons.com/preview/custom-columns-grid-layout/) to your preferred dimensions. You have the flexibility to set any column size; for instance, you can design a two-column layout with one column at 12% width and the other at 88%, among other configurations.
-
-= CF7 Conditional fields Pro  =
-
-Our [Conditional Field Pro](https://cf7addons.com/preview/conditional-field-pro/) addon enables you to apply advanced conditional logic to various fields, including Range Slider, Star Rating Field, Country Dropdown, IP Geolocation, and more, enhancing the functionality and user experience of your forms.
+= Contact Form 7 Conditional Fields Pro =
+Apply advanced conditional logic to sliders, country dropdowns, star ratings, and geolocation with [Conditional Field Pro](https://cf7addons.com/preview/conditional-field-pro/).
 
 = Contact Form 7 Conditional Redirect =
-
-This option offers to [redirect users to different pages](https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/) based on their form responses. For example, selecting “Yes” can redirect to one page, while “No” directs to another, providing a tailored user experience based on their choices.
+Redirect users to specific landing pages or thank-you URLs based on their input selections with [Conditional Redirect](https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/).
 
 = WordPress Conversational Form =
+Convert static forms into interactive, step-by-step chat flows using [WordPress Conversational Forms](https://cf7addons.com/preview/conversational-form-for-contact-form-7/).
 
-Create engaging and interactive [WordPress conversational forms](https://cf7addons.com/preview/conversational-form-for-contact-form-7/) for Contact Form 7. Transform standard forms into interactive conversations for a smoother and more user-friendly submission experience.
+= Global Form Styler for Contact Form 7 =
+Style and manage the design of all your site's contact forms globally from one centralized panel with [Global Form Styler](https://cf7addons.com/preview/global-form-styler/).
 
-= Contact Form 7 Global Form Styler =
+= Frontend Post & Custom Post Type Submission =
+Convert form submissions into blog posts or custom post types (CPTs) with categories, tags, and featured images via [Contact Form 7 to Post](https://cf7addons.com/preview/contact-form-7-to-post-type/).
 
-With [Global Form Styler](https://cf7addons.com/preview/global-form-styler/), style all your forms from a single location, eliminating the need to individually style each form.
+= IP Geolocation & Address Autocomplete for Contact Form 7 =
+Automatically detect and autofill Country, City, State, and Zip fields with [IP Geolocation for Contact Form 7](https://cf7addons.com/preview/contact-form-7-autocomplete/).
 
-= Contact Form 7 to Blog Submission =
+= Multi-Step Pro for Contact Form 7 =
+Access premium pre-designed skins, custom navigation button text, and background images with [Multi-Step Form Pro](https://cf7addons.com/preview/contact-form-7-multi-step-forms/pro/).
 
-Create a [frontend post submission form](https://cf7addons.com/preview/contact-form-7-to-post-type/) with Contact Form 7. Each submission creates a new post you can manage from your dashboard and display on your site. Add titles, descriptions, categories, featured images, and custom fields with ease.
+= Range Slider Pro for Contact Form 7 =
+Unlock advanced slider themes and multi-range handles with the [Range Slider Pro](https://cf7addons.com/preview/range-slider-pro) addon.
 
-= Contact Form 7 to Custom Post Type =
-
-Effortlessly convert submissions from Contact Form 7 into a [custom post type](https://cf7addons.com/preview/contact-form-7-to-post-type/).
-
-= Contact Form 7 Autocomplete Country, City, State, Zip Fields =
-
-This feature enables the integration of [IP Geolocation](https://cf7addons.com/preview/contact-form-7-autocomplete/) into Contact Form 7, allowing fields such as Country, City, State, and Zip to be automatically filled based on the user's geolocation.  
-
-= Multistep Contact Form 7 (Pro) =
-
-The [Pro version of Multi-Step Forms](https://cf7addons.com/preview/multi-step-form/pro/) offers premium pre-built templates with attractive designs. Choose any design skin to auto-generate a styled form. It also supports button text editing and adding background images for enhanced customization.
-
-= Contact form 7 Range Slider Pro =
-
-The [Pro version of Range Slider](https://cf7addons.com/preview/range-slider-pro) features a variety of premium, pre-built layouts. 
-
-= Contact form 7 Repeatable Fields =
-
-Our [Contact Form 7 Repeater field](https://cf7addons.com/preview/repeater-field-for-contact-form-7/) addon enables the inclusion of repeatable fields within Contact Form 7, allowing for the duplication of various types of fields, including text, files, checkboxes, radio buttons, and textareas.
+= Contact Form 7 Repeater Fields =
+Allow users to dynamically duplicate text fields, file uploads, checkboxes, and textareas with the [Repeater Field for Contact Form 7](https://cf7addons.com/preview/repeater-field-for-contact-form-7/).
 
 = Contact Form 7 Star Rating Field Pro =
+Choose from 5 custom rating styles or integrate any Font Awesome icon with [Star Rating Pro](https://cf7addons.com/preview/star-rating-pro/).
 
-While the free version offers one Star Field icon, the Pro version enhances your options with [5 Built-In Rating Styles](https://cf7addons.com/preview/star-rating-pro/). If these styles don't meet your needs, the Pro version also allows adding any icon from Font Awesome. 
+= Contact form 7 Whatsapp Integration + CF7 Tag Support =
+Send submitted form values directly to WhatsApp chat threads and pass dynamic CF7 tag data with [WhatsApp for Contact Form 7](https://cf7addons.com/preview/contact-form-7-whatsapp-integration/).
 
-= Contact form 7 Whatsapp Integration + CF7 Tag Support  =
-
-Tag support for CF7 fields allows data to pass through the redirect URL. You can also enable [WhatsApp Contact Form 7 integration](https://cf7addons.com/preview/contact-form-7-whatsapp-integration/). To forward submitted data in the format https://yourdomain.com/?name=[your-name], the name field can be forwarded to WhatsApp or any desired destination.
-
-= Contact form 7 WooCommerce Checkout / Auto Add to Cart =
-
-Integrate [WooCommerce Checkout](https://cf7addons.com/preview/contact-form-7-woocommerce-checkout/) with Contact Form 7. Automatically add selected products to the cart after form submission and redirect customers to checkout for a seamless purchasing experience.
+= Contact Form 7 WooCommerce Checkout / Auto Add to Cart =
+Automatically add selected products to the cart on form submit and redirect directly to checkout with [WooCommerce Checkout Integration](https://cf7addons.com/preview/contact-form-7-woocommerce-checkout/).
 
 = Choose Specific / Multiple / Categorize WooCommerce Product =
-
-The Pro version lets you add [Specific WooCommerce Product](https://cf7addons.com/preview/woocommerce-product-dropdown/) by Product ID, allow customers to select [Multiple WooCommerce Products](https://cf7addons.com/preview/multiple-product/), and display products by [WooCommerce Category](https://cf7addons.com/preview/categorized-product/).
+Display products by ID, category, or allow multiple product selections inside dropdowns with [WooCommerce Product Field Pro](https://cf7addons.com/preview/woocommerce-product-dropdown/).
 
 = Contact Form 7 Product Grid View with Thumbnails =
+Display WooCommerce products in visual grid cards with images, pricing, and checkboxes using [WooCommerce Product Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/).
 
-Display products in [WooCommerce Grid View](https://cf7addons.com/preview/product-grid-view-with-thumbnails/), allowing addition based on ID, Category, or Tags. This feature enhances the visual appeal and organization of your product listings. 
+= Contact Form 7 Spam Protection Pro =
+Prevent bot spam by setting submission rate limits and cooldown timers with [Spam Protection Pro](https://cf7addons.com/preview/spam-protection-pro/).
 
-= Spam protection Contact form 7 (Pro) =
+= Contact Form 7 Database Pro =
+Advanced dashboard for filtering, organizing, searching, and managing saved form submissions with [Database Pro](https://cf7addons.com/preview/best-contact-form-7-database-addon/).
 
-With the [Anti Spam Contact form 7 (Pro)](https://cf7addons.com/preview/spam-protection-pro/) addon you can protect your website from frequent form submissions by adding a time limit. More protection on top of cf7 reCAPTCHA.
+= Mailchimp Pro for Contact Form 7 =
+Add GDPR consent acceptance checkboxes and map custom audience fields with [Mailchimp Pro](https://cf7addons.com/preview/mailchimp-pro-for-contact-form-7/).
 
-= Contact form 7 DB plugin (Pro) =
+= Contact Form 7 Submission Preview =
+Let visitors review, verify, and edit their submitted answers before final submission with [Form Submission Preview](https://cf7addons.com/preview/form-preview-submission/).
 
-[Contact Form 7 Database plugin](https://cf7addons.com/preview/best-contact-form-7-database-addon/) Pro addon offers an advanced solution for managing and organizing form inquiries more efficiently.
+= Save Progress & Continue Later =
+Allow visitors to save partial form progress and resume filling later from any device with [Save and Continue Later](https://cf7addons.com/preview/save-and-continue/).
 
-= Mailchimp with Contact Form 7 (Pro) =
+= Weekly Email Summary Reports =
+Receive automatic weekly email digest reports summarizing submission counts with [Weekly Email Summary](https://cf7addons.com/preview/weekly-email-summary/).
 
-Our [Contact Form 7 Extension for Mailchimp (Pro)](https://cf7addons.com/preview/mailchimp-pro-for-contact-form-7/) allows you to add an acceptance checkbox to your forms. 
+= Email Piping for Contact Form 7 =
+Capture email replies directly into your WordPress dashboard and send email responses using [Email Piping](https://cf7addons.com/preview/email-piping-for-contact-form-7/).
 
-= Contact form 7 Preview before submit =
+= PDF Download on Submission for Contact Form 7 =
+Enable visitors to download customized PDF receipts immediately upon form submission with [PDF Generate Pro](https://cf7addons.com/preview/pdf-generate-pro/).
 
-The [Contact Form 7 preview](https://cf7addons.com/preview/form-preview-submission/) addon adds a submission preview feature to your forms, enabling users to review and confirm their information before submission.  
+= Drag & Drop Multi-File Upload for Contact Form 7 =
+Allow visitors to drag and drop multiple files simultaneously with the modern [Multi-File Upload](https://cf7addons.com/preview/drag-and-drop-multiple-file-upload/) field.
 
-= Contact form 7 Save progress and Continue Later =
+= Google Sheets Integration for Contact Form 7 =
+Automatically sync form submissions into Google Sheets spreadsheets in real-time with [Google Sheets Integration](https://cf7addons.com/preview/google-sheet/).
 
-The [Save and Continue Later](https://cf7addons.com/preview/save-and-continue/) addon allows users to save Contact Form 7 progress on a form and come back to later to finish it at their convenience.
+= Slack Notifications Integration for Contact Form 7 =
+Receive instant form submission alerts and lead notifications inside Slack channels with [Slack Integration](https://cf7addons.com/preview/slack/).
 
-= Contact Form 7 Email Summary =
+= Prevent Duplicate Submissions for Contact Form 7 =
+Block accidental or spam duplicate form submissions based on specific fields or time windows with [Prevent Duplicate Entries](https://cf7addons.com/preview/prevent-duplicate-entries/).
 
-Our [Weekly Email Summary for Contact Form 7](https://cf7addons.com/preview/weekly-email-summary/) feature allows users to receive detailed reports summarizing the number of entries generated by their Contact Form 7 forms.
+= Twilio SMS & WhatsApp Alerts for Contact Form 7 =
+Send instant SMS and WhatsApp text notifications to admins or customers on submission with [Twilio Integration](https://cf7addons.com/preview/twilio/).
 
-= Contact Form 7 Form Email Piping =
+= Salesforce CRM Integration for Contact Form 7 =
+Sync contact form submissions, leads, contacts, and cases directly into Salesforce in real-time with [Salesforce Integration](https://themefic.com/docs/uacf7/pro-addons/salesforce-integration/).
 
-Our [Contact Form 7 Form Email Piping](https://cf7addons.com/preview/email-piping-for-contact-form-7/) feature allows users to configure email piping with Contact Form 7; it not only captures email replies directly in your WordPress dashboard but also sends emails.
-
-= Contact Form 7 PDF Download on Submission =
-
-Our [PDF Generate Pro](https://cf7addons.com/preview/pdf-generate-pro/) feature enables users to generate and download a PDF immediately after submitting a form.
-
-= Contact Form 7 Drag & Drop Multiple File Uploads =
-
-Our [Drag & Drop Multiple File Uploads](https://cf7addons.com/preview/drag-and-drop-multiple-file-upload/) feature enables a smooth and modern way to upload multiple files directly through your Contact Form 7.
-
-= Contact Form 7 Google Sheets Integration =
-
-Our [Google Sheets Integration](https://cf7addons.com/preview/google-sheet/) feature connects Contact Form 7 with Google Sheets, allowing you to automatically save form submissions in real time—perfect for organizing leads, inquiries, and more without manual effort.
-
-= Contact Form 7 Slack Integration =
-
-Our [Google Sheets Integration](https://cf7addons.com/preview/twilio/) links Contact Form 7 with Twilio to send SMS or WhatsApp notifications upon form submission. Get instant alerts to stay connected with users or your team.
-
-= Contact Form 7 Prevent Duplicate Entries =
-
-Our [Google Sheets Integration](https://cf7addons.com/preview/prevent-duplicate-entries/) feature for Contact Form 7 blocks duplicate form submissions. Ensure clean data by monitoring specific fields or the entire form, with customizable time limits and messages.
-
-= Contact Form 7 Twilio Integration =
-
-Our [Google Sheets Integration](https://cf7addons.com/preview/slack/) connects Contact Form 7 with Slack, enabling real-time form submission notifications to your Slack channels. Keep your team informed instantly with no manual effort.
-
-= Contact Form 7 Salesforce Integration =
-Our [Salesforce Integration](https://themefic.com/docs/uacf7/pro-addons/salesforce-integration/) connects Contact Form 7 with Salesforce to sync form submissions, contacts, leads, and inquiries with your Salesforce account in real time.
-
-= Contact Form 7 Webhook Integration Pro =
-
-Our [Contact Form 7 Webhook Pro](https://cf7addons.com/preview/pabbly-zapier-webhook-pro/) sends Contact Form 7 submissions to Zapier, Pabbly, Make, CRMs, custom APIs, and any webhook-enabled service. Supports conditional logic, custom payloads, and workflow automation.
+= Webhook Integration Pro for Contact Form 7 =
+Send form data with conditional logic and custom payload headers to Zapier, Pabbly, Make, and external APIs with [Webhook Pro](https://cf7addons.com/preview/pabbly-zapier-webhook-pro/).
 
 **More Pro addons are in development and will be available soon.**
 
@@ -340,12 +278,13 @@ Join our [Facebook group](https://www.facebook.com/groups/ultimate.cf7) to stay 
 
 We provide full support on the WordPress.org forums & [Our Website](https://portal.themefic.com/support/). Check our [Support Policy](https://themefic.com/support-policy/).
 
-### Privacy Policy
+== External services ==
 
-Ultra Addons for Contact Form 7 uses the [Appsero](https://appsero.com/) SDK to collect basic telemetry data only after user consent. This helps us improve product performance, fix issues, and provide a better user experience.
+This plugin connects to external services when enabled by the site administrator:
 
-How can I report security bugs?
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
+* **Telegram Bot API (api.telegram.org):** Validates bot tokens and transmits form submission messages to configured Telegram channels. [Terms](https://telegram.org/tos) | [Privacy](https://telegram.org/privacy)
+* **Mailchimp API (api.mailchimp.com):** Validates API keys, retrieves lists, and subscribes form respondents upon submission. [Terms](https://mailchimp.com/legal/terms/) | [Privacy](https://mailchimp.com/legal/privacy/)
+* **Webhook Endpoints:** Sends submitted form data via HTTP POST to administrator-configured URLs (e.g., Zapier, Pabbly, Make, custom APIs). Subject to destination policies (e.g., [Zapier Privacy](https://zapier.com/privacy)).
 
 
 ###  Our Plugins
@@ -369,68 +308,42 @@ Icons source [Iconfinder](https://www.iconfinder.com").
 1. Download and unzip the plugin. Upload the unzipped folder to the wp-contents/plugins folder of your WordPress installation.
 2. Activate the plugin from the WordPress Plugins administration page OR, Go to the WordPress admin panel, click 'Plugins' -> 'Add new'. In the search input box, type 'Ultra Addons for Contact form 7'.
 3. Install and activate the plugin.
-4. Go through the Quick setup wizard for the basic setup.
+4. Go through the Quick Setup Wizard for the basic setup.
 5. Check our Documentation & YouTube videos for further instructions.
 6. Go to Plugin Settings (Dashboard -> CF7 Addons) and enable the addon you need.
 
 == Frequently Asked Questions ==
 
-= How can I report security bugs? =
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triag,e and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
+= How to create multi-step forms in Contact Form 7? =
+Enable the Multi-Step Form addon to break long forms into sequential steps with progress indicators. [Watch Video](https://www.youtube.com/watch?v=7Ucrx_ttGdM) | [Live Demo](https://cf7addons.com/preview/contact-form-7-multi-step-forms/)
 
-= What is Contact Form 7 =
-Contact Form 7 is a popular and one of the oldest WordPress plugins that enables users to create and manage multiple contact forms on their website.
+= How to set up Conditional Fields in Contact Form 7? =
+Use the Conditional Field addon to dynamically show or hide fields and groups based on user selections. [Live Demo](https://cf7addons.com/preview/contact-form-7-conditional-fields/)
 
-= Why do we need a Contact form 7 add on plugin? =
-Addon plugins for Contact Form 7, like Ultra Addons for Contact Form 7, enhance the core functionalities of wpcf7 by introducing additional features such as multi-step forms, address autocomplete, country dropdowns, range sliders, and more. These addons improve user experience, extend the form's capabilities, and integrate seamlessly with other services, making your forms more powerful and versatile.
+= How to redirect Contact Form 7 to a thank you page or custom URL? =
+Enable the Redirection addon to send users to a thank you page, external link, or set conditional redirects based on inputs. [Watch Video](https://www.youtube.com/watch?v=tvFPdV_afA8) | [Live Demo](https://cf7addons.com/preview/redirection-for-contact-form-7/)
 
-= How to create multi-step forms using Contact Form 7 =
-Discover how to break down your Contact Form 7 into manageable, sequential steps, improving user engagement. Watch our tutorial [here](https://www.youtube.com/watch?v=7Ucrx_ttGdM) and see a live demo [here](https://cf7addons.com/preview/contact-form-7-multi-step-forms/).
+= How to create 2 columns or grid layouts in Contact Form 7? =
+Use the Columns / Grid Layout addon to arrange fields in responsive 2, 3, or custom-width column layouts without custom CSS.
 
-= Do you have a Contact Form 7 multi step addon? =
-Yes! We offer a multi-step addon for both the free and pro versions.
+= How to save Contact Form 7 submissions to the database? =
+The Database addon automatically stores all form inquiries inside your WordPress dashboard and lets you export entries as CSV. [Live Demo](https://cf7addons.com/preview/contact-form-7-database/)
 
-= How to add address autocomplete (Country, City, State, Zip Fields) to Contact Form 7 =
-Simplify user input and enhance accuracy with address autocomplete features. Learn more through our video [here](https://www.youtube.com/watch?v=MqAxH9IotZQ) and experience it live [here](https://cf7addons.com/preview/contact-form-7-autocomplete/).
+= How to add Country Dropdown with Flag and Phone validation? =
+Enable the Country Dropdown addon to display country lists with flags, auto-detect country codes, and autocomplete address fields. [Live Demo](https://cf7addons.com/preview/contact-form-7-country-dropdown/)
 
-= How to add Country Dropdown Field in Contact Form 7 =
-Just install our country & phone field Contact Form 7 addon for a streamlined user experience. Instructional video available [here](https://www.youtube.com/watch?v=jT6Y-c3eXzk) and a live preview [here](https://cf7addons.com/preview/contact-form-7-country-dropdown/).
+= How to integrate Contact Form 7 with Mailchimp or Telegram? =
+Connect Contact Form 7 to Mailchimp API to auto-subscribe leads, or connect Telegram to receive instant form alerts in your channel. [Mailchimp Demo](https://cf7addons.com/preview/contact-form-7-mailchimp/) | [Telegram Demo](https://cf7addons.com/preview/contact-form-7-telegram/)
 
-= How to create Range Slider Fields in Contact Form 7 =
-Introduce dynamic range sliders for user-friendly input options. Check out our guide [here](https://www.youtube.com/watch?v=P8rvkbG5dM8) and see the feature in action [here](https://cf7addons.com/preview/contact-form-7-range-slider/).
+= How to add Repeatable Fields, Star Ratings, or Range Sliders? =
+Simply activate the Repeater, Star Rating, or Range Slider addons from the plugin settings panel to add interactive input fields.
 
-= How to add Contact Form 7 Star Rating with Font Awesome for WordPress =
-Implement star ratings to gather feedback efficiently. Tutorial video [here](https://www.youtube.com/watch?v=Q5AN9lp2HcY) and a live demo [here](https://cf7addons.com/preview/contact-form-7-star-rating/).
+= How can I report security vulnerabilities? =
+You can report security issues through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
 
-= How can I ensure Mailchimp integration with Contact Form 7? =
-Install our Mailchimp addon, and follow the setup instructions provided.
+= How can I report security bugs? = 
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage, and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/ultimate-addons-for-contact-form-7/).
 
-= How can I set Contact Form 7 to redirect to the thank you page? =
-Simply create a thank you page, install our "Redirection" addon, and follow the setup instructions provided.
-
-= How to add a Repeatable Field on Contact Form 7 =
-Enable users to duplicate fields as needed for comprehensive submissions. Learn how [here](https://www.youtube.com/watch?v=nBxLugyJWI8) and view the live example [here](https://cf7addons.com/preview/repeater-field-for-contact-form-7/).
-
-= How can I make my Contact Form 7 2 columns? =
-Simply install our Contact Form 7 Column Addon, and you're all set!
-
-= How to setup redirecting to another URL after submissions - Contact Form 7 =
-Redirect users to a specific page after form submission for a seamless experience. Detailed instructions [here](https://www.youtube.com/watch?v=tvFPdV_afA8) and a live example [here](https://cf7addons.com/preview/redirection-for-contact-form-7/).
-
-= How to configure Conditional Redirection for Contact Form 7 =
-Customize user journeys based on their form inputs for targeted follow-ups. Tutorial [here](https://www.youtube.com/watch?v=oW1aN8de8AM ) and live demo [here](https://cf7addons.com/preview/conditional-redirect-for-contact-form-7/).
-
-= How to connect Contact Form 7 with Mailchimp =
-Automate the addition of form submissions to your Mailchimp lists for efficient email marketing. Step-by-step video [here](https://www.youtube.com/watch?v=S8G4GzmR7oo) and see it live [here](https://cf7addons.com/preview/contact-form-7-mailchimp/).
-
-= How to integrate Contact Form 7 to Telegram =
-Instantly forward form submissions to your Telegram channel for quick access. How-to video [here](https://www.youtube.com/watch?v=noYzo4bZakk) and the live preview [here](https://cf7addons.com/preview/contact-form-7-telegram/).
-
-= Do you offer the Contact Form 7 builder addon? =
-Unfortunately No. We don't have a Contact Form 7 form builder addon.
-
-= Where can I get Contact Form 7 free templates? =
-Just install our plugin, and you'll get access to a variety of free templates!
 
 == Screenshots ==
 
@@ -490,10 +403,11 @@ Just install our plugin, and you'll get access to a variety of free templates!
 
 == Changelog ==
 
-= 3.5.47 - 30/07/2026 =
+= 3.5.48 - 27/08/2026 =
 
-- New Addon.: Webhook Integration Pro with Contact Form 7.
-- Improved: System stability has been improved.
+- Security: Setup wizard authorization and escaped dynamic text shortcodes.
+- Security: Fixed reported authorization issues.
+- Updated: Addressed WordPress.org reported issues.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

@@ -1,5 +1,5 @@
 <?php 
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // // Current url Shortcode
 // if(!function_exists('UACF7_URL')){
@@ -14,26 +14,36 @@
 
 if (!function_exists('UACF7_URL')) {
     function UACF7_URL($val) {
-        $current_url = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $parsed_url = parse_url($current_url);
-        $part = isset($val['part']) ? trim($val['part'], "'") : '';
-        $key = isset($val['key']) ? trim($val['key'], "'") : '';
+        $http_host = isset( $_SERVER['HTTP_HOST'] )
+            ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) )
+            : '';
+        $request_uri = isset( $_SERVER['REQUEST_URI'] )
+            ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+            : '';
 
-        parse_str($parsed_url['query'] ?? '', $query_array);
+        $current_url = 'https://' . $http_host . $request_uri;
+        $parsed_url = wp_parse_url( $current_url );
+        $part = isset( $val['part'] ) ? sanitize_key( trim( wp_unslash( $val['part'] ), "'" ) ) : '';
+        $key = isset( $val['key'] ) ? sanitize_text_field( wp_unslash( trim( $val['key'], "'" ) ) ) : '';
 
-        switch ($part) {
+        $query_array = array();
+        if ( ! empty( $parsed_url['query'] ?? '' ) ) {
+            wp_parse_str( $parsed_url['query'], $query_array );
+        }
+
+        switch ( $part ) {
             case 'host':
                 return esc_html(
-                    sanitize_text_field($parsed_url['host'] ?? '')
+                    sanitize_text_field( $parsed_url['host'] ?? '' )
                 );
             case 'path':
                 return esc_html(
-                    sanitize_text_field($parsed_url['path'] ?? '')
+                    sanitize_text_field( $parsed_url['path'] ?? '' )
                 );
             case 'query':
                 // If a key is provided, return its value
-                if (!empty($key) && isset($query_array[$key])) {
-                    return sanitize_text_field($query_array[$key]);
+                if ( ! empty( $key ) && isset( $query_array[ $key ] ) ) {
+                    return sanitize_text_field( $query_array[ $key ] );
                 }
                 // Otherwise, return full query string
                 $query = http_build_query(
@@ -47,10 +57,10 @@ if (!function_exists('UACF7_URL')) {
 
             default:
                 // Return only base URL (no query string)
-                $scheme = 'https';
-                $host = $parsed_url['host'] ?? $_SERVER['HTTP_HOST'];
+                $scheme = is_ssl() ? 'https' : 'http';
+                $host = $parsed_url['host'] ?? $http_host;
                 $path = $parsed_url['path'] ?? '';
-                return "$scheme://$host$path";
+                return esc_url( $scheme . '://' . $host . $path );
         }
     }
 
@@ -62,11 +72,12 @@ if (!function_exists('UACF7_URL')) {
 if(!function_exists('UACF7_URL_WITH_PERAMETERS')){
   
     function UACF7_URL_WITH_PERAMETERS($val){ 
-        $current = home_url(
-            wp_unslash($_SERVER['REQUEST_URI'])
-        );
+        $request_uri = isset( $_SERVER['REQUEST_URI'] )
+            ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+            : '';
+        $current = home_url( $request_uri );
 
-        return esc_url($current);
+        return esc_url( $current );
     }
 
     add_shortcode('UACF7_URL_WITH_PERAMETERS', 'UACF7_URL_WITH_PERAMETERS'); 
@@ -82,7 +93,7 @@ if(!function_exists('UACF7_BLOGINFO')){
         }else{
             $data = get_bloginfo('name');
         }
-        return $data;
+        return esc_html( $data );
     }
     add_shortcode('UACF7_BLOGINFO', 'UACF7_BLOGINFO');
 
@@ -101,7 +112,11 @@ if(!function_exists('UACF7_POSTINFO')){
         }else{
             $data = $post->post_title;
         }
-        return $data;
+        if ( $val['attr'] == 'post_permalink' ) {
+            return esc_url( $data );
+        }
+
+        return esc_html( $data );
     }
     add_shortcode('UACF7_POSTINFO', 'UACF7_POSTINFO');
 
@@ -120,7 +135,7 @@ if(!function_exists('UACF7_USERINFO')){
                 $data = $current_user->user_nicename;
             } 
         }
-        return $data;
+        return esc_html( $data );
     }
     add_shortcode('UACF7_USERINFO', 'UACF7_USERINFO');
 

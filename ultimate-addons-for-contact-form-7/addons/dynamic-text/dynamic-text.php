@@ -111,11 +111,11 @@ class UACF7_DYNAMIC_TEXT {
 		ob_start();
 
 		?>
-		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
-			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
+		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( esc_attr( $tag->name ) ); ?>"
+			data-name="<?php echo sanitize_html_class( esc_attr( $tag->name ) ); ?>">
 
-			<input id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo $atts; ?>>
-			<span><?php echo $validation_error; ?></span>
+			<input id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo esc_attr( $atts ); ?>>
+			<span><?php echo wp_kses_post( $validation_error ); ?></span>
 		</span>
 		<?php
 
@@ -124,31 +124,38 @@ class UACF7_DYNAMIC_TEXT {
 		return $countries;
 	}
 
-
 	/*
-	 * Form tag Validation 
-	 */
+	* Form tag validation.
+	*/
 	public function uacf7_dynamic_text_validation_filter( $result, $tag ) {
-		$name = $tag->name;
 
-		if ( isset( $_POST[ $name ] )
-			and is_array( $_POST[ $name ] ) ) {
-			foreach ( $_POST[ $name ] as $key => $value ) {
-				if ( '' === $value ) {
-					unset( $_POST[ $name ][ $key ] );
+		$name = $tag->name;
+		$posted_value = null;
+
+		$submission = WPCF7_Submission::get_instance();
+
+		if ( $submission ) {
+			$posted_data = $submission->get_posted_data();
+
+			if ( is_array( $posted_data ) && array_key_exists( $name, $posted_data ) ) {
+				$posted_value = map_deep( $posted_data[ $name ], 'sanitize_text_field' );
+
+				if ( is_array( $posted_value ) ) {
+					$posted_value = array_filter( $posted_value, static function ( $value ) {
+						return '' !== $value;
+					} );
 				}
 			}
 		}
 
-		$empty = ! isset( $_POST[ $name ] ) || empty( $_POST[ $name ] ) && '0' !== $_POST[ $name ];
+		$empty = null === $posted_value || '' === $posted_value || array() === $posted_value;
 
-		if ( $tag->is_required() and $empty ) {
+		if ( $tag->is_required() && $empty ) {
 			$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 		}
 
 		return $result;
 	}
-
 
 	/*
 	 * Generate tag - conditional
@@ -159,7 +166,7 @@ class UACF7_DYNAMIC_TEXT {
 
 		$tag_generator->add(
 			'uacf7_dynamic_text',
-			__( 'Dynamic Text', 'ultimate-addons-cf7' ),
+			__( 'Dynamic Text', 'ultimate-addons-for-contact-form-7' ),
 			[ $this, 'tg_pane_uacf7_dynamic_text' ],
 			array( 'version' => '2' )
 		);
@@ -171,9 +178,9 @@ class UACF7_DYNAMIC_TEXT {
 
 		$field_types = array(
 			'uacf7_dynamic_text' => array(
-				'display_name' => __( 'Dynamic Text', 'ultimate-addons-cf7' ),
-				'heading' => __( 'Generate a Dynamic Text.', 'ultimate-addons-cf7' ),
-				'description' => __( '', 'ultimate-addons-cf7' ),
+				'display_name' => __( 'Dynamic Text', 'ultimate-addons-for-contact-form-7' ),
+				'heading' => __( 'Generate a Dynamic Text.', 'ultimate-addons-for-contact-form-7' ),
+				'description' => '',
 			),
 		);
 
@@ -186,7 +193,7 @@ class UACF7_DYNAMIC_TEXT {
 			?></h3>
 
 			<p><?php
-			$description = wp_kses(
+			echo wp_kses(
 				$field_types['uacf7_dynamic_text']['description'],
 				array(
 					'a' => array( 'href' => true ),
@@ -195,12 +202,12 @@ class UACF7_DYNAMIC_TEXT {
 				array( 'http', 'https' )
 			);
 
-			echo $description;
 			?></p>
 			<div class="uacf7-doc-notice">
 				<?php echo sprintf(
-					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-cf7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/" target="_blank">Dynamic Text</a>'
+					/* Translators: 1: Dynamic Text */
+					esc_html__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-for-contact-form-7' ),
+					'<a href="'.esc_url('https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/').'" target="_blank">' . esc_html__( 'Dynamic Text', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 				); ?>
 			</div>
 
@@ -222,18 +229,18 @@ class UACF7_DYNAMIC_TEXT {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Field Visibility', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Field Visibility', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<select data-tag-part="option" data-tag-option="visibility:">
 					<option value="show">
-						<?php echo esc_html__( 'Show', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Show', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="disabled">
-						<?php echo esc_html__( 'Disabled', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Disabled', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="hidden">
-						<?php echo esc_html__( 'Hidden', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Hidden', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 				</select>
 
@@ -241,7 +248,7 @@ class UACF7_DYNAMIC_TEXT {
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Choose Field', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Choose Field', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 
 				<input
@@ -255,44 +262,44 @@ class UACF7_DYNAMIC_TEXT {
 
 				<datalist id="uacf7-field-options">
 					<option value="UACF7_URL">
-						<?php echo esc_html__( 'Current URL', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Current URL', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="UACF7_URL part=host">
-						<?php echo esc_html__('Current URL Host (Domain)', 'ultimate-addons-cf7'); ?>
+						<?php echo esc_html__('Current URL Host (Domain)', 'ultimate-addons-for-contact-form-7'); ?>
 					</option>
 					<option value="UACF7_URL part=query">
-						<?php echo esc_html__('Current URL Query String', 'ultimate-addons-cf7'); ?>
+						<?php echo esc_html__('Current URL Query String', 'ultimate-addons-for-contact-form-7'); ?>
 					</option>
 					<option value="UACF7_URL part=path">
-						<?php echo esc_html__('Current URL Path', 'ultimate-addons-cf7'); ?>
+						<?php echo esc_html__('Current URL Path', 'ultimate-addons-for-contact-form-7'); ?>
 					</option>
 					<option value="UACF7_URL_WITH_PERAMETERS">
-						<?php echo esc_html__( 'Current URL with Perameters', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Current URL with Perameters', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="UACF7_BLOGINFO">
-						<?php echo esc_html__( 'Blog Info', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Blog Info', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="UACF7_POSTINFO">
-						<?php echo esc_html__( 'Current post info', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Current post info', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="UACF7_USERINFO">
-						<?php echo esc_html__( 'Current User info', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Current User info', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 					<option value="UACF7_CUSTOM_FIELDS">
-						<?php echo esc_html__( 'Custom fields', 'ultimate-addons-cf7' ); ?>
+						<?php echo esc_html__( 'Custom fields', 'ultimate-addons-for-contact-form-7' ); ?>
 					</option>
 				</datalist>
 			</fieldset>
 
 			<fieldset id="uacf7-dynamic-arg-fieldset" style="display:none;">
-				<legend><?php echo esc_html__( 'Dynamic Arg', 'ultimate-addons-cf7' ); ?></legend>
+				<legend><?php echo esc_html__( 'Dynamic Arg', 'ultimate-addons-for-contact-form-7' ); ?></legend>
 				<input type="text" id="uacf7-dynamic-arg" placeholder="e.g. ref" />
 				<input type="hidden" id="uacf7-dynamic-arg-hidden" data-tag-part="value" />
 			</fieldset>
 
 			<fieldset>
 				<legend>
-					<?php echo esc_html__( 'Dynamic key', 'ultimate-addons-cf7' ); ?>
+					<?php echo esc_html__( 'Dynamic key', 'ultimate-addons-for-contact-form-7' ); ?>
 				</legend>
 				<input type="text" data-tag-part="option" data-tag-option="key:" placeholder="Dynamic key" >			
 			</fieldset>

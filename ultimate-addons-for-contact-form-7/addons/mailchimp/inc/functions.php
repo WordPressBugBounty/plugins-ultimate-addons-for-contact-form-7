@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
  if(!function_exists('uacf7_mailchimp_api_status_callback')){
     function uacf7_mailchimp_api_status_callback($status){
         echo '<div class="tf-field-notice-inner tf-notice-info">';
-        echo $status;
+        echo wp_kses_post( $status );
         echo '</div>';
     }
  } 
