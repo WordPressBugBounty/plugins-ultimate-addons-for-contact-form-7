@@ -296,7 +296,7 @@ class UACF7_SPAM_PROTECTION {
 		?>
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
-			<div class="uacf7_spam_recognation" <?php echo esc_attr( $atts ); ?>>
+			<div class="uacf7_spam_recognation" <?php echo wp_kses_post( $atts ); ?>>
 				<?php if ( isset( $uacf7_spam_protection['uacf7_spam_protection_type'] ) && $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) { ?>
 					<div id="arithmathic_recognation">
 						<div id="arithmetic_input_holder">

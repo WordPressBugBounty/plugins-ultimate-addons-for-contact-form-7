@@ -27,8 +27,8 @@ class UACF7_SIGNATURE {
 
 	public function uacf7_signature_public_scripts() {
 
-		wp_enqueue_script( 'uacf7-signature-public-assets', UACF7_URL . 'addons/signature/assets/public/js/signature.js', [ 'jquery' ], 'UACF7_VERSION', true );
-		wp_enqueue_script( 'uacf7-sign-lib.min', UACF7_URL . 'addons/signature/assets/public/js/sign-lib.min.js', [ 'jquery' ], 'UACF7_VERSION', true );
+		wp_enqueue_script( 'uacf7-signature-public-assets', UACF7_URL . 'addons/signature/assets/public/js/signature.js', [ 'jquery' ], UACF7_VERSION, true );
+		wp_enqueue_script( 'uacf7-sign-lib.min', UACF7_URL . 'addons/signature/assets/public/js/sign-lib.min.js', [ 'jquery' ], UACF7_VERSION, true );
 
 
 		wp_localize_script( 'uacf7-signature-public-assets', 'uacf7_sign_obj', [ 

@@ -26,10 +26,10 @@ class UACF7_MAILCHIMP {
 	 * Enqueue script Backend
 	 */
 	public function wp_enqueue_admin_script() {
-		wp_enqueue_script( 'mailchimp_admin', UACF7_ADDONS . '/mailchimp/assets/js/mailchimp_admin.js', array( 'jquery' ), UACF7_VERSION, true );
+		wp_enqueue_script( 'uacf7-mailchimp_admin', UACF7_ADDONS . '/mailchimp/assets/js/mailchimp_admin.js', array( 'jquery' ), UACF7_VERSION, true );
 		wp_localize_script(
-			'mailchimp_admin',
-			'mailchimp_peram',
+			'uacf7-mailchimp_admin',
+			'uacf7_mailchimp_peram',
 			array(
 				'admin_url' => get_admin_url() . 'admin.php',
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -54,12 +54,12 @@ class UACF7_MAILCHIMP {
 		}
 
 		// Check if POST data is set and not empty
-		if ( empty( $_POST['inputKey'] ) ) {
+		$input_key = isset( $_POST['inputKey'] ) ? sanitize_text_field( wp_unslash( $_POST['inputKey'] ) ) : '';
+		if ( empty( $input_key ) ) {
 			wp_send_json_error( 'No API key provided.' );
 			wp_die(); // Terminate execution
 		}
 
-		$input_key = isset( $_POST['inputKey'] ) ? sanitize_text_field( wp_unslash( $_POST['inputKey'] ) ) : '';
 		$api_key = '';
 		if ( $input_key ) {
 			$api_key = $input_key;
@@ -74,9 +74,6 @@ class UACF7_MAILCHIMP {
 			if ( $response !== null ) {
 				$status .= '<span class="status-title"><strong>' . esc_html__( 'Status: ', 'ultimate-addons-for-contact-form-7' ) . '</strong>';
 
-				if ( $this->is_internet_connected() == false ) { //Checking internet connection
-					$status .= '<span class="status-error">' . esc_html__( 'Can\'t connect to the server. Please check internet connection.', 'ultimate-addons-for-contact-form-7' ) . '</span>';
-				}
 
 				if ( isset( $response->health_status ) ) { //Display success message
 					$status .= '<span class="status-success">' . esc_html( $response->health_status, 'ultimate-addons-for-contact-form-7' ) . '</span>';
@@ -327,23 +324,6 @@ class UACF7_MAILCHIMP {
 		return $value;
 	}
 
-	/* Check Internet connection */
-	public static function is_internet_connected() {
-		$response = wp_remote_get(
-			'https://www.google.com/',
-			array(
-				'timeout' => 3,
-				'sslverify' => false,
-			)
-		);
-
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-
-		$response_code = wp_remote_retrieve_response_code( $response );
-		return ( $response_code >= 200 && $response_code < 500 );
-	}
 
 	/* Get mailchimp api key */
 	public function get_api_key() {
@@ -419,10 +399,6 @@ class UACF7_MAILCHIMP {
 			$response = json_decode( $response );
 
 			$status .= '<span class="status-title"><strong>' . esc_html__( 'Status: ', 'ultimate-addons-for-contact-form-7' ) . '</strong>';
-
-			if ( $this->is_internet_connected() == false ) { //Checking internet connection
-				$status .= '<span class="status-error">' . esc_html__( 'Can\'t connect to the server. Please check internet connection.', 'ultimate-addons-for-contact-form-7' ) . '</span>';
-			}
 
 			if ( isset( $response->health_status ) ) { //Display success message
 				$status .= '<span class="status-success">' . esc_html( $response->health_status, 'ultimate-addons-for-contact-form-7' ) . '</span>';

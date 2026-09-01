@@ -46,7 +46,7 @@ class UACF7_Redirection {
         wp_localize_script( 'uacf7-redirect-script', 'uacf7_redirect_enable', $this->uacf7_redirect_enable() );
         
 		if ( isset( $this->enqueue_new_tab_script ) && $this->enqueue_new_tab_script ) {
-			wp_add_inline_script( 'wpcf7-redirect-script', 'window.open("' . $this->redirect_url . '");' );
+			wp_add_inline_script( 'uacf7-redirect-script', 'window.open("' . esc_url( $this->redirect_url ) . '");' );
 		}
     }
  

@@ -43,7 +43,7 @@ if (!function_exists('UACF7_URL')) {
             case 'query':
                 // If a key is provided, return its value
                 if ( ! empty( $key ) && isset( $query_array[ $key ] ) ) {
-                    return sanitize_text_field( $query_array[ $key ] );
+                    return esc_html( sanitize_text_field( $query_array[ $key ] ) );
                 }
                 // Otherwise, return full query string
                 $query = http_build_query(
@@ -88,11 +88,8 @@ if(!function_exists('UACF7_URL_WITH_PERAMETERS')){
 // Blog Info Shortcode
 if(!function_exists('UACF7_BLOGINFO')){
     function UACF7_BLOGINFO($val){ 
-        if(!empty($val['attr'])){ 
-           $data =  get_bloginfo($val['attr']); 
-        }else{
-            $data = get_bloginfo('name');
-        }
+        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? $val['attr'] : 'name';
+        $data = get_bloginfo( $attr );
         return esc_html( $data );
     }
     add_shortcode('UACF7_BLOGINFO', 'UACF7_BLOGINFO');
@@ -102,17 +99,25 @@ if(!function_exists('UACF7_BLOGINFO')){
 // POST iNFO Info Shortcode
 if(!function_exists('UACF7_POSTINFO')){
     function UACF7_POSTINFO($val){ 
-        global $post; 
+        global $post;
         $data = '';
-        if($val['attr'] == 'post_permalink'){
-            $data = get_permalink($post->ID);
-        }elseif(!empty($val['attr'])){ 
-            $post_attr = $val['attr'];
-            $data =  $post->$post_attr;
-        }else{
+
+        if ( ! $post ) {
+            return '';
+        }
+
+        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? $val['attr'] : '';
+
+        if ( $attr === 'post_permalink' ) {
+            $data = get_permalink( $post->ID );
+        } elseif ( ! empty( $attr ) ) {
+            $post_attr = $attr;
+            $data = $post->$post_attr;
+        } else {
             $data = $post->post_title;
         }
-        if ( $val['attr'] == 'post_permalink' ) {
+
+        if ( $attr === 'post_permalink' ) {
             return esc_url( $data );
         }
 

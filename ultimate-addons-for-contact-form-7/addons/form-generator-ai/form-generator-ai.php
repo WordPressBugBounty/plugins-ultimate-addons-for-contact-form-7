@@ -133,6 +133,10 @@ class UACF7_FORM_GENERATOR {
 	}
 
 	public function uacf7_form_generator_ai_get_tag() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'ultimate-addons-for-contact-form-7' ), 403 );
+		}
+
 		$ajax_nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
 		if ( empty( $ajax_nonce ) || ! wp_verify_nonce( $ajax_nonce, 'uacf7-form-generator-ai-nonce' ) ) {
 			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
@@ -207,12 +211,16 @@ class UACF7_FORM_GENERATOR {
 		];
 
 		wp_send_json( $data );
-		die();
+		wp_die();
 
 	}
 
 	// Ai form Get Tag Ajax Function
 	public function uacf7_form_generator_ai() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'ultimate-addons-for-contact-form-7' ), 403 );
+		}
+
 		$ajax_nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
 		if ( empty( $ajax_nonce ) || ! wp_verify_nonce( $ajax_nonce, 'uacf7-form-generator-ai-nonce' ) ) {
 			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );

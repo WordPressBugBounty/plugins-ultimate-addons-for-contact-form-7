@@ -5,7 +5,7 @@
       e.preventDefault();
       var id = $('#form-id').val();
       if (id != 0 && id != '') {
-        var url = database_admin_url.admin_url + '?page=ultimate-addons-db&form_id=' + id;
+        var url = uacf7_database_admin_url.admin_url + '?page=ultimate-addons-db&form_id=' + id;
         window.location.href = url;
       } else {
         alert('Please select a form first');
@@ -22,11 +22,11 @@
       var form_id = window.location.search.split('form_id=')[1];
       $this.append('...');
       $.ajax({
-        url: database_admin_url.ajaxurl,
+        url: uacf7_database_admin_url.ajaxurl,
         type: 'post',
         data: {
           action: 'uacf7_ajax_database_export_csv',
-          ajax_nonce: database_admin_url.nonce,
+          ajax_nonce: uacf7_database_admin_url.nonce,
           form_id: form_id,
         },
         success: function (response) {
@@ -58,13 +58,13 @@
       e.preventDefault();
       var $this = $(this);
       var id = $(this).data("id");
-      $this.html('<img src="' + database_admin_url.plugin_dir_url + 'assets/images/loader.gif" alt="">');
+      $this.html('<img src="' + uacf7_database_admin_url.plugin_dir_url + 'assets/images/loader.gif" alt="">');
       $.ajax({
-        url: database_admin_url.ajaxurl,
+        url: uacf7_database_admin_url.ajaxurl,
         type: 'post',
         data: {
           action: 'uacf7_ajax_database_popup',
-          ajax_nonce: database_admin_url.nonce,
+          ajax_nonce: uacf7_database_admin_url.nonce,
           id: id,
         },
         success: function (data) {

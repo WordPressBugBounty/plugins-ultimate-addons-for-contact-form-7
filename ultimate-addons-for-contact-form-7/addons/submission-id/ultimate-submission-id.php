@@ -134,9 +134,9 @@ class UACF7_SUBMISSION_ID {
 	/** Starts Loading Essential JS & CSS */
 	public function submission_id_public_assets_loading() {
 
-		wp_enqueue_script( 'submission_id_public_js', UACF7_URL . 'addons/submission-id/assets/public/js/public-submission-id.js', [ 'jquery' ], 'WPCF7_VERSION', true );
-		wp_enqueue_style( 'submission_id_public_css', UACF7_URL . 'addons/submission-id/assets/public/css/public-submission-id.css', [], 'UAFC7_VERSION', true, 'all' );
-		wp_localize_script( 'submission_id_public_js', 'submission_id_obj', [ 
+		wp_enqueue_script( 'uacf7_submission_id_public_js', UACF7_URL . 'addons/submission-id/assets/public/js/public-submission-id.js', [ 'jquery' ], UACF7_VERSION, true );
+		wp_enqueue_style( 'uacf7_submission_id_public_css', UACF7_URL . 'addons/submission-id/assets/public/css/public-submission-id.css', [], UACF7_VERSION , 'all' );
+		wp_localize_script( 'uacf7_submission_id_public_js', 'uacf7_submission_id_obj', [ 
 			"ajaxurl" => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'uacf7-submission-id-nonce' ),
 
@@ -348,7 +348,7 @@ class UACF7_SUBMISSION_ID {
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 
-			<input hidden id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo esc_attr( $atts ); ?>>
+			<input hidden id="uacf7_<?php echo esc_attr( $tag->name ); ?>" <?php echo wp_kses_post( $atts ); ?>>
 			<span><?php echo wp_kses_post( $validation_error ); ?></span>
 		</span>
 

@@ -14,16 +14,19 @@ class UACF7_DBMigrator {
 	public function uacf7dp_check_free_db() {
 		global $wpdb;
 		$uacf7_db = $wpdb;
-		$Saved_form_data = $uacf7_db->get_results( "SELECT * FROM " . $uacf7_db->prefix . "uacf7_form" );
+		$uacf7_form_table = $uacf7_db->prefix . 'uacf7_form';
+		$Saved_form_data = $uacf7_db->get_results( $uacf7_db->prepare( 'SELECT * FROM %i', $uacf7_form_table ) );
 		$ExtraFields = [];
 
 		if ( ! empty( $Saved_form_data ) ) {
 
 			// Delete all data from wp_uacf7dp_data
-			$uacf7_db->query( "TRUNCATE TABLE {$uacf7_db->prefix}uacf7dp_data" );
+			$uacf7_data_table = $uacf7_db->prefix . 'uacf7dp_data';
+			$uacf7_db->query( $uacf7_db->prepare( 'TRUNCATE TABLE %i', $uacf7_data_table ) );
 
 			// Delete all data from wp_uacf7dp_data_entry
-			$uacf7_db->query( "TRUNCATE TABLE {$uacf7_db->prefix}uacf7dp_data_entry" );
+			$uacf7_data_entry_table = $uacf7_db->prefix . 'uacf7dp_data_entry';
+			$uacf7_db->query( $uacf7_db->prepare( 'TRUNCATE TABLE %i', $uacf7_data_entry_table ) );
 
 			$getting_old_from_entrys = [];
 

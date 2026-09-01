@@ -149,7 +149,7 @@
         }
         // console.log(uacf7_current_step_fields);
         var data = fields_to_check_serialized +
-            '&' + 'action=' + 'check_fields_validation' +
+            '&' + 'action=' + 'uacf7_check_fields_validation' +
             '&' + 'form_id=' + form_id +
             '&' + 'validation_fields=' + validation_fields +
             '&' + 'current_fields_to_check=' + uacf7_current_step_fields +

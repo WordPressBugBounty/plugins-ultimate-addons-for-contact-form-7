@@ -58,19 +58,19 @@ class UACF7_PDF_GENERATOR {
 		}
 
 		wp_enqueue_script(
-			'pdf-generator-admin',
+			'uacf7-pdf-generator-admin',
 			UACF7_ADDONS . '/pdf-generator/assets/js/pdf-generator-admin.js',
 			array( 'jquery' ),
 			'1.0.0',
 			true
 		);
 
-		$pdf_settings = array();
-		$pdf_settings['codeEditor'] = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
-		$pdf_settings['ajaxurl']    = admin_url( 'admin-ajax.php' );
-		$pdf_settings['nonce']      = wp_create_nonce( 'uacf7-pdf-generator' );
+		$uacf7_pdf_settings = array();
+		$uacf7_pdf_settings['codeEditor'] = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
+		$uacf7_pdf_settings['ajaxurl']    = admin_url( 'admin-ajax.php' );
+		$uacf7_pdf_settings['nonce']      = wp_create_nonce( 'uacf7-pdf-generator' );
 
-		wp_localize_script( 'pdf-generator-admin', 'pdf_settings', $pdf_settings );
+		wp_localize_script( 'uacf7-pdf-generator-admin', 'uacf7_pdf_settings', $uacf7_pdf_settings );
 	}
 
 
@@ -330,8 +330,8 @@ class UACF7_PDF_GENERATOR {
 			wp_send_json_error( 'Unauthorized', 403 );
 		}
 
-		if ( empty( $_POST['ajax_nonce'] ) || 
-			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ), 'uacf7-pdf-generator' ) ) {
+		$ajax_nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
+		if ( empty( $ajax_nonce ) || ! wp_verify_nonce( $ajax_nonce, 'uacf7-pdf-generator' ) ) {
 
 			wp_send_json_error( 'Security check failed', 403 );
 		}
@@ -637,6 +637,12 @@ class UACF7_PDF_GENERATOR {
 				wp_mkdir_p( $uacf7_dirname );
 			}
 
+			global $wp_filesystem;
+			if ( empty( $wp_filesystem ) ) {
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+				WP_Filesystem();
+			}
+
 			foreach ( array_keys( $files ) as $file_key ) {
 				$uploaded_files[] = $file_key;
 			}
@@ -813,10 +819,33 @@ class UACF7_PDF_GENERATOR {
 						$file = is_array( $file ) ? reset( $file ) : $file;
 
 						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . sanitize_file_name( basename( $file ) );
-						copy( $file, $dir . $dir_link );
+						$destination_path = $dir . $dir_link;
+
+						// Prefer WordPress filesystem methods for managed uploads; PHP copy() is kept only as a fallback
+						// when WP_Filesystem is unavailable for direct temp or remote paths.
+						if ( ! function_exists( 'WP_Filesystem' ) ) {
+							require_once ABSPATH . 'wp-admin/includes/file.php';
+						}
+
+						$copy_success = false;
+
+						if ( WP_Filesystem() ) {
+							global $wp_filesystem;
+							if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
+								$copy_success = $wp_filesystem->copy( $file, $destination_path, true, FS_CHMOD_FILE );
+							}
+						}
+
+						if ( ! $copy_success && file_exists( $file ) ) {
+							$copy_success = copy( $file, $destination_path );
+						}
+
+						if ( ! $copy_success ) {
+							continue;
+						}
 
 						$file_url  = $upload_dir['baseurl'] . $dir_link;
-						$file_path = $dir . $dir_link;
+						$file_path = $destination_path;
 
 						$replace_key[] = '[' . $file_key . ']';
 

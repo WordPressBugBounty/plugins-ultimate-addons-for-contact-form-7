@@ -93,12 +93,12 @@ if ( ! function_exists( 'uacf7_addons_included' ) ) {
 			require_once ( 'form-generator-ai/form-generator-ai.php' );
 		} else {
 			$uacf7_options = get_option( 'uacf7_settings' );
-			$update_form_generator_ai = get_option( 'update_form_generator_ai' );
-			if ( ! isset( $uacf7_options['uacf7_enable_form_generator_ai_field'] ) && $update_form_generator_ai == false ) {
+			$uacf7_update_form_generator_ai = get_option( 'uacf7_update_form_generator_ai' );
+			if ( ! isset( $uacf7_options['uacf7_enable_form_generator_ai_field'] ) && $uacf7_update_form_generator_ai == false ) {
 				$uacf7_options['uacf7_enable_form_generator_ai_field'] = 1;
 
 				update_option( 'uacf7_settings', $uacf7_options );
-				update_option( 'update_form_generator_ai', 1 );
+				update_option( 'uacf7_update_form_generator_ai', 1 );
 			}
 
 		}

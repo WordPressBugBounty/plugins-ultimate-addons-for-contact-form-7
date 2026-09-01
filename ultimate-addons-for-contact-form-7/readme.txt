@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.48
+Stable tag: 3.5.49
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 👉 Buy Pro Version: [Click Here](https://cf7addons.com/pricing/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=pro_link)
 👉 Get Support: [Click Here](https://portal.themefic.com/support/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_support)
 👉 Video Guide on [YouTube](https://www.youtube.com/playlist?list=PLY0rtvOwg0ylGspzo7TcT-8x0FH_O5XVV)
-👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
+👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started-uacf7/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
 Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website's contact forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
@@ -233,7 +233,7 @@ Advanced dashboard for filtering, organizing, searching, and managing saved form
 Add GDPR consent acceptance checkboxes and map custom audience fields with [Mailchimp Pro](https://cf7addons.com/preview/mailchimp-pro-for-contact-form-7/).
 
 = Contact Form 7 Submission Preview =
-Let visitors review, verify, and edit their submitted answers before final submission with [Form Submission Preview](https://cf7addons.com/preview/form-preview-submission/).
+Let visitors review, verify, and edit their submitted answers before final submission with [Form Submission Preview](https://cf7addons.com/preview/contact-form-7-preview-before-submit/).
 
 = Save Progress & Continue Later =
 Allow visitors to save partial form progress and resume filling later from any device with [Save and Continue Later](https://cf7addons.com/preview/save-and-continue/).
@@ -272,7 +272,7 @@ Send form data with conditional logic and custom payload headers to Zapier, Pabb
 
 ### Join our Community to stay updated
 
-Join our [Facebook group](https://www.facebook.com/groups/ultimate.cf7) to stay informed with the latest news and updates about Tourfic.
+Join our [Facebook group](https://www.facebook.com/groups/ultimate.cf7) to stay informed with the latest news and updates about Ultra Addons for Contact Form 7.
 
 ### Our Support
 
@@ -285,7 +285,6 @@ This plugin connects to external services when enabled by the site administrator
 * **Telegram Bot API (api.telegram.org):** Validates bot tokens and transmits form submission messages to configured Telegram channels. [Terms](https://telegram.org/tos) | [Privacy](https://telegram.org/privacy)
 * **Mailchimp API (api.mailchimp.com):** Validates API keys, retrieves lists, and subscribes form respondents upon submission. [Terms](https://mailchimp.com/legal/terms/) | [Privacy](https://mailchimp.com/legal/privacy/)
 * **Webhook Endpoints:** Sends submitted form data via HTTP POST to administrator-configured URLs (e.g., Zapier, Pabbly, Make, custom APIs). Subject to destination policies (e.g., [Zapier Privacy](https://zapier.com/privacy)).
-
 
 ###  Our Plugins
 
@@ -301,7 +300,7 @@ This plugin connects to external services when enabled by the site administrator
 
 = Credits =
 
-Icons source [Iconfinder](https://www.iconfinder.com").
+Icons source [Iconfinder](https://www.iconfinder.com).
 
 == Installation ==
 
@@ -403,8 +402,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 3.5.48 - 27/08/2026 =
+= 3.5.49 - 01/09/2026 =
+- Security: Improved sanitization and overall security.
+- Updated: Addressed reported WordPress.org issues.
 
+= 3.5.48 - 27/08/2026 =
 - Security: Setup wizard authorization and escaped dynamic text shortcodes.
 - Security: Fixed reported authorization issues.
 - Updated: Addressed WordPress.org reported issues.

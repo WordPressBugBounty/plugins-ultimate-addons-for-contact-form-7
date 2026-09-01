@@ -105,11 +105,13 @@ class UACF7_SUBMISSION_ID_PANEL {
 			return;
 		}
 
-		$uacf7_db->query(
+		$alter_query = $uacf7_db->prepare(
 			"ALTER TABLE `{$uacf7_db->prefix}uacf7_form`
 			MODIFY COLUMN form_date DATETIME NULL,
 			ADD submission_id BIGINT(20) DEFAULT 0 NULL AFTER form_value"
 		);
+
+		$uacf7_db->query( $alter_query );
 	}
 
 }

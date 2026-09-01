@@ -41,14 +41,15 @@
 
         $(document).ready(function () {
             $(".tf-field-code-editor").each(function () {
-                if (typeof CodeMirror !== 'function') { return; }
-                // console.log("working");
-                // return false;
-                var $this =
-                    $(this),
+                var $this = $(this),
                     $textarea = $this.find('textarea'),
                     $inited = $this.find('.CodeMirror'),
-                    data_editor = $textarea.data('editor');
+                    data_editor = $textarea.data('editor'),
+                    editor_id = $textarea.attr('id');
+
+                if (!$textarea.length || !editor_id || typeof wp === 'undefined' || !wp.codeEditor || typeof wp.codeEditor.initialize !== 'function') {
+                    return;
+                }
 
                 if ($inited.length) {
                     $inited.remove();
@@ -56,38 +57,18 @@
 
                 var interval = setInterval(function () {
                     if ($this.is(':visible')) {
+                        var settings = data_editor || {};
+                        var code_editor = wp.codeEditor.initialize(editor_id, settings);
 
-                        var code_editor = CodeMirror.fromTextArea($textarea[0], data_editor);
-                        // load code-mirror theme css.
-                        if (data_editor.theme !== 'default' && TF.vars.code_themes.indexOf(data_editor.theme) === -1) {
-
-                            var $cssLink = $('<link>');
-
-                            $('#tf-codemirror-css').after($cssLink);
-
-                            $cssLink.attr({
-                                rel: 'stylesheet',
-                                id: 'tf-codemirror-' + data_editor.theme + '-css',
-                                href: data_editor.cdnURL + '/theme/' + data_editor.theme + '.min.css',
-                                type: 'text/css',
-                                media: 'all'
+                        if (code_editor && code_editor.codemirror) {
+                            code_editor.codemirror.on('change', function () {
+                                $textarea.val(code_editor.codemirror.getValue()).trigger('change');
                             });
-
-                            TF.vars.code_themes.push(data_editor.theme);
-
                         }
 
-                        CodeMirror.modeURL = data_editor.cdnURL + '/mode/%N/%N.min.js';
-                        CodeMirror.autoLoadMode(code_editor, data_editor.mode);
-
-                        code_editor.on('change', function (editor, event) {
-                            $textarea.val(code_editor.getValue()).trigger('change');
-                        });
-
                         clearInterval(interval);
-
                     }
-                });
+                }, 100);
             });
         });
 

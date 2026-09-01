@@ -38,8 +38,8 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 			//ajax save options
 			add_action( 'wp_ajax_uacf7_options_save', array( $this, 'uacf7_ajax_save_options' ) );
 			
-			add_action('wp_ajax_uacf7_themefic_manage_plugin', array( $this, 'uacf7_themefic_manage_plugin' ) );
 		}
+
 
 		public static function option( $key, $params = array() ) {
 			return new self( $key, $params );
@@ -767,12 +767,9 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 				return;
 			}
 
-			//  Checked Currenct can save option
-			$current_user = wp_get_current_user();
-			$current_user_role = $current_user->roles[0];
-
-			if ( $current_user_role !== 'administrator' && ! is_admin() ) {
-				wp_die( 'You do not have sufficient permissions to access this page.' );
+			// Check the capability required to save plugin settings.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'ultimate-addons-for-contact-form-7' ) );
 			}
 
 			$option = get_option( $this->option_id );
@@ -783,11 +780,13 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 
 			if ( isset( $imported_data_json ) && ! empty( $imported_data_json ) ) {
 
-				$tf_import_option =  json_decode( trim( $imported_data_json ), true );
+				$tf_import_option = json_decode( trim( $imported_data_json ), true );
 
-				// $option_request = !empty($tf_import_option) && is_array($tf_import_option) ? $tf_import_option : $option_request;
-				update_option( $this->option_id, $tf_import_option );
-				return;
+				if ( is_array( $tf_import_option ) ) {
+					$tf_import_option = map_deep( $tf_import_option, 'sanitize_text_field' );
+					update_option( $this->option_id, $tf_import_option );
+					return;
+				}
 			}
 
 			if ( $option && $option_request ) {
@@ -933,6 +932,10 @@ if ( ! class_exists( 'UACF7_Settings' ) ) {
 		 * @author Foysal
 		 */
 		public function uacf7_ajax_save_options() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( __( 'You do not have permission to perform this action.', 'ultimate-addons-for-contact-form-7' ), 403 );
+			}
+
 			$response = [ 
 				'status' => 'error',
 				'message' => __( 'Something went wrong!', 'ultimate-addons-for-contact-form-7' ),

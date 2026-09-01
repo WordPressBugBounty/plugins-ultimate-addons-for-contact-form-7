@@ -62,12 +62,12 @@
             var form_id = form.find('input[name="_wpcf7"]').val();
 
             jQuery.ajax({
-                url: pre_populate_url.ajaxurl,
+                url: uacf7_pre_populate_url.ajaxurl,
                 type: 'post',
                 data: {
                     action: 'uacf7_ajax_pre_populate_redirect',
                     form_id: form_id,
-                    ajax_nonce: pre_populate_url.nonce,
+                    ajax_nonce: uacf7_pre_populate_url.nonce,
                 },
                 success: function (data) {
                     if (data !== false) {

@@ -34,7 +34,7 @@ if ( ! class_exists( 'UACF7_Setup_Wizard' ) ) {
 			add_action( 'wp_ajax_uacf7_form_quick_create_form', [ $this, 'uacf7_form_quick_create_form' ] );
 			add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
 			if ( ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
-				add_action( 'wp_ajax_contact_form_7_ajax_install_plugin', 'wp_ajax_install_plugin' );
+				add_action( 'wp_ajax_uacf7_ajax_install_cf7_plugin', 'wp_ajax_install_plugin' );
 			}
 
 			// Validate any wizard step requested from the URL before it is consumed.

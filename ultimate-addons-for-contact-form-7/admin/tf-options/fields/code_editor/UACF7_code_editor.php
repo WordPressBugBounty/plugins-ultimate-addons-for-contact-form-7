@@ -6,6 +6,7 @@ if ( ! class_exists( 'UACF7_code_editor' ) ) {
 	class UACF7_code_editor extends UACF7_Fields {
 
 		public $version = '5.65.15';
+		public $editor_settings = false;
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '', $section_key = '' ) {
 			parent::__construct( $field, $value, $settings_id, $parent_field, $section_key );
@@ -22,10 +23,20 @@ if ( ! class_exists( 'UACF7_code_editor' ) ) {
 
 			$settings = ( ! empty( $this->field['settings'] ) ) ? $this->field['settings'] : array();
 			$settings = wp_parse_args( $settings, $default_settings );
+
+			$editor_settings = is_array( $this->editor_settings ) ? $this->editor_settings : array();
+			$editor_codemirror = isset( $editor_settings['codemirror'] ) && is_array( $editor_settings['codemirror'] )
+				? $editor_settings['codemirror']
+				: array();
+
+			$editor_codemirror = array_merge( $editor_codemirror, $settings );
+			$editor_settings['codemirror'] = $editor_codemirror;
+
+			$editor_id = wp_unique_id( 'uacf7-code-editor-' );
 			?>
 			<div class="tf-field-textarea tf-field-code-editor">
 				<?php
-					echo '<textarea name="' . esc_attr( $this->field_name() ) . '"' . esc_attr( $this->field_attributes() ) . ' data-editor="' . esc_attr( json_encode( $settings ) ) . '">' . wp_kses_post( $this->value ) . '</textarea>';
+					echo '<textarea id="' . esc_attr( $editor_id ) . '" name="' . esc_attr( $this->field_name() ) . '"' . esc_attr( $this->field_attributes() ) . ' data-editor="' . esc_attr( wp_json_encode( $editor_settings ) ) . '">' . esc_textarea( $this->value ) . '</textarea>';
 				?>
 			</div>
 			<?php
@@ -35,29 +46,45 @@ if ( ! class_exists( 'UACF7_code_editor' ) ) {
 			$page = filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW );
 			$page = is_string( $page ) ? sanitize_key( $page ) : '';
 
-			// Do not loads CodeMirror in revslider page.
-			if ( in_array( $page, array( 'revslider' ) ) ) { return; }
-
-			$code = UACF7_URL . 'assets/admin/libs/codemirror/';
-
-			if ( ! wp_script_is( 'tf-code' ) ) {
-				wp_enqueue_script( 'tf-code', $code . 'code.min.js', array(), $this->version, true );
-				wp_enqueue_script( 'tf-code-loadmode', $code . 'loadmode.min.js', array( 'tf-code' ), $this->version, true );
-        		wp_enqueue_script( 'tf-code-mode-css', $code . 'mode/css.min.js', array(), $this->version, true );
+			// Do not load the code editor on the RevSlider page.
+			if ( in_array( $page, array( 'revslider' ), true ) ) {
+				return;
 			}
 
-			if ( ! wp_style_is( 'tf-code' ) ) {
-				wp_enqueue_style( 'tf-code', $code . 'code.min.css', array(), $this->version );
-			}
-      
-			if ( ! wp_style_is( 'tf-code-theme-monokai' ) ) {
-				wp_enqueue_style( 'tf-code-theme-monokai', UACF7_URL . 'assets/admin/libs/codemirror/monokai.css', array( 'tf-code' ), $this->version );
+			if ( ! function_exists( 'wp_enqueue_code_editor' ) ) {
+				return;
 			}
 
+			$this->editor_settings = wp_enqueue_code_editor(
+				array(
+					'type'       => 'text/css',
+					'codemirror' => array(
+						'indentUnit'       => 2,
+						'tabSize'          => 2,
+						'lineNumbers'      => true,
+						'lineWrapping'     => true,
+						'autoCloseBrackets' => true,
+						'matchBrackets'    => true,
+						'theme'            => 'monokai',
+						'mode'             => 'text/css',
+					),
+				)
+			);
+
+			if ( false === $this->editor_settings ) {
+				return;
+			}
+
+			wp_enqueue_style(
+				'uacf7-code-editor-monokai',
+				UACF7_URL . 'assets/admin/css/uacf7-code-editor-monokai.css',
+				array( 'code-editor' ),
+				$this->version
+			);
 		}
 
 		public function sanitize() {
-			return wp_kses_post($this->value);
+			return wp_kses_post( $this->value );
 		}
 	}
 }

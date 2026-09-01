@@ -31,11 +31,11 @@
             showPreloader();
 
             $.ajax({
-                url: mailchimp_peram.ajaxurl,
+                url: uacf7_mailchimp_peram.ajaxurl,
                 type: 'post',
                 data: {
                     action: 'uacf7_ajax_mailchimp',
-                    ajax_nonce: mailchimp_peram.nonce,
+                    ajax_nonce: uacf7_mailchimp_peram.nonce,
                     inputKey: inputKey  // Fix the key name to match PHP handler
                 },
                 success: function (data) {

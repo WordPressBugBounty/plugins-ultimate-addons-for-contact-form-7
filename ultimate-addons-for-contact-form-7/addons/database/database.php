@@ -21,7 +21,6 @@ class UACF7_DATABASE {
 		add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_admin_script' ) );
 		add_action( 'wpcf7_before_send_mail', array( $this, 'uacf7_save_to_database' ), 20, 4 );
 		add_action( 'admin_menu', array( $this, 'uacf7_add_db_menu' ), 11, 2 );
-		add_action( 'wp_ajax_uacf7_ajax_database_popup', array( $this, 'uacf7_ajax_database_popup' ) );
 		
 		add_action( 'admin_init', array( $this, 'uacf7_create_database_table' ) );
 		//add_filter( 'wpcf7_load_js', '__return_false' );
@@ -108,7 +107,7 @@ class UACF7_DATABASE {
 		$uacf7dp_table_entry = $uacf7_db->prefix . 'uacf7dp_data_entry';
 
 		// form info table 
-		if ( $uacf7_db->get_var( "show tables like '$uacf7dp_table'" ) != $uacf7dp_table ) {
+		if ( $uacf7_db->get_var( $uacf7_db->prepare( 'SHOW TABLES LIKE %s', $uacf7_db->esc_like( $uacf7dp_table ) ) ) ) {
 			$sql = 'CREATE TABLE ' . $uacf7dp_table . ' (
                 `data_id` int(11) NOT NULL AUTO_INCREMENT,
 				`cf7_form_id` int(11) NOT NULL,
@@ -138,7 +137,10 @@ class UACF7_DATABASE {
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 			maybe_convert_table_to_utf8mb4( $uacf7dp_table_entry );
-			$sql = 'ALTER TABLE ' . $uacf7dp_table_entry . ' change fields_name fields_name VARCHAR(250) character set utf8, change value value text character set utf8;';
+			$sql = $uacf7_db->prepare(
+				'ALTER TABLE %i CHANGE fields_name fields_name VARCHAR(250) CHARACTER SET utf8, CHANGE value value TEXT CHARACTER SET utf8;',
+				$uacf7dp_table_entry
+			);
 			$uacf7_db->query( $sql );
 		}
 
@@ -202,11 +204,11 @@ class UACF7_DATABASE {
 	 */
 
 	public function wp_enqueue_admin_script() {
-		wp_enqueue_style( 'database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css', array(), UACF7_VERSION, 'all' );
-		wp_enqueue_script( 'database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), UACF7_VERSION, true );
+		wp_enqueue_style( 'uacf7-database-admin-style', UACF7_ADDONS . '/database/assets/css/database-admin.css', array(), UACF7_VERSION, 'all' );
+		wp_enqueue_script( 'uacf7-database-admin', UACF7_ADDONS . '/database/assets/js/database-admin.js', array( 'jquery' ), UACF7_VERSION, true );
 		wp_localize_script(
-			'database-admin',
-			'database_admin_url',
+			'uacf7-database-admin',
+			'uacf7_database_admin_url',
 			array(
 				'admin_url' => get_admin_url() . 'admin.php',
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -243,16 +245,16 @@ class UACF7_DATABASE {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 
 				// Enqueue DataTables CSS
-				wp_enqueue_style( 'database-modern-admin-style', UACF7_ADDONS . '/database/assets/css/database-modern-style.css', array(), UACF7_VERSION, 'all' );
-				wp_enqueue_style( 'database-table-style', UACF7_ADDONS . '/database/assets/css/datatables.min.css', array(), UACF7_VERSION, 'all' );
+				wp_enqueue_style( 'uacf7-database-modern-admin-style', UACF7_ADDONS . '/database/assets/css/database-modern-style.css', array(), UACF7_VERSION, 'all' );
+				wp_enqueue_style( 'uacf7-database-table-style', UACF7_ADDONS . '/database/assets/css/datatables.min.css', array(), UACF7_VERSION, 'all' );
 
 				// Enqueue DataTables JS
-				wp_enqueue_script( 'database-table-script', UACF7_ADDONS . '/database/assets/js/datatables.min.js', array( 'jquery' ), UACF7_VERSION, true );
+				wp_enqueue_script( 'uacf7-database-table-script', UACF7_ADDONS . '/database/assets/js/datatables.min.js', array( 'jquery' ), UACF7_VERSION, true );
 
 				// Enqueue PDFMake
-				wp_enqueue_script( 'database-modern-pdfmake', UACF7_ADDONS . '/database/assets/js/pdfmake.min.js', array(), UACF7_VERSION, true );
+				wp_enqueue_script( 'uacf7-database-modern-pdfmake', UACF7_ADDONS . '/database/assets/js/pdfmake.min.js', array(), UACF7_VERSION, true );
 				// Enqueue PDFMake Fonts
-				wp_enqueue_script( 'database-modern-pdfmake-font', UACF7_ADDONS . '/database/assets/js/vfs_fonts.js', array(), UACF7_VERSION, true );
+				wp_enqueue_script( 'uacf7-database-modern-pdfmake-font', UACF7_ADDONS . '/database/assets/js/vfs_fonts.js', array(), UACF7_VERSION, true );
 				
 
 				wp_enqueue_script( 'uacf7dp-database-icons-script', UACF7_ADDONS . '/database/assets/js/icons.js', array(), UACF7_VERSION, true );
@@ -698,8 +700,12 @@ class UACF7_DATABASE {
 	public function uacf7dp_get_db_fields( $form_id ) {
 		global $wpdb;
 		$uacf7_db = $wpdb;
-		$sql = sprintf( 'SELECT `fields_name` FROM `' . $uacf7_db->prefix . 'uacf7dp_data_entry` WHERE cf7_form_id = %d GROUP BY `fields_name`', $form_id );
-		$data = $uacf7_db->get_results( $sql );
+		$data = $uacf7_db->get_results(
+				$uacf7_db->prepare(
+					'SELECT `fields_name` FROM `' . $uacf7_db->prefix . 'uacf7dp_data_entry` WHERE cf7_form_id = %d GROUP BY `fields_name`',
+					$form_id
+				)
+			);
 
 		$fields = array();
 		foreach ( $data as $k => $v ) {
@@ -717,8 +723,69 @@ class UACF7_DATABASE {
 	}
 
 
+	private function uacf7dp_get_wp_filesystem() {
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
+		global $wp_filesystem;
+
+		return $wp_filesystem;
+	}
+
+	private function uacf7dp_get_file_contents( $file_path ) {
+		$filesystem = $this->uacf7dp_get_wp_filesystem();
+
+		if ( $filesystem ) {
+			return $filesystem->get_contents( $file_path );
+		}
+
+		if ( ! file_exists( $file_path ) ) {
+			return false;
+		}
+
+		return file_get_contents( $file_path );
+	}
+
+	private function uacf7dp_put_file_contents( $file_path, $contents ) {
+		$filesystem = $this->uacf7dp_get_wp_filesystem();
+
+		if ( $filesystem ) {
+			return $filesystem->put_contents( $file_path, $contents, FS_CHMOD_FILE );
+		}
+
+		return file_put_contents( $file_path, $contents );
+	}
+
+	private function uacf7dp_copy_file( $source, $target ) {
+		$filesystem = $this->uacf7dp_get_wp_filesystem();
+
+		if ( $filesystem ) {
+			$target_dir = dirname( $target );
+			if ( ! $filesystem->is_dir( $target_dir ) ) {
+				$filesystem->mkdir( $target_dir, FS_CHMOD_DIR, true );
+			}
+
+			return $filesystem->copy( $source, $target, true, FS_CHMOD_FILE );
+		}
+
+		if ( ! file_exists( dirname( $target ) ) ) {
+			wp_mkdir_p( dirname( $target ) );
+		}
+
+		return copy( $source, $target );
+	}
+
 	public function encrypt_file( $inputFile, $outputFile, $key ) {
-		$inputData = file_get_contents( $inputFile );
+		$inputData = $this->uacf7dp_get_file_contents( $inputFile );
+
+		if ( $inputData === false ) {
+			return false;
+		}
 
 		// Generate an Initialization Vector (IV)
 		$iv = openssl_random_pseudo_bytes( openssl_cipher_iv_length( 'aes-256-cbc' ) );
@@ -730,20 +797,20 @@ class UACF7_DATABASE {
 		$encryptedFileContent = $iv . $encryptedData;
 
 		// Save the encrypted content to the output file
-		file_put_contents( $outputFile, $encryptedFileContent );
+		return $this->uacf7dp_put_file_contents( $outputFile, $encryptedFileContent );
 	}
 
 	public function decrypt_and_display( $inputFile, $key ) {
 
 		if ( ! file_exists( $inputFile ) ) {
-			die( "Error: The file does not exist." );
+			wp_die( "Error: The file does not exist." );
 		}
 
 		// Read the encrypted content
-		$encryptedFileContent = file_get_contents( $inputFile );
+		$encryptedFileContent = $this->uacf7dp_get_file_contents( $inputFile );
 
 		if ( $encryptedFileContent === false ) {
-			die( "Error: Unable to read file content." );
+			wp_die( "Error: Unable to read file content." );
 		}
 
 		// Extract IV

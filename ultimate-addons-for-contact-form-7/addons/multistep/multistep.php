@@ -13,8 +13,8 @@ class UACF7_MULTISTEP {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 		add_action( 'admin_init', array( $this, 'tag_generator' ) );
-		add_action( 'wp_ajax_check_fields_validation', array( $this, 'check_fields_validation' ) );
-		add_action( 'wp_ajax_nopriv_check_fields_validation', array( $this, 'check_fields_validation' ) );
+		add_action( 'wp_ajax_uacf7_check_fields_validation', array( $this, 'uacf7_check_fields_validation' ) );
+		add_action( 'wp_ajax_nopriv_uacf7_check_fields_validation', array( $this, 'uacf7_check_fields_validation' ) );
 		wpcf7_add_form_tag( 'uacf7_step_start', array( $this, 'step_start_tag_handler' ), true );
 		wpcf7_add_form_tag( 'uacf7_step_end', array( $this, 'step_end_tag_handler' ), false );
 		wpcf7_add_form_tag( 'uacf7_multistep_progressbar', array( $this, 'uacf7_multistep_progressbar' ), true );
@@ -715,7 +715,7 @@ class UACF7_MULTISTEP {
 		// return $properties;
 	}
 
-	public function check_fields_validation() {
+	public function uacf7_check_fields_validation() {
 		$nonce = isset( $_REQUEST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ajax_nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'uacf7-multistep' ) ) {
 			exit( esc_html__( "Security error", 'ultimate-addons-for-contact-form-7' ) );
@@ -793,7 +793,7 @@ class UACF7_MULTISTEP {
 				$result = apply_filters( "uacf7_wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
 
 				if ( isset( $_REQUEST[ $tag->name . '_size' ] ) ) {
-					$file_size = isset( $_REQUEST[ $tag->name . '_size' ] ) ? absint( $_REQUEST[ $tag->name . '_size' ] ) : 0;
+					$file_size = absint( wp_unslash( $_REQUEST[ $tag->name . '_size' ] ) );
 					if ( $file_size > $tag->get_limit_option() ) {
 						$file_error = array(
 							'into' => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $tag->name ) . ']',

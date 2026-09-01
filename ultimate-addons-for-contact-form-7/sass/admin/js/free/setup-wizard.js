@@ -16,7 +16,7 @@
                     url: uacf7_admin_params.ajax_url,
                     type: 'post',
                     data: {
-                        action: 'contact_form_7_ajax_install_plugin',
+                        action: 'uacf7_ajax_install_cf7_plugin',
                         _ajax_nonce: uacf7_admin_params.uacf7_nonce,
                         slug: plugin_slug,
                     },

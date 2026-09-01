@@ -9,13 +9,13 @@
             var  id = $this.attr('data-id');
             var old_button_text = $this.html();
             jQuery.ajax({
-                url: pdf_settings.ajaxurl,
+                url: uacf7_pdf_settings.ajaxurl,
                 type: 'post',
                 data: {
                     action: 'uacf7_get_generated_pdf',
                     form_id: form_id,
                     id: id,
-                    ajax_nonce: pdf_settings.nonce,
+                    ajax_nonce: uacf7_pdf_settings.nonce,
                 },
                 success: function (data) {
                     $this.html(old_button_text);
