@@ -692,12 +692,12 @@ class UACF7_MULTISTEP {
 				ob_start();
 				?>
 				<div class="uacf7-multisetp-form">
-					<?php echo wp_kses_post( $form ); ?>
+					<?php echo $form; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Contact Form 7 form markup. ?>
 				</div>
 				<?php
 				$form_html = ob_get_clean();
-
-				echo wp_kses_post( apply_filters( 'uacf7_form_html', $form_html ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Contact Form 7 form markup. 
+				echo apply_filters( 'uacf7_form_html', $form_html );
 				$multistep_form = ob_get_clean();
 				$form_data = $multistep_form;
 

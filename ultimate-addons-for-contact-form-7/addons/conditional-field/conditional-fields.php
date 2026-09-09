@@ -387,7 +387,8 @@ class UACF7_CF {
 				} else if ( $form_part == '[/conditional]' ) {
 					echo '</' . esc_attr(array_pop( $stack )) . '>';
 				} else {
-					echo wp_kses_post( $form_part );
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Preserve the CF7 form markup while rebuilding the conditional-field wrapper.
+					echo $form_part;
 				}
 			}
 
@@ -398,7 +399,11 @@ class UACF7_CF {
 	
 
 	function skip_validation_for_hidden_fields( $result, $tags ) {
-		$this->set_hidden_fields_arrays();
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+		if ( isset( $_POST ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+			$this->set_hidden_fields_arrays( $_POST );
+		}
 
 		$invalid_fields = $result->get_invalid_fields();
 		$return_result = new WPCF7_Validation();
@@ -493,7 +498,11 @@ class UACF7_CF {
 		if ( ! count( $result->get_invalid_fields() ) ) {
 			return $result;
 		}
-		$this->set_hidden_fields_arrays();
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+		if ( isset( $_POST ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+			$this->set_hidden_fields_arrays( $_POST );
+		}
 
 		$invalid_field_keys = array_keys( $result->get_invalid_fields() );
 		if ( isset( $this->hidden_fields ) && is_array( $this->hidden_fields ) && in_array( $tag->name. '[]', $this->hidden_fields ) ) {
@@ -511,7 +520,11 @@ class UACF7_CF {
 		if ( ! count( $result->get_invalid_fields() ) ) {
 			return $result;
 		}
-		$this->set_hidden_fields_arrays();
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+		if ( isset( $_POST ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+			$this->set_hidden_fields_arrays( $_POST );
+		}
 
 		$invalid_field_keys = array_keys( $result->get_invalid_fields() );
 

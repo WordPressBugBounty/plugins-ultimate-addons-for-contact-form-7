@@ -277,7 +277,8 @@ class UACF7_FORM_GENERATOR {
 						$open_wrapper = false;
 					}
 				} else {
-					echo wp_kses_post( $form_part ); // Output the content, sanitized
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form content contains trusted Contact Form 7 markup.
+					echo $form_part; // Output the content, sanitized
 				}
 			}
 

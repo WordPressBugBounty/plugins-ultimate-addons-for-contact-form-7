@@ -262,7 +262,8 @@ function uacf7_add_wrapper_to_cf7_form( $properties, $cfform ) {
 		
 		$form = $properties['form'];
 		ob_start();
-		echo '<div class="uacf7-form-wrapper-container uacf7-form-' . esc_attr( $cfform->id() ) . ' ' . esc_attr( $auto_cart_class ) . ' ' . esc_attr( $uacf7_formStyler_class ) . '">' . wp_kses_post( $form ) . '</div>';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $form contains Contact Form 7's rendered form markup.
+		echo '<div class="uacf7-form-wrapper-container uacf7-form-' . esc_attr( $cfform->id() ) . ' ' . esc_attr( $auto_cart_class ) . ' ' . esc_attr( $uacf7_formStyler_class ) . '">' . $form . '</div>';
 		$properties['form'] = ob_get_clean();
 
 	}

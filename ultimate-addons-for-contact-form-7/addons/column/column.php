@@ -276,7 +276,8 @@ class UACF7_COLUMN {
 
 				} else {
 
-					echo wp_kses_post( $form_part );
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Preserve the form markup.
+					echo $form_part;
 				}
 			}
 
@@ -305,7 +306,7 @@ class UACF7_COLUMN {
 				} else if ( $form_part == '[/uacf7-row]' ) {
 					echo '</div>';
 				} else {
-					echo wp_kses_post( $form_part );
+					echo $form_part; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form markup must remain unescaped.
 				}
 			}
 

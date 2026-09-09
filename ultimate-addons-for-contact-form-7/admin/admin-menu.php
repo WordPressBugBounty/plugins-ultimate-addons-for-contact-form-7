@@ -20,6 +20,41 @@ class UACF7_Admin_Menu {
 			'manage_options', // capability 
 			'admin.php?page=uacf7-setup-wizard', // menu_slug
 		);
+		
+		if ( ! class_exists( 'Ultimate_Addons_CF7_PRO' ) ) {
+
+			add_submenu_page(
+				'uacf7_settings',
+				'Upgrade to Pro',
+				'<span class="uacf7-pro-link">★ Upgrade to Pro</span>',
+				'manage_options',
+				'https://cf7addons.com/',
+				'',
+				999
+			);
+
+			add_action( 'admin_footer', 'uacf7_upgrade_to_pro_new_tab' );
+		}
+
+		/**
+		 * Open the Upgrade to Pro menu item in a new tab.
+		 */
+		function uacf7_upgrade_to_pro_new_tab() {
+			?>
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+					const links = document.querySelectorAll('#adminmenu a');
+
+					links.forEach(function (link) {
+						if (link.href.indexOf('cf7addons.com') !== -1) {
+							link.target = '_blank';
+							link.rel = 'noopener noreferrer';
+						}
+					});
+				});
+			</script>
+			<?php
+		}
 	}
 
 

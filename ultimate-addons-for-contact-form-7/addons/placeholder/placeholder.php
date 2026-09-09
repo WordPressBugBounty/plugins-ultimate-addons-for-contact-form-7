@@ -227,7 +227,8 @@ class UACF7_Placeholder {
 					}
 				</style>
 				<?php
-				echo wp_kses_post( $form );
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $form;
 				$properties['form'] = ob_get_clean();
 
 			endif;
