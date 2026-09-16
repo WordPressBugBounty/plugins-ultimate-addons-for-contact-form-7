@@ -53,6 +53,15 @@ class UACF7_Admin_Menu {
 					});
 				});
 			</script>
+			<style>
+				.uacf7-pro-link {
+					color: #fff;
+					font-weight: bold;
+					background: #382673;
+					padding: 5px 10px;
+					border-radius: 5px;
+				}
+			</style>
 			<?php
 		}
 	}

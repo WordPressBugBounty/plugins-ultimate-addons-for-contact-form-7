@@ -1690,3 +1690,67 @@ function uacf7_duplicate_form_meta( $contact_form ) {
     }
 }
 
+/**
+ * Validate UACF7 uploaded files before copying them to the public upload directory.
+ *
+ * SVG and other browser-executable file types must never be stored
+ * in the publicly accessible UACF7 upload directory.
+ *
+ * @param string $file Full path to the uploaded temporary file.
+ * @return bool
+ */
+if ( ! function_exists( 'uacf7_is_safe_uploaded_file' ) ) {
+	function uacf7_is_safe_uploaded_file( $file ) {
+
+		if ( empty( $file ) || ! is_string( $file ) || ! file_exists( $file ) ) {
+			return false;
+		}
+
+		$filename  = wp_basename( $file );
+		$extension = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+
+		/*
+		 * These file types must never be copied to the public
+		 * uacf7-uploads directory.
+		 */
+		$blocked_extensions = array(
+			'svg',
+			'svgz',
+			'html',
+			'htm',
+			'xhtml',
+			'xml',
+			'js',
+			'mjs',
+		);
+
+		if ( in_array( $extension, $blocked_extensions, true ) ) {
+			return false;
+		}
+
+		/*
+		 * Validate the actual file type instead of trusting
+		 * the filename extension.
+		 */
+		$file_type = wp_check_filetype_and_ext(
+			$file,
+			$filename,
+			get_allowed_mime_types()
+		);
+
+		if ( empty( $file_type['ext'] ) || empty( $file_type['type'] ) ) {
+			return false;
+		}
+
+		/*
+		 * Explicitly reject SVG based on the detected MIME type too.
+		 * This protects against an SVG whose filename/extension is
+		 * manipulated.
+		 */
+		if ( 'image/svg+xml' === strtolower( $file_type['type'] ) ) {
+			return false;
+		}
+
+		return true;
+	}
+}

@@ -817,8 +817,52 @@ class UACF7_PDF_GENERATOR {
 					if ( in_array( $file_key, $uploaded_files ) ) {
 
 						$file = is_array( $file ) ? reset( $file ) : $file;
+						
+						if ( ! uacf7_is_safe_uploaded_file( $file ) ) {
+							continue;
+						}
+						
+						if (
+							! is_string( $file ) ||
+							! file_exists( $file ) ||
+							! is_readable( $file )
+						) {
+							continue;
+						}
 
-						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . sanitize_file_name( basename( $file ) );
+						$filename = wp_basename( $file );
+
+						/*
+						* Sanitize the filename before making the security decision.
+						*/
+						$safe_filename = sanitize_file_name( $filename );
+
+						if ( empty( $safe_filename ) ) {
+							continue;
+						}
+
+						/*
+						* Validate the final filename that will actually be written.
+						*/
+						$file_type = wp_check_filetype(
+							$safe_filename,
+							array(
+								'jpg|jpeg|jpe' => 'image/jpeg',
+								'png'          => 'image/png',
+								'gif'          => 'image/gif',
+								'webp'         => 'image/webp',
+								'pdf'          => 'application/pdf',
+								'txt'          => 'text/plain',
+								'doc'          => 'application/msword',
+								'docx'         => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+							)
+						);
+
+						if ( empty( $file_type['ext'] ) || empty( $file_type['type'] ) ) {
+							continue;
+						}
+
+						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '-' . $safe_filename;
 						$destination_path = $dir . $dir_link;
 
 						// Prefer WordPress filesystem methods for managed uploads; PHP copy() is kept only as a fallback
@@ -852,7 +896,7 @@ class UACF7_PDF_GENERATOR {
 						// Detect extension
 						$ext = strtolower( pathinfo( $file_url, PATHINFO_EXTENSION ) );
 
-						$image_types = [ 'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg' ];
+						$image_types = [ 'jpg', 'jpeg', 'png', 'gif', 'webp' ];
 
 						if ( in_array( $ext, $image_types ) ) {
 

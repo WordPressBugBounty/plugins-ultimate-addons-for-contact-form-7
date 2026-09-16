@@ -298,19 +298,117 @@ class UACF7_SIGNATURE {
 
 	/** Validation Callback */
 	public function uacf7_signature_validation_filter( $result, $tag ) {
-		$name = $tag->name;
-		$submission = WPCF7_Submission::get_instance();
+
+		$name           = $tag->name;
+		$submission     = WPCF7_Submission::get_instance();
 		$uploaded_files = $submission ? $submission->uploaded_files() : array();
 		$signature_file = isset( $uploaded_files[ $name ] ) ? $uploaded_files[ $name ] : '';
 
 		if ( is_array( $signature_file ) ) {
 			$signature_file = array_filter( $signature_file );
+
+			if ( count( $signature_file ) > 1 ) {
+				$result->invalidate(
+					$tag,
+					__( 'Invalid signature file.', 'ultimate-addons-for-contact-form-7' )
+				);
+
+				return $result;
+			}
+
+			$signature_file = reset( $signature_file );
 		}
 
 		$empty = empty( $signature_file );
 
-		if ( $tag->is_required() and $empty ) {
+		if ( $tag->is_required() && $empty ) {
 			$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
+
+			return $result;
+		}
+
+		if ( $empty ) {
+			return $result;
+		}
+
+		/**
+		 * The signature field must contain a real PNG or JPEG image.
+		 *
+		 * Do not validate the final .enc filename here.
+		 * The .enc file is created later by the Database addon.
+		 */
+		if (
+			! is_string( $signature_file ) ||
+			! file_exists( $signature_file ) ||
+			! is_readable( $signature_file )
+		) {
+			$result->invalidate(
+				$tag,
+				__( 'Invalid signature file.', 'ultimate-addons-for-contact-form-7' )
+			);
+
+			return $result;
+		}
+
+		/**
+		 * Validate the actual image content and allow only PNG/JPEG.
+		 */
+		$image_info = @getimagesize( $signature_file );
+
+		if (
+			false === $image_info ||
+			empty( $image_info['mime'] ) ||
+			! in_array(
+				$image_info['mime'],
+				array(
+					'image/png',
+					'image/jpeg',
+				),
+				true
+			)
+		) {
+			$result->invalidate(
+				$tag,
+				__( 'Please provide a valid PNG or JPEG signature.', 'ultimate-addons-for-contact-form-7' )
+			);
+
+			return $result;
+		}
+
+		/**
+		 * Also verify the filename/content combination with WordPress.
+		 *
+		 * The JavaScript currently creates a .jpg filename from a PNG
+		 * data URL, so wp_check_filetype_and_ext() is intentionally
+		 * allowed to determine the real image type from the file content.
+		 */
+		$file_type = wp_check_filetype_and_ext(
+			$signature_file,
+			wp_basename( $signature_file ),
+			array(
+				'jpg|jpeg|jpe' => 'image/jpeg',
+				'png'          => 'image/png',
+			)
+		);
+
+		if (
+			empty( $file_type['ext'] ) ||
+			empty( $file_type['type'] ) ||
+			! in_array(
+				$file_type['type'],
+				array(
+					'image/png',
+					'image/jpeg',
+				),
+				true
+			)
+		) {
+			$result->invalidate(
+				$tag,
+				__( 'Please provide a valid PNG or JPEG signature.', 'ultimate-addons-for-contact-form-7' )
+			);
+
+			return $result;
 		}
 
 		return $result;

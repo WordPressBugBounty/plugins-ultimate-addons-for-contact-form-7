@@ -776,7 +776,7 @@ class UACF7_MULTISTEP {
 						'tmp_name' => $fdir,
 					);
 				}
-				$file = isset( $_FILES[ $tag->name ] ) ? sanitize_file_name( wp_unslash( $_FILES[ $tag->name ] ) ) : null;
+				$file = isset( $_FILES[ $tag->name ] ) ? map_deep( $_FILES[ $tag->name ], 'sanitize_text_field' ) : null;
 				//$file = $_REQUEST[$tag->name];
 				$args = array(
 					'tag' => $tag,

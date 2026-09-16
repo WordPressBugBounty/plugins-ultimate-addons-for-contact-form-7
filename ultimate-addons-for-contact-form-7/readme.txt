@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.50
+Stable tag: 3.5.51
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,15 +402,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 3.5.50 - 09/09/2026 =
-- Fixed: Inline style and script escaping issues.
-- Fixed: Conditional hidden required field issue.
-- Fixed: Multistep attribute escaping issue.
-- Improved: Overall system stability and performance.
-
-= 3.5.49 - 01/09/2026 =
-- Security: Improved sanitization and overall security.
-- Updated: Addressed reported WordPress.org issues.
+= 3.5.51 - 16/09/2026 =
+- Fixed: Multistep file validation issue.
+- Fixed: Signature addon security vulnerability.
+- Fixed: Signature view and download escaping issue.
+- Fixed: SVG scripting vulnerability.
+- Improved overall security and validation. 
+ 
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 
