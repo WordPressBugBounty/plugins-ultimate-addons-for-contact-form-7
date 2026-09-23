@@ -58,7 +58,7 @@ class UACF7_Admin_Menu {
 					color: #fff;
 					font-weight: bold;
 					background: #382673;
-					padding: 5px 10px;
+					padding: 5px 7px;
 					border-radius: 5px;
 				}
 			</style>

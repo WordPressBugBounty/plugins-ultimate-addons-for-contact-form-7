@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.51
+Stable tag: 3.5.52
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,13 +402,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 3.5.51 - 16/09/2026 =
-- Fixed: Multistep file validation issue.
-- Fixed: Signature addon security vulnerability.
-- Fixed: Signature view and download escaping issue.
-- Fixed: SVG scripting vulnerability.
-- Improved overall security and validation. 
- 
+= 3.5.52 - 23/09/2026 =
+- Improved:  Vulnerability and overall system stability.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

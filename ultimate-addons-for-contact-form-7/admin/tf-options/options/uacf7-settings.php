@@ -12,7 +12,7 @@ if ( file_exists( UACF7_PATH . 'admin/tf-options/options/tf-menu-icon.php' ) ) {
 UACF7_Settings::option(
     'uacf7_settings',
     array(
-        'title'    => __( 'CF7 Addons', 'ultimate-addons-for-contact-form-7' ),
+        'title'    => __( 'UACF7', 'ultimate-addons-for-contact-form-7' ),
         'icon'     => $uacf7_menu_icon,
         'position' => 30.01,
         'sections' =>

@@ -23,7 +23,12 @@ if ( ! class_exists( 'UACF7_repeater' ) ) {
 						return ( $match[1] == strlen( $match[2] ) ) ? $match[0] : 's:' . strlen( $match[2] ) . ':"' . $match[2] . '";';
 					}, $this->value );
 
-					$data = unserialize( $tf_rep_value );
+					$data = unserialize( $tf_rep_value, array( 'allowed_classes' => false ) );
+
+					if ( ! is_array( $data ) ) {
+						$data = array();
+					}
+					
 				} else {
 					$data = $this->value;
 				}

@@ -175,11 +175,11 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			$tf_options_screens = array(
 				'toplevel_page_uacf7_settings',
-				'cf7-addons_page_uacf7_addons',
+				'uacf7_page_uacf7_addons',
 				'toplevel_page_wpcf7',
 				'contact_page_wpcf7-new',
 				'admin_page_uacf7-setup-wizard',
-				'cf7-addons_page_uacf7_license_info',
+				'uacf7_page_uacf7_license_info',
 			);
 			$tf_options_post_type = array( 'uacf7_review' );
 
@@ -269,11 +269,11 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 
 			$tf_options_screens = array(
 				'toplevel_page_uacf7_settings',
-				'cf7-addons_page_uacf7_addons',
+				'uacf7_page_uacf7_addons',
 				'toplevel_page_wpcf7',
 				'contact_page_wpcf7-new',
 				'admin_page_uacf7-setup-wizard',
-				'cf7-addons_page_uacf7_license_info',
+				'uacf7_page_uacf7_license_info',
 			);
 			if ( in_array( $screen, $tf_options_screens ) ) {
 				if ( wp_script_is( 'acf-color-picker-alpha', 'enqueued' ) ) {

@@ -3,7 +3,7 @@
  * Plugin Name: Ultra Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.5.51
+ * Version: 3.5.52
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -23,14 +23,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Ultimate_Addons_CF7 {
 
 	/*
-	 * Construct a function
+	 * Constructor function
 	 */
 	public function __construct() {
 		define( 'UACF7_FILE', __FILE__ );
 		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
-		define( 'UACF7_VERSION', '3.5.51' );
+		define( 'UACF7_VERSION', '3.5.52' );
 
 		/*
 		 * ---------------------------------------------------------
@@ -98,11 +98,11 @@ class Ultimate_Addons_CF7 {
 	public function tf_tourfic_admin_denqueue_script( $screen ) {
 		$UACF7_options_screens = array(
 			'toplevel_page_uacf7_settings',
-			'cf7-addons_page_uacf7_addons',
+			'uacf7_page_uacf7_addons',
 			'toplevel_page_wpcf7',
 			'contact_page_wpcf7-new',
 			'admin_page_uacf7-setup-wizard',
-			'cf7-addons_page_uacf7_license_info',
+			'uacf7_page_uacf7_license_info',
 		);
 
 		//The tourfic admin js Listings Directory Compatibility
@@ -161,11 +161,11 @@ class Ultimate_Addons_CF7 {
 
 		$tf_options_screens = array(
 			'toplevel_page_uacf7_settings',
-			'cf7-addons_page_uacf7_addons',
+			'uacf7_page_uacf7_addons',
 			'toplevel_page_wpcf7',
 			'contact_page_wpcf7-new',
 			'admin_page_uacf7-setup-wizard',
-			'cf7-addons_page_uacf7_license_info',
+			'uacf7_page_uacf7_license_info',
 		);
 
 		$tf_options_post_type = array( 'uacf7_review' );

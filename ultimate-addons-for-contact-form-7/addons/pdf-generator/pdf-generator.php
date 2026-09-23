@@ -53,7 +53,7 @@ class UACF7_PDF_GENERATOR {
 	public function wp_enqueue_admin_script( $hook ) {
 
 		// Only enqueue on Database page
-		if ( $hook !== 'cf7-addons_page_ultimate-addons-db' ) {
+		if ( $hook !== 'uacf7_page_ultimate-addons-db' ) {
 			return;
 		}
 
