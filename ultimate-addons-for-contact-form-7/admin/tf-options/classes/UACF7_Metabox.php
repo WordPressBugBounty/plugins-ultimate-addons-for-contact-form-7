@@ -19,14 +19,13 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 
 
 			add_action( 'add_meta_boxes', array( $this, 'tf_meta_box' ) );
-
 			if ( $this->metabox_post_type == 'uacf7' ) {
-
 				add_action( 'wpcf7_admin_footer', array( $this, 'tf_meta_box_content' ), 20, 2 );
+				add_action( 'admin_footer', array( $this, 'tf_meta_box_content_admin_footer' ), 20 );
 			}
 
 			add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
-			// add_action( 'wpcf7_after_save', array( $this, 'save_metabox' ), 10, 2 );
+			add_action( 'wpcf7_after_save', array( $this, 'save_metabox' ), 10, 1 );
 
 			//load fields
 			$this->load_fields();
@@ -73,16 +72,62 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 		}
 
 		/*
+		 * Metabox Content Admin Footer Fallback
+		 */
+		public function tf_meta_box_content_admin_footer() {
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			$screen_id = $screen && isset( $screen->id ) ? $screen->id : '';
+			$is_wpcf7_page = ( is_string( $screen_id ) && false !== strpos( $screen_id, 'wpcf7' ) )
+				|| ( isset( $_GET['page'] ) && is_string( $_GET['page'] ) && false !== strpos( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 'wpcf7' ) );
+
+			if ( $is_wpcf7_page ) {
+				$this->tf_meta_box_content( null );
+			}
+		}
+
+		/*
 		 * Metabox Content
 		 * @author Sydur
 		 */
-		public function tf_meta_box_content( $post ) {
+		public function tf_meta_box_content( $post = null ) {
 
 			if ( empty( $this->metabox_sections ) ) {
 				return;
 			}
 
-			$display = $this->metabox_post_type == 'uacf7' ? 'display:none;' : 'display:block;'
+			// Prevent duplicate rendering across multiple footer hooks
+			static $rendered_metaboxes = array();
+
+			// Resolve post_id safely whether $post is WPCF7_ContactForm, WP_Post, numeric, or null
+			$post_id = 0;
+			if ( is_object( $post ) ) {
+				if ( method_exists( $post, 'id' ) ) {
+					$post_id = $post->id();
+				} elseif ( isset( $post->ID ) ) {
+					$post_id = $post->ID;
+				}
+			} elseif ( is_numeric( $post ) && ! empty( $post ) ) {
+				$post_id = absint( $post );
+			}
+
+			if ( empty( $post_id ) && isset( $_GET['post'] ) ) {
+				$post_id = absint( $_GET['post'] );
+			}
+
+			if ( empty( $post_id ) && function_exists( 'wpcf7_get_current_contact_form' ) ) {
+				$current_cf = wpcf7_get_current_contact_form();
+				if ( $current_cf && method_exists( $current_cf, 'id' ) ) {
+					$post_id = $current_cf->id();
+				}
+			}
+
+			$render_key = $this->metabox_id . '_' . $post_id;
+			if ( isset( $rendered_metaboxes[ $render_key ] ) ) {
+				return;
+			}
+			$rendered_metaboxes[ $render_key ] = true;
+
+			$display = $this->metabox_post_type == 'uacf7' ? 'display:none;' : 'display:block;';
 				?>
 
 			<div id="uacf7-metabox" class="uacf7-metabox <?php echo esc_attr( $this->metabox_post_type ); ?>"
@@ -94,15 +139,11 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 						// Add nonce for security and authentication.
 						wp_nonce_field( 'tf_meta_box_nonce_action', 'tf_meta_box_nonce' );
 
-						// Retrieve an existing value from the database.
-						if ( $post->ID != null ) {
-							$tf_meta_box_value = get_post_meta( $post->ID, $this->metabox_id, true );
-						} else {
-							$tf_meta_box_value = get_post_meta( $post->id(), $this->metabox_id, true );
-						}
+						// Retrieve an existing value from the database safely.
+						$tf_meta_box_value = ! empty( $post_id ) ? get_post_meta( $post_id, $this->metabox_id, true ) : array();
 
 						// Set default values.
-						if ( empty( $tf_meta_box_value ) ) {
+						if ( empty( $tf_meta_box_value ) || ! is_array( $tf_meta_box_value ) ) {
 							$tf_meta_box_value = array();
 						}
 						?>
@@ -190,22 +231,45 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 		 * Save Metabox
 		 * @author Foysal
 		 */
-		public function save_metabox( $post_id ) {
+		public function save_metabox( $post_id = null ) {
 			// Add nonce for security and authentication.
 			$nonce_name = isset( $_POST['tf_meta_box_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['tf_meta_box_nonce'] ) ) : '';
 			$nonce_action = 'tf_meta_box_nonce_action';
 
-			// $post_id = $form->id();
-
-			// Check if a nonce is set.
-			if ( ! isset( $nonce_name ) ) {
+			// Check if a nonce is set and valid.
+			if ( empty( $nonce_name ) || ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
 				return;
 			}
 
-			// Check if a nonce is valid.
-			if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
+			// Resolve post_id safely whether called from save_post or wpcf7_after_save
+			if ( is_object( $post_id ) ) {
+				if ( method_exists( $post_id, 'id' ) ) {
+					$post_id = $post_id->id();
+				} elseif ( isset( $post_id->ID ) ) {
+					$post_id = $post_id->ID;
+				}
+			} elseif ( ! is_numeric( $post_id ) || empty( $post_id ) ) {
+				if ( isset( $_POST['post_ID'] ) ) {
+					$post_id = absint( $_POST['post_ID'] );
+				} elseif ( isset( $_POST['post_id'] ) ) {
+					$post_id = absint( $_POST['post_id'] );
+				} elseif ( isset( $_GET['post'] ) ) {
+					$post_id = absint( $_GET['post'] );
+				}
+			}
+
+			$post_id = absint( $post_id );
+			if ( empty( $post_id ) ) {
 				return;
 			}
+
+			// Prevent duplicate save in the same request
+			static $saved_metaboxes = array();
+			$save_key = $this->metabox_id . '_' . $post_id;
+			if ( isset( $saved_metaboxes[ $save_key ] ) ) {
+				return;
+			}
+			$saved_metaboxes[ $save_key ] = true;
 
 			// Check if the user has permissions to save data.
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -222,7 +286,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 				return;
 			}
 			$meta_data = get_post_meta( $post_id, $this->metabox_id, true );
-			if ( $meta_data ) {
+			if ( $meta_data && is_array( $meta_data ) ) {
 				$tf_meta_box_value = $meta_data;
 			} else {
 				$tf_meta_box_value = array();

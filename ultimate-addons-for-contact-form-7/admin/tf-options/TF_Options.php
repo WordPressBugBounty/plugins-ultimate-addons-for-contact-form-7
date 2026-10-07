@@ -177,14 +177,17 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				'toplevel_page_uacf7_settings',
 				'uacf7-addons_page_uacf7_addons',
 				'toplevel_page_wpcf7',
+				'contact_page_wpcf7',
 				'contact_page_wpcf7-new',
+				'toplevel_page_wpcf7-dashboard',
 				'admin_page_uacf7-setup-wizard',
 				'uacf7-addons_page_uacf7_license_info',
 			);
 			$tf_options_post_type = array( 'uacf7_review' );
+			$is_cf7_screen = ( is_string( $screen ) && false !== strpos( $screen, 'wpcf7' ) );
 
 			//Uacf7 CDN CSS
-			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+			if ( in_array( $screen, $tf_options_screens, true ) || $is_cf7_screen || in_array( $post_type, $tf_options_post_type, true ) ) {
 
 				wp_enqueue_style( 'uacf7-admin', UACF7_URL . 'assets/admin/css/uacf7-admin.min.css', '', UACF7_VERSION );
 				// wp_enqueue_style('wp-color-picker');
@@ -199,7 +202,7 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 			}
 
 			//Uacf7 Js
-			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+			if ( in_array( $screen, $tf_options_screens, true ) || $is_cf7_screen || in_array( $post_type, $tf_options_post_type, true ) ) {
 				// Custom
 
 				// wp_enqueue_script( 'wp-color-picker' );
@@ -271,11 +274,14 @@ if ( ! class_exists( 'UACF7_Options' ) ) {
 				'toplevel_page_uacf7_settings',
 				'uacf7-addons_page_uacf7_addons',
 				'toplevel_page_wpcf7',
+				'contact_page_wpcf7',
 				'contact_page_wpcf7-new',
+				'toplevel_page_wpcf7-dashboard',
 				'admin_page_uacf7-setup-wizard',
 				'uacf7-addons_page_uacf7_license_info',
 			);
-			if ( in_array( $screen, $tf_options_screens ) ) {
+			$is_cf7_screen = ( is_string( $screen ) && false !== strpos( $screen, 'wpcf7' ) );
+			if ( in_array( $screen, $tf_options_screens, true ) || $is_cf7_screen ) {
 				if ( wp_script_is( 'acf-color-picker-alpha', 'enqueued' ) ) {
 
 					$acf_script_handle = 'acf-color-picker-alpha';

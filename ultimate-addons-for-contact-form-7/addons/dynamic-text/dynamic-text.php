@@ -30,10 +30,12 @@ class UACF7_DYNAMIC_TEXT {
 
 		$tf_options_screens = array(
 			'toplevel_page_wpcf7',
+			'contact_page_wpcf7',
 			'contact_page_wpcf7-new',
+			'toplevel_page_wpcf7-dashboard',
 		);
 
-		if ( in_array( $screen, $tf_options_screens )) {
+		if ( in_array( $screen, $tf_options_screens, true ) || ( is_string( $screen ) && false !== strpos( $screen, 'wpcf7' ) ) ) {
 			wp_enqueue_script( 'uacf7-dynamic-text', UACF7_URL . 'addons/dynamic-text/assets/js/uacf7-dynamic-text.js', array( 'jquery'), UACF7_VERSION, true );
 		}
 	}

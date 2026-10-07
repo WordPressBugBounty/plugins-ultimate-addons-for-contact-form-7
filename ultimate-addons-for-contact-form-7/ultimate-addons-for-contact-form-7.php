@@ -3,7 +3,7 @@
  * Plugin Name: Ultra Addons for Contact Form 7
  * Plugin URI: https://cf7addons.com/
  * Description: 50+ Essential Addons for Contact Form 7 - Conditional Fields, Multi Step Forms, Redirection, Form Templates, Columns, WooCommerce, Mailchimp and more, all in one.
- * Version: 3.5.53
+ * Version: 3.5.54
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -30,7 +30,7 @@ class Ultimate_Addons_CF7 {
 		define( 'UACF7_URL', plugin_dir_url( __FILE__ ) );
 		define( 'UACF7_ADDONS', UACF7_URL . 'addons' );
 		define( 'UACF7_PATH', plugin_dir_path( __FILE__ ) );
-		define( 'UACF7_VERSION', '3.5.53' );
+		define( 'UACF7_VERSION', '3.5.54' );
 
 		/*
 		 * ---------------------------------------------------------
@@ -100,13 +100,16 @@ class Ultimate_Addons_CF7 {
 			'toplevel_page_uacf7_settings',
 			'uacf7-addons_page_uacf7_addons',
 			'toplevel_page_wpcf7',
+			'contact_page_wpcf7',
 			'contact_page_wpcf7-new',
+			'toplevel_page_wpcf7-dashboard',
 			'admin_page_uacf7-setup-wizard',
 			'uacf7-addons_page_uacf7_license_info',
 		);
+		$is_cf7_screen = ( is_string( $screen ) && false !== strpos( $screen, 'wpcf7' ) );
 
 		//The tourfic admin js Listings Directory Compatibility
-		if ( in_array( $screen, $UACF7_options_screens )) {
+		if ( in_array( $screen, $UACF7_options_screens, true ) || $is_cf7_screen ) {
 			wp_dequeue_style( 'tf-admin' );
 			wp_deregister_style( 'tf-admin' );
 			wp_dequeue_style( 'tf-pro' );
@@ -163,12 +166,15 @@ class Ultimate_Addons_CF7 {
 			'toplevel_page_uacf7_settings',
 			'uacf7-addons_page_uacf7_addons',
 			'toplevel_page_wpcf7',
+			'contact_page_wpcf7',
 			'contact_page_wpcf7-new',
+			'toplevel_page_wpcf7-dashboard',
 			'admin_page_uacf7-setup-wizard',
 			'uacf7-addons_page_uacf7_license_info',
 		);
 
 		$tf_options_post_type = array( 'uacf7_review' );
+		$is_cf7_screen = ( is_string( $screen ) && false !== strpos( $screen, 'wpcf7' ) );
 
 		// Ensure is_plugin_active function is available
 		if ( ! function_exists( 'is_plugin_active' ) ) {
@@ -178,7 +184,7 @@ class Ultimate_Addons_CF7 {
 		// Check if the UACF7 pro plugin is active
 		$pro_active = is_plugin_active( 'ultimate-addons-for-contact-form-7-pro/ultimate-addons-for-contact-form-7-pro.php' );
 
-		if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+		if ( in_array( $screen, $tf_options_screens, true ) || $is_cf7_screen || in_array( $post_type, $tf_options_post_type, true ) ) {
 			wp_enqueue_style( 'uacf7-admin-style', UACF7_URL . 'assets/css/admin-style.css', array(), UACF7_VERSION, 'all' );
 
 			// // wp_enqueue_media();

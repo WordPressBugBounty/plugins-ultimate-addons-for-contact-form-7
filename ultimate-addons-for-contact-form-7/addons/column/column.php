@@ -21,13 +21,16 @@ class UACF7_COLUMN {
 	public function admin_column_enqueue_script() {
 
 		$screen = get_current_screen();
+		$screen_id = $screen && isset( $screen->id ) ? $screen->id : '';
 
 		$wpcf7_admin_pages = array(
 			'toplevel_page_wpcf7',
+			'contact_page_wpcf7',
 			'contact_page_wpcf7-new',
+			'toplevel_page_wpcf7-dashboard',
 		);
 
-		if ( in_array( $screen->id, $wpcf7_admin_pages, true ) ) {
+		if ( in_array( $screen_id, $wpcf7_admin_pages, true ) || ( is_string( $screen_id ) && false !== strpos( $screen_id, 'wpcf7' ) ) ) {
 			wp_enqueue_script( 'uacf7-column', UACF7_ADDONS . '/column/assets/js/column-admin.js', array( 'jquery' ), UACF7_VERSION, true );
 			wp_enqueue_style( 'uacf7-column', UACF7_ADDONS . '/column/assets/css/column-admin.css', array(), UACF7_VERSION, 'all' );
 		}

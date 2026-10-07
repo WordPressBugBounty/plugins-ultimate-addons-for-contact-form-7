@@ -9,10 +9,16 @@ defined( 'ABSPATH' ) || exit;
  */
 
 $uacf7_requested_post_id = filter_input( INPUT_GET, 'post', FILTER_VALIDATE_INT );
+if ( ! $uacf7_requested_post_id && isset( $_GET['post'] ) ) {
+	$uacf7_requested_post_id = absint( $_GET['post'] );
+}
 $uacf7_requested_page = filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW );
+if ( ! $uacf7_requested_page && isset( $_GET['page'] ) ) {
+	$uacf7_requested_page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
+}
 $uacf7_requested_page = is_string( $uacf7_requested_page ) ? sanitize_key( $uacf7_requested_page ) : '';
 
-if ( $uacf7_requested_post_id && $uacf7_requested_post_id > 0 && 'wpcf7' === $uacf7_requested_page ) {
+if ( $uacf7_requested_post_id && $uacf7_requested_post_id > 0 && ( 'wpcf7' === $uacf7_requested_page || false !== strpos( $uacf7_requested_page, 'wpcf7' ) ) ) {
 	$uacf7_post_id = absint( $uacf7_requested_post_id );
 } else {
 	$uacf7_post_id = 0;

@@ -744,61 +744,119 @@ class UACF7_MULTISTEP {
 			$tag_type[] = $field[0];
 			$count++;
 		}
+		foreach ( (array) $current_step_fields as $step_f ) {
+			$step_f = trim( $step_f );
+			if ( ! empty( $step_f ) ) {
+				$step_parts = explode( '__', $step_f );
+				if ( ! in_array( $step_parts[0], $tag_name, true ) ) {
+					$tag_name[] = $step_parts[0];
+				}
+			}
+		}
+		$tag_name = array_values( array_unique( array_filter( $tag_name ) ) );
 
 		$form = wpcf7_contact_form( isset( $_REQUEST['form_id'] ) ? absint( $_REQUEST['form_id'] ) : 0 );
+		if ( ! $form ) {
+			echo wp_json_encode( array(
+				'is_valid'       => false,
+				'invalid_fields' => false,
+			) );
+			wp_die();
+		}
+
 		$all_form_tags = $form->scan_form_tags();
 		$invalid_fields = false;
 		require_once WPCF7_PLUGIN_DIR . '/includes/validation.php';
+		if ( ! function_exists( 'wpcf7_unship_uploaded_file' ) && file_exists( WPCF7_PLUGIN_DIR . '/includes/file.php' ) ) {
+			require_once WPCF7_PLUGIN_DIR . '/includes/file.php';
+		}
 		$result = new \WPCF7_Validation();
 		$tags = array_filter(
 			$all_form_tags, function ($v, $k) use ($tag_name) {
 				return in_array( $v->name, $tag_name );
 			}, ARRAY_FILTER_USE_BOTH
 		);
-		$form->validate_schema(
-			array(
-				'text' => true,
-				'file' => false,
-				'field' => $tag_name,
-			),
-			$result
-		);
+
+		// Validate SWV schema for current step fields only
+		if ( method_exists( $form, 'get_schema' ) && class_exists( '\RockLobsterInc\FormDataTree\FormDataTree' ) ) {
+			$schema = $form->get_schema();
+			if ( $schema && method_exists( $schema, 'rules' ) ) {
+				$form_data = new \RockLobsterInc\FormDataTree\FormDataTree();
+				$context   = array(
+					'text'  => true,
+					'file'  => false,
+					'field' => $tag_name,
+				);
+				foreach ( $schema->rules() as $rule ) {
+					$rule_field = isset( $rule->field ) ? $rule->field : '';
+					// Only validate rules for fields present in the current step
+					if ( ! empty( $rule_field ) && ! in_array( $rule_field, $tag_name, true ) ) {
+						continue;
+					}
+					if ( $rule->matches( $context ) ) {
+						try {
+							$rule->validate( $form_data, $context );
+						} catch ( \Exception $error ) {
+							$wp_error     = new \WP_Error( 'swv', $error->getMessage(), $error );
+							$target_field = ! empty( $rule_field ) ? $rule_field : ( isset( $error->rule->field ) ? $error->rule->field : '' );
+							if ( ! empty( $target_field ) && in_array( $target_field, $tag_name, true ) && $result->is_valid( $target_field ) ) {
+								$result->invalidate( $target_field, $wp_error );
+							}
+						}
+					}
+				}
+			}
+		} elseif ( method_exists( $form, 'validate_schema' ) ) {
+			$form->validate_schema(
+				array(
+					'text'  => true,
+					'file'  => false,
+					'field' => $tag_name,
+				),
+				$result
+			);
+		}
+
 		foreach ( $tags as $tag ) {
 			$type = $tag->type;
 			if ( 'file' != $type && 'file*' != $type ) {
+				$result = apply_filters( "wpcf7_validate_{$type}", $result, $tag );
 				$result = apply_filters( "uacf7_wpcf7_validate_{$type}", $result, $tag );
 
 			} elseif ( 'file*' === $type || 'file' === $type ) {
 				$fdir = isset( $_REQUEST[ $tag->name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $tag->name ] ) ) : '';
 				if ( $fdir ) {
 					$_FILES[ $tag->name ] = array(
-						'name' => wp_basename( $fdir ),
+						'name'     => wp_basename( $fdir ),
 						'tmp_name' => $fdir,
 					);
 				}
 				$file = isset( $_FILES[ $tag->name ] ) ? map_deep( $_FILES[ $tag->name ], 'sanitize_text_field' ) : null;
 				//$file = $_REQUEST[$tag->name];
 				$args = array(
-					'tag' => $tag,
-					'name' => $tag->name,
-					'required' => $tag->is_required(),
+					'tag'       => $tag,
+					'name'      => $tag->name,
+					'required'  => $tag->is_required(),
 					'filetypes' => $tag->get_option( 'filetypes' ),
-					'limit' => $tag->get_limit_option(),
+					'limit'     => $tag->get_limit_option(),
 				);
-				$args['schema'] = $form->get_schema();
-				$new_files = wpcf7_unship_uploaded_file( $file, $args );
+				if ( method_exists( $form, 'get_schema' ) ) {
+					$args['schema'] = $form->get_schema();
+				}
+				$new_files = function_exists( 'wpcf7_unship_uploaded_file' ) ? wpcf7_unship_uploaded_file( $file, $args ) : null;
 				if ( is_wp_error( $new_files ) ) {
 					$result->invalidate( $tag, $new_files );
 				}
+				$result = apply_filters( "wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
 				$result = apply_filters( "uacf7_wpcf7_validate_{$type}", $result, $tag, array( 'uploaded_files' => $new_files, ) );
 
 				if ( isset( $_REQUEST[ $tag->name . '_size' ] ) ) {
 					$file_size = absint( wp_unslash( $_REQUEST[ $tag->name . '_size' ] ) );
 					if ( $file_size > $tag->get_limit_option() ) {
 						$file_error = array(
-							'into' => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $tag->name ) . ']',
+							'into'    => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $tag->name ) . ']',
 							'message' => 'The uploaded file is too large.',
-							'idref' => null,
+							'idref'   => null,
 						);
 					}
 				}
@@ -806,55 +864,79 @@ class UACF7_MULTISTEP {
 
 		}
 
-		// $result = apply_filters('uacf7_wpcf7_validate', $result, $tags); 
-		$is_valid = $result->is_valid();
-		if ( ! $is_valid ) {
-			$invalid_fields = $this->prepare_invalid_form_fields( $result, $tag_validation );
-		}
+		$invalid_fields = $this->prepare_invalid_form_fields( $result, $tag_validation, $current_step_fields );
 		if ( ! empty( $file_error ) ) {
+			if ( ! is_array( $invalid_fields ) ) {
+				$invalid_fields = array();
+			}
 			$invalid_fields[] = $file_error;
 		}
+
 		if ( ! empty( $invalid_fields ) ) {
 			$is_valid = false;
 		} else {
+			$is_valid = true;
 			$invalid_fields = false;
 		}
 
-		echo ( json_encode( array(
-			'is_valid' => $is_valid,
+		echo ( wp_json_encode( array(
+			'is_valid'       => $is_valid,
 			'invalid_fields' => $invalid_fields,
-		)
-		)
-		);
+		) ) );
 
 		wp_die();
 	}
 
-	private function prepare_invalid_form_fields( $result, $tag_validation ) {
+	private function prepare_invalid_form_fields( $result, $tag_validation, $current_step_fields = array() ) {
 		$invalid_fields = array();
 
 		// Validation with Repeater 
-		$count = 1;
 		$invalid_data = [];
 		foreach ( (array) $result->get_invalid_fields() as $name => $field ) {
 			$invalid_data[ $name ] = array(
-				'name' => $name,
-				'message' => $field['reason'],
-				'idref' => $field['idref'],
+				'name'    => $name,
+				'message' => isset( $field['reason'] ) ? $field['reason'] : '',
+				'idref'   => isset( $field['idref'] ) ? $field['idref'] : null,
 			);
 		}
-		foreach ( $tag_validation as $key => $value ) {
-			$name = explode( "__", $value );
-			$name = $name[0];
-			if ( ! empty( $invalid_data[ $name ] ) ) {
-				$field = $invalid_data[ $name ];
+
+		$added_fields = array();
+
+		foreach ( (array) $tag_validation as $key => $value ) {
+			if ( empty( $value ) ) {
+				continue;
+			}
+			$name_parts = explode( "__", $value );
+			$base_name  = $name_parts[0];
+			if ( ! empty( $invalid_data[ $base_name ] ) && ! in_array( $value, $added_fields, true ) ) {
+				$field            = $invalid_data[ $base_name ];
 				$invalid_fields[] = array(
-					'into' => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $value ) . ']',
+					'into'    => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $value ) . ']',
 					'message' => $field['message'],
-					'idref' => $field['idref'],
+					'idref'   => $field['idref'],
 				);
+				$added_fields[]   = $value;
 			}
 		}
+
+		// Fallback check against current_step_fields
+		foreach ( (array) $current_step_fields as $step_field ) {
+			if ( empty( $step_field ) ) {
+				continue;
+			}
+			$name_parts = explode( "__", $step_field );
+			$base_name  = $name_parts[0];
+			if ( ! empty( $invalid_data[ $base_name ] ) && ! in_array( $step_field, $added_fields, true ) ) {
+				$field            = $invalid_data[ $base_name ];
+				$invalid_fields[] = array(
+					'into'    => 'span.wpcf7-form-control-wrap[data-name = ' . esc_attr( $step_field ) . ']',
+					'message' => $field['message'],
+					'idref'   => $field['idref'],
+				);
+				$added_fields[]   = $step_field;
+			}
+		}
+
 		return $invalid_fields;
 	}
 
