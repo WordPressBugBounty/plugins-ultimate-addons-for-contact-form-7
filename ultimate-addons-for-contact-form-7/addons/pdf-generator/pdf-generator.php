@@ -389,7 +389,8 @@ class UACF7_PDF_GENERATOR {
 			'format' => 'A4',
 			'margin_left' => 0,
 			'margin_right' => 0,
-			'margin_top' => 25
+			'margin_top' => 25,
+			'curlAllowUnsafeSslRequests' => false,
 		] );
 
 
@@ -567,11 +568,21 @@ class UACF7_PDF_GENERATOR {
 				}
 				$value = $data;
 			}
+			if ( ! in_array( $key, $uacf7_signature_tag ) && is_string( $value ) ) {
+				$value = $this->sanitize_pdf_template_value( $value );
+			}
 			$replace_value[] = $value;
 		}
 		// Repeater value
 		if ( ! empty( $repeaters ) && is_array( $repeaters ) ) {
 			$repeater_data = apply_filters( 'uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf );
+			if ( ! empty( $repeater_data['replace_re_value'] ) && is_array( $repeater_data['replace_re_value'] ) ) {
+				foreach ( $repeater_data['replace_re_value'] as $r_idx => $r_val ) {
+					if ( is_string( $r_val ) ) {
+						$repeater_data['replace_re_value'][ $r_idx ] = $this->sanitize_pdf_template_value( $r_val );
+					}
+				}
+			}
 			$customize_pdf = str_replace( $repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf );
 		}
 
@@ -683,6 +694,7 @@ class UACF7_PDF_GENERATOR {
 				'margin_left' => 0,
 				'margin_right' => 0,
 				'margin_top' => 25,
+				'curlAllowUnsafeSslRequests' => false,
 			] );
 			$replace_key = [];
 
@@ -804,6 +816,9 @@ class UACF7_PDF_GENERATOR {
 
 						}
 						$value = $data;
+					}
+					if ( is_string( $value ) ) {
+						$value = $this->sanitize_pdf_template_value( $value );
 					}
 					$replace_value[] = $value;
 				}
@@ -942,7 +957,13 @@ class UACF7_PDF_GENERATOR {
 
 				if ( is_array( $repeaters ) || is_object( $repeaters ) ) {
 					$repeater_data = apply_filters( 'uacf7_pdf_generator_replace_data', $repeater_value, $repeaters, $customize_pdf );
-
+					if ( ! empty( $repeater_data['replace_re_value'] ) && is_array( $repeater_data['replace_re_value'] ) ) {
+						foreach ( $repeater_data['replace_re_value'] as $r_idx => $r_val ) {
+							if ( is_string( $r_val ) ) {
+								$repeater_data['replace_re_value'][ $r_idx ] = $this->sanitize_pdf_template_value( $r_val );
+							}
+						}
+					}
 					$customize_pdf = str_replace( $repeater_data['replace_re_key'], $repeater_data['replace_re_value'], $customize_pdf );
 				}
 			}
@@ -976,6 +997,29 @@ class UACF7_PDF_GENERATOR {
 		}
 		return $components;
 
+	}
+
+	/**
+	 * Sanitize user-submitted form values before PDF template replacement.
+	 * Neutralizes mPDF control markers, dangerous stream wrappers, and HTML/SVG markup.
+	 *
+	 * @param mixed $value
+	 * @return string
+	 */
+	public function sanitize_pdf_template_value( $value ) {
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
+
+		// 1. Strip mPDF internal object markers
+		$clean_val = str_replace( array( "\xbb\xa4\xac", "\xc2\xbb\xc2\xa4\xc2\xac", '»¤¬' ), '', $value );
+		$clean_val = preg_replace( '/\bobjattr\s*=/i', '', $clean_val );
+
+		// 2. Strip dangerous stream wrappers and protocols (defense-in-depth against file read/SSRF)
+		$clean_val = preg_replace( '#(?::/)?(?:php|file|phar|data|expect|ftp)://#i', '', $clean_val );
+
+		// 3. Entity-encode HTML tags (Neutralizes <svg>, <image>, and arbitrary tags)
+		return esc_html( $clean_val );
 	}
 
 	public function makeLinksClickable($text) {

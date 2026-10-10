@@ -876,6 +876,9 @@ class UACF7_DATABASE {
 		if ( ! file_exists( $uacf7_dirname ) ) {
 			wp_mkdir_p( $uacf7_dirname );
 		}
+		if ( function_exists( 'uacf7_protect_uploads_directory' ) ) {
+			uacf7_protect_uploads_directory( $uacf7_dirname );
+		}
 
 		// CF7 already validates and normalizes uploaded files for the current submission.
 		foreach ( $files as $file_key => $file ) {
@@ -892,12 +895,15 @@ class UACF7_DATABASE {
 						continue;
 					}
 
-					$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key;
+					$filename = wp_basename( $file );
+					$ext      = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+					$ext_part = ! empty( $ext ) ? '.' . sanitize_key( $ext ) : '';
 
 					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
 						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '.enc';
 						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
 					} else {
+						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . $ext_part;
 						copy( $file, $dir . $dir_link );
 					}
 				array_push( $data_file, [ $file_key => $dir_link ] );

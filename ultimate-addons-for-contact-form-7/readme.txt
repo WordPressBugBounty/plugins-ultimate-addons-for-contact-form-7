@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.54
+Stable tag: 3.5.55
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -401,6 +401,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 53. Range Slider Pro (Form Example)
 
 == Changelog ==
+
+= 3.5.55 – 11/10/2026 =
+- Fixed: Issues reported by Wordfence have been resolved.
+- Improved: Enhanced overall plugin security.
 
 = 3.5.54 - 07/10/2026 =
 - Compatibility: Compatible with Contact Form 7 (v6.2)

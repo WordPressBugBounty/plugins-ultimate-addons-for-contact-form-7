@@ -1751,6 +1751,57 @@ if ( ! function_exists( 'uacf7_is_safe_uploaded_file' ) ) {
 			return false;
 		}
 
+		/*
+		 * Inspect text-based and ambiguous uploads for HTML and script signatures.
+		 * Attackers can upload text files containing HTML event handlers like <BODY onload=...>
+		 * which MIME-type detectors classify as text/plain.
+		 */
+		$text_extensions = array( 'txt', 'csv', 'vtt', 'srt', 'asc' );
+		if ( in_array( $extension, $text_extensions, true ) || 0 === strpos( strtolower( $file_type['type'] ), 'text/' ) ) {
+			$handle = @fopen( $file, 'rb' );
+			if ( $handle ) {
+				$chunk = fread( $handle, 4096 );
+				fclose( $handle );
+				if ( false !== $chunk ) {
+					if ( preg_match( '/<\s*(?:!doctype|html|head|body|script|svg|iframe|embed|object|\?xml)/i', $chunk ) ||
+					     preg_match( '/\b(?:onload|onerror|onmouseover|autofocus)\s*=/i', $chunk ) ) {
+						return false;
+					}
+				}
+			}
+		}
+
 		return true;
+	}
+}
+
+/**
+ * Hardens the UACF7 uploads directory against script execution and MIME sniffing.
+ *
+ * @param string $dir The absolute directory path.
+ */
+if ( ! function_exists( 'uacf7_protect_uploads_directory' ) ) {
+	function uacf7_protect_uploads_directory( $dir ) {
+		if ( empty( $dir ) || ! is_dir( $dir ) ) {
+			return;
+		}
+
+		// Prevent directory browsing with an empty index.php
+		$index_file = rtrim( $dir, '/\\' ) . '/index.php';
+		if ( ! file_exists( $index_file ) ) {
+			@file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+		}
+
+		// Place an .htaccess to prevent MIME sniffing and force safe handling
+		$htaccess_file = rtrim( $dir, '/\\' ) . '/.htaccess';
+		if ( ! file_exists( $htaccess_file ) ) {
+			$rules = "<IfModule mod_headers.c>\n"
+				. "Header set X-Content-Type-Options \"nosniff\"\n"
+				. "</IfModule>\n"
+				. "<FilesMatch \"\\.(?i:txt|csv|vtt|srt|asc)$\">\n"
+				. "Header set Content-Disposition \"attachment\"\n"
+				. "</FilesMatch>\n";
+			@file_put_contents( $htaccess_file, $rules );
+		}
 	}
 }
