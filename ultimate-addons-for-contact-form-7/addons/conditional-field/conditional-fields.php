@@ -25,12 +25,8 @@ class UACF7_CF {
 		add_action( 'wpcf7_form_hidden_fields', array( $this, 'uacf7_form_hidden_fields' ), 10, 1 );
 
 		add_filter( 'wpcf7_posted_data', array( $this, 'remove_hidden_post_data' ) );
-		add_filter( 'wpcf7_validate', array( $this, 'skip_validation_for_hidden_fields' ), 2, 2 );
-
-		add_action( 'wpcf7_validate_checkbox*', array($this, 'skip_hidden_checkbox_required') , 10, 2 );
-
-		add_filter( 'wpcf7_validate_file*', array( $this, 'skip_validation_for_hidden_file_field' ), 30, 3 );
-		add_filter( 'wpcf7_validate_multifile*', array( $this, 'skip_validation_for_hidden_file_field' ), 30, 3 );
+		add_filter( 'wpcf7_validate', array( $this, 'skip_validation_for_hidden_fields' ), 20, 2 );
+		add_filter( 'wpcf7_acceptance', array( $this, 'skip_hidden_acceptance' ), 20, 2 );
 		
 		add_action( 'wpcf7_config_validator_validate', array( $this, 'uacf7_config_validator_validate' ) );
 
@@ -406,35 +402,36 @@ class UACF7_CF {
 		}
 
 		$invalid_fields = $result->get_invalid_fields();
-		$return_result = new WPCF7_Validation();
+		$return_result  = new WPCF7_Validation();
 
-		if ( count( $this->hidden_fields ) == 0 || ! is_array( $invalid_fields ) || count( $invalid_fields ) == 0 ) {
+		if ( count( $this->hidden_fields ) === 0 || ! is_array( $invalid_fields ) || count( $invalid_fields ) === 0 ) {
 			return $result;
 		}
 
 		// Normalize hidden field names (strip [] if exists)
-		$normalized_hidden_fields = array_map(function($field) {
-			return rtrim($field, '[]');
-		}, $this->hidden_fields);
+		$normalized_hidden_fields = array_map( function( $field ) {
+			return rtrim( $field, '[]' );
+		}, $this->hidden_fields );
 
 		foreach ( $invalid_fields as $invalid_field_key => $invalid_field_data ) {
-			$normalized_key = rtrim($invalid_field_key, '[]');
+			$normalized_key = rtrim( $invalid_field_key, '[]' );
 
-			if ( ! in_array( $normalized_key, $normalized_hidden_fields ) ) {
-
-				foreach ( $tags as $tag ) {
-					if ( ($tag->basetype == 'checkbox' && $tag->is_required()) || 
-						($tag->basetype == 'dragdropfile' && $tag->is_required()) ) {
-
-						$tag_name = rtrim($tag->name, '[]');
-						if ( $tag_name === $normalized_key && in_array($tag_name, $normalized_hidden_fields) ) {
-							$this->invalid_field_key = $invalid_field_key;
-							continue 2; // skip invalidation
+			if ( ! in_array( $normalized_key, $normalized_hidden_fields, true ) ) {
+				$matched_tag = null;
+				if ( is_array( $tags ) ) {
+					foreach ( $tags as $tag ) {
+						if ( $tag instanceof WPCF7_FormTag && ( $tag->name === $invalid_field_key || $tag->name === $normalized_key ) ) {
+							$matched_tag = $tag;
+							break;
 						}
 					}
 				}
 
-				$return_result->invalidate( $invalid_field_key, $invalid_field_data['reason'] );
+				if ( $matched_tag ) {
+					$return_result->invalidate( $matched_tag, $invalid_field_data['reason'] );
+				} else {
+					$return_result->invalidate( $invalid_field_key, $invalid_field_data['reason'] );
+				}
 			}
 		}
 
@@ -456,8 +453,13 @@ class UACF7_CF {
 
 		$this->set_hidden_fields_arrays( $posted_data );
 
-		foreach ( $this->hidden_fields as $name => $value ) {
-			unset( $posted_data[ $name ] );
+		if ( is_array( $this->hidden_fields ) && is_array( $posted_data ) ) {
+			foreach ( $this->hidden_fields as $field_name ) {
+				if ( is_string( $field_name ) ) {
+					unset( $posted_data[ $field_name ] );
+					unset( $posted_data[ rtrim( $field_name, '[]' ) ] );
+				}
+			}
 		}
 
 		return $posted_data;
@@ -467,72 +469,103 @@ class UACF7_CF {
 	public function set_hidden_fields_arrays( $posted_data = false ) {
 
 		if ( false === $posted_data ) {
-			$submission = WPCF7_Submission::get_instance();
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+			if ( isset( $_POST['_uacf7_hidden_conditional_fields'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+				$raw_hidden = wp_unslash( $_POST['_uacf7_hidden_conditional_fields'] );
+			} else {
+				$submission = WPCF7_Submission::get_instance();
 
-			if ( ! $submission ) {
-				return;
+				if ( ! $submission ) {
+					return;
+				}
+
+				$posted_data = $submission->get_posted_data();
+				$raw_hidden  = isset( $posted_data['_uacf7_hidden_conditional_fields'] ) ? $posted_data['_uacf7_hidden_conditional_fields'] : '';
 			}
-
-			$posted_data = $submission->get_posted_data();
-		}
-
-		if ( ! is_array( $posted_data ) ) {
-			return;
-		}
-		if ( isset( $posted_data['_uacf7_hidden_conditional_fields'] ) ) {
-			$hidden_fields = json_decode( stripslashes( $posted_data['_uacf7_hidden_conditional_fields'] ) );
+		} elseif ( is_array( $posted_data ) && isset( $posted_data['_uacf7_hidden_conditional_fields'] ) ) {
+			$raw_hidden = wp_unslash( $posted_data['_uacf7_hidden_conditional_fields'] );
+		} elseif ( isset( $_POST['_uacf7_hidden_conditional_fields'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
+			$raw_hidden = wp_unslash( $_POST['_uacf7_hidden_conditional_fields'] );
 		} else {
-			$hidden_fields = [];
+			$raw_hidden = '';
 		}
+
+		if ( is_string( $raw_hidden ) && '' !== $raw_hidden ) {
+			$hidden_fields = json_decode( $raw_hidden, true );
+		} elseif ( is_array( $raw_hidden ) ) {
+			$hidden_fields = $raw_hidden;
+		} else {
+			$hidden_fields = array();
+		}
+
+		$this->hidden_fields = array();
 		if ( is_array( $hidden_fields ) && count( $hidden_fields ) > 0 ) {
 			foreach ( $hidden_fields as $field ) {
-
-				$this->hidden_fields[] = $field;
+				if ( is_string( $field ) && '' !== $field && ! in_array( $field, $this->hidden_fields, true ) ) {
+					$this->hidden_fields[] = $field;
+				}
 			}
 		}
 
 	}
 
-	public function skip_hidden_checkbox_required($result, $tag){
-
-		if ( ! count( $result->get_invalid_fields() ) ) {
-			return $result;
-		}
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
-		if ( isset( $_POST ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
-			$this->set_hidden_fields_arrays( $_POST );
-		}
-
-		$invalid_field_keys = array_keys( $result->get_invalid_fields() );
-		if ( isset( $this->hidden_fields ) && is_array( $this->hidden_fields ) && in_array( $tag->name. '[]', $this->hidden_fields ) ) {
-
-			return new WPCF7_Validation();
-		}
-
+	public function skip_hidden_checkbox_required( $result, $tag ) {
 		return $result;
-
 	}
 
 	/* Skip validation for hidden file field */
-	function skip_validation_for_hidden_file_field( $result, $tag, $args = [] ) {
-		
-		if ( ! count( $result->get_invalid_fields() ) ) {
-			return $result;
+	public function skip_validation_for_hidden_file_field( $result, $tag, $args = array() ) {
+		return $result;
+	}
+
+	public function skip_hidden_acceptance( $accepted, $submission ) {
+		if ( $accepted ) {
+			return $accepted;
 		}
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
 		if ( isset( $_POST ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles request validation before hidden-field processing.
 			$this->set_hidden_fields_arrays( $_POST );
 		}
 
-		$invalid_field_keys = array_keys( $result->get_invalid_fields() );
-
-		if ( isset( $this->hidden_fields ) && is_array( $this->hidden_fields ) && in_array( $tag->name, $this->hidden_fields ) && count( $invalid_field_keys ) == 1 ) {
-			return new WPCF7_Validation();
+		if ( empty( $this->hidden_fields ) ) {
+			return $accepted;
 		}
 
-		return $result;
+		$normalized_hidden_fields = array_map( function( $field ) {
+			return rtrim( $field, '[]' );
+		}, $this->hidden_fields );
+
+		$contact_form = $submission->get_contact_form();
+		if ( ! $contact_form ) {
+			return $accepted;
+		}
+
+		$tags = $contact_form->scan_form_tags( array( 'type' => 'acceptance' ) );
+
+		foreach ( $tags as $tag ) {
+			if ( empty( $tag->name ) || $tag->has_option( 'optional' ) ) {
+				continue;
+			}
+
+			// If this acceptance field is hidden, skip it
+			if ( in_array( $tag->name, $normalized_hidden_fields, true ) ) {
+				continue;
+			}
+
+			// This is a visible required acceptance field; check if accepted
+			$value  = wpcf7_superglobal_post( $tag->name ) ? 1 : 0;
+			$invert = $tag->has_option( 'invert' );
+
+			if ( ( $invert && $value ) || ( ! $invert && ! $value ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function uacf7_config_validator_validate( WPCF7_ConfigValidator $wpcf7_config_validator ) {

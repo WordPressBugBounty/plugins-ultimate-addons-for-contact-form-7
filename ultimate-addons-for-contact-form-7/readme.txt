@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.55
+Stable tag: 3.5.56
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,6 +402,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.5.56 – 27/10/2026 =
+- Fixed: Required field validation for hidden conditional fields.
+- Improved: Enhanced overall plugin security.
+
 = 3.5.55 – 11/10/2026 =
 - Fixed: Issues reported by Wordfence have been resolved.
 - Improved: Enhanced overall plugin security.
@@ -410,12 +414,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 - Compatibility: Compatible with Contact Form 7 (v6.2)
 - Stability: Improved overall system stability.
 
-= 3.5.53 - 04/10/2026 =
-- Improved: Renamed the Settings menu for better clarity.
-- Fixed: Style Addon escaping issue has been resolved.
-- Fixed: HTML escaping issue in the Text Editor when saving.
-
-= 3.5.52 - 23/09/2026 =
 - Improved:  Vulnerability and overall system stability.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.

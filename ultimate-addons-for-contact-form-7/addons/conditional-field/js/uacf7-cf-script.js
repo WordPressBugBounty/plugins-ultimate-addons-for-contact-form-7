@@ -21,6 +21,16 @@
 			uacf7_cf_handler_this($this);
 		});
 
+		jQuery(document).on('submit', 'form.wpcf7-form', function () {
+			uacf7_skip_validation();
+		});
+
+		if (typeof document.addEventListener === 'function') {
+			document.addEventListener('wpcf7beforesubmit', function () {
+				uacf7_skip_validation();
+			});
+		}
+
 	});
 
 
@@ -410,15 +420,14 @@
 				if ($this.hasClass('uacf7-hidden')) {
 
 					$this.find('input,select,textarea').each(function () {
-						hidden_fields.push(jQuery(this).attr('name'));
+						var fieldName = jQuery(this).attr('name');
+						if (fieldName && hidden_fields.indexOf(fieldName) === -1) {
+							hidden_fields.push(fieldName);
+						}
 					});
 				}
 			});
 			$form.find('[name="_uacf7_hidden_conditional_fields"]').val(JSON.stringify(hidden_fields));
-
-			$form.on('submit', function () {
-				uacf7_skip_validation();
-			});
 
 		});
 	}
