@@ -47,6 +47,7 @@ class UACF7_DATABASE {
 		}
 
 		add_action('wp_ajax_uacf7_ajax_database_export_csv', array($this, 'uacf7_ajax_database_export_csv') );
+		add_action( 'wp_ajax_uacf7dp_download_file', array( $this, 'ajax_download_file' ) );
 		
 	}
 
@@ -351,8 +352,16 @@ class UACF7_DATABASE {
 					}
 
 					if ( strstr( $value, $replace_dir ) ) {
-						$value = str_replace( $replace_dir, "", $value );
-						$value = $dir . $replace_dir . $value;
+						$file_items = array_map( 'trim', explode( ',', $value ) );
+						$resolved_urls = [];
+						foreach ( $file_items as $f_item ) {
+							if ( preg_match( '#^https?://#i', $f_item ) ) {
+								$resolved_urls[] = $f_item;
+							} else {
+								$resolved_urls[] = untrailingslashit( $dir ) . '/' . ltrim( $f_item, '/\\' );
+							}
+						}
+						$value = implode( ', ', $resolved_urls );
 					}
 
 					$row[] = $value;
@@ -604,8 +613,50 @@ class UACF7_DATABASE {
 
 					$link_html = '';
 					foreach ( $items as $item ) {
-						$filename = basename( $item );
-						$link_html .= '<a href="' . esc_url( $item ) . '" target="_blank">' . esc_html( $filename ) . '</a><br>';
+						$file_url = $item;
+						$file_path = '';
+
+						if ( preg_match( '#^https?://#i', $item ) ) {
+							$file_url = $item;
+							if ( strpos( $item, $dir ) === 0 ) {
+								$file_path = $signaturepath . substr( $item, strlen( $dir ) );
+							}
+						} else {
+							$file_url  = untrailingslashit( $dir ) . '/' . ltrim( $item, '/\\' );
+							$file_path = untrailingslashit( $signaturepath ) . '/' . ltrim( $item, '/\\' );
+						}
+
+						// Check if file on disk is missing an extension and auto-repair it
+						if ( ! empty( $file_path ) && file_exists( $file_path ) && is_file( $file_path ) ) {
+							$current_ext = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+							if ( empty( $current_ext ) && function_exists( 'uacf7_detect_file_extension' ) ) {
+								$detected_ext = uacf7_detect_file_extension( $file_path );
+								if ( ! empty( $detected_ext ) ) {
+									$new_path = $file_path . '.' . $detected_ext;
+									if ( @rename( $file_path, $new_path ) ) {
+										$new_item = $item . '.' . $detected_ext;
+										$uacf7_db->query( $uacf7_db->prepare(
+											"UPDATE {$uacf7_db->prefix}uacf7dp_data_entry SET value = %s WHERE value = %s",
+											$new_item,
+											$item
+										) );
+										$item = $new_item;
+										$file_path = $new_path;
+										if ( preg_match( '#^https?://#i', $file_url ) ) {
+											$file_url .= '.' . $detected_ext;
+										} else {
+											$file_url = untrailingslashit( $dir ) . '/' . ltrim( $new_item, '/\\' );
+										}
+									}
+								}
+							}
+						}
+
+						$filename     = basename( ! empty( $file_path ) ? $file_path : $item );
+						$download_url = admin_url( 'admin-ajax.php?action=uacf7dp_download_file&file=' . urlencode( basename( $item ) ) . '&nonce=' . wp_create_nonce( 'uacf7dp-nonce' ) );
+
+						$link_html .= '<a href="' . esc_url( $file_url ) . '" target="_blank">' . esc_html( $filename ) . '</a>';
+						$link_html .= ' <a href="' . esc_url( $download_url ) . '" class="button button-small" style="margin-left:8px;">' . esc_html__( 'Download', 'ultimate-addons-for-contact-form-7' ) . '</a><br>';
 					}
 				
 					$html .= '<tr> <td><strong>' . esc_attr( $key ) . '</strong></td> <td>' . $link_html . '</td> </tr>';
@@ -638,6 +689,10 @@ class UACF7_DATABASE {
 		$uacf7_db = $wpdb;
 		$cf7d_entry_order_by = '`data_id` DESC';
 		$form_id = isset( $_POST['form_id'] ) ? absint( wp_unslash( $_POST['form_id'] ) ) : 0;
+
+		if ( $form_id > 0 ) {
+			$this->auto_repair_upload_extensions( $form_id );
+		}
 
 		$get_form_data = $uacf7_db->prepare(
 			"SELECT * 
@@ -881,44 +936,53 @@ class UACF7_DATABASE {
 		}
 
 		// CF7 already validates and normalizes uploaded files for the current submission.
-		foreach ( $files as $file_key => $file ) {
-			if ( ! empty( $file ) ) {
-				$uploaded_files[] = $file_key;
+		$saved_files = [];
+		foreach ( $files as $file_key => $file_list ) {
+			if ( empty( $file_list ) ) {
+				continue;
+			}
+			$file_array = is_array( $file_list ) ? $file_list : [ $file_list ];
+			$links_for_field = [];
+
+			foreach ( $file_array as $file ) {
+				if ( empty( $file ) || ! uacf7_is_safe_uploaded_file( $file ) ) {
+					continue;
+				}
+
+				$filename = wp_basename( $file );
+				$ext      = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+
+				// Fallback to original uploaded file name from $_FILES if extension is missing
+				if ( empty( $ext ) && ! empty( $_FILES[ $file_key ]['name'] ) ) {
+					$orig_name = sanitize_file_name( wp_unslash( is_array( $_FILES[ $file_key ]['name'] ) ? reset( $_FILES[ $file_key ]['name'] ) : $_FILES[ $file_key ]['name'] ) );
+					$ext       = strtolower( pathinfo( $orig_name, PATHINFO_EXTENSION ) );
+				}
+
+				// Fallback to content-based detection if still missing
+				if ( empty( $ext ) && function_exists( 'uacf7_detect_file_extension' ) ) {
+					$ext = uacf7_detect_file_extension( $file );
+				}
+
+				$ext_part = ! empty( $ext ) ? '.' . sanitize_key( $ext ) : '';
+
+				if ( in_array( $file_key, $uacf7_signature_tag, true ) ) {
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . sanitize_key( $file_key ) . '.enc';
+					$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
+				} else {
+					$dir_link = '/uacf7-uploads/' . $time_now . '-' . sanitize_key( $file_key ) . $ext_part;
+					copy( $file, $dir . $dir_link );
+				}
+
+				$links_for_field[] = $dir_link;
 			}
 
-			// var_dump( $file_key );
-
-			if ( ! empty( $file ) && in_array( $file_key, $uploaded_files, true ) ) {
-					$file = is_array( $file ) ? reset( $file ) : $file;
-
-					if ( ! uacf7_is_safe_uploaded_file( $file ) ) {
-						continue;
-					}
-
-					$filename = wp_basename( $file );
-					$ext      = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
-					$ext_part = ! empty( $ext ) ? '.' . sanitize_key( $ext ) : '';
-
-					if ( in_array( $file_key, $uacf7_signature_tag ) ) {
-						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . '.enc';
-						$this->encrypt_file( $file, $dir . $dir_link, $encryptionKey );
-					} else {
-						$dir_link = '/uacf7-uploads/' . $time_now . '-' . $file_key . $ext_part;
-						copy( $file, $dir . $dir_link );
-					}
-				array_push( $data_file, [ $file_key => $dir_link ] );
+			if ( ! empty( $links_for_field ) ) {
+				$saved_files[ $file_key ] = implode( ', ', $links_for_field );
 			}
-
 		}
 
-		$key_count = 0;
-		foreach ( $contact_form_data as $key => $value ) {
-			if ( in_array( $key, $uploaded_files, true ) ) {
-				if ( ! empty( $data_file ) && is_array( $data_file ) ) {
-					$contact_form_data[ $key ] = $data_file[ $key_count ][ $key ];
-				}
-				$key_count++;
-			}
+		foreach ( $saved_files as $f_key => $f_link ) {
+			$contact_form_data[ $f_key ] = $f_link;
 		}
 
 
@@ -1047,6 +1111,164 @@ class UACF7_DATABASE {
 		wp_send_json_success(['message' => 'Selected rows deleted successfully.']);
 		wp_die();
 		
+	}
+
+
+	/**
+	 * Auto-repairs legacy files stored in /uacf7-uploads/ without extensions.
+	 * Detects file type from magic bytes/content, renames the physical file, and updates DB records.
+	 *
+	 * @param int $form_id Contact form ID.
+	 */
+	public function auto_repair_upload_extensions( $form_id ) {
+		if ( empty( $form_id ) || ! function_exists( 'uacf7_detect_file_extension' ) ) {
+			return;
+		}
+
+		global $wpdb;
+		$upload_dir = wp_upload_dir();
+		$basedir    = untrailingslashit( $upload_dir['basedir'] );
+
+		$rows = $wpdb->get_results( $wpdb->prepare(
+			"SELECT id, value FROM {$wpdb->prefix}uacf7dp_data_entry WHERE cf7_form_id = %d AND value LIKE %s",
+			$form_id,
+			'%/uacf7-uploads/%'
+		) );
+
+		if ( empty( $rows ) ) {
+			return;
+		}
+
+		foreach ( $rows as $row ) {
+			$raw_value = $row->value;
+			if ( empty( $raw_value ) ) {
+				continue;
+			}
+
+			$items         = array_map( 'trim', explode( ',', $raw_value ) );
+			$value_changed = false;
+			$new_items     = [];
+
+			foreach ( $items as $item ) {
+				$file_path = '';
+				if ( preg_match( '#^https?://#i', $item ) ) {
+					if ( strpos( $item, $upload_dir['baseurl'] ) === 0 ) {
+						$file_path = $basedir . substr( $item, strlen( $upload_dir['baseurl'] ) );
+					}
+				} else {
+					$file_path = $basedir . '/' . ltrim( $item, '/\\' );
+				}
+
+				if ( ! empty( $file_path ) && file_exists( $file_path ) && is_file( $file_path ) ) {
+					$ext = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+					if ( empty( $ext ) ) {
+						$detected_ext = uacf7_detect_file_extension( $file_path );
+						if ( ! empty( $detected_ext ) ) {
+							$new_path = $file_path . '.' . $detected_ext;
+							if ( @rename( $file_path, $new_path ) ) {
+								$item          = $item . '.' . $detected_ext;
+								$value_changed = true;
+							}
+						}
+					}
+				}
+				$new_items[] = $item;
+			}
+
+			if ( $value_changed ) {
+				$updated_value = implode( ', ', $new_items );
+				$wpdb->update(
+					"{$wpdb->prefix}uacf7dp_data_entry",
+					[ 'value' => $updated_value ],
+					[ 'id' => $row->id ]
+				);
+			}
+		}
+	}
+
+
+	/**
+	 * Secure admin endpoint to download uploaded files directly through WordPress.
+	 * Protects against traversal and validates admin capabilities and nonce.
+	 */
+	public function ajax_download_file() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have permission to perform this action.', 'ultimate-addons-for-contact-form-7' ), 403 );
+		}
+
+		if ( ! check_ajax_referer( 'uacf7dp-nonce', 'nonce', false ) ) {
+			wp_die( esc_html__( 'Security check failed.', 'ultimate-addons-for-contact-form-7' ), 403 );
+		}
+
+		$file = isset( $_GET['file'] ) ? sanitize_file_name( wp_unslash( $_GET['file'] ) ) : '';
+		if ( empty( $file ) ) {
+			wp_die( esc_html__( 'No file specified.', 'ultimate-addons-for-contact-form-7' ), 400 );
+		}
+
+		$upload_dir   = wp_upload_dir();
+		$uploads_base = wp_normalize_path( untrailingslashit( $upload_dir['basedir'] ) . '/uacf7-uploads' );
+		$target_file  = wp_normalize_path( $uploads_base . '/' . $file );
+
+		// Check if file exists, or if renamed version with extension exists
+		if ( ! file_exists( $target_file ) ) {
+			$matching = glob( $target_file . '.*' );
+			if ( ! empty( $matching ) && file_exists( $matching[0] ) ) {
+				$target_file = $matching[0];
+			}
+		}
+
+		$real_target = realpath( $target_file );
+		$real_base   = realpath( $uploads_base );
+
+		if ( false === $real_target || false === $real_base || strpos( $real_target, $real_base ) !== 0 || ! is_file( $real_target ) ) {
+			wp_die( esc_html__( 'File not found.', 'ultimate-addons-for-contact-form-7' ), 404 );
+		}
+
+		// Security: Prevent serving executable files
+		if ( preg_match( '/\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|exe)$/i', $real_target ) ) {
+			wp_die( esc_html__( 'Forbidden file type.', 'ultimate-addons-for-contact-form-7' ), 403 );
+		}
+
+		// Detect MIME type and extension
+		$ext = strtolower( pathinfo( $real_target, PATHINFO_EXTENSION ) );
+		if ( empty( $ext ) && function_exists( 'uacf7_detect_file_extension' ) ) {
+			$ext = uacf7_detect_file_extension( $real_target );
+		}
+
+		$mime_types = array(
+			'pdf'  => 'application/pdf',
+			'jpg'  => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'png'  => 'image/png',
+			'gif'  => 'image/gif',
+			'webp' => 'image/webp',
+			'txt'  => 'text/plain',
+			'csv'  => 'text/csv',
+			'doc'  => 'application/msword',
+			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'zip'  => 'application/zip',
+		);
+		$mime = isset( $mime_types[ $ext ] ) ? $mime_types[ $ext ] : 'application/octet-stream';
+
+		$download_name = basename( $real_target );
+		if ( empty( pathinfo( $download_name, PATHINFO_EXTENSION ) ) && ! empty( $ext ) ) {
+			$download_name .= '.' . $ext;
+		}
+
+		while ( ob_get_level() > 0 ) {
+			ob_end_clean();
+		}
+
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-Type: ' . $mime );
+		header( 'Content-Disposition: attachment; filename="' . esc_attr( $download_name ) . '"' );
+		header( 'Content-Length: ' . filesize( $real_target ) );
+		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+		header( 'Pragma: public' );
+		header( 'Expires: 0' );
+
+		readfile( $real_target );
+		exit;
 	}
 
 

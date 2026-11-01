@@ -13571,7 +13571,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 						$this->OTLdata = [];
 					} // TEXTAREA
 					else {
-						$objattr = unserialize($this->specialcontent);
+						$objattr = unserialize($this->specialcontent, array('allowed_classes' => false));
 						$objattr['text'] = $e;
 						$objattr['OTLdata'] = $this->OTLdata;
 						$this->OTLdata = [];

@@ -601,8 +601,12 @@ class UACF7_PDF_GENERATOR {
 		if ( ! file_exists( $dir . '/uacf7-uploads' ) ) {
 			wp_mkdir_p( $dir . '/uacf7-uploads' );
 		}
-		$pdf_dir = $dir . '/uacf7-uploads/' . $uacf7_pdf_name . '_db_.pdf';
-		$pdf_url = $url . '/uacf7-uploads/' . $uacf7_pdf_name . '_db_.pdf';
+		$safe_pdf_name = sanitize_file_name( $uacf7_pdf_name );
+		if ( empty( $safe_pdf_name ) ) {
+			$safe_pdf_name = 'submission-' . time();
+		}
+		$pdf_dir = $dir . '/uacf7-uploads/' . $safe_pdf_name . '_db_.pdf';
+		$pdf_url = $url . '/uacf7-uploads/' . $safe_pdf_name . '_db_.pdf';
 
 		$mpdf->Output( $pdf_dir, 'F' ); // Dwonload
 
@@ -983,8 +987,12 @@ class UACF7_PDF_GENERATOR {
 			// PDF Footer Content
 			$mpdf->WriteHTML( '<div class="pdf-content">' . nl2br( $pdf_content) . '   </div>' );
 
-			$pdf_dir = $dir . '/uacf7-uploads/' . $uacf7_pdf_name . '.pdf';
-			$pdf_url = $url . '/uacf7-uploads/' . $uacf7_pdf_name . '.pdf';
+			$safe_pdf_name = sanitize_file_name( $uacf7_pdf_name );
+			if ( empty( $safe_pdf_name ) ) {
+				$safe_pdf_name = 'submission-' . time();
+			}
+			$pdf_dir = $dir . '/uacf7-uploads/' . $safe_pdf_name . '.pdf';
+			$pdf_url = $url . '/uacf7-uploads/' . $safe_pdf_name . '.pdf';
 
 			$mpdf->Output( $pdf_dir, 'F' ); 
 

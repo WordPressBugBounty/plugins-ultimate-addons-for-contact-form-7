@@ -1805,3 +1805,112 @@ if ( ! function_exists( 'uacf7_protect_uploads_directory' ) ) {
 		}
 	}
 }
+
+/**
+ * Detects the most probable file extension for an uploaded file using magic bytes / MIME inspection.
+ *
+ * @param string $file_path The absolute path to the file.
+ * @return string The detected extension (e.g. 'pdf', 'jpg', 'png'), or empty string if unknown.
+ */
+if ( ! function_exists( 'uacf7_detect_file_extension' ) ) {
+	function uacf7_detect_file_extension( $file_path ) {
+		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
+			return '';
+		}
+
+		$size = @filesize( $file_path );
+		if ( $size === false || $size === 0 ) {
+			return '';
+		}
+
+		$handle = @fopen( $file_path, 'rb' );
+		if ( ! $handle ) {
+			return '';
+		}
+
+		$header = fread( $handle, 64 );
+		fclose( $handle );
+
+		// Magic bytes checks
+		if ( strncmp( $header, '%PDF', 4 ) === 0 ) {
+			return 'pdf';
+		}
+		if ( substr( $header, 0, 3 ) === "\xFF\xD8\xFF" ) {
+			return 'jpg';
+		}
+		if ( substr( $header, 0, 8 ) === "\x89PNG\x0D\x0A\x1A\x0A" ) {
+			return 'png';
+		}
+		if ( substr( $header, 0, 4 ) === 'GIF8' ) {
+			return 'gif';
+		}
+		if ( substr( $header, 0, 4 ) === 'RIFF' && substr( $header, 8, 4 ) === 'WEBP' ) {
+			return 'webp';
+		}
+		if ( substr( $header, 0, 2 ) === 'BM' ) {
+			return 'bmp';
+		}
+		if ( substr( $header, 0, 5 ) === "{\\rtf" ) {
+			return 'rtf';
+		}
+		if ( substr( $header, 0, 8 ) === "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" ) {
+			return 'doc';
+		}
+		if ( substr( $header, 0, 4 ) === "PK\x03\x04" ) {
+			// ZIP or modern Office (docx, xlsx, pptx)
+			if ( class_exists( 'ZipArchive' ) ) {
+				$zip = new ZipArchive();
+				if ( @$zip->open( $file_path ) === true ) {
+					if ( $zip->locateName( 'word/document.xml' ) !== false ) {
+						$zip->close();
+						return 'docx';
+					}
+					if ( $zip->locateName( 'xl/workbook.xml' ) !== false ) {
+						$zip->close();
+						return 'xlsx';
+					}
+					if ( $zip->locateName( 'ppt/presentation.xml' ) !== false ) {
+						$zip->close();
+						return 'pptx';
+					}
+					$zip->close();
+				}
+			}
+			return 'zip';
+		}
+
+		// SVG check
+		if ( stripos( $header, '<svg' ) !== false || ( stripos( $header, '<?xml' ) !== false && stripos( $header, '<svg' ) !== false ) ) {
+			return 'svg';
+		}
+
+		// Fallback to finfo if available
+		if ( function_exists( 'finfo_open' ) && defined( 'FILEINFO_MIME_TYPE' ) ) {
+			$finfo = @finfo_open( FILEINFO_MIME_TYPE );
+			if ( $finfo ) {
+				$mime = @finfo_file( $finfo, $file_path );
+				@finfo_close( $finfo );
+
+				$mime_map = array(
+					'application/pdf'  => 'pdf',
+					'image/jpeg'       => 'jpg',
+					'image/png'        => 'png',
+					'image/gif'        => 'gif',
+					'image/webp'       => 'webp',
+					'text/plain'       => 'txt',
+					'text/csv'         => 'csv',
+					'application/zip'  => 'zip',
+					'application/msword' => 'doc',
+					'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'        => 'xlsx',
+				);
+
+				if ( ! empty( $mime ) && isset( $mime_map[ $mime ] ) ) {
+					return $mime_map[ $mime ];
+				}
+			}
+		}
+
+		return '';
+	}
+}
