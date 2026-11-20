@@ -842,8 +842,11 @@ class UACF7_MULTISTEP {
 				);
 				if ( method_exists( $form, 'get_schema' ) ) {
 					$args['schema'] = $form->get_schema();
-				}
-				$new_files = function_exists( 'wpcf7_unship_uploaded_file' ) ? wpcf7_unship_uploaded_file( $file, $args ) : null;
+				}  
+				
+				$uploaded_files = array();
+				$new_files = function_exists( 'wpcf7_unship_uploaded_file' ) ? wpcf7_unship_uploaded_file( $file, $args, $uploaded_files ) : null;
+				
 				if ( is_wp_error( $new_files ) ) {
 					$result->invalidate( $tag, $new_files );
 				}
