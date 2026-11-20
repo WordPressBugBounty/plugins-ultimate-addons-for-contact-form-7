@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.57
+Stable tag: 3.5.58
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -402,6 +402,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.5.58 – 20/11/2026 =
+
+- Added: Option to set a custom validation message.
+- Updated: Submission ID handling.
+- Updated: Made the CAPTCHA validation message dynamic.
+- Fixed: Country dropdown required-field validation.
+- Fixed: Missing array key handling in the `$extra` array.
+- Fixed: PDF security vulnerability.
+- Fixed: Pre-population of form fields.
+
 = 3.5.57 – 01/11/2026 =
 - Fixed: Resolved uploaded file 404 errors and missing file extensions.
 - Improved: PDF filename sanitization and secure mPDF content handling.
@@ -409,12 +419,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.5.56 – 27/10/2026 =
 - Fixed: Required field validation for hidden conditional fields.
 - Improved: Enhanced overall plugin security.
-
-= 3.5.55 – 11/10/2026 =
-- Fixed: Issues reported by Wordfence have been resolved.
-- Improved: Enhanced overall plugin security.
-
-- Improved:  Vulnerability and overall system stability.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

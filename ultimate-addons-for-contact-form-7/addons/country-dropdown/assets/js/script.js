@@ -7,12 +7,21 @@
 
         forms.each(function () {
             var formId = $(this).find('input[name="_wpcf7"]').val();
-            $('.uacf7-form-' + formId).find('input.uacf7_country_dropdown_with_flag').each(function () {
+            var form = $(this);
+            var inputs = form.find('input.uacf7_country_dropdown_with_flag');
+            if (!inputs.length) {
+                inputs = $('.uacf7-form-' + formId).find('input.uacf7_country_dropdown_with_flag');
+            }
+            inputs.each(function () {
                 var fieldId = jQuery(this).attr('id');
-                var defaultCountry = jQuery(this).attr('country-code');
+                var defaultCountry = jQuery(this).attr('country-code') || '';
                 var onlyCountries = jQuery(this).attr('only-countries');
                 if (typeof onlyCountries !== "undefined" && onlyCountries != '') {
-                    onlyCountries = JSON.parse(onlyCountries);
+                    try {
+                        onlyCountries = JSON.parse(onlyCountries);
+                    } catch (e) {
+                        onlyCountries = '';
+                    }
                 } else {
                     onlyCountries = '';
                 }

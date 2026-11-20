@@ -26,6 +26,7 @@ class UACF7_PDF_GENERATOR {
 		add_filter( 'uacf7_post_meta_import_export', array( $this, 'uacf7_post_meta_import_export_pdf_generator' ), 18, 2 );
 
 		require_once( 'inc/functions.php' );
+		require_once( 'inc/class-uacf7-mpdf-safe-http-client.php' );
 
 	}
 
@@ -376,22 +377,7 @@ class UACF7_PDF_GENERATOR {
 		$pdf_bg_upload_image     = ! empty( $pdf_bg_upload_image ) ? 'background-image: url("' . esc_attr( $pdf_bg_upload_image ) . '");' : '';
 		$pdf_header_upload_image = ! empty( $pdf_header_upload_image ) ? '<img src="' . esc_attr( $pdf_header_upload_image ) . '" style="height: 60; max-width: 100%; ">' : '';
 
-		$mpdf = new \Mpdf\Mpdf( [ 
-			'fontdata' => [ // lowercase letters only in font key
-				'dejavuserifcond' => [ 
-					'R' => 'DejaVuSansCondensed.ttf',
-				]
-			],
-			'mode' => 'utf-8',
-			'default_font' => 'dejavusanscond',
-			'margin_header' => 0,
-			'margin_footer' => 0,
-			'format' => 'A4',
-			'margin_left' => 0,
-			'margin_right' => 0,
-			'margin_top' => 25,
-			'curlAllowUnsafeSslRequests' => false,
-		] );
+		$mpdf = $this->create_mpdf_instance();
 
 
 		// PDF Style
@@ -499,7 +485,7 @@ class UACF7_PDF_GENERATOR {
 		$ContactForm = WPCF7_ContactForm::get_instance( $form_id );
 		$form_fields = $ContactForm->scan_form_tags();
 
-		$encryptionKey = 'AES-256-CBC';
+		$encryptionKey = function_exists( 'uacf7_get_signature_encryption_key' ) ? uacf7_get_signature_encryption_key() : 'AES-256-CBC';
 		$uacf7_signature_tag = [];
 		$uacf7_file_tag = [];
 
@@ -538,14 +524,17 @@ class UACF7_PDF_GENERATOR {
 			// Signature Image Decrypt form Database Addon
 			if ( in_array( $key, $uacf7_signature_tag ) && $uacf7_DB != null ) {
 				$pathInfo = pathinfo( $value );
-				$extension = strtolower( $pathInfo['extension'] );
+				$extension = strtolower( isset( $pathInfo['extension'] ) ? $pathInfo['extension'] : '' );
 
-				ob_start();
-				echo wp_kses_post( $uacf7_DB->decrypt_and_display( $dir . $value, $encryptionKey ) );
-				$decryptedData = ob_get_clean();
+				$decryptedData = $uacf7_DB->decrypt_and_display( $dir . $value, $encryptionKey );
 
-				if ( $decryptedData !== null ) {
-					$value = 'data:image/png;base64,' . base64_encode( $decryptedData );
+				if ( ! empty( $decryptedData ) ) {
+					$base64_sig = 'data:image/png;base64,' . base64_encode( $decryptedData );
+					if ( ! empty( $customize_pdf ) && preg_match( '/<img[^>]*src=[\'"]\s*\[' . preg_quote( $key, '/' ) . '\]\s*[\'"][^>]*>/i', $customize_pdf ) ) {
+						$value = $base64_sig;
+					} else {
+						$value = '<img src="' . $base64_sig . '" style="max-width:200px;height:auto;" />';
+					}
 				}
 			}
 
@@ -589,6 +578,7 @@ class UACF7_PDF_GENERATOR {
 
 		$pdf_content = str_replace( $replace_key, $replace_value, $customize_pdf );
 		$pdf_content = apply_filters( 'uacf7_pdf_generator_replace_condition_data', $pdf_content, $form_id, $form_value );
+		$pdf_content = $this->sanitize_pdf_content_urls( $pdf_content );
 
 		$mpdf->SetTitle( $uacf7_pdf_name );
 
@@ -662,8 +652,16 @@ class UACF7_PDF_GENERATOR {
 				$uploaded_files[] = $file_key;
 			}
 
+			// Scan form tags to detect signature fields
+			$uacf7_signature_tags = [];
+			foreach ( $wpcf7->scan_form_tags() as $form_tag ) {
+				if ( $form_tag->type === 'uacf7_signature' || $form_tag->type === 'uacf7_signature*' ) {
+					$uacf7_signature_tags[] = $form_tag->name;
+				}
+			}
+
 			//  
-			$uacf7_pdf_name = ! empty( $pdf['uacf7_pdf_name'] ) ? $pdf['uacf7_pdf_name'] : get_the_title( $wpcf7->id() );
+			$uacf7_pdf_name = ! empty( $pdf['uacf7_pdf_name'] ) ? $pdf['uacf7_pdf_name'] : sanitize_text_field( get_the_title( $wpcf7->id() ) );
 			$disable_header = ! empty( $pdf['uacf7_pdf_disable_header_footer'] ) && in_array( 'header', $pdf['uacf7_pdf_disable_header_footer'] ) ? true : false;
 			$disable_footer = ! empty( $pdf['uacf7_pdf_disable_header_footer'] ) && in_array( 'footer', $pdf['uacf7_pdf_disable_header_footer'] ) ? true : false;
 			$customize_pdf = ! empty( $pdf['customize_pdf'] ) ? $pdf['customize_pdf'] : '';
@@ -684,22 +682,7 @@ class UACF7_PDF_GENERATOR {
 			$pdf_bg_upload_image = ! empty( $pdf_bg_upload_image ) ? 'background-image: url("' . esc_attr( $pdf_bg_upload_image ) . '");' : '';
 			$pdf_header_upload_image = ! empty( $pdf_header_upload_image ) ? '<img src="' . esc_attr( $pdf_header_upload_image ) . '" style="height: 60; max-width: 100%; ">' : '';
 		
-			$mpdf = new \Mpdf\Mpdf( [ 
-				'fontdata' => [ // lowercase letters only in font key
-					'dejavuserifcond' => [ 
-						'R' => 'DejaVuSansCondensed.ttf',
-					]
-				],
-				'mode' => 'utf-8',
-				'default_font' => 'dejavusanscond',
-				'margin_header' => 0,
-				'margin_footer' => 0,
-				'format' => 'A4',
-				'margin_left' => 0,
-				'margin_right' => 0,
-				'margin_top' => 25,
-				'curlAllowUnsafeSslRequests' => false,
-			] );
+			$mpdf = $this->create_mpdf_instance();
 			$replace_key = [];
 
 			// PDF Style
@@ -832,6 +815,24 @@ class UACF7_PDF_GENERATOR {
 			foreach ( $files as $file_key => $file ) {
 
 				if ( ! empty( $file ) ) {
+
+					// Handle signature files securely: do NOT copy plaintext image to public uploads directory
+					if ( in_array( $file_key, $uacf7_signature_tags, true ) ) {
+						$sig_file = is_array( $file ) ? reset( $file ) : $file;
+						if ( is_string( $sig_file ) && file_exists( $sig_file ) && is_readable( $sig_file ) ) {
+							$sig_bytes = @file_get_contents( $sig_file );
+							if ( ! empty( $sig_bytes ) ) {
+								$base64_sig = 'data:image/png;base64,' . base64_encode( $sig_bytes );
+								$replace_key[] = '[' . $file_key . ']';
+								if ( ! empty( $customize_pdf ) && preg_match( '/<img[^>]*src=[\'"]\s*\[' . preg_quote( $file_key, '/' ) . '\]\s*[\'"][^>]*>/i', $customize_pdf ) ) {
+									$replace_value[] = $base64_sig;
+								} else {
+									$replace_value[] = '<img src="' . $base64_sig . '" style="max-width:200px;height:auto;" />';
+								}
+							}
+						}
+						continue;
+					}
 
 					if ( in_array( $file_key, $uploaded_files ) ) {
 
@@ -976,6 +977,7 @@ class UACF7_PDF_GENERATOR {
 			// Replace extranal data using this content;
 
 			$pdf_content = apply_filters( 'uacf7_pdf_generator_replace_condition_data', $pdf_content, $wpcf7->id(), $contact_form_data );
+			$pdf_content = $this->sanitize_pdf_content_urls( $pdf_content );
 
 			// Replace PDF Name
 			$uacf7_pdf_name = str_replace( $replace_key, $replace_value, $uacf7_pdf_name );
@@ -1008,6 +1010,80 @@ class UACF7_PDF_GENERATOR {
 	}
 
 	/**
+	 * Create and configure an mPDF instance with a safe SSRF-protected HTTP client.
+	 *
+	 * @param array $config
+	 * @return \Mpdf\Mpdf
+	 */
+	public function create_mpdf_instance( $config = [] ) {
+		if ( ! class_exists( '\Mpdf\Mpdf' ) && defined( 'UACF7_PATH' ) && file_exists( UACF7_PATH . 'third-party/vendor/autoload.php' ) ) {
+			require_once UACF7_PATH . 'third-party/vendor/autoload.php';
+		}
+
+		$default_config = [
+			'fontdata'                   => [
+				'dejavuserifcond' => [
+					'R' => 'DejaVuSansCondensed.ttf',
+				],
+			],
+			'mode'                       => 'utf-8',
+			'default_font'               => 'dejavusanscond',
+			'margin_header'              => 0,
+			'margin_footer'              => 0,
+			'format'                     => 'A4',
+			'margin_left'                => 0,
+			'margin_right'               => 0,
+			'margin_top'                 => 25,
+			'curlAllowUnsafeSslRequests' => false,
+		];
+
+		$merged_config = array_merge( $default_config, $config );
+
+		$safe_http_client = new UACF7_Mpdf_Safe_Http_Client();
+		$container        = new \Mpdf\Container\SimpleContainer( [
+			'httpClient' => $safe_http_client,
+		] );
+
+		return new \Mpdf\Mpdf( $merged_config, $container );
+	}
+
+	/**
+	 * Neutralize any unsafe/SSRF image sources or CSS URLs in rendered HTML before passing to mPDF.
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function sanitize_pdf_content_urls( $html ) {
+		if ( ! is_string( $html ) || empty( $html ) || ! class_exists( 'UACF7_Mpdf_Safe_Http_Client' ) ) {
+			return $html;
+		}
+
+		// Sanitize src attributes in tags: <img src="..."/>
+		$html = preg_replace_callback( '/(<(?:img|image|source)\s+[^>]*src\s*=\s*["\'])(https?:\/\/[^"\']+)(["\'][^>]*>)/i', function( $matches ) {
+			$url      = $matches[2];
+			$is_local = UACF7_Mpdf_Safe_Http_Client::url_to_local_path( $url );
+			$is_safe  = UACF7_Mpdf_Safe_Http_Client::is_safe_url( $url );
+			if ( ! $is_local && ! $is_safe ) {
+				return $matches[1] . '' . $matches[3];
+			}
+			return $matches[0];
+		}, $html );
+
+		// Sanitize CSS url(...)
+		$html = preg_replace_callback( '/(url\s*\(\s*["\']?)(https?:\/\/[^"\'\)\s]+)(["\']?\s*\))/i', function( $matches ) {
+			$url      = $matches[2];
+			$is_local = UACF7_Mpdf_Safe_Http_Client::url_to_local_path( $url );
+			$is_safe  = UACF7_Mpdf_Safe_Http_Client::is_safe_url( $url );
+			if ( ! $is_local && ! $is_safe ) {
+				return $matches[1] . '' . $matches[3];
+			}
+			return $matches[0];
+		}, $html );
+
+		return $html;
+	}
+
+	/**
 	 * Sanitize user-submitted form values before PDF template replacement.
 	 * Neutralizes mPDF control markers, dangerous stream wrappers, and HTML/SVG markup.
 	 *
@@ -1024,9 +1100,21 @@ class UACF7_PDF_GENERATOR {
 		$clean_val = preg_replace( '/\bobjattr\s*=/i', '', $clean_val );
 
 		// 2. Strip dangerous stream wrappers and protocols (defense-in-depth against file read/SSRF)
-		$clean_val = preg_replace( '#(?::/)?(?:php|file|phar|data|expect|ftp)://#i', '', $clean_val );
+		$clean_val = preg_replace( '#(?::/)?(?:php|file|phar|data|expect|ftp|gopher|dict|ldap)://#i', '', $clean_val );
 
-		// 3. Entity-encode HTML tags (Neutralizes <svg>, <image>, and arbitrary tags)
+		// 3. Neutralize SSRF targets if the submitted value is a URL pointing to private/loopback/metadata IP
+		$trimmed = trim( $clean_val );
+		if ( preg_match( '#^https?://#i', $trimmed ) ) {
+			if ( class_exists( 'UACF7_Mpdf_Safe_Http_Client' ) ) {
+				$is_local = UACF7_Mpdf_Safe_Http_Client::url_to_local_path( $trimmed );
+				$is_safe  = UACF7_Mpdf_Safe_Http_Client::is_safe_url( $trimmed );
+				if ( ! $is_local && ! $is_safe ) {
+					$clean_val = '';
+				}
+			}
+		}
+
+		// 4. Entity-encode HTML tags (Neutralizes <svg>, <image>, and arbitrary tags)
 		return esc_html( $clean_val );
 	}
 

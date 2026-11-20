@@ -21,43 +21,16 @@ class UACF7_SUBMISSION_ID_PANEL {
 	 */
 	public function tf_metabox_before_save_option_submission_id_callback( $value, $form_id ) {
 
-		$submission = WPCF7_Submission::get_instance();
+		if ( ! isset( $value['submission_id'] ) || ! is_array( $value['submission_id'] ) ) {
+			return $value;
+		}
+
 		$submission_data = $value['submission_id'];
-		// exit;
-		if ( $submission_data['uacf7_submission_id'] < 0 || $submission_data['uacf7_submission_id'] === null || $submission_data['uacf7_submission_id'] === '' ) {
-			$initial_value = 1;
-			$value['submission_id']['uacf7_submission_id'] = $initial_value;
+
+		if ( ! isset( $submission_data['uacf7_submission_id'] ) || $submission_data['uacf7_submission_id'] === '' || $submission_data['uacf7_submission_id'] === null || intval( $submission_data['uacf7_submission_id'] ) < 0 ) {
+			$value['submission_id']['uacf7_submission_id'] = 1;
 		} else {
-
-			global $wpdb;
-			$uacf7_db = $wpdb;
-			$table_name = $uacf7_db->prefix . 'uacf7_form';
-			$last_item = $uacf7_db->get_row(
-				$uacf7_db->prepare(
-					"SELECT * FROM `{$uacf7_db->prefix}uacf7_form`
-					WHERE form_id = %d
-					ORDER BY submission_id DESC
-					LIMIT 1",
-					absint( $form_id )
-				)
-			);
-
-			/** Submission ID Conditional Update */
-			if ( $last_item !== null && $last_item->submission_id != 0 ) {
-				$default_step = $submission_data['uacf7_submission_id_step'] != '' ? $submission_data['uacf7_submission_id_step'] : 1;
-
-				if ( isset( $submission_data['uacf7_submission_id'] ) && $submission_data['uacf7_submission_id'] > $last_item->submission_id ) {
-					$value['submission_id']['uacf7_submission_id'] = $submission_data['uacf7_submission_id'];
-					// update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($submission_data['uacf7_submission_id']) );
-				} else {
-					$value['submission_id']['uacf7_submission_id'] = $last_item->submission_id + intval( $default_step );
-					// update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($last_item->submission_id + intval($default_step))  );
-				}
-			} else {
-				$value['submission_id']['uacf7_submission_id'] = $submission_data['uacf7_submission_id'];
-				// update_post_meta( $form->id(), 'uacf7_submission_id', sanitize_text_field($submission_data['uacf7_submission_id']) );
-			}
-
+			$value['submission_id']['uacf7_submission_id'] = intval( $submission_data['uacf7_submission_id'] );
 		}
 
 		return $value;

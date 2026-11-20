@@ -1691,40 +1691,77 @@ function uacf7_duplicate_form_meta( $contact_form ) {
 }
 
 /**
+ * Returns a strict closed allowlist of safe upload extensions.
+ *
+ * @return array
+ */
+if ( ! function_exists( 'uacf7_get_allowed_upload_extensions' ) ) {
+	function uacf7_get_allowed_upload_extensions() {
+		$allowed = array(
+			// Images
+			'jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'ico', 'tif', 'tiff',
+			// Documents
+			'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'rtf', 'txt', 'csv',
+			// Audio
+			'mp3', 'm4a', 'wav', 'ogg', 'wma', 'aac', 'flac',
+			// Video
+			'mp4', 'm4v', 'mov', 'wmv', 'avi', 'mpg', 'mpeg', 'webm', 'ogv',
+			// Archives
+			'zip', 'rar', '7z', 'tar', 'gz',
+		);
+		return apply_filters( 'uacf7_allowed_upload_extensions', $allowed );
+	}
+}
+
+/**
  * Validate UACF7 uploaded files before copying them to the public upload directory.
  *
  * SVG and other browser-executable file types must never be stored
  * in the publicly accessible UACF7 upload directory.
  *
  * @param string $file Full path to the uploaded temporary file.
+ * @param string $filename Optional. Original filename if available.
  * @return bool
  */
 if ( ! function_exists( 'uacf7_is_safe_uploaded_file' ) ) {
-	function uacf7_is_safe_uploaded_file( $file ) {
+	function uacf7_is_safe_uploaded_file( $file, $filename = '' ) {
 
 		if ( empty( $file ) || ! is_string( $file ) || ! file_exists( $file ) ) {
 			return false;
 		}
 
-		$filename  = wp_basename( $file );
+		if ( empty( $filename ) ) {
+			$filename = wp_basename( $file );
+		}
+
 		$extension = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
 
 		/*
-		 * These file types must never be copied to the public
-		 * uacf7-uploads directory.
+		 * Explicitly block dangerous and executable extensions.
 		 */
 		$blocked_extensions = array(
-			'svg',
-			'svgz',
-			'html',
-			'htm',
-			'xhtml',
-			'xml',
-			'js',
-			'mjs',
+			'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phar',
+			'svg', 'svgz', 'html', 'htm', 'xhtml', 'xml', 'js', 'mjs',
+			'pl', 'py', 'cgi', 'sh', 'bash', 'exe', 'bat', 'cmd', 'com', 'vbs',
+			'htaccess', 'htpasswd', 'ini', 'asp', 'aspx', 'jsp', 'war',
 		);
 
 		if ( in_array( $extension, $blocked_extensions, true ) ) {
+			return false;
+		}
+
+		/*
+		 * Block double extensions with executable components (e.g., file.php.jpg).
+		 */
+		if ( preg_match( '/\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|exe|asp|aspx|js|svg|html?|xml)\./i', $filename ) ) {
+			return false;
+		}
+
+		/*
+		 * Strict closed allowlist: Only allow approved extensions.
+		 */
+		$allowed_extensions = uacf7_get_allowed_upload_extensions();
+		if ( ! empty( $extension ) && ! in_array( $extension, $allowed_extensions, true ) ) {
 			return false;
 		}
 
@@ -1742,31 +1779,34 @@ if ( ! function_exists( 'uacf7_is_safe_uploaded_file' ) ) {
 			return false;
 		}
 
-		/*
-		 * Explicitly reject SVG based on the detected MIME type too.
-		 * This protects against an SVG whose filename/extension is
-		 * manipulated.
-		 */
-		if ( 'image/svg+xml' === strtolower( $file_type['type'] ) ) {
+		if ( ! in_array( strtolower( $file_type['ext'] ), $allowed_extensions, true ) ) {
 			return false;
 		}
 
 		/*
-		 * Inspect text-based and ambiguous uploads for HTML and script signatures.
-		 * Attackers can upload text files containing HTML event handlers like <BODY onload=...>
-		 * which MIME-type detectors classify as text/plain.
+		 * Explicitly reject SVG, HTML, XML, or script based on the detected MIME type too.
 		 */
-		$text_extensions = array( 'txt', 'csv', 'vtt', 'srt', 'asc' );
-		if ( in_array( $extension, $text_extensions, true ) || 0 === strpos( strtolower( $file_type['type'] ), 'text/' ) ) {
-			$handle = @fopen( $file, 'rb' );
-			if ( $handle ) {
-				$chunk = fread( $handle, 4096 );
-				fclose( $handle );
-				if ( false !== $chunk ) {
-					if ( preg_match( '/<\s*(?:!doctype|html|head|body|script|svg|iframe|embed|object|\?xml)/i', $chunk ) ||
-					     preg_match( '/\b(?:onload|onerror|onmouseover|autofocus)\s*=/i', $chunk ) ) {
-						return false;
-					}
+		$detected_type = strtolower( $file_type['type'] );
+		if ( strpos( $detected_type, 'image/svg' ) !== false ||
+		     strpos( $detected_type, 'html' ) !== false ||
+		     strpos( $detected_type, 'xml' ) !== false ||
+		     strpos( $detected_type, 'javascript' ) !== false ) {
+			return false;
+		}
+
+		/*
+		 * Unconditional content scan:
+		 * Inspect the beginning of every uploaded file for HTML, PHP, and script signatures.
+		 * Attackers can disguise HTML/JS payloads in binary, video, or audio wrappers.
+		 */
+		$handle = @fopen( $file, 'rb' );
+		if ( $handle ) {
+			$chunk = fread( $handle, 8192 );
+			fclose( $handle );
+			if ( false !== $chunk ) {
+				if ( preg_match( '/<\s*(?:!doctype|html|head|body|script|style|svg|iframe|embed|object|applet|meta|link|\?xml|\?php)/i', $chunk ) ||
+				     preg_match( '/\b(?:on[a-z]{3,}\s*=|javascript\s*:|data\s*:\s*text\/html)/i', $chunk ) ) {
+					return false;
 				}
 			}
 		}
@@ -1792,26 +1832,39 @@ if ( ! function_exists( 'uacf7_protect_uploads_directory' ) ) {
 			@file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
 		}
 
-		// Place an .htaccess to prevent MIME sniffing and force safe handling
+		// Place / update .htaccess to prevent script execution, MIME sniffing, and force safe handling
 		$htaccess_file = rtrim( $dir, '/\\' ) . '/.htaccess';
+		$rules = "# Disable directory browsing\n"
+			. "Options -Indexes\n\n"
+			. "# Deny direct execution of scripts\n"
+			. "<FilesMatch \"(?i)\\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|exe|asp|aspx|shtml|js|htm|html|svg|xml|enc)$\">\n"
+			. "\t<IfModule mod_authz_core.c>\n"
+			. "\t\tRequire all denied\n"
+			. "\t</IfModule>\n"
+			. "\t<IfModule !mod_authz_core.c>\n"
+			. "\t\tOrder allow,deny\n"
+			. "\t\tDeny from all\n"
+			. "\t</IfModule>\n"
+			. "</FilesMatch>\n\n"
+			. "# Prevent MIME sniffing and force download for non-inline documents\n"
+			. "<IfModule mod_headers.c>\n"
+			. "\tHeader set X-Content-Type-Options \"nosniff\"\n"
+			. "\t<FilesMatch \"(?i)\\.(txt|csv|vtt|srt|asc|3gp|3gpp|3g2|3gp2|asx|asf|divx|m4b|m4a|ogg|ogv|wmv|avi|wav|zip|rar|7z|tar|gz|doc|docx|xls|xlsx|ppt|pptx)$\">\n"
+			. "\t\tHeader set Content-Disposition \"attachment\"\n"
+			. "\t</FilesMatch>\n"
+			. "</IfModule>\n";
+
 		if ( ! file_exists( $htaccess_file ) ) {
-			$rules = "<IfModule mod_headers.c>\n"
-				. "Header set X-Content-Type-Options \"nosniff\"\n"
-				. "</IfModule>\n"
-				. "<FilesMatch \"\\.(?i:txt|csv|vtt|srt|asc)$\">\n"
-				. "Header set Content-Disposition \"attachment\"\n"
-				. "</FilesMatch>\n";
 			@file_put_contents( $htaccess_file, $rules );
+		} else {
+			$existing = @file_get_contents( $htaccess_file );
+			if ( false === $existing || strpos( $existing, '3gp' ) === false || strpos( $existing, 'Require all denied' ) === false || strpos( $existing, 'enc' ) === false ) {
+				@file_put_contents( $htaccess_file, $rules );
+			}
 		}
 	}
 }
 
-/**
- * Detects the most probable file extension for an uploaded file using magic bytes / MIME inspection.
- *
- * @param string $file_path The absolute path to the file.
- * @return string The detected extension (e.g. 'pdf', 'jpg', 'png'), or empty string if unknown.
- */
 if ( ! function_exists( 'uacf7_detect_file_extension' ) ) {
 	function uacf7_detect_file_extension( $file_path ) {
 		if ( empty( $file_path ) || ! file_exists( $file_path ) || ! is_readable( $file_path ) ) {
@@ -1912,5 +1965,33 @@ if ( ! function_exists( 'uacf7_detect_file_extension' ) ) {
 		}
 
 		return '';
+	}
+}
+
+if ( ! function_exists( 'uacf7_get_signature_encryption_key' ) ) {
+	/**
+	 * Retrieve a secure per-site encryption key for sensitive uploads (e.g. signatures).
+	 *
+	 * Uses WordPress wp_salt() or site secret to ensure cryptographic uniqueness per installation.
+	 *
+	 * @return string 64-char sha256 hex key.
+	 */
+	function uacf7_get_signature_encryption_key() {
+		$salt = '';
+		if ( function_exists( 'wp_salt' ) ) {
+			$salt = wp_salt( 'auth' );
+		} elseif ( defined( 'AUTH_KEY' ) && AUTH_KEY !== '' ) {
+			$salt = AUTH_KEY;
+		}
+
+		if ( empty( $salt ) ) {
+			$salt = get_option( 'uacf7_signature_secret_key' );
+			if ( empty( $salt ) ) {
+				$salt = wp_generate_password( 64, true, true );
+				update_option( 'uacf7_signature_secret_key', $salt, false );
+			}
+		}
+
+		return hash( 'sha256', $salt . 'uacf7_signature_encryption_key' );
 	}
 }

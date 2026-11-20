@@ -224,20 +224,14 @@
 			if (selectedCode) {
 				this.selectCountry(selectedCode);
 			}
-			if (!flagIsSet) {
-				// flag is not set, so set to the default country
-				var defaultCountry;
-				// check the defaultCountry option, else fall back to the first in the list
+			if (!flagIsSet && !selectedCode) {
+				// check the defaultCountry option, only set if defaultCountry is explicitly specified
 				if (this.options.defaultCountry) {
-					defaultCountry = this._getCountryData(this.options.defaultCountry, false);
-					// Did we not find the requested default country?
-					if (!defaultCountry) {
-						defaultCountry = this.preferredCountries.length ? this.preferredCountries[0] : this.countries[0];
+					var defaultCountry = this._getCountryData(this.options.defaultCountry, false);
+					if (defaultCountry) {
+						this.defaultCountry = defaultCountry.iso2;
 					}
-				} else {
-					defaultCountry = this.preferredCountries.length ? this.preferredCountries[0] : this.countries[0];
 				}
-				this.defaultCountry = defaultCountry.iso2;
 			}
 		},
 		// initialise the main event listeners: input keyup, and click selected flag
@@ -267,10 +261,21 @@
 			// with correctly chosen flag is spelled out on blur. Also, correctly
 			// selects flag when field is autofilled
 			this.countryInput.on("blur" + this.ns, function () {
-				if (that.countryInput.val() != that.getSelectedCountryData().name) {
-					that.setCountry(that.countryInput.val());
+				var currentVal = (that.countryInput.val() || "").trim();
+				if (!currentVal) {
+					that._selectFlag("");
+					that.countryCodeInput.val("").trigger("change");
+					that.countryInput.val("");
+					return;
 				}
-				that.countryInput.val(that.getSelectedCountryData().name);
+				var selectedData = that.getSelectedCountryData();
+				if (!selectedData || currentVal != selectedData.name) {
+					that.setCountry(currentVal);
+				}
+				selectedData = that.getSelectedCountryData();
+				if (selectedData && selectedData.name) {
+					that.countryInput.val(selectedData.name);
+				}
 			});
 		},
 		_initAutoCountry: function () {
@@ -490,16 +495,21 @@
 		// update the selected flag and the active list item
 		_selectFlag: function (countryCode) {
 			if (!countryCode) {
+				this.selectedFlagInner.attr("class", "flag");
+				this.selectedFlagInner.parent().removeAttr("title");
+				this.countryListItems.removeClass("active");
 				return false;
 			}
 			this.selectedFlagInner.attr("class", "flag " + countryCode);
 			// update the title attribute
 			var countryData = this._getCountryData(countryCode);
-			this.selectedFlagInner.parent().attr("title", countryData.name);
-			// update the active list item
-			var listItem = this.countryListItems.children(".flag." + countryCode).first().parent();
-			this.countryListItems.removeClass("active");
-			listItem.addClass("active");
+			if (countryData) {
+				this.selectedFlagInner.parent().attr("title", countryData.name);
+				// update the active list item
+				var listItem = this.countryListItems.children(".flag." + countryCode).first().parent();
+				this.countryListItems.removeClass("active");
+				listItem.addClass("active");
+			}
 		},
 		// called when the user selects a list item from the dropdown
 		_selectListItem: function (listItem) {
@@ -566,8 +576,10 @@
 		getSelectedCountryData: function () {
 			// rely on the fact that we only set 2 classes on the selected flag element:
 			// the first is "flag" and the second is the 2-char country code
-			var countryCode = this.selectedFlagInner.attr("class").split(" ")[1];
-			return this._getCountryData(countryCode);
+			var flagClass = this.selectedFlagInner.attr("class") || "";
+			var parts = flagClass.split(" ");
+			var countryCode = parts.length > 1 ? parts[1] : "";
+			return countryCode ? this._getCountryData(countryCode) : null;
 		},
 		// update the selected flag
 		selectCountry: function (countryCode) {

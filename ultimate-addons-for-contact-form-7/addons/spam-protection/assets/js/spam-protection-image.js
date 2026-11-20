@@ -5,7 +5,13 @@
         forms.each(function () {
             var formId = $(this).find('input[name="_wpcf7"]').val();
             var uacf7_spam_protection = $('.uacf7-form-' + formId).find('.uacf7_spam_recognation');
+            if (!uacf7_spam_protection.length) {
+                uacf7_spam_protection = $(this).find('.uacf7_spam_recognation');
+            }
             var form_div = $(this).find('.uacf7-form-' + formId);
+            if (!form_div.length) {
+                form_div = $(this);
+            }
             const refreshButton = form_div.find("#arithmathic_refresh");
             const captcha = form_div.find("#captcha");
             const validate = form_div.find("#validate");
@@ -78,7 +84,8 @@
                         // If it does not match, set a failure message and prevent form submission
                         e.preventDefault();
                         refreshButton.trigger('click'); // Refresh CAPTCHA
-                        resultDiv.text(uacf7_spam_protection_settings.captchaFailedMessage).css("color", "#DC2626");
+                        const invalidMsg = uacf7_spam_protection.attr('data-invalid-msg') || (typeof uacf7_spam_protection_settings !== 'undefined' && uacf7_spam_protection_settings.captchaFailedMessage) || 'CAPTCHA validation failed. Please try again.';
+                        resultDiv.text(invalidMsg).css("color", "#DC2626");
                         return false;
                     }
                 }

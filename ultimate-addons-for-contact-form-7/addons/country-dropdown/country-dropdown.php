@@ -14,6 +14,8 @@ class UACF7_COUNTRY_DROPDOWN {
 
 		add_action( 'admin_init', array( $this, 'tag_generator' ) );
 
+		add_action( 'wpcf7_swv_create_schema', array( $this, 'uacf7_swv_add_country_dropdown_rules' ), 10, 2 );
+
 		add_filter( 'wpcf7_validate_uacf7_country_dropdown', array( $this, 'wpcf7_country_dropdown_validation_filter' ), 10, 2 );
 
 		add_filter( 'wpcf7_validate_uacf7_country_dropdown*', array( $this, 'wpcf7_country_dropdown_validation_filter' ), 10, 2 );
@@ -73,6 +75,19 @@ class UACF7_COUNTRY_DROPDOWN {
 			$atts['size'] = $size;
 		}
 
+		$value = (string) reset( $tag->values );
+
+		if ( $tag->has_option( 'placeholder' ) || $tag->has_option( 'watermark' ) ) {
+			$atts['placeholder'] = ! empty( $value ) ? $value : __( 'Select a country', 'ultimate-addons-for-contact-form-7' );
+		} else {
+			$atts['placeholder'] = __( 'Select a country', 'ultimate-addons-for-contact-form-7' );
+		}
+
+		$default = $tag->get_option( 'default', '', true );
+		if ( ! empty( $default ) ) {
+			$atts['country-code'] = strtolower( $default );
+		}
+
 		$field_state = apply_filters(
 			'uacf7_country_dropdown_field_state',
 			array(
@@ -90,7 +105,7 @@ class UACF7_COUNTRY_DROPDOWN {
 
 		ob_start();
 		?>
-		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>">
+		<span id="uacf7_country_select" class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>" data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
 
 			<input id="uacf7_countries_<?php echo esc_attr( $tag->name ); ?>" type="text" <?php echo wp_kses_post( $atts ); ?>>
 
@@ -106,6 +121,26 @@ class UACF7_COUNTRY_DROPDOWN {
 		return ob_get_clean();
 	}
 
+
+	/**
+	 * Country dropdown Validation via SWV
+	 */
+	public function uacf7_swv_add_country_dropdown_rules( $schema, $contact_form ) {
+		$tags = $contact_form->scan_form_tags( array(
+			'type' => array( 'uacf7_country_dropdown*' ),
+		) );
+
+		foreach ( $tags as $tag ) {
+			if ( $tag->is_required() ) {
+				$schema->add_rule(
+					wpcf7_swv_create_rule( 'required', array(
+						'field' => $tag->name,
+						'error' => wpcf7_get_message( 'invalid_required' ),
+					) )
+				);
+			}
+		}
+	}
 
 	public function wpcf7_country_dropdown_validation_filter( $result, $tag ) {
 		$name = $tag->name;
@@ -126,7 +161,7 @@ class UACF7_COUNTRY_DROPDOWN {
 			$post_value = sanitize_text_field( $post_value );
 		}
 
-		$empty = null === $post_value || '' === $post_value || array() === $post_value;
+		$empty = null === $post_value || '' === trim( (string) $post_value ) || array() === $post_value;
 
 		if ( $tag->is_required() and $empty ) {
 			$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );

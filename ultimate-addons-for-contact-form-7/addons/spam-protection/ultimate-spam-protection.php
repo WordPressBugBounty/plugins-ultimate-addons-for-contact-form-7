@@ -91,6 +91,14 @@ class UACF7_SPAM_PROTECTION {
 				),
 				'default' => 'arithmathic_recognation'
 			),
+			'uacf7_spam_protection_invalid_msg' => array(
+				'id'          => 'uacf7_spam_protection_invalid_msg',
+				'type'        => 'text',
+				'label'       => __( 'Invalid Answer Message', 'ultimate-addons-for-contact-form-7' ),
+				'subtitle'    => __( 'Set the error message displayed when an invalid CAPTCHA answer is entered.', 'ultimate-addons-for-contact-form-7' ),
+				'placeholder' => __( 'CAPTCHA validation failed. Please try again.', 'ultimate-addons-for-contact-form-7' ),
+				'default'     => 'CAPTCHA validation failed. Please try again.',
+			),
 			'uacf7_spam_protection_placeholder_text' => array(
 				'id'       => 'uacf7_spam_protection_placeholder_text',
 				'type'     => 'text',
@@ -219,6 +227,15 @@ class UACF7_SPAM_PROTECTION {
 		$formid = $wpcf7->id();
 		$uacf7_spam_protection = uacf7_get_form_option( $formid, 'spam_protection' );
 		$uacf7_spam_protection_placeholder_text = isset( $uacf7_spam_protection['uacf7_spam_protection_placeholder_text'] ) ? $uacf7_spam_protection['uacf7_spam_protection_placeholder_text'] : '';
+		$tag_invalid_msg = $tag->get_option( 'invalid_message', '', true );
+		if ( empty( $tag_invalid_msg ) ) {
+			$tag_invalid_msg = $tag->get_option( 'invalid_msg', '', true );
+		}
+		$uacf7_spam_protection_invalid_msg = ! empty( $tag_invalid_msg )
+			? $tag_invalid_msg
+			: ( ! empty( $uacf7_spam_protection['uacf7_spam_protection_invalid_msg'] )
+				? $uacf7_spam_protection['uacf7_spam_protection_invalid_msg']
+				: __( 'CAPTCHA validation failed. Please try again.', 'ultimate-addons-for-contact-form-7' ) );
 
 		if ( isset( $uacf7_spam_protection['uacf7_spam_protection_enable'] ) && $uacf7_spam_protection['uacf7_spam_protection_enable'] != '1' ) {
 			return;
@@ -296,7 +313,7 @@ class UACF7_SPAM_PROTECTION {
 		?>
 		<span class="wpcf7-form-control-wrap <?php echo sanitize_html_class( $tag->name ); ?>"
 			data-name="<?php echo sanitize_html_class( $tag->name ); ?>">
-			<div class="uacf7_spam_recognation" <?php echo wp_kses_post( $atts ); ?>>
+			<div class="uacf7_spam_recognation" <?php echo wp_kses_post( $atts ); ?> data-invalid-msg="<?php echo esc_attr( $uacf7_spam_protection_invalid_msg ); ?>">
 				<?php if ( isset( $uacf7_spam_protection['uacf7_spam_protection_type'] ) && $uacf7_spam_protection['uacf7_spam_protection_type'] === 'arithmathic_recognation' ) { ?>
 					<div id="arithmathic_recognation">
 						<div id="arithmetic_input_holder">

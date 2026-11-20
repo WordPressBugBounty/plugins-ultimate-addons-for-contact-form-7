@@ -61,9 +61,9 @@ class UACF7_DBMigrator {
 
 		// Insert data to the pro data table 
 		foreach ( $Get_all_form_entry as $form_key => $data ) {
-			$submit_form_id = $data['cf7_form_id'];
-			$submit_ip = $data['submit_ip'];
-			$submit_time = $data['submit_time'];
+			$submit_form_id = isset( $data['cf7_form_id'] ) ? $data['cf7_form_id'] : 0;
+			$submit_ip = isset( $data['submit_ip'] ) ? $data['submit_ip'] : 0;
+			$submit_time = isset( $data['submit_time'] ) ? $data['submit_time'] : current_time('mysql');
 
 			$uacf7_db->query( $uacf7_db->prepare( 'INSERT INTO ' . $uacf7_db->prefix . 'uacf7dp_data(`cf7_form_id`, `submit_ip`, `submit_time`) VALUES (%d, %d, %s)', $submit_form_id, $submit_ip, $submit_time ) );
 			$data_id = $uacf7_db->insert_id;

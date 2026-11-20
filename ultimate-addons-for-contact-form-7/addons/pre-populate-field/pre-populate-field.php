@@ -119,9 +119,51 @@ class UACF7_PRE_POPULATE {
         wp_localize_script( 'uacf7-pre-populate-script', 'uacf7_pre_populate_url',
             array( 
                     'ajaxurl' => admin_url( 'admin-ajax.php' ),
-                    'nonce' => wp_create_nonce('uacf7-pre-populate')
+                    'nonce'   => wp_create_nonce( 'uacf7-pre-populate' ),
+                    'forms'   => $this->get_pre_populate_forms(),
                 )
         );
+    }
+
+    /**
+     * Get pre-populate settings for all active forms.
+     *
+     * @return array
+     */
+    public function get_pre_populate_forms() {
+        $forms = array();
+        $list_forms = get_posts( array(
+            'post_type'      => 'wpcf7_contact_form',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+        ) );
+
+        if ( ! empty( $list_forms ) && is_array( $list_forms ) ) {
+            foreach ( $list_forms as $form ) {
+                $pre_populate = uacf7_get_form_option( $form->ID, 'pre_populated' );
+                $pre_populate_enable = ! empty( $pre_populate['pre_populate_enable'] ) ? $pre_populate['pre_populate_enable'] : false;
+                if ( $pre_populate_enable ) {
+                    $field_name = array();
+                    $pre_populate_passing_field = isset( $pre_populate['pre_populate_passing_field'] ) ? $pre_populate['pre_populate_passing_field'] : '';
+                    if ( is_array( $pre_populate_passing_field ) ) {
+                        foreach ( $pre_populate_passing_field as $val ) {
+                            if ( ! empty( $val['field_name'] ) ) {
+                                $field_name[] = $val['field_name'];
+                            }
+                        }
+                    }
+                    $forms[ (string) $form->ID ] = array(
+                        'form_id'                    => $form->ID,
+                        'pre_populate_enable'        => 1,
+                        'data_redirect_url'          => isset( $pre_populate['data_redirect_url'] ) ? esc_url_raw( $pre_populate['data_redirect_url'] ) : '',
+                        'pre_populate_passing_field' => array_values( $field_name ),
+                        'pre_populate_form'          => isset( $pre_populate['pre_populate_form'] ) ? $pre_populate['pre_populate_form'] : '',
+                    );
+                }
+            }
+        }
+
+        return $forms;
     }
  
  
@@ -133,27 +175,29 @@ class UACF7_PRE_POPULATE {
         if ( ! isset( $_POST ) || empty( $_POST ) ) {
 			return;
 		}
-        $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-        if ( !wp_verify_nonce($nonce, 'uacf7-pre-populate')) {
-            exit(esc_html__("Security error", 'ultimate-addons-for-contact-form-7'));
+        $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : ( isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '' );
+        if ( ! wp_verify_nonce( $nonce, 'uacf7-pre-populate' ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Security error', 'ultimate-addons-for-contact-form-7' ) ), 403 );
         }
 
         $form_id = isset( $_POST['form_id'] ) ? sanitize_text_field( wp_unslash( $_POST['form_id'] ) ) : ''; 
         $pre_populate = uacf7_get_form_option( $form_id, 'pre_populated' );
         $pre_populate_enable = isset($pre_populate['pre_populate_enable']) ? $pre_populate['pre_populate_enable'] : false;
         if($pre_populate_enable == true){
-            $data_redirect_url = isset($pre_populate['data_redirect_url']) ? $pre_populate['data_redirect_url'] : '#';
+            $data_redirect_url = isset($pre_populate['data_redirect_url']) ? esc_url_raw($pre_populate['data_redirect_url']) : '#';
             $pre_populate_passing_field = isset($pre_populate['pre_populate_passing_field']) ? $pre_populate['pre_populate_passing_field'] : '';
             $pre_populate_form = isset($pre_populate['pre_populate_form']) ? $pre_populate['pre_populate_form'] : '';
             $field_name = array();
             if(is_array($pre_populate_passing_field)){
                 foreach ($pre_populate_passing_field as $value) {
-                    $field_name[] = $value['field_name'];
+                    if ( ! empty( $value['field_name'] ) ) {
+                        $field_name[] = $value['field_name'];
+                    }
                 }
             }
             $data = [
                 'form_id' => $form_id,
-                'pre_populate_enable' => $pre_populate_enable,
+                'pre_populate_enable' => 1,
                 'data_redirect_url' => $data_redirect_url,
                 'pre_populate_passing_field' => array_values($field_name),
                 'pre_populate_form' => $pre_populate_form,
