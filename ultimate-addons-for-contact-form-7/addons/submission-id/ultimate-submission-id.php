@@ -58,7 +58,7 @@ class UACF7_SUBMISSION_ID {
 					'content' => sprintf(
 						/* translators: %1$s: documentation link */
 						__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank" rel="noopener">'.esc_html__( 'Submission ID', 'ultimate-addons-for-contact-form-7' ).'</a>'
+						'<a href="https://cf7addons.com/docs/free-addons/unique-id-for-contact-form-7/" target="_blank" rel="noopener">'.esc_html__( 'Submission ID', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 
@@ -409,7 +409,7 @@ class UACF7_SUBMISSION_ID {
 				<?php echo wp_kses_post( sprintf(
 					/* translators: %1$s: documentation link */
 					__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/unique-id-for-contact-form-7/" target="_blank">' . esc_html__( 'Unique Submission ID', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/unique-id-for-contact-form-7/" target="_blank">' . esc_html__( 'Unique Submission ID', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 				) ); ?>
 			</div>
 		</header>

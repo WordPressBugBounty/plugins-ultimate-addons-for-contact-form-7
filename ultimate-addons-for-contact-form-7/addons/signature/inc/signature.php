@@ -55,7 +55,7 @@ class UACF7_SIGNATURE_PANEL{
             <?php echo wp_kses_post( sprintf( 
                 /* translators: %1s: demo link */
                 __( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-                '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-signature-addon/" target="_blank" rel="noopener">' . esc_html__( 'Digital Signature', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+                '<a href="https://cf7addons.com/docs/free-addons/contact-form-7-signature-addon/" target="_blank" rel="noopener">' . esc_html__( 'Digital Signature', 'ultimate-addons-for-contact-form-7' ) . '</a>'
             ) ); ?> 
         </div>
 

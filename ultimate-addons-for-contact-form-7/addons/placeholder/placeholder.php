@@ -47,7 +47,7 @@ class UACF7_Placeholder {
 					'content' => sprintf( 
                         /* translators: %1$s: documentation link */
                         __( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-placeholder-styling/" target="_blank" rel="noopener noreferrer">'.esc_html__( 'Placeholder Styling', 'ultimate-addons-for-contact-form-7' ).'</a>'
+                        '<a href="https://cf7addons.com/docs/free-addons/contact-form-7-placeholder-styling/" target="_blank" rel="noopener noreferrer">'.esc_html__( 'Placeholder Styling', 'ultimate-addons-for-contact-form-7' ).'</a>'
                     )
 				),
 				'uacf7_enable_placeholder_styles' => array(

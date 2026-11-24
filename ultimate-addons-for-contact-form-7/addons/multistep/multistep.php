@@ -87,8 +87,8 @@ class UACF7_MULTISTEP {
 				'content' => sprintf(
 					/* translators: %1$s: documentation link */
 					__( 'Confused? Check our Documentation on  %1$s and %2$s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="'.esc_url('https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/').'" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form', 'ultimate-addons-for-contact-form-7' ).'</a>',
-					'<a href="'.esc_url('https://themefic.com/docs/uacf7/pro-addons/contact-form-7-multi-step-form-pro/').'" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form (Pro)', 'ultimate-addons-for-contact-form-7' ).'</a>'
+					'<a href="'.esc_url('https://cf7addons.com/docs/free-addons/contact-form-7-multi-step-forms/').'" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form', 'ultimate-addons-for-contact-form-7' ).'</a>',
+					'<a href="'.esc_url('https://cf7addons.com/docs/pro-addons/contact-form-7-multi-step-form-pro/').'" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form (Pro)', 'ultimate-addons-for-contact-form-7' ).'</a>'
 				)
 			),
 			'uacf7_multistep_is_multistep' => array(
@@ -410,7 +410,7 @@ class UACF7_MULTISTEP {
 				<?php echo sprintf(
 					/* translators: %1$s: demo link */
 					esc_html__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-multi-step-forms/" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form', 'ultimate-addons-for-contact-form-7' ).'</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-multi-step-forms/" target="_blank" rel="noopener">'.esc_html__( 'Multi-step Form', 'ultimate-addons-for-contact-form-7' ).'</a>'
 				); ?>
 			</div>
 		</header>

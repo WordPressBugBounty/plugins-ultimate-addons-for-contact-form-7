@@ -187,7 +187,7 @@ class UACF7_MAILCHIMP {
 				'content' => sprintf(
 					/* translators: %1$s: demo link */
 					__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-mailchimp/" target="_blank" rel="noopener">'.esc_html__( 'Mailchimp Integration', 'ultimate-addons-for-contact-form-7' ).'</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-mailchimp/" target="_blank" rel="noopener">'.esc_html__( 'Mailchimp Integration', 'ultimate-addons-for-contact-form-7' ).'</a>'
 				)
 			),
 

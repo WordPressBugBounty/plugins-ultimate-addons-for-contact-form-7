@@ -52,8 +52,8 @@ class UACF7_range_Slider {
 					'content' => sprintf(
 						/* translators: %1s: demo link */
 						__( 'Confused? Check our Documentation on  %1$s and %2$s.', 'ultimate-addons-for-contact-form-7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>',
-						'<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-range-slider-pro/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider (Pro)', 'ultimate-addons-for-contact-form-7' ).'</a>'
+						'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-range-slider/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>',
+						'<a href="https://cf7addons.com/docs/pro-addons/contact-form-7-range-slider-pro/" target="_blank" rel="noopener">'.esc_html__( 'Range Slider (Pro)', 'ultimate-addons-for-contact-form-7' ).'</a>'
 					)
 				),
 				'uacf7_range_slider_form_options_heading' => array(
@@ -308,7 +308,7 @@ class UACF7_range_Slider {
 				<?php echo wp_kses_post( sprintf(
 					/* translators: %1$s: documentation link */
 					__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-range-slider/" target="_blank">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-range-slider/" target="_blank">'.esc_html__( 'Range Slider', 'ultimate-addons-for-contact-form-7' ).'</a>'
 				) ); ?>
 			</div>
 		</header>

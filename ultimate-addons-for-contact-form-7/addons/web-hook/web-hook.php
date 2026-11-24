@@ -44,7 +44,7 @@ class UACF7_WEB_HOOK {
 					'content' => sprintf( 
 						/* translators: %1s: demo link */
                         __( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-                        '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-webhook/" target="_blank">' . esc_html__( 'Webhook Setup', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+                        '<a href="https://cf7addons.com/docs/free-addons/contact-form-7-webhook/" target="_blank">' . esc_html__( 'Webhook Setup', 'ultimate-addons-for-contact-form-7' ) . '</a>'
                     )
 				],
 				'uacf7_enable_web_hook' => [ 

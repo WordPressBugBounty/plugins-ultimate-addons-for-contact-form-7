@@ -4,7 +4,7 @@ Tags: contact form, contact form 7, forms, custom form, form builder
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.5.59
+Stable tag: 3.5.60
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 👉 Buy Pro Version: [Click Here](https://cf7addons.com/pricing/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=pro_link)
 👉 Get Support: [Click Here](https://portal.themefic.com/support/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_support)
 👉 Video Guide on [YouTube](https://www.youtube.com/playlist?list=PLY0rtvOwg0ylGspzo7TcT-8x0FH_O5XVV)
-👉 Our [Documentation](https://themefic.com/docs/uacf7/getting-started-uacf7/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
+👉 Our [Documentation](https://cf7addons.com/docs/getting-started-uacf7/installation/?utm_source=wp_readme&utm_medium=uacf7_top_slot&utm_campaign=plugin_docs)
 👉 Join Our [Facebook Group](https://facebook.com/groups/ultimate.cf7)
 
 Equipped with over 50 essential features, **Ultra Addons For Contact Form 7** is the must-have plugin to complement Contact Form 7. It significantly enhances the functionality of your website's forms created using [Contact Form 7](https://wordpress.org/plugins/contact-form-7/). This All-in-One WordPress Contact Form plugin includes a wide range of options, from basic to advanced, catering to all the needs of your website's contact forms. Such incredible features are what make this one of the [best WordPress contact form](https://www.templatemonster.com/awards/winners-2023/) plugins.
@@ -263,7 +263,7 @@ Block accidental or spam duplicate form submissions based on specific fields or 
 Send instant SMS and WhatsApp text notifications to admins or customers on submission with [Twilio Integration](https://cf7addons.com/preview/twilio/).
 
 = Salesforce CRM Integration for Contact Form 7 =
-Sync contact form submissions, leads, contacts, and cases directly into Salesforce in real-time with [Salesforce Integration](https://themefic.com/docs/uacf7/pro-addons/salesforce-integration/).
+Sync contact form submissions, leads, contacts, and cases directly into Salesforce in real-time with [Salesforce Integration](https://cf7addons.com/docs/pro-addons/salesforce-integration/).
 
 = Webhook Integration Pro for Contact Form 7 =
 Send form data with conditional logic and custom payload headers to Zapier, Pabbly, Make, and external APIs with [Webhook Pro](https://cf7addons.com/preview/pabbly-zapier-webhook-pro/).
@@ -402,6 +402,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.5.60 – 23/11/2026 =
+- Improved: Security checks in metabox rendering & backup exports.
+- Improved: Access control in dynamic text shortcodes.
+- Improved: Overall plugin security.
+- Updated: Documentation URL.
+
 = 3.5.59 – 20/11/2026 =
 - Fixed: The file upload issue in the multistep form.
 
@@ -413,10 +419,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 - Fixed: Missing array key handling in the `$extra` array.
 - Fixed: PDF security vulnerability.
 - Fixed: Pre-population of form fields.
-
-= 3.5.57 – 01/11/2026 =
-- Fixed: Resolved uploaded file 404 errors and missing file extensions.
-- Improved: PDF filename sanitization and secure mPDF content handling.
 
 **Old Changelog can be found [here](https://cf7addons.com/changelog/)**.
 

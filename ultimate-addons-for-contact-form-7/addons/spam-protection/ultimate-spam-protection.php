@@ -69,7 +69,7 @@ class UACF7_SPAM_PROTECTION {
 				'content' => sprintf(
 					// Translators: %1$s is replaced with the link to documentation. 
 					esc_html__( 'Not sure how to set this? Check our step-by-step documentation on  %s .', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection/" target="_blank">Spam Protection</a>',
+					'<a href="https://cf7addons.com/docs/free-addons/spam-protection/" target="_blank">Spam Protection</a>',
 				),
 			),
 
@@ -176,7 +176,7 @@ class UACF7_SPAM_PROTECTION {
 				<?php echo wp_kses_post( sprintf(
 					// Translators: %1$s is replaced with the link to documentation. 
 					esc_html__( 'Not sure how to set this? Check our step by step  %1s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/spam-protection/" target="_blank">documentation</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/spam-protection/" target="_blank">documentation</a>'
 				) ); ?>
 			</div>
 			

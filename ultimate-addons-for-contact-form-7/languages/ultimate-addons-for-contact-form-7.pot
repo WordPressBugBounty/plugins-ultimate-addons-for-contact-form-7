@@ -275,14 +275,14 @@ msgstr ""
 
 #: addons/telegram/ultimate-telegram.php:85
 msgid ""
-"<a target=\"_blank\" href=\"https://themefic.com/docs/uacf7/free-"
+"<a target=\"_blank\" href=\"https://cf7addons.com/docs/free-"
 "addons/contact-form-7-telegram/#creating-a-bot-with-botfather\">Click "
 "here</a> to learn how to get BOT Token."
 msgstr ""
 
 #: addons/telegram/ultimate-telegram.php:93
 msgid ""
-"<a target=\"_blank\" href=\"https://themefic.com/docs/uacf7/free-"
+"<a target=\"_blank\" href=\"https://cf7addons.com/docs/free-"
 "addons/contact-form-7-telegram/#getting-the-user-chat-id\">Click here</a> to "
 "learn how to get Chat ID."
 msgstr ""

@@ -224,7 +224,7 @@ class UACF7_STAR_RATING {
 				<?php echo wp_kses_post( sprintf(
 					/* translators: %1$s: Documentation link */
 					__( 'Confused? Check our Documentation on %1$s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-star-rating-field/" target="_blank">'.esc_html__('Star Rating', 'ultimate-addons-for-contact-form-7').'</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-star-rating-field/" target="_blank">'.esc_html__('Star Rating', 'ultimate-addons-for-contact-form-7').'</a>'
 				) ); ?>
 			</div>
 		</header>

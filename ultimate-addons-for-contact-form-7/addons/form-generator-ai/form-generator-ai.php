@@ -77,7 +77,7 @@ class UACF7_FORM_GENERATOR {
 							<?php echo wp_kses_post( sprintf(
 								/* Translators: 1: documentation link */
 								__( 'Not sure how to use this? Check our step by step  %1s.', 'ultimate-addons-for-contact-form-7' ),
-								'<a href="'.esc_url('https://themefic.com/docs/uacf7/free-addons/ai-form-generator/').'" target="_blank">'.esc_html__('documentation', 'ultimate-addons-for-contact-form-7').'</a>'
+								'<a href="'.esc_url('https://cf7addons.com/docs/free-addons/ai-form-generator/').'" target="_blank">'.esc_html__('documentation', 'ultimate-addons-for-contact-form-7').'</a>'
 							) ); ?>
 						</div>
 					</div>

@@ -209,7 +209,7 @@ class UACF7_DYNAMIC_TEXT {
 				<?php echo sprintf(
 					/* Translators: 1: Dynamic Text */
 					esc_html__( 'Confused? Check our Documentation on  %1s.', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="'.esc_url('https://themefic.com/docs/uacf7/free-addons/contact-form-7-dynamic-text-extension/').'" target="_blank">' . esc_html__( 'Dynamic Text', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+					'<a href="'.esc_url('https://cf7addons.com/docs/free-addons/contact-form-7-dynamic-text-extension/').'" target="_blank">' . esc_html__( 'Dynamic Text', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 				); ?>
 			</div>
 

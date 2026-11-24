@@ -71,9 +71,9 @@ class UACF7_Redirection {
 				'content' => sprintf( 
 					/* translators: %1$s: redirect to a page or external URL, %2$s: conditional redirect, %3$s: tag support */
 					__( 'Confused? Check our Documentation on  %1$s, %2$s and %3$s .', 'ultimate-addons-for-contact-form-7' ),
-					'<a href="https://themefic.com/docs/uacf7/free-addons/redirection-for-contact-form-7/" target="_blank">'.esc_html__( 'Redirect to a Page or External URL', 'ultimate-addons-for-contact-form-7' ).'</a>',
-					'<a href="https://themefic.com/docs/uacf7/pro-addons/conditional-redirect-for-contact-form-7/" target="_blank">'.esc_html__( 'Conditional Redirect', 'ultimate-addons-for-contact-form-7' ).'</a>',
-					'<a href="https://themefic.com/docs/uacf7/pro-addons/contact-form-7-whatsapp-integration-and-tag-support/" target="_blank">'.esc_html__( 'Tag Support', 'ultimate-addons-for-contact-form-7' ).'</a>'
+					'<a href="https://cf7addons.com/docs/free-addons/redirection-for-contact-form-7/" target="_blank">'.esc_html__( 'Redirect to a Page or External URL', 'ultimate-addons-for-contact-form-7' ).'</a>',
+					'<a href="https://cf7addons.com/docs/pro-addons/conditional-redirect-for-contact-form-7/" target="_blank">'.esc_html__( 'Conditional Redirect', 'ultimate-addons-for-contact-form-7' ).'</a>',
+					'<a href="https://cf7addons.com/docs/pro-addons/contact-form-7-whatsapp-integration-and-tag-support/" target="_blank">'.esc_html__( 'Tag Support', 'ultimate-addons-for-contact-form-7' ).'</a>'
 				)
 			),
 			'uacf7_redirect_enable' => array(

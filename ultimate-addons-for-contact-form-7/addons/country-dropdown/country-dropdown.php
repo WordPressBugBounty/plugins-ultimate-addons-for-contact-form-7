@@ -200,7 +200,7 @@ class UACF7_COUNTRY_DROPDOWN {
 					sprintf(
 						/* translators: %1$s: Link to Country Dropdown documentation. */
 						__( 'Confused? Check our Documentation on %1$s.', 'ultimate-addons-for-contact-form-7' ),
-						'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-country-dropdown-with-flag/' ) . '" target="_blank" rel="noopener noreferrer">' .
+						'<a href="' . esc_url( 'https://cf7addons.com/docs/free-addons/contact-form-7-country-dropdown-with-flag/' ) . '" target="_blank" rel="noopener noreferrer">' .
 							esc_html__( 'Country Dropdown', 'ultimate-addons-for-contact-form-7' ) .
 						'</a>'
 					)

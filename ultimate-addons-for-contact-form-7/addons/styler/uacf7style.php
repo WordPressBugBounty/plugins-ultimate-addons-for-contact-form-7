@@ -39,8 +39,8 @@ class UACF7_uacf7style {
 					'content' => sprintf(
 						/* translators: %1$s: demo link, %2$s: demo link */
 						__( 'Confused? Check our Documentation on  %1$s and %2$s.', 'ultimate-addons-for-contact-form-7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-style/" target="_blank">' . esc_html__( 'Single Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>',
-						'<a href="https://themefic.com/docs/uacf7/pro-addons/global-form-styler-for-contact-form-7/" target="_blank">' . esc_html__( 'Global Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+						'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-style/" target="_blank">' . esc_html__( 'Single Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>',
+						'<a href="https://cf7addons.com/docs/pro-addons/global-form-styler-for-contact-form-7/" target="_blank">' . esc_html__( 'Global Form Styler', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'uacf7_enable_form_styles' => array(

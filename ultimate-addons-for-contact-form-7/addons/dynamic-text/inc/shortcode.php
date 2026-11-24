@@ -88,9 +88,13 @@ if(!function_exists('UACF7_URL_WITH_PERAMETERS')){
 // Blog Info Shortcode
 if(!function_exists('UACF7_BLOGINFO')){
     function UACF7_BLOGINFO($val){ 
-        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? $val['attr'] : 'name';
+        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? sanitize_key( $val['attr'] ) : 'name';
+        $allowed_bloginfo = array( 'name', 'description', 'url', 'wpurl', 'charset', 'html_type', 'version', 'language', 'text_direction' );
+        if ( ! in_array( $attr, $allowed_bloginfo, true ) ) {
+            $attr = 'name';
+        }
         $data = get_bloginfo( $attr );
-        return esc_html( $data );
+        return esc_html( (string) $data );
     }
     add_shortcode('UACF7_BLOGINFO', 'UACF7_BLOGINFO');
 
@@ -102,26 +106,53 @@ if(!function_exists('UACF7_POSTINFO')){
         global $post;
         $data = '';
 
-        if ( ! $post ) {
+        if ( ! $post instanceof WP_Post ) {
             return '';
         }
 
-        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? $val['attr'] : '';
-
-        if ( $attr === 'post_permalink' ) {
-            $data = get_permalink( $post->ID );
-        } elseif ( ! empty( $attr ) ) {
-            $post_attr = $attr;
-            $data = $post->$post_attr;
-        } else {
-            $data = $post->post_title;
+        // Password check
+        if ( post_password_required( $post ) ) {
+            return '';
         }
 
-        if ( $attr === 'post_permalink' ) {
+        // If post is not published, verify user has permission to read it
+        if ( 'publish' !== $post->post_status && ! current_user_can( 'read_post', $post->ID ) ) {
+            return '';
+        }
+
+        $attr = is_array( $val ) && ! empty( $val['attr'] ) ? sanitize_key( $val['attr'] ) : '';
+
+        // Safe allowed attributes (strictly disallow sensitive attributes like post_password)
+        $allowed_attrs = array(
+            'post_title',
+            'post_name',
+            'post_date',
+            'post_date_gmt',
+            'post_excerpt',
+            'post_status',
+            'post_type',
+            'id',
+            'post_author',
+            'comment_count',
+            'post_permalink',
+        );
+
+        if ( 'post_permalink' === $attr ) {
+            $data = get_permalink( $post->ID );
             return esc_url( $data );
         }
 
-        return esc_html( $data );
+        if ( ! empty( $attr ) && in_array( strtolower( $attr ), $allowed_attrs, true ) ) {
+            if ( 'id' === strtolower( $attr ) ) {
+                $data = $post->ID;
+            } elseif ( isset( $post->$attr ) ) {
+                $data = $post->$attr;
+            }
+        } elseif ( empty( $attr ) ) {
+            $data = $post->post_title;
+        }
+
+        return esc_html( (string) $data );
     }
     add_shortcode('UACF7_POSTINFO', 'UACF7_POSTINFO');
 
@@ -133,14 +164,33 @@ if(!function_exists('UACF7_USERINFO')){
         $data = '';
         if( is_user_logged_in() ) {
             $current_user = wp_get_current_user();
-            if(!empty($val['attr'])){
-                $user_attr = $val['attr'];
-                $data = $current_user->$user_attr;
-            }else{
+            $attr = is_array( $val ) && ! empty( $val['attr'] ) ? sanitize_key( $val['attr'] ) : '';
+
+            // Safe user attributes allowed to be retrieved (never allow user_pass, user_activation_key, session_tokens)
+            $allowed_user_attrs = array(
+                'display_name',
+                'user_nicename',
+                'user_login',
+                'user_email',
+                'user_url',
+                'first_name',
+                'last_name',
+                'nickname',
+                'description',
+                'id',
+            );
+
+            if ( ! empty( $attr ) && in_array( strtolower( $attr ), $allowed_user_attrs, true ) ) {
+                if ( 'id' === strtolower( $attr ) ) {
+                    $data = $current_user->ID;
+                } else {
+                    $data = $current_user->$attr;
+                }
+            } else {
                 $data = $current_user->user_nicename;
             } 
         }
-        return esc_html( $data );
+        return esc_html( (string) $data );
     }
     add_shortcode('UACF7_USERINFO', 'UACF7_USERINFO');
 
@@ -151,7 +201,7 @@ if(!function_exists('UACF7_CUSTOM_FIELDS')){
     function UACF7_CUSTOM_FIELDS($val){    
         $data ='';
 
-        if ( empty( $val['attr'] ) ) {
+        if ( empty( $val['attr'] ) || ! is_string( $val['attr'] ) ) {
             return $data;
         }
 
@@ -167,16 +217,59 @@ if(!function_exists('UACF7_CUSTOM_FIELDS')){
             $custom_field = sanitize_key( $value[0] );
         }
         
-        if ( $id > 0 && ! empty( $custom_field ) ) {
-            $raw = get_post_meta( $id, $custom_field, true );
-            $allowed = array(
-                'a'      => array( 'href' => true, 'title' => true ),
-                'strong' => array(),
-                'em'     => array(),
-                'br'     => array(),
-                );
-            $data = wp_kses( $raw, $allowed );
+        if ( empty( $id ) || empty( $custom_field ) ) {
+            return $data;
         }
+
+        $post = get_post( $id );
+        if ( ! $post instanceof WP_Post ) {
+            return $data;
+        }
+
+        // 1. Password-protected post check
+        if ( post_password_required( $post ) ) {
+            return $data;
+        }
+
+        // 2. Authorization check: if post is not published (draft, private, pending, etc.), require 'read_post' capability
+        if ( 'publish' !== $post->post_status && ! current_user_can( 'read_post', $id ) ) {
+            return $data;
+        }
+
+        // 3. Post type check: if post type is not public (e.g. shop_order, form submissions, internal CPTs), require 'read_post' capability
+        $post_type_obj = get_post_type_object( $post->post_type );
+        if ( ! $post_type_obj || ! $post_type_obj->public ) {
+            if ( ! current_user_can( 'read_post', $id ) ) {
+                return $data;
+            }
+        }
+
+        // 4. Protected / private meta keys check:
+        // In WordPress, any meta key starting with '_' is a private/internal meta field (e.g. _billing_email, _secret_meta).
+        // Accessing protected meta must require 'edit_post' permission for the post.
+        if ( ( function_exists( 'is_protected_meta' ) && is_protected_meta( $custom_field, 'post' ) ) || 0 === strpos( $custom_field, '_' ) ) {
+            if ( ! current_user_can( 'edit_post', $id ) ) {
+                return $data;
+            }
+        }
+
+        // 5. Extensibility hook allowing sites/developers to filter allowed keys or authorization
+        if ( ! apply_filters( 'uacf7_custom_fields_can_read_meta', true, $custom_field, $id, $post ) ) {
+            return $data;
+        }
+
+        $raw = get_post_meta( $id, $custom_field, true );
+        if ( is_array( $raw ) || is_object( $raw ) ) {
+            $raw = wp_json_encode( $raw );
+        }
+
+        $allowed = array(
+            'a'      => array( 'href' => true, 'title' => true ),
+            'strong' => array(),
+            'em'     => array(),
+            'br'     => array(),
+        );
+        $data = wp_kses( (string) $raw, $allowed );
 
         return $data;
     }

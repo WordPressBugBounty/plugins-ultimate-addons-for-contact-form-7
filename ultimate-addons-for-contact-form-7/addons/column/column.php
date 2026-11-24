@@ -113,10 +113,10 @@ class UACF7_COLUMN {
 								'Confused? Check our Documentation on %1$s and %2$s.',
 								'ultimate-addons-for-contact-form-7'
 							),
-							'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-columns/' ) . '" target="_blank" rel="noopener noreferrer">' .
+							'<a href="' . esc_url( 'https://cf7addons.com/docs/free-addons/contact-form-7-columns/' ) . '" target="_blank" rel="noopener noreferrer">' .
 								esc_html__( 'Columns / Grid', 'ultimate-addons-for-contact-form-7' ) .
 							'</a>',
-							'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/pro-addons/custom-columns-for-contact-form-7/' ) . '" target="_blank" rel="noopener noreferrer">' .
+							'<a href="' . esc_url( 'https://cf7addons.com/docs/pro-addons/custom-columns-for-contact-form-7/' ) . '" target="_blank" rel="noopener noreferrer">' .
 								esc_html__( 'Custom Columns', 'ultimate-addons-for-contact-form-7' ) .
 							'</a>'
 						)

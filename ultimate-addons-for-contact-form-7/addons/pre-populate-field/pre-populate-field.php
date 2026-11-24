@@ -51,7 +51,7 @@ class UACF7_PRE_POPULATE {
                         'content' => sprintf( 
                             /* translators: %1$s: documentation link */
                             __( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-                            '<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">'.esc_html__( 'Pre-populate Field', 'ultimate-addons-for-contact-form-7' ).'</a>'
+                            '<a href="https://cf7addons.com/docs/free-addons/contact-form-7-pre-populate-fields/" target="_blank" rel="noopener">'.esc_html__( 'Pre-populate Field', 'ultimate-addons-for-contact-form-7' ).'</a>'
                         )
                       ),
                 'pre_populate_enable' => array(

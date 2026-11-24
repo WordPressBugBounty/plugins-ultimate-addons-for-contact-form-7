@@ -83,10 +83,10 @@ class UACF7_CF {
 							'Confused? Check our Documentation on %1$s and %2$s.',
 							'ultimate-addons-for-contact-form-7'
 						),
-						'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/' ) . '" target="_blank" rel="noopener noreferrer">' .
+						'<a href="' . esc_url( 'https://cf7addons.com/docs/free-addons/contact-form-7-conditional-fields/' ) . '" target="_blank" rel="noopener noreferrer">' .
 							esc_html__( 'Conditional Fields', 'ultimate-addons-for-contact-form-7' ) .
 						'</a>',
-						'<a href="' . esc_url( 'https://themefic.com/docs/uacf7/pro-addons/contact-form-7-conditional-fields-pro/' ) . '" target="_blank" rel="noopener noreferrer">' .
+						'<a href="' . esc_url( 'https://cf7addons.com/docs/pro-addons/contact-form-7-conditional-fields-pro/' ) . '" target="_blank" rel="noopener noreferrer">' .
 							esc_html__( 'Conditional Fields (Pro)', 'ultimate-addons-for-contact-form-7' ) .
 						'</a>'
 					),
@@ -263,7 +263,7 @@ class UACF7_CF {
 			?></p>
 			<div class="uacf7-doc-notice">
 				<?php esc_html_e('Confused? Check our Documentation on', 'ultimate-addons-for-contact-form-7'); ?>
-				<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-conditional-fields/" target="_blank">
+				<a href="https://cf7addons.com/docs/free-addons/contact-form-7-conditional-fields/" target="_blank">
 					<?php esc_html_e('Conditional Fields', 'ultimate-addons-for-contact-form-7'); ?>
 				</a>.
 			</div>

@@ -75,6 +75,11 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 		 * Metabox Content Admin Footer Fallback
 		 */
 		public function tf_meta_box_content_admin_footer() {
+			// Ensure user has capability to edit contact forms or manage options
+			if ( ! current_user_can( 'wpcf7_edit_contact_forms' ) && ! current_user_can( 'publish_pages' ) && ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
 			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 			$screen_id = $screen && isset( $screen->id ) ? $screen->id : '';
 			$is_wpcf7_page = ( is_string( $screen_id ) && false !== strpos( $screen_id, 'wpcf7' ) )
@@ -118,6 +123,25 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 				$current_cf = wpcf7_get_current_contact_form();
 				if ( $current_cf && method_exists( $current_cf, 'id' ) ) {
 					$post_id = $current_cf->id();
+				}
+			}
+
+			// Capability check to prevent unauthorized disclosure of form options and credentials
+			if ( ! empty( $post_id ) ) {
+				if ( ! current_user_can( 'wpcf7_edit_contact_form', $post_id ) && ! current_user_can( 'edit_post', $post_id ) ) {
+					return;
+				}
+			} else {
+				if ( $this->metabox_post_type === 'uacf7' ) {
+					if ( ! current_user_can( 'wpcf7_edit_contact_forms' ) && ! current_user_can( 'publish_pages' ) && ! current_user_can( 'manage_options' ) ) {
+						return;
+					}
+				} else {
+					$post_type_obj = get_post_type_object( $this->metabox_post_type );
+					$cap = $post_type_obj && isset( $post_type_obj->cap->edit_posts ) ? $post_type_obj->cap->edit_posts : 'edit_posts';
+					if ( ! current_user_can( $cap ) ) {
+						return;
+					}
 				}
 			}
 
@@ -272,7 +296,7 @@ if ( ! class_exists( 'UACF7_Metabox' ) ) {
 			$saved_metaboxes[ $save_key ] = true;
 
 			// Check if the user has permissions to save data.
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			if ( ! current_user_can( 'wpcf7_edit_contact_form', $post_id ) && ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
 			}
 

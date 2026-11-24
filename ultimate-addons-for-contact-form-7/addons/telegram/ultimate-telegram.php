@@ -53,7 +53,7 @@ class UACF7_TELEGRAM {
 					'content' => sprintf(
 						/* translators: %1s: demo link */
 						__( 'Confused? Check our Documentation on  %1$s.', 'ultimate-addons-for-contact-form-7' ),
-						'<a href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/" target="_blank" rel="noopener">' . esc_html__( 'Telegram Integration', 'ultimate-addons-for-contact-form-7' ) . '</a>'
+						'<a href="https://cf7addons.com/docs/free-addons/contact-form-7-telegram/" target="_blank" rel="noopener">' . esc_html__( 'Telegram Integration', 'ultimate-addons-for-contact-form-7' ) . '</a>'
 					)
 				),
 				'uacf7_telegram_enable' => array(
@@ -82,7 +82,7 @@ class UACF7_TELEGRAM {
 					'type' => 'text',
 					'label' => __( ' Telegram BOT Token ', 'ultimate-addons-for-contact-form-7' ),
 					'placeholder' => __( ' Paste here Telegram BOT TOKEN..... ', 'ultimate-addons-for-contact-form-7' ),
-					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#creating-a-bot-with-botfather">Click here</a> to learn how to get BOT Token.', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( '<a target="_blank" href="https://cf7addons.com/docs/free-addons/contact-form-7-telegram/#creating-a-bot-with-botfather">Click here</a> to learn how to get BOT Token.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 				'uacf7_telegram_chat_id' => array(
@@ -90,7 +90,7 @@ class UACF7_TELEGRAM {
 					'type' => 'text',
 					'label' => __( ' Telegram Chat ID ', 'ultimate-addons-for-contact-form-7' ),
 					'placeholder' => __( ' Paste here Telegram Chat ID..... ', 'ultimate-addons-for-contact-form-7' ),
-					'description' => __( '<a target="_blank" href="https://themefic.com/docs/uacf7/free-addons/contact-form-7-telegram/#getting-the-user-chat-id">Click here</a> to learn how to get Chat ID.', 'ultimate-addons-for-contact-form-7' ),
+					'description' => __( '<a target="_blank" href="https://cf7addons.com/docs/free-addons/contact-form-7-telegram/#getting-the-user-chat-id">Click here</a> to learn how to get Chat ID.', 'ultimate-addons-for-contact-form-7' ),
 					'field_width' => 50,
 				),
 
